@@ -1,0 +1,185 @@
+"""Main window with tabbed interface."""
+
+from AppKit import (
+    NSWindow, NSWindowStyleMask, NSRect, NSView, NSTabView, NSTabViewItem,
+    NSApplication, NSBackingStoreBuffered, NSScreen
+)
+
+from .explorer_view import ExplorerView
+
+
+class MainWindow:
+    """Main application window with tabbed interface."""
+    
+    def __init__(self):
+        """Initialize the main window."""
+        self.window = None
+        self.tab_view = None
+        self.explorer_tab = None
+        self.ckl_tabs = {}  # Map of CKL file paths to tab items
+        self.compare_tab = None  # Compare tab item
+        self.createWindow()
+    
+    def createWindow(self):
+        """Create the main window."""
+        try:
+            # Create window
+            screen = NSScreen.mainScreen()
+            if screen:
+                screen_frame = screen.frame()
+            window_frame = NSRect((100, 100), (1200, 800))
+            
+            # Window style mask constants
+            style_mask = (
+                1 |  # NSTitledWindowMask
+                2 |  # NSClosableWindowMask
+                4 |  # NSMiniaturizableWindowMask
+                8    # NSResizableWindowMask
+            )
+            self.window = NSWindow.alloc().initWithContentRect_styleMask_backing_defer_(
+                window_frame,
+                style_mask,
+                2,  # NSBackingStoreBuffered
+                False
+            )
+            self.window.setTitle_("STIG Viewer")
+            self.window.setReleasedWhenClosed_(False)
+            
+            # Set window delegate to handle close button
+            app = NSApplication.sharedApplication()
+            app_delegate = app.delegate()
+            if app_delegate:
+                self.window.setDelegate_(app_delegate)
+                print("MainWindow: Set window delegate to AppDelegate")  # Debug
+            
+            # Create tab view
+            content_view = self.window.contentView()
+            tab_frame = content_view.bounds()
+            self.tab_view = NSTabView.alloc().initWithFrame_(tab_frame)
+            self.tab_view.setAutoresizingMask_(0x12)  # NSViewWidthSizable | NSViewHeightSizable
+            content_view.addSubview_(self.tab_view)
+            
+            # Create Explorer tab
+            self.createExplorerTab()
+            
+            # Center and show window
+            self.window.center()
+            self.window.makeKeyAndOrderFront_(None)
+            self.window.orderFrontRegardless()
+        except Exception as e:
+            import traceback
+            print(f"Error creating window: {e}")
+            traceback.print_exc()
+            raise
+    
+    def createExplorerTab(self):
+        """Create the Explorer tab."""
+        tab_item = NSTabViewItem.alloc().init()
+        tab_item.setLabel_("Explorer")
+        
+        # Create explorer view
+        explorer_view = ExplorerView.alloc().init()
+        explorer_view.setAutoresizingMask_(0x12)  # NSViewWidthSizable | NSViewHeightSizable
+        tab_item.setView_(explorer_view)
+        
+        self.tab_view.addTabViewItem_(tab_item)
+        self.explorer_tab = explorer_view
+    
+    def add_ckl_tab(self, ckl_file, ckl_view):
+        """
+        Add a new CKL tab.
+        
+        Args:
+            ckl_file: CklFile object
+            ckl_view: CklView object
+        """
+        tab_item = NSTabViewItem.alloc().init()
+        tab_item.setLabel_(ckl_file.display_name)
+        
+        ckl_view.setAutoresizingMask_(0x12)  # NSViewWidthSizable | NSViewHeightSizable
+        tab_item.setView_(ckl_view)
+        
+        self.tab_view.addTabViewItem_(tab_item)
+        self.ckl_tabs[str(ckl_file.file_path)] = tab_item
+    
+    def add_compare_tab(self, compare_view):
+        """
+        Add a new Compare tab.
+        
+        Args:
+            compare_view: CompareView object
+        """
+        print(f"MainWindow.add_compare_tab: Called with {compare_view}")  # Debug
+        try:
+            # Set main_window reference on compare_view
+            from .view_helpers import get_view_attrs
+            attrs = get_view_attrs(compare_view)
+            attrs['main_window'] = self
+            print("MainWindow.add_compare_tab: Set main_window reference")  # Debug
+            
+            tab_item = NSTabViewItem.alloc().init()
+            tab_item.setLabel_("Compare")
+            print("MainWindow.add_compare_tab: Created tab item")  # Debug
+            
+            compare_view.setAutoresizingMask_(0x12)  # NSViewWidthSizable | NSViewHeightSizable
+            tab_item.setView_(compare_view)
+            print("MainWindow.add_compare_tab: Set view")  # Debug
+            
+            self.tab_view.addTabViewItem_(tab_item)
+            print("MainWindow.add_compare_tab: Added tab item")  # Debug
+            
+            # Store reference to compare tab
+            self.compare_tab = tab_item
+            
+            # Switch to the new tab
+            self.tab_view.selectTabViewItem_(tab_item)
+            print("MainWindow.add_compare_tab: Selected tab")  # Debug
+        except Exception as e:
+            import traceback
+            print(f"MainWindow.add_compare_tab: ERROR - {e}")  # Debug
+            traceback.print_exc()
+    
+    def remove_ckl_tab(self, ckl_file_path):
+        """Remove a CKL tab."""
+        if str(ckl_file_path) in self.ckl_tabs:
+            tab_item = self.ckl_tabs[str(ckl_file_path)]
+            self.tab_view.removeTabViewItem_(tab_item)
+            del self.ckl_tabs[str(ckl_file_path)]
+    
+    def remove_compare_tab(self):
+        """Remove the Compare tab."""
+        print("MainWindow.remove_compare_tab: Called")  # Debug
+        if hasattr(self, 'compare_tab') and self.compare_tab:
+            print("MainWindow.remove_compare_tab: Removing tab")  # Debug
+            self.tab_view.removeTabViewItem_(self.compare_tab)
+            self.compare_tab = None
+            # Switch to Explorer tab
+            if self.tab_view.numberOfTabViewItems() > 0:
+                self.tab_view.selectTabViewItemAtIndex_(0)
+        else:
+            print("MainWindow.remove_compare_tab: No compare tab to remove")  # Debug
+    
+    def get_explorer_view(self):
+        """Get the Explorer view."""
+        return self.explorer_tab
+    
+    def is_explorer_tab_active(self):
+        """Check if the Explorer tab is currently active."""
+        if not self.tab_view:
+            return False
+        selected_item = self.tab_view.selectedTabViewItem()
+        if not selected_item:
+            return False
+        # The Explorer tab is the first tab (index 0)
+        return self.tab_view.indexOfTabViewItem_(selected_item) == 0
+    
+    def show(self):
+        """Show the window."""
+        if self.window:
+            self.window.makeKeyAndOrderFront_(None)
+    
+    def close(self):
+        """Close the window."""
+        if self.window:
+            self.window.close()
+
