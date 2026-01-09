@@ -93,6 +93,11 @@ class MainWindow:
             ckl_file: CklFile object
             ckl_view: CklView object
         """
+        # Set main_window reference in ckl_view
+        from .view_helpers import get_view_attrs
+        attrs = get_view_attrs(ckl_view)
+        attrs['main_window'] = self
+        
         tab_item = NSTabViewItem.alloc().init()
         tab_item.setLabel_(ckl_file.display_name)
         
@@ -101,6 +106,10 @@ class MainWindow:
         
         self.tab_view.addTabViewItem_(tab_item)
         self.ckl_tabs[str(ckl_file.file_path)] = tab_item
+        
+        # Switch to the new tab
+        self.tab_view.selectTabViewItem_(tab_item)
+        print(f"MainWindow.add_ckl_tab: Added and selected tab for {ckl_file.display_name}")  # Debug
     
     def add_compare_tab(self, compare_view):
         """

@@ -44,6 +44,7 @@ class StatusFilterPane(NSView):
     
     def createUI(self):
         """Create the UI with status, severity, and MTF checkboxes in three columns."""
+        from AppKit import NSViewMinYMargin
         print("StatusFilterPane.createUI: Starting...")  # Debug
         bounds = self.bounds()
         width, height = get_bounds_size(bounds)
@@ -58,9 +59,16 @@ class StatusFilterPane(NSView):
         attrs = get_view_attrs(self)
         third_width = width / 3
         
+        # Get actual height, or use minimum
+        actual_height = max(height, 200)  # Ensure minimum height for positioning
+        
+        # Position controls from top down with small margin
+        top_margin = 10
+        
         # LEFT COLUMN: Status Filter
         # Title label
-        status_title_frame = NSRect((10, height - 25), (third_width - 15, 20))
+        y_pos = actual_height - top_margin - 20
+        status_title_frame = NSRect((10, y_pos), (third_width - 15, 20))
         status_title = NSTextField.alloc().initWithFrame_(status_title_frame)
         status_title.setStringValue_("Status Filter:")
         status_title.setBordered_(False)
@@ -72,12 +80,12 @@ class StatusFilterPane(NSView):
         status_checkboxes = {}
         statuses = [
             (ChecklistStatus.OPEN, "Open"),
-            (ChecklistStatus.NOT_A_FINDING, "Not a Finding"),
-            (ChecklistStatus.NOT_REVIEWED, "Not Reviewed"),
-            (ChecklistStatus.NOT_APPLICABLE, "Not Applicable"),
+            (ChecklistStatus.NOT_A_FINDING, "Not a Fi..."),
+            (ChecklistStatus.NOT_REVIEWED, "Not Revi..."),
+            (ChecklistStatus.NOT_APPLICABLE, "Not App..."),
         ]
         
-        y_pos = height - 50
+        y_pos -= 25
         for status, label in statuses:
             checkbox_frame = NSRect((10, y_pos), (third_width - 15, 20))
             checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
@@ -93,9 +101,10 @@ class StatusFilterPane(NSView):
         
         # MIDDLE COLUMN: Severity Filter
         # Title label
-        severity_title_frame = NSRect((third_width + 5, height - 25), (third_width - 15, 20))
+        y_pos = actual_height - top_margin - 20
+        severity_title_frame = NSRect((third_width + 5, y_pos), (third_width - 15, 20))
         severity_title = NSTextField.alloc().initWithFrame_(severity_title_frame)
-        severity_title.setStringValue_("Severity Filter:")
+        severity_title.setStringValue_("Severity:")
         severity_title.setBordered_(False)
         severity_title.setDrawsBackground_(False)
         severity_title.setEditable_(False)
@@ -109,7 +118,7 @@ class StatusFilterPane(NSView):
             ('low', "Low/Other"),
         ]
         
-        y_pos = height - 50
+        y_pos -= 25
         for sev_key, label in severities:
             checkbox_frame = NSRect((third_width + 5, y_pos), (third_width - 15, 20))
             checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
@@ -123,9 +132,10 @@ class StatusFilterPane(NSView):
             severity_checkboxes[sev_key] = checkbox
             y_pos -= 25
         
-        # RIGHT COLUMN: MTF Filter
+        # RIGHT COLUMN: Other filters
         # Title label
-        mtf_title_frame = NSRect((third_width * 2 + 5, height - 25), (third_width - 15, 20))
+        y_pos = actual_height - top_margin - 20
+        mtf_title_frame = NSRect((third_width * 2 + 5, y_pos), (third_width - 15, 20))
         mtf_title = NSTextField.alloc().initWithFrame_(mtf_title_frame)
         mtf_title.setStringValue_("Other:")
         mtf_title.setBordered_(False)
@@ -134,7 +144,8 @@ class StatusFilterPane(NSView):
         self.addSubview_(mtf_title)
         
         # Create MTF checkbox
-        mtf_checkbox_frame = NSRect((third_width * 2 + 5, height - 50), (third_width - 15, 20))
+        y_pos -= 25
+        mtf_checkbox_frame = NSRect((third_width * 2 + 5, y_pos), (third_width - 15, 20))
         mtf_checkbox = NSButton.alloc().initWithFrame_(mtf_checkbox_frame)
         mtf_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         mtf_checkbox.setTitle_("Hide MTF")
@@ -144,14 +155,27 @@ class StatusFilterPane(NSView):
         self.addSubview_(mtf_checkbox)
         
         # Create Invalid Arg checkbox
-        invalid_arg_checkbox_frame = NSRect((third_width * 2 + 5, height - 75), (third_width - 15, 20))
+        y_pos -= 25
+        invalid_arg_checkbox_frame = NSRect((third_width * 2 + 5, y_pos), (third_width - 15, 20))
         invalid_arg_checkbox = NSButton.alloc().initWithFrame_(invalid_arg_checkbox_frame)
         invalid_arg_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
-        invalid_arg_checkbox.setTitle_("Invalid Arg")
+        invalid_arg_checkbox.setTitle_("Invalid A...")
         invalid_arg_checkbox.setState_(0)  # Initially UNchecked
         invalid_arg_checkbox.setTarget_(self)
         invalid_arg_checkbox.setAction_("invalidArgCheckboxChanged:")
         self.addSubview_(invalid_arg_checkbox)
+        
+        # Add "Close Checklist" button at bottom right corner
+        btn_width = 130
+        btn_height = 28
+        close_btn_frame = NSRect((width - btn_width - 5, 5), (btn_width, btn_height))
+        close_btn = NSButton.alloc().initWithFrame_(close_btn_frame)
+        close_btn.setTitle_("Close Checklist")
+        close_btn.setBezelStyle_(1)  # NSRoundedBezelStyle
+        close_btn.setTarget_(self)
+        close_btn.setAction_("closeChecklist:")
+        self.addSubview_(close_btn)
+        attrs['close_btn'] = close_btn
         
         attrs['status_checkboxes'] = status_checkboxes
         attrs['severity_checkboxes'] = severity_checkboxes
@@ -259,10 +283,28 @@ class StatusFilterPane(NSView):
         print(f"StatusFilterPane.is_invalid_arg_filter_enabled: {invalid_arg_enabled}")  # Debug
         return invalid_arg_enabled
     
+    def closeChecklist_(self, sender):
+        """Handle Close Checklist button click."""
+        print("StatusFilterPane.closeChecklist_: Button clicked")  # Debug
+        attrs = get_view_attrs(self)
+        on_close_callback = attrs.get('on_close_callback')
+        if on_close_callback:
+            print("StatusFilterPane.closeChecklist_: Calling close callback")  # Debug
+            on_close_callback()
+        else:
+            print("StatusFilterPane.closeChecklist_: WARNING - No close callback set!")  # Debug
+    
     @objc.python_method
     def set_on_filter_changed(self, callback):
         """Set the callback for filter changes."""
         attrs = get_view_attrs(self)
         attrs['on_filter_changed'] = callback
         print("StatusFilterPane.set_on_filter_changed: Callback set")  # Debug
+    
+    @objc.python_method
+    def set_on_close_callback(self, callback):
+        """Set the callback for close button."""
+        attrs = get_view_attrs(self)
+        attrs['on_close_callback'] = callback
+        print("StatusFilterPane.set_on_close_callback: Callback set")  # Debug
 

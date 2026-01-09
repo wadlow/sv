@@ -125,10 +125,12 @@ class CklView(NSView):
         print(f"CklView.createLayout: Layout complete - added 3-column split view")  # Debug
     
     @objc.python_method
-    def set_ckl_file(self, ckl_file: CklFile):
+    def set_ckl_file(self, ckl_file: CklFile, main_window=None):
         """Set the CKL file to display."""
         attrs = get_view_attrs(self)
         attrs['ckl_file'] = ckl_file
+        if main_window:
+            attrs['main_window'] = main_window
         
         # Ensure layout is properly sized
         main_split = attrs.get('main_split')
@@ -229,8 +231,10 @@ class CklView(NSView):
         if status_filter_pane:
             from .status_filter_pane import StatusFilterPane
             StatusFilterPane.set_on_filter_changed(status_filter_pane, lambda: CklView._on_status_filter_changed(self))
+            # Wire up close callback
+            StatusFilterPane.set_on_close_callback(status_filter_pane, lambda: CklView._on_close_checklist(self))
             if _CKL_DEBUG:
-                print("CklView.updateDisplay: Wired up status filter callback")  # Debug
+                print("CklView.updateDisplay: Wired up status filter and close callbacks")  # Debug
         else:
             if _CKL_DEBUG:
                 print("CklView.updateDisplay: WARNING - No status_filter_pane found!")  # Debug
@@ -364,6 +368,19 @@ class CklView(NSView):
             if _CKL_DEBUG:
                 print(f"CklView._update_vcode_list: Filtered to {len(all_vuln_codes)} V-codes")  # Debug
         
+        # Sort V-codes by numeric value (V-214277 -> 214277)
+        def vcode_sort_key(vc):
+            """Extract numeric part from V-code for sorting."""
+            try:
+                # Remove 'V-' prefix and convert to int
+                return int(vc.v_code.replace('V-', '').replace('v-', ''))
+            except (ValueError, AttributeError):
+                return 999999999  # Put invalid V-codes at the end
+        
+        all_vuln_codes.sort(key=vcode_sort_key)
+        if _CKL_DEBUG:
+            print(f"CklView._update_vcode_list: Sorted {len(all_vuln_codes)} V-codes by number")  # Debug
+        
         # Update V-code list
         vcode_list_pane = attrs.get('vcode_list_pane')
         if vcode_list_pane:
@@ -452,6 +469,20 @@ class CklView(NSView):
         pie_chart.setNeedsDisplay_(True)
         if _CKL_DEBUG:
             print("CklView._update_pie_chart: Pie chart updated and setNeedsDisplay called")  # Debug
+    
+    @objc.python_method
+    def _on_close_checklist(self):
+        """Handle Close Checklist button click."""
+        print("CklView._on_close_checklist: Close button clicked")  # Debug
+        attrs = get_view_attrs(self)
+        main_window = attrs.get('main_window')
+        ckl_file = attrs.get('ckl_file')
+        
+        if main_window and ckl_file:
+            print(f"CklView._on_close_checklist: Calling main_window.remove_ckl_tab for {ckl_file.file_path}")  # Debug
+            main_window.remove_ckl_tab(ckl_file.file_path)
+        else:
+            print(f"CklView._on_close_checklist: WARNING - main_window={main_window is not None}, ckl_file={ckl_file is not None}")  # Debug
     
     @objc.python_method
     def _on_vcode_selected(self, vuln_code: Optional[VulnCode]):

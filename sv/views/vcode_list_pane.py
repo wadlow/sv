@@ -193,6 +193,14 @@ class VCodeListPane(NSView):
             print("VCodeListPane.set_vuln_codes: Table reloaded")  # Debug
         else:
             print("VCodeListPane.set_vuln_codes: WARNING - No table view!")  # Debug
+        
+        # Update count callback if set
+        on_count_changed = attrs.get('on_count_changed')
+        if on_count_changed:
+            print(f"VCodeListPane.set_vuln_codes: Calling count changed callback with {len(vuln_codes)}")  # Debug
+            on_count_changed(len(vuln_codes))
+        else:
+            print("VCodeListPane.set_vuln_codes: No count changed callback set")  # Debug
     
     def get_selected_vcode(self) -> Optional[VulnCode]:
         """Get the currently selected V-code."""

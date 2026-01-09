@@ -71,13 +71,13 @@ class ExplorerView(NSView):
         col1_split.setDividerStyle_(1)
         col1_split.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         
-        # STIGS pane (top 50%)
+        # STIGS pane (top 40%)
         attrs = get_view_attrs(self)
         stigs_pane = StigsPane.alloc().init()
         stigs_pane.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         attrs['stigs_pane'] = stigs_pane
         
-        # SEARCH pane (bottom 50%)
+        # SEARCH pane (bottom 60%)
         search_pane = SearchPane.alloc().init()
         search_pane.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         attrs['search_pane'] = search_pane
@@ -86,12 +86,19 @@ class ExplorerView(NSView):
         col1_split.addSubview_(search_pane)
         col1_split.adjustSubviews()
         
+        # Set divider position: STIGS pane gets 40% of height
+        col1_split.setPosition_ofDividerAtIndex_(height * 0.4, 0)
+        
         # Column 2: V-code list (20% width)
         col2_frame = NSRect((0, 0), (width * 0.2, height))
         vcode_list_pane = VCodeListPane.alloc().init()
         vcode_list_pane.setFrame_(col2_frame)
         vcode_list_pane.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         attrs['vcode_list_pane'] = vcode_list_pane
+        
+        # Wire up count changed callback to update search pane
+        vcode_list_attrs = get_view_attrs(vcode_list_pane)
+        vcode_list_attrs['on_count_changed'] = lambda count: ExplorerView._update_vcode_count(self, count)
         
         # Column 3: V-code detail (40% width)
         col3_frame = NSRect((0, 0), (width * 0.4, height))
@@ -267,4 +274,15 @@ class ExplorerView(NSView):
             SearchPane.update_delete_button_state(search_pane, has_selection)
         else:
             print("ExplorerView._update_delete_button_state: WARNING - No search pane!")  # Debug
+    
+    def _update_vcode_count(self, count):
+        """Update the V-code count display in the search pane."""
+        print(f"ExplorerView._update_vcode_count: Called with count={count}")  # Debug
+        attrs = get_view_attrs(self)
+        search_pane = attrs.get('search_pane')
+        if search_pane:
+            from .search_pane import SearchPane
+            SearchPane.update_vcode_count(search_pane, count)
+        else:
+            print("ExplorerView._update_vcode_count: WARNING - No search_pane!")  # Debug
 

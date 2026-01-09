@@ -439,6 +439,18 @@ class AppController:
             # Apply search filter (currently not implemented, but placeholder)
             filtered_vuln_codes = all_vuln_codes
             
+            # Sort V-codes by numeric value (V-214277 -> 214277)
+            def vcode_sort_key(vc):
+                """Extract numeric part from V-code for sorting."""
+                try:
+                    # Remove 'V-' prefix and convert to int
+                    return int(vc.v_code.replace('V-', '').replace('v-', ''))
+                except (ValueError, AttributeError):
+                    return 999999999  # Put invalid V-codes at the end
+            
+            filtered_vuln_codes.sort(key=vcode_sort_key)
+            print(f"_update_vcode_list: Sorted {len(filtered_vuln_codes)} V-codes by number")  # Debug
+            
             # Update the list
             print(f"_update_vcode_list: Setting {len(filtered_vuln_codes)} V-codes in list...")  # Debug
             ExplorerView.set_vcode_list(explorer_view, filtered_vuln_codes)

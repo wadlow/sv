@@ -27,6 +27,7 @@ class SearchPane(NSView):
             'low': True,
         }
         attrs['severity_checkboxes'] = {}
+        attrs['count_label'] = None
         SearchPane.createUI(self)
         return self
     
@@ -44,8 +45,8 @@ class SearchPane(NSView):
         
         attrs = get_view_attrs(self)
         
-        # Title label
-        title_frame = NSRect((10, height - 25), (width - 20, 20))
+        # Title label (left side)
+        title_frame = NSRect((10, height - 25), (width // 2 - 10, 20))
         title_label = NSTextField.alloc().initWithFrame_(title_frame)
         title_label.setStringValue_("Severity Filter:")
         title_label.setBordered_(False)
@@ -53,6 +54,20 @@ class SearchPane(NSView):
         title_label.setEditable_(False)
         title_label.setAutoresizingMask_(NSViewWidthSizable)
         self.addSubview_(title_label)
+        
+        # V-code count label (right side, same row as title)
+        from AppKit import NSColor, NSRightTextAlignment
+        count_frame = NSRect((width // 2, height - 25), (width // 2 - 10, 20))
+        count_label = NSTextField.alloc().initWithFrame_(count_frame)
+        count_label.setStringValue_("V-codes: 0")
+        count_label.setBordered_(False)
+        count_label.setDrawsBackground_(False)
+        count_label.setEditable_(False)
+        count_label.setTextColor_(NSColor.whiteColor())
+        count_label.setAlignment_(NSRightTextAlignment)  # Right-align the text
+        count_label.setAutoresizingMask_(NSViewWidthSizable)
+        self.addSubview_(count_label)
+        attrs['count_label'] = count_label
         
         # Create severity checkboxes
         severity_checkboxes = {}
@@ -157,4 +172,19 @@ class SearchPane(NSView):
         enabled = [sev for sev, enabled in severity_filters.items() if enabled]
         print(f"SearchPane.get_enabled_severities: Returning {len(enabled)} enabled severities")  # Debug
         return enabled
+    
+    @objc.python_method
+    def update_vcode_count(self, count):
+        """Update the V-code count display.
+        
+        Args:
+            count: Number of V-codes currently visible
+        """
+        attrs = get_view_attrs(self)
+        count_label = attrs.get('count_label')
+        if count_label:
+            count_label.setStringValue_(f"V-codes: {count}")
+            print(f"SearchPane.update_vcode_count: Updated count to {count}")  # Debug
+        else:
+            print("SearchPane.update_vcode_count: WARNING - No count label!")  # Debug
 
