@@ -18,6 +18,13 @@ class CklParser:
     """Parser for CKL checklist files."""
     
     @staticmethod
+    def _ns_tag(tag: str, namespace: str) -> str:
+        """Return namespace-qualified tag if namespace is present."""
+        if namespace:
+            return f"{{{namespace}}}{tag}"
+        return tag
+    
+    @staticmethod
     def parse(file_path: Path) -> CklFile:
         """
         Parse a CKL file.
@@ -36,6 +43,13 @@ class CklParser:
         try:
             tree = ET.parse(file_path)
             root = tree.getroot()
+            
+            # Extract namespace if present
+            namespace = ''
+            if root.tag.startswith('{'):
+                namespace = root.tag[1:root.tag.index('}')]
+                print(f"CklParser: Detected namespace: {namespace}")  # Debug
+            
         except ET.ParseError as e:
             raise CklParserError(f"XML parse error: {e}")
         except FileNotFoundError:
@@ -46,13 +60,13 @@ class CklParser:
             raise CklParserError(f"Cannot read CKL file: {e}")
         
         # Parse ASSET
-        asset = CklParser._parse_asset(root)
+        asset = CklParser._parse_asset(root, namespace)
         
         # Parse STIGS
-        stigs = CklParser._parse_stigs(root)
+        stigs = CklParser._parse_stigs(root, namespace)
         
         # Parse VULNs
-        vulns = CklParser._parse_vulns(root, stigs)
+        vulns = CklParser._parse_vulns(root, stigs, namespace)
         
         return CklFile(
             file_path=file_path,
@@ -63,16 +77,17 @@ class CklParser:
         )
     
     @staticmethod
-    def _parse_asset(root: ET.Element) -> CklAsset:
+    def _parse_asset(root: ET.Element, namespace: str = '') -> CklAsset:
         """Parse ASSET element."""
         asset = CklAsset()
         
-        asset_elem = root.find('ASSET')
+        asset_elem = root.find(CklParser._ns_tag('ASSET', namespace))
         if asset_elem is None:
             return asset
         
         for child in asset_elem:
-            tag = child.tag
+            # Strip namespace from tag for comparison
+            tag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
             text = (child.text or "").strip()
             
             if tag == 'ROLE':
@@ -101,15 +116,15 @@ class CklParser:
         return asset
     
     @staticmethod
-    def _parse_stigs(root: ET.Element) -> list[CklStigInfo]:
+    def _parse_stigs(root: ET.Element, namespace: str = '') -> list[CklStigInfo]:
         """Parse STIGS section."""
         stigs = []
-        stigs_elem = root.find('STIGS')
+        stigs_elem = root.find(CklParser._ns_tag('STIGS', namespace))
         if stigs_elem is None:
             return stigs
         
-        for istig in stigs_elem.findall('iSTIG'):
-            stig_info_elem = istig.find('STIG_INFO')
+        for istig in stigs_elem.findall(CklParser._ns_tag('iSTIG', namespace)):
+            stig_info_elem = istig.find(CklParser._ns_tag('STIG_INFO', namespace))
             if stig_info_elem is None:
                 continue
             
@@ -117,9 +132,9 @@ class CklParser:
             stig_data = {}
             last_sid_name = None
             
-            for si_data in stig_info_elem.findall('SI_DATA'):
-                sid_name_elem = si_data.find('SID_NAME')
-                sid_data_elem = si_data.find('SID_DATA')
+            for si_data in stig_info_elem.findall(CklParser._ns_tag('SI_DATA', namespace)):
+                sid_name_elem = si_data.find(CklParser._ns_tag('SID_NAME', namespace))
+                sid_data_elem = si_data.find(CklParser._ns_tag('SID_DATA', namespace))
                 
                 if sid_name_elem is not None and sid_data_elem is not None:
                     sid_name = (sid_name_elem.text or "").strip()
@@ -148,26 +163,26 @@ class CklParser:
         return stigs
     
     @staticmethod
-    def _parse_vulns(root: ET.Element, stigs: list[CklStigInfo]) -> list[CklVuln]:
+    def _parse_vulns(root: ET.Element, stigs: list[CklStigInfo], namespace: str = '') -> list[CklVuln]:
         """Parse VULN elements."""
         vulns = []
-        stigs_elem = root.find('STIGS')
+        stigs_elem = root.find(CklParser._ns_tag('STIGS', namespace))
         if stigs_elem is None:
             return vulns
         
         # Map stig_id to CklStigInfo
         stig_map = {stig.stig_id: stig for stig in stigs}
         
-        for istig in stigs_elem.findall('iSTIG'):
-            stig_info_elem = istig.find('STIG_INFO')
+        for istig in stigs_elem.findall(CklParser._ns_tag('iSTIG', namespace)):
+            stig_info_elem = istig.find(CklParser._ns_tag('STIG_INFO', namespace))
             if stig_info_elem is None:
                 continue
             
             # Get STIG ID for this iSTIG
             stig_id = None
-            for si_data in stig_info_elem.findall('SI_DATA'):
-                sid_name_elem = si_data.find('SID_NAME')
-                sid_data_elem = si_data.find('SID_DATA')
+            for si_data in stig_info_elem.findall(CklParser._ns_tag('SI_DATA', namespace)):
+                sid_name_elem = si_data.find(CklParser._ns_tag('SID_NAME', namespace))
+                sid_data_elem = si_data.find(CklParser._ns_tag('SID_DATA', namespace))
                 if sid_name_elem is not None and sid_data_elem is not None:
                     if (sid_name_elem.text or "").strip() == 'stigid':
                         stig_id = (sid_data_elem.text or "").strip()
@@ -179,14 +194,14 @@ class CklParser:
             stig_info = stig_map[stig_id]
             
             # Parse VULN elements
-            for vuln_elem in istig.findall('VULN'):
+            for vuln_elem in istig.findall(CklParser._ns_tag('VULN', namespace)):
                 vuln_data = {}
                 last_vuln_attribute = None
                 
                 # Parse STIG_DATA pairs
-                for stig_data in vuln_elem.findall('STIG_DATA'):
-                    vuln_attr_elem = stig_data.find('VULN_ATTRIBUTE')
-                    attr_data_elem = stig_data.find('ATTRIBUTE_DATA')
+                for stig_data in vuln_elem.findall(CklParser._ns_tag('STIG_DATA', namespace)):
+                    vuln_attr_elem = stig_data.find(CklParser._ns_tag('VULN_ATTRIBUTE', namespace))
+                    attr_data_elem = stig_data.find(CklParser._ns_tag('ATTRIBUTE_DATA', namespace))
                     
                     if vuln_attr_elem is not None and attr_data_elem is not None:
                         attr_name = (vuln_attr_elem.text or "").strip()
@@ -194,15 +209,15 @@ class CklParser:
                         vuln_data[attr_name] = attr_data
                 
                 # Extract status
-                status_elem = vuln_elem.find('STATUS')
+                status_elem = vuln_elem.find(CklParser._ns_tag('STATUS', namespace))
                 status_text = (status_elem.text or "").strip() if status_elem is not None else ""
                 status = ChecklistStatus.from_ckl_string(status_text) or ChecklistStatus.NOT_REVIEWED
                 
                 # Extract finding details and comments
-                finding_details_elem = vuln_elem.find('FINDING_DETAILS')
+                finding_details_elem = vuln_elem.find(CklParser._ns_tag('FINDING_DETAILS', namespace))
                 finding_details = (finding_details_elem.text or "").strip() if finding_details_elem is not None else ""
                 
-                comments_elem = vuln_elem.find('COMMENTS')
+                comments_elem = vuln_elem.find(CklParser._ns_tag('COMMENTS', namespace))
                 comments = (comments_elem.text or "").strip() if comments_elem is not None else ""
                 
                 # Build CklVuln

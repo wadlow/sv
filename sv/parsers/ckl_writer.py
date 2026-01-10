@@ -1,9 +1,11 @@
 """CKL file writer for creating new checklist files."""
 
 import xml.etree.ElementTree as ET
+from xml.sax.saxutils import escape as xml_escape
 from pathlib import Path
 from typing import List
 from datetime import datetime
+import uuid
 
 from ..models.stig_file import StigFile
 from ..models.ckl_file import CklFile, CklAsset, CklStigInfo, CklVuln
@@ -39,7 +41,7 @@ class CklWriter:
                 version=stig_file.stig_version,
                 title=stig_file.stig_name,
                 release_info=f"Release: {stig_file.stig_release}",
-                uuid="",  # Will be generated if needed
+                uuid=str(uuid.uuid4()),  # Generate a valid UUID
                 filename=stig_file.file_name,
             )
             stigs.append(stig_info)
@@ -65,31 +67,37 @@ class CklWriter:
     
     @staticmethod
     def write(ckl_file: CklFile):
-        """Write CKL file to disk."""
-        # Create root element
+        """Write CKL file to disk in DISA STIG Viewer 2.10 format."""
+        # Create root element WITHOUT namespaces (to match template)
         checklist = ET.Element('CHECKLIST')
-        checklist.set('xmlns', 'http://checklists.nist.gov/xccdf/1.1')
-        checklist.set('xmlns:dsig', 'http://www.w3.org/2000/09/xmldsig#')
-        checklist.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-        checklist.set('xsi:schemaLocation', 
-                     'http://checklists.nist.gov/xccdf/1.1 http://nvd.nist.gov/schema/xccdf-1.1.4.xsd')
         
-        # Add comment
-        checklist.append(ET.Comment('DISA STIG Viewer :: 2.10'))
+        # Don't add comment as Element - we'll add it manually in serialization
         
         # Add ASSET
         asset_elem = ET.SubElement(checklist, 'ASSET')
-        ET.SubElement(asset_elem, 'ROLE').text = ckl_file.asset.role
-        ET.SubElement(asset_elem, 'ASSET_TYPE').text = ckl_file.asset.asset_type
-        ET.SubElement(asset_elem, 'HOST_NAME').text = ckl_file.asset.host_name
-        ET.SubElement(asset_elem, 'HOST_IP').text = ckl_file.asset.host_ip
-        ET.SubElement(asset_elem, 'HOST_MAC').text = ckl_file.asset.host_mac
-        ET.SubElement(asset_elem, 'HOST_FQDN').text = ckl_file.asset.host_fqdn
-        ET.SubElement(asset_elem, 'TECH_AREA').text = ckl_file.asset.tech_area
-        ET.SubElement(asset_elem, 'TARGET_KEY').text = ckl_file.asset.target_key
-        ET.SubElement(asset_elem, 'WEB_OR_DATABASE').text = str(ckl_file.asset.web_or_database).lower()
-        ET.SubElement(asset_elem, 'WEB_DB_SITE').text = ckl_file.asset.web_db_site
-        ET.SubElement(asset_elem, 'WEB_DB_INSTANCE').text = ckl_file.asset.web_db_instance
+        
+        # Helper to add elements with text content (never self-closing)
+        def add_element(parent, tag, text=''):
+            elem = ET.SubElement(parent, tag)
+            # Strip trailing whitespace from text to avoid XML parsing issues
+            # But preserve internal formatting (don't strip leading/internal whitespace)
+            if text:
+                elem.text = text.rstrip()
+            else:
+                elem.text = ''
+            return elem
+        
+        add_element(asset_elem, 'ROLE', ckl_file.asset.role or 'None')
+        add_element(asset_elem, 'ASSET_TYPE', ckl_file.asset.asset_type or 'Computing')
+        add_element(asset_elem, 'HOST_NAME', ckl_file.asset.host_name)
+        add_element(asset_elem, 'HOST_IP', ckl_file.asset.host_ip)
+        add_element(asset_elem, 'HOST_MAC', ckl_file.asset.host_mac)
+        add_element(asset_elem, 'HOST_FQDN', ckl_file.asset.host_fqdn)
+        add_element(asset_elem, 'TECH_AREA', ckl_file.asset.tech_area)
+        add_element(asset_elem, 'TARGET_KEY', ckl_file.asset.target_key)
+        add_element(asset_elem, 'WEB_OR_DATABASE', str(ckl_file.asset.web_or_database).lower())
+        add_element(asset_elem, 'WEB_DB_SITE', ckl_file.asset.web_db_site)
+        add_element(asset_elem, 'WEB_DB_INSTANCE', ckl_file.asset.web_db_instance)
         
         # Add STIGS
         stigs_elem = ET.SubElement(checklist, 'STIGS')
@@ -111,15 +119,15 @@ class CklWriter:
             
             def add_si_data(parent, name, data):
                 si_data = ET.SubElement(parent, 'SI_DATA')
-                ET.SubElement(si_data, 'SID_NAME').text = name
-                ET.SubElement(si_data, 'SID_DATA').text = data or ''
+                add_element(si_data, 'SID_NAME', name)
+                add_element(si_data, 'SID_DATA', data)
             
-            add_si_data(stig_info_elem, 'version', stig_info.version)
+            add_si_data(stig_info_elem, 'version', stig_info.version or '2')
             add_si_data(stig_info_elem, 'classification', 'UNCLASSIFIED')
             add_si_data(stig_info_elem, 'customname', '')
             add_si_data(stig_info_elem, 'stigid', stig_info.stig_id)
             add_si_data(stig_info_elem, 'description', 
-                       'This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems.')
+                       'This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.')
             add_si_data(stig_info_elem, 'filename', stig_info.filename)
             add_si_data(stig_info_elem, 'releaseinfo', stig_info.release_info)
             add_si_data(stig_info_elem, 'title', stig_info.title)
@@ -134,53 +142,86 @@ class CklWriter:
                 
                 def add_stig_data(parent, attr_name, attr_data):
                     stig_data = ET.SubElement(parent, 'STIG_DATA')
-                    ET.SubElement(stig_data, 'VULN_ATTRIBUTE').text = attr_name
-                    ET.SubElement(stig_data, 'ATTRIBUTE_DATA').text = attr_data or ''
+                    add_element(stig_data, 'VULN_ATTRIBUTE', attr_name)
+                    add_element(stig_data, 'ATTRIBUTE_DATA', attr_data)
                 
                 add_stig_data(vuln_elem, 'Vuln_Num', vuln.v_code)
-                add_stig_data(vuln_elem, 'Severity', vuln.severity)
+                add_stig_data(vuln_elem, 'Severity', vuln.severity.lower() if vuln.severity else 'medium')
                 add_stig_data(vuln_elem, 'Group_Title', vuln.group_title)
                 add_stig_data(vuln_elem, 'Rule_ID', vuln.rule_id)
                 add_stig_data(vuln_elem, 'Rule_Ver', vuln.rule_ver or '')
                 add_stig_data(vuln_elem, 'Rule_Title', vuln.rule_title)
-                add_stig_data(vuln_elem, 'Vuln_Discuss', vuln.discussion)
+                add_stig_data(vuln_elem, 'Vuln_Discuss', vuln.discussion or '')
                 add_stig_data(vuln_elem, 'IA_Controls', '')
-                add_stig_data(vuln_elem, 'Check_Content', vuln.check_text)
-                add_stig_data(vuln_elem, 'Fix_Text', vuln.fix_text)
+                add_stig_data(vuln_elem, 'Check_Content', vuln.check_text or '')
+                add_stig_data(vuln_elem, 'Fix_Text', vuln.fix_text or '')
                 add_stig_data(vuln_elem, 'False_Positives', '')
                 add_stig_data(vuln_elem, 'False_Negatives', '')
-                add_stig_data(vuln_elem, 'Documentable', '')
+                add_stig_data(vuln_elem, 'Documentable', 'false')
                 add_stig_data(vuln_elem, 'Mitigations', '')
                 add_stig_data(vuln_elem, 'Potential_Impact', '')
                 add_stig_data(vuln_elem, 'Third_Party_Tools', '')
                 add_stig_data(vuln_elem, 'Mitigation_Control', '')
                 add_stig_data(vuln_elem, 'Responsibility', '')
                 add_stig_data(vuln_elem, 'Security_Override_Guidance', '')
-                add_stig_data(vuln_elem, 'Check_Content_Ref', '')
-                add_stig_data(vuln_elem, 'Weight', '')
-                add_stig_data(vuln_elem, 'Class', '')
-                add_stig_data(vuln_elem, 'STIGRef', '')
-                add_stig_data(vuln_elem, 'TargetKey', '')
-                add_stig_data(vuln_elem, 'STIGRef', '')
-                add_stig_data(vuln_elem, 'STIGRef', '')
                 
-                ET.SubElement(vuln_elem, 'STATUS').text = vuln.status.ckl_string
-                ET.SubElement(vuln_elem, 'FINDING_DETAILS').text = vuln.finding_details
-                ET.SubElement(vuln_elem, 'COMMENTS').text = vuln.comments
-                ET.SubElement(vuln_elem, 'SEVERITY_OVERRIDE', {'AUTHORITY': ''})
-                ET.SubElement(vuln_elem, 'SEVERITY_JUSTIFICATION', {'AUTHORITY': ''})
+                # Add STATUS, FINDING_DETAILS, COMMENTS (always have content)
+                add_element(vuln_elem, 'STATUS', vuln.status.ckl_string)
+                add_element(vuln_elem, 'FINDING_DETAILS', vuln.finding_details or '')
+                add_element(vuln_elem, 'COMMENTS', vuln.comments or '')
+                add_element(vuln_elem, 'SEVERITY_OVERRIDE', '')
+                add_element(vuln_elem, 'SEVERITY_JUSTIFICATION', '')
         
-        # Write to file
+        # Write to file with tabs and proper formatting
         try:
-            tree = ET.ElementTree(checklist)
-            ET.indent(tree, space='  ')
+            # Custom serialization to match DISA format
+            xml_str = CklWriter._serialize_with_tabs(checklist)
             
-            # Write with XML declaration
-            with open(ckl_file.file_path, 'wb') as f:
-                f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
-                tree.write(f, encoding='utf-8', xml_declaration=False)
+            # Write with XML declaration and comment
+            with open(ckl_file.file_path, 'w', encoding='UTF-8') as f:
+                f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+                f.write('<!--DISA STIG Viewer :: 2.10-->\n')
+                f.write(xml_str)
         except PermissionError:
             raise Exception(f"Permission denied: cannot write to {ckl_file.file_path}")
         except Exception as e:
             raise Exception(f"Error writing CKL file: {e}")
+    
+    @staticmethod
+    def _serialize_with_tabs(elem, level=0):
+        """Serialize XML with tabs for indentation (matching DISA format)."""
+        indent = '\t' * level
+        result = []
+        
+        # Opening tag
+        result.append(f"{indent}<{elem.tag}>")
+        
+        # Handle text content
+        has_children = len(elem) > 0
+        has_text = elem.text and elem.text.strip()
+        
+        if has_text:
+            # Escape XML special characters in text content
+            escaped_text = xml_escape(elem.text)
+            result.append(escaped_text)
+            # Check if we need to add newline before children
+            if has_children and not elem.text.endswith('\n'):
+                result.append('\n')
+        elif has_children:
+            # No text but has children - newline after opening tag
+            result.append('\n')
+        
+        # Children
+        for child in elem:
+            result.append(CklWriter._serialize_with_tabs(child, level + 1))
+        
+        # Closing tag
+        if has_children:
+            # Element has children - closing tag on new line with indent
+            result.append(f"{indent}</{elem.tag}>\n")
+        else:
+            # Leaf element - closing tag immediately after content (no newline before it)
+            result.append(f"</{elem.tag}>\n")
+        
+        return ''.join(result)
 

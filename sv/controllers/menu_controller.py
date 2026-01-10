@@ -45,6 +45,13 @@ def _show_preferences_handler(self, sender):
         _app_controller_ref.show_preferences()
 
 
+def _compare_ckls_handler(self, sender):
+    """Handle Compare CKLs menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.compare_ckls()
+
+
 class MenuController(NSObject):
     """Controller for menu bar actions."""
     
@@ -53,6 +60,7 @@ class MenuController(NSObject):
     compareStigs_ = selector(_compare_stigs_handler, signature=b'v@:@')
     openChecklist_ = selector(_open_checklist_handler, signature=b'v@:@')
     createCklFile_ = selector(_create_ckl_file_handler, signature=b'v@:@')
+    compareCkls_ = selector(_compare_ckls_handler, signature=b'v@:@')
     showPreferences_ = selector(_show_preferences_handler, signature=b'v@:@')
     
     def init(self):
@@ -121,6 +129,40 @@ def _create_menu_bar(menu_controller):
     file_menu_item.setTitle_("File")
     main_menu.addItem_(file_menu_item)
     
+    # Edit menu (required for Copy, Paste, etc.)
+    edit_menu_item = NSMenuItem.alloc().init()
+    edit_menu = NSMenu.alloc().initWithTitle_("Edit")
+    
+    # Cut
+    cut_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Cut", "cut:", "x"
+    )
+    edit_menu.addItem_(cut_item)
+    
+    # Copy
+    copy_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Copy", "copy:", "c"
+    )
+    edit_menu.addItem_(copy_item)
+    
+    # Paste
+    paste_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Paste", "paste:", "v"
+    )
+    edit_menu.addItem_(paste_item)
+    
+    edit_menu.addItem_(NSMenuItem.separatorItem())
+    
+    # Select All
+    select_all_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Select All", "selectAll:", "a"
+    )
+    edit_menu.addItem_(select_all_item)
+    
+    edit_menu_item.setSubmenu_(edit_menu)
+    edit_menu_item.setTitle_("Edit")
+    main_menu.addItem_(edit_menu_item)
+    
     # Checklist menu
     checklist_menu_item = NSMenuItem.alloc().init()
     checklist_menu = NSMenu.alloc().init()
@@ -129,6 +171,11 @@ def _create_menu_bar(menu_controller):
         "Open Checklist from File", "openChecklist:", ""
     )
     checklist_menu.addItem_(open_checklist_item)
+    
+    compare_ckls_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Compare CKLs", "compareCkls:", ""
+    )
+    checklist_menu.addItem_(compare_ckls_item)
     
     checklist_menu_item.setSubmenu_(checklist_menu)
     checklist_menu_item.setTitle_("Checklist")
@@ -164,6 +211,9 @@ def _create_menu_bar(menu_controller):
     
     open_checklist_item.setTarget_(app_delegate)
     open_checklist_item.setAction_("openChecklist:")
+    
+    compare_ckls_item.setTarget_(app_delegate)
+    compare_ckls_item.setAction_("compareCkls:")
     
     preferences_item.setTarget_(app_delegate)
     preferences_item.setAction_("showPreferences:")

@@ -1036,6 +1036,11 @@ class CompareView(NSView):
         text_view = NSTextView.alloc().initWithFrame_(frame)
         text_view.setEditable_(False)
         text_view.setSelectable_(True)
+        text_view.setRichText_(False)  # Use plain text only
+        text_view.setImportsGraphics_(False)  # Don't import graphics
+        text_view.setAllowsUndo_(False)  # Disable undo for read-only
+        text_view.setFieldEditor_(False)  # Not a field editor
+        text_view.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         text_view.setString_(f"{title}\n\n(Details will appear here)")
         text_view.setTextColor_(NSColor.whiteColor())
         text_view.setBackgroundColor_(NSColor.blackColor())

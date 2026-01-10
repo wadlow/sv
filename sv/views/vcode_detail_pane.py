@@ -55,10 +55,19 @@ class VCodeDetailPane(NSView):
         top_scroll.setHasHorizontalScroller_(False)
         top_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         top_scroll.setBorderType_(1)  # NSBezelBorder
+        top_scroll.setToolTip_("General information about the selected vulnerability (V-code, Rule ID, Severity, Rule Title)")
         
         attrs = get_view_attrs(self)
-        description_text = NSTextView.alloc().init()
+        # Create text view with proper frame initialization
+        text_frame = NSRect((0, 0), (width, top_height))
+        description_text = NSTextView.alloc().initWithFrame_(text_frame)
         description_text.setEditable_(False)
+        description_text.setSelectable_(True)
+        description_text.setRichText_(False)  # Use plain text only
+        description_text.setImportsGraphics_(False)  # Don't import graphics
+        description_text.setAllowsUndo_(False)  # Disable undo for read-only
+        description_text.setFieldEditor_(False)  # Not a field editor
+        description_text.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         top_scroll.setDocumentView_(description_text)
         attrs['description_text'] = description_text
         
@@ -70,9 +79,18 @@ class VCodeDetailPane(NSView):
         bottom_scroll.setHasHorizontalScroller_(False)
         bottom_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         bottom_scroll.setBorderType_(1)  # NSBezelBorder
+        bottom_scroll.setToolTip_("Detailed information: Discussion, Check Text, and Fix Text for the selected vulnerability")
         
-        details_text = NSTextView.alloc().init()
+        # Create text view with proper frame initialization
+        text_frame = NSRect((0, 0), (width, bottom_height))
+        details_text = NSTextView.alloc().initWithFrame_(text_frame)
         details_text.setEditable_(False)
+        details_text.setSelectable_(True)
+        details_text.setRichText_(False)  # Use plain text only
+        details_text.setImportsGraphics_(False)  # Don't import graphics
+        details_text.setAllowsUndo_(False)  # Disable undo for read-only
+        details_text.setFieldEditor_(False)  # Not a field editor
+        details_text.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         bottom_scroll.setDocumentView_(details_text)
         attrs['details_text'] = details_text
         

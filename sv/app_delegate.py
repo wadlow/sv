@@ -53,7 +53,7 @@ class AppDelegate(NSObject):
         
         action = menu_item.action()
         if action == 'importStig:' or action == 'compareStigs:' or \
-           action == 'openChecklist:' or action == 'showPreferences:':
+           action == 'openChecklist:' or action == 'compareCkls:' or action == 'showPreferences:':
             return True
         
         # Create CKL file is only enabled when on Explorer tab AND STIGs are loaded
@@ -83,6 +83,11 @@ class AppDelegate(NSObject):
         """Handle Create CKL file menu action."""
         if hasattr(self, 'app_controller') and self.app_controller:
             self.app_controller.create_ckl_file()
+    
+    def compareCkls_(self, sender):
+        """Handle Compare CKLs menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.compare_ckls()
     
     def showPreferences_(self, sender):
         """Handle Preferences menu action."""

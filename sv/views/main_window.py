@@ -168,6 +168,56 @@ class MainWindow:
         else:
             print("MainWindow.remove_compare_tab: No compare tab to remove")  # Debug
     
+    def add_compare_ckl_tab(self, compare_ckl_view):
+        """
+        Add a new Compare CKLs tab.
+        
+        Args:
+            compare_ckl_view: CompareCklView object
+        """
+        print(f"MainWindow.add_compare_ckl_tab: Called with {compare_ckl_view}")  # Debug
+        try:
+            # Set main_window reference on compare_ckl_view
+            from .view_helpers import get_view_attrs
+            attrs = get_view_attrs(compare_ckl_view)
+            attrs['main_window'] = self
+            print("MainWindow.add_compare_ckl_tab: Set main_window reference")  # Debug
+            
+            tab_item = NSTabViewItem.alloc().init()
+            tab_item.setLabel_("Compare CKLs")
+            print("MainWindow.add_compare_ckl_tab: Created tab item")  # Debug
+            
+            compare_ckl_view.setAutoresizingMask_(0x12)  # NSViewWidthSizable | NSViewHeightSizable
+            tab_item.setView_(compare_ckl_view)
+            print("MainWindow.add_compare_ckl_tab: Set view")  # Debug
+            
+            self.tab_view.addTabViewItem_(tab_item)
+            print("MainWindow.add_compare_ckl_tab: Added tab item")  # Debug
+            
+            # Store reference to compare CKL tab
+            self.compare_ckl_tab = tab_item
+            
+            # Switch to the new tab
+            self.tab_view.selectTabViewItem_(tab_item)
+            print("MainWindow.add_compare_ckl_tab: Selected tab")  # Debug
+        except Exception as e:
+            import traceback
+            print(f"MainWindow.add_compare_ckl_tab: ERROR - {e}")  # Debug
+            traceback.print_exc()
+    
+    def remove_compare_ckl_tab(self):
+        """Remove the Compare CKLs tab."""
+        print("MainWindow.remove_compare_ckl_tab: Called")  # Debug
+        if hasattr(self, 'compare_ckl_tab') and self.compare_ckl_tab:
+            print("MainWindow.remove_compare_ckl_tab: Removing tab")  # Debug
+            self.tab_view.removeTabViewItem_(self.compare_ckl_tab)
+            self.compare_ckl_tab = None
+            # Switch to Explorer tab
+            if self.tab_view.numberOfTabViewItems() > 0:
+                self.tab_view.selectTabViewItemAtIndex_(0)
+        else:
+            print("MainWindow.remove_compare_ckl_tab: No compare_ckl_tab to remove")  # Debug
+    
     def get_explorer_view(self):
         """Get the Explorer view."""
         return self.explorer_tab

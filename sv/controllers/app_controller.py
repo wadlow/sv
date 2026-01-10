@@ -100,6 +100,25 @@ class AppController:
             traceback.print_exc()
             self._show_error(f"Error opening Compare tab: {e}")
     
+    def compare_ckls(self):
+        """Open the Compare CKLs tab."""
+        print("AppController.compare_ckls: Called")  # Debug
+        try:
+            # Create a new Compare CKLs tab
+            print("AppController.compare_ckls: Importing CompareCklView...")  # Debug
+            from ..views.compare_ckl_view import CompareCklView
+            print("AppController.compare_ckls: Creating CompareCklView instance...")  # Debug
+            compare_ckl_view = CompareCklView.alloc().init()
+            print(f"AppController.compare_ckls: Created view: {compare_ckl_view}")  # Debug
+            print("AppController.compare_ckls: Adding tab...")  # Debug
+            self.main_window.add_compare_ckl_tab(compare_ckl_view)
+            print("AppController.compare_ckls: Tab added successfully")  # Debug
+        except Exception as e:
+            import traceback
+            print(f"AppController.compare_ckls: ERROR - {e}")  # Debug
+            traceback.print_exc()
+            self._show_error(f"Error opening Compare CKLs tab: {e}")
+    
     def import_stig_files(self):
         """Import STIG files."""
         print("import_stig_files called")  # Debug output

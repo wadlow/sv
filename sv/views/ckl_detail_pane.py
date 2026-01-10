@@ -68,8 +68,16 @@ class CklDetailPane(NSView):
         pane1_scroll.setBorderType_(1)  # NSBezelBorder
         
         attrs = get_view_attrs(self)
-        general_info_text = NSTextView.alloc().init()
+        # Create text view with proper frame initialization
+        text_frame = NSRect((0, 0), (width, pane1_height))
+        general_info_text = NSTextView.alloc().initWithFrame_(text_frame)
         general_info_text.setEditable_(False)
+        general_info_text.setSelectable_(True)
+        general_info_text.setRichText_(False)  # Use plain text only
+        general_info_text.setImportsGraphics_(False)  # Don't import graphics
+        general_info_text.setAllowsUndo_(False)  # Disable undo for read-only
+        general_info_text.setFieldEditor_(False)  # Not a field editor
+        general_info_text.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane1_scroll.setDocumentView_(general_info_text)
         attrs['general_info_text'] = general_info_text
         
@@ -81,8 +89,16 @@ class CklDetailPane(NSView):
         pane2_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane2_scroll.setBorderType_(1)  # NSBezelBorder
         
-        specific_details_text = NSTextView.alloc().init()
+        # Create text view with proper frame initialization
+        text_frame = NSRect((0, 0), (width, pane2_height))
+        specific_details_text = NSTextView.alloc().initWithFrame_(text_frame)
         specific_details_text.setEditable_(False)
+        specific_details_text.setSelectable_(True)
+        specific_details_text.setRichText_(False)  # Use plain text only
+        specific_details_text.setImportsGraphics_(False)  # Don't import graphics
+        specific_details_text.setAllowsUndo_(False)  # Disable undo for read-only
+        specific_details_text.setFieldEditor_(False)  # Not a field editor
+        specific_details_text.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane2_scroll.setDocumentView_(specific_details_text)
         attrs['specific_details_text'] = specific_details_text
         
@@ -94,8 +110,16 @@ class CklDetailPane(NSView):
         pane3_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane3_scroll.setBorderType_(1)  # NSBezelBorder
         
-        finding_details_text = NSTextView.alloc().init()
+        # Create text view with proper frame initialization
+        text_frame = NSRect((0, 0), (width, pane3_height))
+        finding_details_text = NSTextView.alloc().initWithFrame_(text_frame)
         finding_details_text.setEditable_(True)  # Editable for CKL
+        finding_details_text.setSelectable_(True)  # Explicitly enable selection
+        finding_details_text.setRichText_(False)  # Use plain text only
+        finding_details_text.setImportsGraphics_(False)  # Don't import graphics
+        finding_details_text.setUsesFontPanel_(False)  # Don't use font panel
+        finding_details_text.setFieldEditor_(False)  # Not a field editor
+        finding_details_text.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         # Set Courier font for Finding Details
         from AppKit import NSFont
         courier_font = NSFont.fontWithName_size_("Courier", 12)
@@ -112,8 +136,16 @@ class CklDetailPane(NSView):
         pane4_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane4_scroll.setBorderType_(1)  # NSBezelBorder
         
-        comments_text = NSTextView.alloc().init()
+        # Create text view with proper frame initialization
+        text_frame = NSRect((0, 0), (width, pane4_height))
+        comments_text = NSTextView.alloc().initWithFrame_(text_frame)
         comments_text.setEditable_(True)  # Editable for CKL
+        comments_text.setSelectable_(True)  # Explicitly enable selection
+        comments_text.setRichText_(False)  # Use plain text only
+        comments_text.setImportsGraphics_(False)  # Don't import graphics
+        comments_text.setUsesFontPanel_(False)  # Don't use font panel
+        comments_text.setFieldEditor_(False)  # Not a field editor
+        comments_text.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane4_scroll.setDocumentView_(comments_text)
         attrs['comments_text'] = comments_text
         
