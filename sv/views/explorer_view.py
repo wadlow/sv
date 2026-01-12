@@ -1,6 +1,6 @@
 """Explorer view with three-column layout."""
 
-from AppKit import NSView, NSRect, NSSplitView, NSViewWidthSizable, NSViewHeightSizable
+from AppKit import NSView, NSRect, NSSplitView, NSBox, NSViewWidthSizable, NSViewHeightSizable
 from Foundation import NSObject
 import objc
 
@@ -64,30 +64,65 @@ class ExplorerView(NSView):
         main_split.setDividerStyle_(1)  # NSSplitViewDividerStyleThin
         main_split.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         
-        # Column 1: STIGS + SEARCH (40% width)
+        # Column 1: STIGS + SEARCH (40% width) - create split view with two resizable panes
         col1_frame = NSRect((0, 0), (width * 0.4, height))
         col1_split = NSSplitView.alloc().initWithFrame_(col1_frame)
-        col1_split.setVertical_(False)
-        col1_split.setDividerStyle_(1)
+        col1_split.setVertical_(False)  # Horizontal divider (stacks vertically)
+        col1_split.setDividerStyle_(1)  # Same as Compare CKLs
         col1_split.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         
-        # STIGS pane (top 40%)
         attrs = get_view_attrs(self)
+        
+        # Top pane: STIGS box
+        stigs_box = NSBox.alloc().initWithFrame_(NSRect((0, 0), (width * 0.4, height * 0.4)))
+        stigs_box.setTitlePosition_(2)  # NSAtTop
+        stigs_box.setTitle_("STIG Files")
+        stigs_box.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        
+        # Create STIG pane and add to box
+        stigs_content = stigs_box.contentView()
         stigs_pane = StigsPane.alloc().init()
+        stigs_pane.setFrame_(stigs_content.bounds())
         stigs_pane.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        stigs_content.addSubview_(stigs_pane)
         attrs['stigs_pane'] = stigs_pane
         
-        # SEARCH pane (bottom 60%)
+        # Bottom pane: Filter box
+        filter_box = NSBox.alloc().initWithFrame_(NSRect((0, 0), (width * 0.4, height * 0.6)))
+        filter_box.setTitlePosition_(2)  # NSAtTop
+        filter_box.setTitle_("Filter")
+        filter_box.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        
+        # Get the actual content view bounds AFTER box is created
+        filter_content = filter_box.contentView()
+        content_frame = filter_content.frame()
+        from .view_helpers import get_bounds_size
+        content_width, content_height = get_bounds_size(content_frame)
+        
+        print(f"ExplorerView: Filter box content size = {content_width}x{content_height}")  # Debug
+        
+        # Create search pane with correct initial frame
         search_pane = SearchPane.alloc().init()
+        
+        # Now resize to match content - this will trigger relayout via autoresizing
+        search_pane.setFrame_(NSRect((0, 0), (content_width, content_height)))
         search_pane.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        
+        # Add to content view
+        filter_content.addSubview_(search_pane)
         attrs['search_pane'] = search_pane
         
-        col1_split.addSubview_(stigs_pane)
-        col1_split.addSubview_(search_pane)
+        # Add boxes to split view
+        col1_split.addSubview_(stigs_box)
+        col1_split.addSubview_(filter_box)
+        
+        # Let split view calculate initial sizes
         col1_split.adjustSubviews()
         
-        # Set divider position: STIGS pane gets 40% of height
+        # Set the divider position - this makes STIGS 40%, Filter 60%
         col1_split.setPosition_ofDividerAtIndex_(height * 0.4, 0)
+        
+        print(f"ExplorerView: Created split view, filter bounds = {filter_content.bounds()}")  # Debug
         
         # Column 2: V-code list (20% width)
         col2_frame = NSRect((0, 0), (width * 0.2, height))

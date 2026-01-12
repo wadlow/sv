@@ -52,7 +52,7 @@ class SearchPane(NSView):
         title_label.setBordered_(False)
         title_label.setDrawsBackground_(False)
         title_label.setEditable_(False)
-        title_label.setAutoresizingMask_(NSViewWidthSizable)
+        title_label.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin (stays at top)
         self.addSubview_(title_label)
         
         # V-code count label (right side, same row as title)
@@ -65,7 +65,7 @@ class SearchPane(NSView):
         count_label.setEditable_(False)
         count_label.setTextColor_(NSColor.whiteColor())
         count_label.setAlignment_(NSRightTextAlignment)  # Right-align the text
-        count_label.setAutoresizingMask_(NSViewWidthSizable)
+        count_label.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
         self.addSubview_(count_label)
         attrs['count_label'] = count_label
         
@@ -86,7 +86,7 @@ class SearchPane(NSView):
             checkbox.setState_(1)  # Initially checked
             checkbox.setTarget_(self)
             checkbox.setAction_("severityCheckboxChanged:")
-            checkbox.setAutoresizingMask_(NSViewWidthSizable)
+            checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
             self.addSubview_(checkbox)
             
             severity_checkboxes[sev_key] = checkbox

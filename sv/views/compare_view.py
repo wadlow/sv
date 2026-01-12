@@ -106,6 +106,7 @@ class CompareView(NSView):
         attrs['table_delegates'] = []  # Will store 3 delegates for the 3 lists
         attrs['detail_text_views'] = []  # Will store 4 text views for Column 3
         attrs['severity_filters'] = {'high': True, 'medium': True, 'low_other': True}  # Default: all checked
+        attrs['show_rule_id_differences'] = False  # Default: unchecked (don't show Rule ID differences)
         attrs['unfiltered_data'] = {'in_b_not_a': [], 'in_a_not_b': [], 'different': []}  # Store original data
         CompareView.createLayout(self)
         return self
@@ -186,6 +187,13 @@ class CompareView(NSView):
         attrs = get_view_attrs(self)
         attrs['severity_filters']['low_other'] = (sender.state() == 1)
         print(f"CompareView.lowOtherSeverityFilterChanged_: Low/Other filter = {attrs['severity_filters']['low_other']}")  # Debug
+        self._apply_filters()
+    
+    def ruleIdFilterChanged_(self, sender):
+        """Handle Rule ID filter checkbox change."""
+        attrs = get_view_attrs(self)
+        attrs['show_rule_id_differences'] = (sender.state() == 1)
+        print(f"CompareView.ruleIdFilterChanged_: Show Rule ID differences = {attrs['show_rule_id_differences']}")  # Debug
         self._apply_filters()
     
     @objc.python_method
@@ -305,14 +313,17 @@ class CompareView(NSView):
     @objc.python_method
     def _build_general_differences(self, vuln_a, vuln_b):
         """Build a string showing only the general info fields that differ."""
+        attrs = get_view_attrs(self)
+        show_rule_id_diff = attrs.get('show_rule_id_differences', False)
+        
         differences = []
         
         # Compare V-Code
         if vuln_a.v_code != vuln_b.v_code:
             differences.append(f"V-Code:\n  A: {vuln_a.v_code}\n  B: {vuln_b.v_code}\n")
         
-        # Compare Rule ID
-        if vuln_a.rule_id != vuln_b.rule_id:
+        # Compare Rule ID (only if checkbox is checked)
+        if show_rule_id_diff and vuln_a.rule_id != vuln_b.rule_id:
             differences.append(f"Rule ID:\n  A: {vuln_a.rule_id}\n  B: {vuln_b.rule_id}\n")
         
         # Compare Severity
@@ -509,12 +520,13 @@ class CompareView(NSView):
     
     @objc.python_method
     def _apply_filters(self):
-        """Apply severity filters to the comparison lists."""
+        """Apply severity and Rule ID filters to the comparison lists."""
         attrs = get_view_attrs(self)
         stig_a = attrs.get('stig_a')
         stig_b = attrs.get('stig_b')
         unfiltered_data = attrs.get('unfiltered_data', {})
         severity_filters = attrs.get('severity_filters', {})
+        show_rule_id_diff = attrs.get('show_rule_id_differences', False)
         
         if not stig_a or not stig_b:
             return
@@ -547,6 +559,13 @@ class CompareView(NSView):
             vuln_b = b_lookup.get(vcode_id)
             if ((vuln_a and self._passes_severity_filter(vuln_a.severity, severity_filters)) or
                 (vuln_b and self._passes_severity_filter(vuln_b.severity, severity_filters))):
+                
+                # If "Show Rule ID differences" is unchecked, filter out entries with ONLY Rule ID differences
+                if not show_rule_id_diff:
+                    # Check if the ONLY difference is Rule ID
+                    if self._has_only_rule_id_difference(vuln_a, vuln_b):
+                        continue  # Skip this entry
+                
                 # Just show V-code for "different" list
                 if vuln_a:
                     different_filtered.append(vuln_a.v_code)
@@ -638,6 +657,33 @@ class CompareView(NSView):
         
         # All fields are identical
         return False
+    
+    @objc.python_method
+    def _has_only_rule_id_difference(self, vuln_a, vuln_b):
+        """Check if the ONLY difference between two VulnCode objects is the Rule ID.
+        
+        Returns:
+            True if only Rule ID differs, False if other fields also differ
+        """
+        if not vuln_a or not vuln_b:
+            return False
+        
+        # Check if Rule ID differs
+        rule_id_differs = (vuln_a.rule_id != vuln_b.rule_id)
+        
+        # Check if any OTHER field differs
+        other_differs = (
+            vuln_a.v_code != vuln_b.v_code or
+            vuln_a.severity != vuln_b.severity or
+            vuln_a.group_title != vuln_b.group_title or
+            vuln_a.rule_title != vuln_b.rule_title or
+            vuln_a.discussion != vuln_b.discussion or
+            vuln_a.check_text != vuln_b.check_text or
+            vuln_a.fix_text != vuln_b.fix_text
+        )
+        
+        # Return True if ONLY Rule ID differs (Rule ID differs but nothing else)
+        return rule_id_differs and not other_differs
     
     @objc.python_method
     def _update_comparison_lists(self, in_b_not_a, in_a_not_b, different):
@@ -875,12 +921,36 @@ class CompareView(NSView):
         low_cb.setAction_("lowOtherSeverityFilterChanged:")
         low_cb.setAutoresizingMask_(0x08 | 0x02)  # Pin to top
         content.addSubview_(low_cb)
+        y_pos -= 40  # Extra space before next section
+        
+        # Rule ID filter label
+        rule_id_label = NSTextField.alloc().initWithFrame_(NSRect((10, y_pos), (content_width - 20, 24)))
+        rule_id_label.setStringValue_("Other Filters")
+        rule_id_label.setBezeled_(False)
+        rule_id_label.setDrawsBackground_(False)
+        rule_id_label.setEditable_(False)
+        rule_id_label.setSelectable_(False)
+        rule_id_label.setTextColor_(NSColor.whiteColor())
+        rule_id_label.setAutoresizingMask_(0x08 | 0x02)  # Pin to top
+        content.addSubview_(rule_id_label)
+        y_pos -= 30
+        
+        # Rule ID differences checkbox
+        rule_id_cb = NSButton.alloc().initWithFrame_(NSRect((10, y_pos), (content_width - 20, 22)))
+        rule_id_cb.setTitle_("Rule ID Differences")
+        rule_id_cb.setButtonType_(3)  # NSSwitchButton (checkbox)
+        rule_id_cb.setState_(0)  # Unchecked by default
+        rule_id_cb.setTarget_(self)
+        rule_id_cb.setAction_("ruleIdFilterChanged:")
+        rule_id_cb.setAutoresizingMask_(0x08 | 0x02)  # Pin to top
+        content.addSubview_(rule_id_cb)
         
         # Store checkbox references
         attrs = get_view_attrs(self)
         attrs['high_severity_cb'] = high_cb
         attrs['medium_severity_cb'] = medium_cb
         attrs['low_other_severity_cb'] = low_cb
+        attrs['rule_id_cb'] = rule_id_cb
         
         # Close Compare Tab button at bottom
         close_btn = NSButton.alloc().initWithFrame_(NSRect((10, 10), (content_width - 20, 28)))
