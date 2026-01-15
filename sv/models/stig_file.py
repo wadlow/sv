@@ -21,5 +21,17 @@ class StigFile:
     @property
     def display_name(self) -> str:
         """Display name for the STIG file."""
-        return self.file_name
+        # Use STIG name instead of filename
+        display = self.stig_name
+        
+        # Remove "Security Technical Implementation Guide" and similar variations
+        display = display.replace("Security Technical Implementation Guide", "")
+        display = display.replace("Technical Implementation Guide", "")
+        display = display.replace("Implementation Guide", "")
+        display = display.replace("STIG", "")
+        
+        # Clean up extra whitespace
+        display = " ".join(display.split())
+        
+        return display.strip()
 

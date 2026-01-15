@@ -27,6 +27,8 @@ class SearchPane(NSView):
             'low': True,
         }
         attrs['severity_checkboxes'] = {}
+        attrs['rule_title_mismatch_filter'] = False  # Initially unchecked
+        attrs['rule_title_checkbox'] = None
         attrs['count_label'] = None
         SearchPane.createUI(self)
         return self
@@ -94,6 +96,18 @@ class SearchPane(NSView):
         
         attrs['severity_checkboxes'] = severity_checkboxes
         
+        # Add "STIG/Checklist Rule Title" checkbox after severity filters
+        rule_title_checkbox_frame = NSRect((10, y_pos), (width - 20, 20))
+        rule_title_checkbox = NSButton.alloc().initWithFrame_(rule_title_checkbox_frame)
+        rule_title_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        rule_title_checkbox.setTitle_("STIG/Checklist Rule Title")
+        rule_title_checkbox.setState_(0)  # Initially unchecked
+        rule_title_checkbox.setTarget_(self)
+        rule_title_checkbox.setAction_("ruleTitleCheckboxChanged:")
+        rule_title_checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+        self.addSubview_(rule_title_checkbox)
+        attrs['rule_title_checkbox'] = rule_title_checkbox
+        
         # Add Delete Selected STIG button at the bottom right corner (small)
         btn_width = 130
         btn_height = 24
@@ -140,6 +154,25 @@ class SearchPane(NSView):
         else:
             print("SearchPane: WARNING - No filter changed callback set!")  # Debug
     
+    def ruleTitleCheckboxChanged_(self, sender):
+        """Handle Rule Title checkbox state change."""
+        print(f"SearchPane.ruleTitleCheckboxChanged_: Checkbox changed")  # Debug
+        attrs = get_view_attrs(self)
+        rule_title_checkbox = attrs.get('rule_title_checkbox')
+        
+        # Update rule title filter state
+        if rule_title_checkbox:
+            attrs['rule_title_mismatch_filter'] = (rule_title_checkbox.state() == 1)
+            print(f"SearchPane: Rule Title mismatch filter = {attrs['rule_title_mismatch_filter']}")  # Debug
+        
+        # Call the filter changed callback
+        on_search_changed = attrs.get('on_search_changed')
+        if on_search_changed:
+            print("SearchPane: Calling filter changed callback")  # Debug
+            on_search_changed()
+        else:
+            print("SearchPane: WARNING - No filter changed callback set!")  # Debug
+    
     def deleteStigClicked_(self, sender):
         """Handle Delete STIG button click."""
         print("SearchPane.deleteStigClicked_: Called")  # Debug
@@ -172,6 +205,12 @@ class SearchPane(NSView):
         enabled = [sev for sev, enabled in severity_filters.items() if enabled]
         print(f"SearchPane.get_enabled_severities: Returning {len(enabled)} enabled severities")  # Debug
         return enabled
+    
+    @objc.python_method
+    def get_rule_title_mismatch_filter(self):
+        """Get the state of the Rule Title mismatch filter."""
+        attrs = get_view_attrs(self)
+        return attrs.get('rule_title_mismatch_filter', False)
     
     @objc.python_method
     def update_vcode_count(self, count):

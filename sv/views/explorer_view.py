@@ -73,10 +73,10 @@ class ExplorerView(NSView):
         
         attrs = get_view_attrs(self)
         
-        # Top pane: STIGS box
+        # Top pane: STIGs box
         stigs_box = NSBox.alloc().initWithFrame_(NSRect((0, 0), (width * 0.4, height * 0.4)))
         stigs_box.setTitlePosition_(2)  # NSAtTop
-        stigs_box.setTitle_("STIG Files")
+        stigs_box.setTitle_("STIGs")
         stigs_box.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         
         # Create STIG pane and add to box

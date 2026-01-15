@@ -85,13 +85,43 @@ class StatusPieChart(NSView):
             print(f"StatusPieChart.drawRect_: Got status_counts, count={len(status_counts)}")
             
             if not status_counts or sum(status_counts.values()) == 0:
-                # Draw empty state - just fill with white to show the pane exists
+                # Draw empty state - show an empty pie chart circle
                 print("StatusPieChart.drawRect_: Drawing empty state")
-                from AppKit import NSColor
-                NSColor.whiteColor().setFill()
-                from AppKit import NSBezierPath
-                NSBezierPath.fillRect_(rect)
-                print("StatusPieChart.drawRect_: Drew empty state (white fill)")
+                from AppKit import NSColor, NSBezierPath
+                
+                # Calculate circle position
+                bounds = self.bounds()
+                center_x = bounds.size.width / 2
+                center_y = bounds.size.height / 2
+                radius = min(bounds.size.width, bounds.size.height) / 2 - 20
+                
+                if radius > 0:
+                    # Draw gray circle outline
+                    circle = NSBezierPath.bezierPath()
+                    circle.appendBezierPathWithOvalInRect_(
+                        NSRect((center_x - radius, center_y - radius), (radius * 2, radius * 2))
+                    )
+                    NSColor.grayColor().setStroke()
+                    circle.setLineWidth_(2.0)
+                    circle.stroke()
+                    
+                    # Draw "No Data" text in center
+                    from AppKit import NSFont, NSFontAttributeName, NSForegroundColorAttributeName
+                    from Foundation import NSString, NSDictionary
+                    text = "No Data"
+                    font = NSFont.systemFontOfSize_(14)
+                    attrs = NSDictionary.dictionaryWithObjectsAndKeys_(
+                        font, NSFontAttributeName,
+                        NSColor.grayColor(), NSForegroundColorAttributeName,
+                        None
+                    )
+                    ns_text = NSString.stringWithString_(text)
+                    text_size = ns_text.sizeWithAttributes_(attrs)
+                    text_x = center_x - text_size.width / 2
+                    text_y = center_y - text_size.height / 2
+                    ns_text.drawAtPoint_withAttributes_((text_x, text_y), attrs)
+                
+                print("StatusPieChart.drawRect_: Drew empty state (circle outline)")
                 return
         except Exception as e:
             print(f"StatusPieChart.drawRect_: ERROR in empty state check: {e}")

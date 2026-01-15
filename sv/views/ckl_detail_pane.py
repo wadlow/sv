@@ -169,7 +169,7 @@ class CklDetailPane(NSView):
         print("CklDetailPane.createUI: Complete")  # Debug
     
     @objc.python_method
-    def set_vuln_code(self, vuln_code: Optional[VulnCode], finding_details: str = "", comments: str = ""):
+    def set_vuln_code(self, vuln_code: Optional[VulnCode], finding_details: str = "", comments: str = "", status: str = ""):
         """Set the V-code to display with CKL-specific fields."""
         print(f"CklDetailPane.set_vuln_code: Called with {vuln_code.v_code if vuln_code else 'None'}")  # Debug
         attrs = get_view_attrs(self)
@@ -201,10 +201,19 @@ class CklDetailPane(NSView):
             f"V-code: {vuln_code.v_code}",
             f"Rule ID: {vuln_code.rule_id}",
             f"Severity: {vuln_code.severity.upper()}",
+        ]
+        
+        # Add status if provided
+        if status:
+            # Convert status enum to readable string
+            status_display = str(status).replace("ChecklistStatus.", "").replace("_", " ").title()
+            general_lines.append(f"Status: {status_display}")
+        
+        general_lines.extend([
             "",
             f"Rule Title:",
             f"{vuln_code.rule_title}",
-        ]
+        ])
         general_info = "\n".join(general_lines)
         
         if general_info_text:

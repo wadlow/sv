@@ -19,6 +19,66 @@ from .view_helpers import get_view_attrs, get_bounds_size
 _CKL_DEBUG = os.environ.get('SV_CKL_DEBUG') == '1'
 
 
+def _is_no_info_finding_detail(finding_detail: str) -> bool:
+    """
+    Check if a Finding Detail matches the "no info" pattern.
+    
+    The pattern is:
+    - First 6 lines with varying content (prompt, date, V-code, STIG, description, FAIL/comments)
+    - A blank line (line 7)
+    - A shell prompt with date command (line 8)
+    - A date string (line 9)
+    - A shell prompt (line 10)
+    
+    Returns:
+        True if the Finding Detail matches the "no info" pattern, False otherwise.
+    """
+    if not finding_detail:
+        return False
+    
+    lines = finding_detail.split('\n')
+    
+    # Must have at least 10 lines
+    if len(lines) < 10:
+        return False
+    
+    # Line 7 (index 6) should be blank or nearly blank (whitespace only)
+    if lines[6].strip():
+        return False
+    
+    # Line 8 (index 7) should look like a shell prompt with "date"
+    line_8 = lines[7].strip().lower()
+    if 'date' not in line_8:
+        return False
+    # Should end with # or $ and contain "date"
+    if not (line_8.endswith('#') or line_8.endswith('$')):
+        # Or it might have date as a command at the end
+        if not line_8.endswith('date'):
+            return False
+    
+    # Line 9 (index 8) should look like a date string
+    # Typical format: "Wed Oct 22 11:11:15 PDT 2025"
+    # Should contain day of week, month name, and year
+    line_9 = lines[8].strip()
+    if not line_9:
+        return False
+    # Check for typical date components (at least 3 tokens)
+    date_tokens = line_9.split()
+    if len(date_tokens) < 3:
+        return False
+    # Check if it contains numbers (day, time, or year)
+    has_number = any(any(c.isdigit() for c in token) for token in date_tokens)
+    if not has_number:
+        return False
+    
+    # Line 10 (index 9) should look like a shell prompt (ends with # or $)
+    line_10 = lines[9].strip()
+    if not (line_10.endswith('#') or line_10.endswith('$')):
+        return False
+    
+    return True
+
+
 class CklView(NSView):
     """CKL tab view with three columns."""
     
@@ -65,26 +125,52 @@ class CklView(NSView):
         col1_split.setDividerStyle_(1)
         col1_split.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         
-        # STIG checklist pane (top - 33%)
         attrs = get_view_attrs(self)
+        
+        # Top box: STIG Files
+        from AppKit import NSBox
+        stigs_box = NSBox.alloc().initWithFrame_(NSRect((0, 0), (width * 0.33, height * 0.33)))
+        stigs_box.setTitlePosition_(2)  # NSAtTop
+        stigs_box.setTitle_("STIG Files")
+        stigs_box.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        
+        stigs_content = stigs_box.contentView()
         from .stigs_pane import StigsPane
         stigs_pane = StigsPane.alloc().init()
+        stigs_pane.setFrame_(stigs_content.bounds())
         stigs_pane.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        stigs_content.addSubview_(stigs_pane)
         attrs['stigs_pane'] = stigs_pane
         
-        # Pie chart (middle - 33%)
+        # Middle box: Status Chart
+        pie_box = NSBox.alloc().initWithFrame_(NSRect((0, 0), (width * 0.33, height * 0.33)))
+        pie_box.setTitlePosition_(2)  # NSAtTop
+        pie_box.setTitle_("Status Chart")
+        pie_box.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        
+        pie_content = pie_box.contentView()
         pie_chart = StatusPieChart.alloc().init()
+        pie_chart.setFrame_(pie_content.bounds())
         pie_chart.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        pie_content.addSubview_(pie_chart)
         attrs['pie_chart'] = pie_chart
         
-        # Status filter pane (bottom - 33%)
+        # Bottom box: Filter
+        filter_box = NSBox.alloc().initWithFrame_(NSRect((0, 0), (width * 0.33, height * 0.33)))
+        filter_box.setTitlePosition_(2)  # NSAtTop
+        filter_box.setTitle_("Filter")
+        filter_box.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        
+        filter_content = filter_box.contentView()
         status_filter_pane = StatusFilterPane.alloc().init()
+        status_filter_pane.setFrame_(filter_content.bounds())
         status_filter_pane.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
+        filter_content.addSubview_(status_filter_pane)
         attrs['status_filter_pane'] = status_filter_pane
         
-        col1_split.addSubview_(stigs_pane)
-        col1_split.addSubview_(pie_chart)
-        col1_split.addSubview_(status_filter_pane)
+        col1_split.addSubview_(stigs_box)
+        col1_split.addSubview_(pie_box)
+        col1_split.addSubview_(filter_box)
         col1_split.adjustSubviews()
         
         # Set divider positions for equal thirds (after adding to parent)
@@ -274,6 +360,30 @@ class CklView(NSView):
         """Handle STIG selection change."""
         if _CKL_DEBUG:
             print("CklView._on_stig_selection_changed: STIG selection changed")  # Debug
+        
+        # Clear V-code selection
+        attrs = get_view_attrs(self)
+        vcode_list_pane = attrs.get('vcode_list_pane')
+        if vcode_list_pane:
+            from .vcode_list_pane import VCodeListPane
+            # Clear selection in the table
+            table_view = None
+            for subview in vcode_list_pane.subviews():
+                if hasattr(subview, 'documentView'):
+                    table_view = subview.documentView()
+                    break
+            if table_view:
+                table_view.deselectAll_(None)
+                if _CKL_DEBUG:
+                    print("CklView._on_stig_selection_changed: Cleared V-code selection")
+        
+        # Clear detail panes
+        vcode_detail_pane = attrs.get('vcode_detail_pane')
+        if vcode_detail_pane:
+            CklDetailPane.set_vuln_code(vcode_detail_pane, None)
+            if _CKL_DEBUG:
+                print("CklView._on_stig_selection_changed: Cleared detail panes")
+        
         CklView._update_vcode_list(self)
         CklView._update_pie_chart(self)
     
@@ -282,6 +392,30 @@ class CklView(NSView):
         """Handle status filter change."""
         if _CKL_DEBUG:
             print("CklView._on_status_filter_changed: Status filter changed")  # Debug
+        
+        # Clear V-code selection
+        attrs = get_view_attrs(self)
+        vcode_list_pane = attrs.get('vcode_list_pane')
+        if vcode_list_pane:
+            from .vcode_list_pane import VCodeListPane
+            # Clear selection in the table
+            table_view = None
+            for subview in vcode_list_pane.subviews():
+                if hasattr(subview, 'documentView'):
+                    table_view = subview.documentView()
+                    break
+            if table_view:
+                table_view.deselectAll_(None)
+                if _CKL_DEBUG:
+                    print("CklView._on_status_filter_changed: Cleared V-code selection")
+        
+        # Clear detail panes
+        vcode_detail_pane = attrs.get('vcode_detail_pane')
+        if vcode_detail_pane:
+            CklDetailPane.set_vuln_code(vcode_detail_pane, None)
+            if _CKL_DEBUG:
+                print("CklView._on_status_filter_changed: Cleared detail panes")
+        
         CklView._update_vcode_list(self)
         CklView._update_pie_chart(self)
     
@@ -313,15 +447,27 @@ class CklView(NSView):
             vcode_detail_pane = attrs.get('vcode_detail_pane')
             if vcode_detail_pane:
                 CklDetailPane.set_vuln_code(vcode_detail_pane, None)
+            
+            # Update V-code count to 0
+            status_filter_pane = attrs.get('status_filter_pane')
+            if status_filter_pane:
+                from .status_filter_pane import StatusFilterPane
+                StatusFilterPane.update_vcode_count(status_filter_pane, 0)
+            
             return
         
-        # Collect all V-codes from checked STIGs
-        all_vuln_codes = []
+        # Collect all V-codes from checked STIGs (deduplicate by v_code)
+        vcode_dict = {}
         for stig_file in checked_stigs:
-            all_vuln_codes.extend(stig_file.vuln_codes)
+            for vuln_code in stig_file.vuln_codes:
+                # Keep only one instance of each V-code (prefer the first one encountered)
+                if vuln_code.v_code not in vcode_dict:
+                    vcode_dict[vuln_code.v_code] = vuln_code
+        
+        all_vuln_codes = list(vcode_dict.values())
         
         if _CKL_DEBUG:
-            print(f"CklView._update_vcode_list: Collected {len(all_vuln_codes)} V-codes")  # Debug
+            print(f"CklView._update_vcode_list: Collected {len(all_vuln_codes)} unique V-codes (deduplicated)")  # Debug
         
         # Apply status, severity, MTF, and Invalid Arg filters
         status_filter_pane = attrs.get('status_filter_pane')
@@ -331,8 +477,10 @@ class CklView(NSView):
             enabled_severities = StatusFilterPane.get_enabled_severities(status_filter_pane)
             mtf_filter_enabled = StatusFilterPane.is_mtf_filter_enabled(status_filter_pane)
             invalid_arg_filter_enabled = StatusFilterPane.is_invalid_arg_filter_enabled(status_filter_pane)
+            rule_title_mismatch_filter_enabled = StatusFilterPane.is_rule_title_mismatch_filter_enabled(status_filter_pane)
+            no_info_filter_enabled = StatusFilterPane.is_no_info_filter_enabled(status_filter_pane)
             if _CKL_DEBUG:
-                print(f"CklView._update_vcode_list: {len(enabled_statuses)} statuses, {len(enabled_severities)} severities enabled, MTF={mtf_filter_enabled}, Invalid Arg={invalid_arg_filter_enabled}")  # Debug
+                print(f"CklView._update_vcode_list: {len(enabled_statuses)} statuses, {len(enabled_severities)} severities enabled, MTF={mtf_filter_enabled}, Invalid Arg={invalid_arg_filter_enabled}, Rule Title Mismatch={rule_title_mismatch_filter_enabled}, No info={no_info_filter_enabled}")  # Debug
             
             # Filter V-codes based on their status in the CKL, severity, MTF, and Invalid Arg
             vuln_code_to_ckl_vuln = attrs.get('vuln_code_to_ckl_vuln', {})
@@ -361,6 +509,25 @@ class CklView(NSView):
                             # Only include if finding_details contain "invalid argument"
                             if "invalid argument" not in finding_details:
                                 continue  # Skip this V-code
+                        
+                        # Check Rule Title mismatch filter (show ONLY items with STIG vs Checklist Rule Title differences when enabled)
+                        if rule_title_mismatch_filter_enabled:
+                            # Compare Rule Titles from STIG (vc.rule_title) and Checklist (ckl_vuln.rule_title)
+                            stig_title = (vc.rule_title or "").strip()
+                            ckl_title = (ckl_vuln.rule_title or "").strip()
+                            # Only include if they differ
+                            if stig_title == ckl_title:
+                                continue  # Skip this V-code (Rule Titles match)
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} has different Rule Title - STIG: '{stig_title[:50]}...' vs CKL: '{ckl_title[:50]}...'")  # Debug
+                        
+                        # Check No info filter (hide V-codes with "no info" Finding Details when enabled)
+                        if no_info_filter_enabled:
+                            # Check if finding_details matches the "no info" pattern
+                            if _is_no_info_finding_detail(ckl_vuln.finding_details):
+                                continue  # Skip this V-code (has "no info" Finding Details)
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} passed No info filter check")  # Debug
                         
                         filtered_vuln_codes.append(vc)
             
@@ -394,6 +561,14 @@ class CklView(NSView):
             VCodeListPane.set_vuln_codes(vcode_list_pane, all_vuln_codes, vuln_code_to_ckl_vuln)
             if _CKL_DEBUG:
                 print(f"CklView._update_vcode_list: Updated V-code list with {len(all_vuln_codes)} V-codes")  # Debug
+        
+        # Update V-code count in filter pane
+        status_filter_pane = attrs.get('status_filter_pane')
+        if status_filter_pane:
+            from .status_filter_pane import StatusFilterPane
+            StatusFilterPane.update_vcode_count(status_filter_pane, len(all_vuln_codes))
+            if _CKL_DEBUG:
+                print(f"CklView._update_vcode_list: Updated V-code count to {len(all_vuln_codes)}")  # Debug
     
     @objc.python_method
     def _update_pie_chart(self):
@@ -449,14 +624,80 @@ class CklView(NSView):
         # Filter CKL vulns by checked STIGs
         filtered_vulns = [v for v in ckl_file.vulns if v.stig_info.stig_id in checked_stig_ids]
         
-        # Apply status filter
+        # Apply status, severity, MTF, Invalid Arg, and Rule Title mismatch filters
         status_filter_pane = attrs.get('status_filter_pane')
         if status_filter_pane:
             from .status_filter_pane import StatusFilterPane
             enabled_statuses = StatusFilterPane.get_enabled_statuses(status_filter_pane)
+            enabled_severities = StatusFilterPane.get_enabled_severities(status_filter_pane)
+            mtf_filter_enabled = StatusFilterPane.is_mtf_filter_enabled(status_filter_pane)
+            invalid_arg_filter_enabled = StatusFilterPane.is_invalid_arg_filter_enabled(status_filter_pane)
+            rule_title_mismatch_filter_enabled = StatusFilterPane.is_rule_title_mismatch_filter_enabled(status_filter_pane)
+            no_info_filter_enabled = StatusFilterPane.is_no_info_filter_enabled(status_filter_pane)
+            
+            # Apply status filter
             filtered_vulns = [v for v in filtered_vulns if v.status in enabled_statuses]
             if _CKL_DEBUG:
                 print(f"CklView._update_pie_chart: After status filter, {len(filtered_vulns)} vulns remain")
+            
+            # Apply severity filter
+            def severity_matches(vuln):
+                severity = vuln.severity.lower() if vuln.severity else "low"
+                if severity == "critical":
+                    severity = "high"
+                return severity in enabled_severities
+            
+            before_count = len(filtered_vulns)
+            filtered_vulns = [v for v in filtered_vulns if severity_matches(v)]
+            if _CKL_DEBUG:
+                print(f"CklView._update_pie_chart: After severity filter, {len(filtered_vulns)} of {before_count} vulns remain")
+            
+            # Apply MTF filter (hide MTF items when enabled)
+            if mtf_filter_enabled:
+                before_count = len(filtered_vulns)
+                filtered_vulns = [v for v in filtered_vulns 
+                                 if not ("mtf" in (v.comments or "").lower() or 
+                                        "risk-accepted" in (v.comments or "").lower())]
+                if _CKL_DEBUG:
+                    print(f"CklView._update_pie_chart: MTF filter removed {before_count - len(filtered_vulns)} vulns, {len(filtered_vulns)} remain")
+            
+            # Apply Invalid Arg filter (show ONLY Invalid Argument items when enabled)
+            if invalid_arg_filter_enabled:
+                before_count = len(filtered_vulns)
+                filtered_vulns = [v for v in filtered_vulns 
+                                 if "invalid argument" in (v.finding_details or "").lower()]
+                if _CKL_DEBUG:
+                    print(f"CklView._update_pie_chart: Invalid Arg filter kept {len(filtered_vulns)} of {before_count} vulns")
+            
+            # Apply Rule Title mismatch filter (show ONLY items with STIG vs Checklist Rule Title differences when enabled)
+            if rule_title_mismatch_filter_enabled:
+                # Need to get the STIG V-codes to compare Rule Titles
+                vuln_code_to_ckl_vuln = attrs.get('vuln_code_to_ckl_vuln', {})
+                stigs_pane = attrs.get('stigs_pane')
+                if stigs_pane:
+                    from .stigs_pane import StigsPane
+                    checked_stigs = StigsPane.get_checked_stigs(stigs_pane)
+                    # Build dict of v_code to STIG Rule Title
+                    stig_rule_titles = {}
+                    for stig_file in checked_stigs:
+                        for vc in stig_file.vuln_codes:
+                            if vc.v_code not in stig_rule_titles:
+                                stig_rule_titles[vc.v_code] = vc.rule_title
+                    
+                    before_count = len(filtered_vulns)
+                    filtered_vulns = [v for v in filtered_vulns
+                                     if v.v_code in stig_rule_titles and 
+                                        (v.rule_title or "").strip() != (stig_rule_titles[v.v_code] or "").strip()]
+                    if _CKL_DEBUG:
+                        print(f"CklView._update_pie_chart: Rule Title mismatch filter kept {len(filtered_vulns)} of {before_count} vulns")
+            
+            # Apply No info filter (hide V-codes with "no info" Finding Details when enabled)
+            if no_info_filter_enabled:
+                before_count = len(filtered_vulns)
+                filtered_vulns = [v for v in filtered_vulns 
+                                 if not _is_no_info_finding_detail(v.finding_details)]
+                if _CKL_DEBUG:
+                    print(f"CklView._update_pie_chart: No info filter removed {before_count - len(filtered_vulns)} vulns, {len(filtered_vulns)} remain")
         
         if _CKL_DEBUG:
             print(f"CklView._update_pie_chart: Updating pie chart with {len(filtered_vulns)} vulns")  # Debug
@@ -509,17 +750,18 @@ class CklView(NSView):
         
         if ckl_vuln:
             if _CKL_DEBUG:
-                print(f"CklView._on_vcode_selected: Found CKL vuln with finding_details and comments")  # Debug
+                print(f"CklView._on_vcode_selected: Found CKL vuln with finding_details, comments, and status")  # Debug
             CklDetailPane.set_vuln_code(
                 vcode_detail_pane,
                 vuln_code,
                 finding_details=ckl_vuln.finding_details,
-                comments=ckl_vuln.comments
+                comments=ckl_vuln.comments,
+                status=str(ckl_vuln.status)
             )
         else:
             if _CKL_DEBUG:
                 print(f"CklView._on_vcode_selected: No CKL vuln found, using defaults")  # Debug
-            CklDetailPane.set_vuln_code(vcode_detail_pane, vuln_code, finding_details="", comments="")
+            CklDetailPane.set_vuln_code(vcode_detail_pane, vuln_code, finding_details="", comments="", status="")
         
         if _CKL_DEBUG:
             print(f"CklView._on_vcode_selected: Updated detail pane")  # Debug

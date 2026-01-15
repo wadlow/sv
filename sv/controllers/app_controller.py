@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import List, Optional
 import json
 import pickle
+import objc
 
 from ..models.stig_file import StigFile
 from ..models.ckl_file import CklFile
@@ -172,11 +173,12 @@ class AppController:
                             progress.set_message(msg)
                     
                     print(f"Starting parse with progress callback for {file_path.name}")  # Debug
-                    stig_file = StigParser.parse(file_path, progress_callback=update_progress)
-                    print(f"Parse complete, got {len(stig_file.vuln_codes)} V-codes")  # Debug
-                    self.stig_files.append(stig_file)
-                    imported_count += 1
-                    print(f"Successfully imported {file_path.name} with {len(stig_file.vuln_codes)} V-codes")  # Debug output
+                    stig_files = StigParser.parse(file_path, progress_callback=update_progress)  # Returns a list
+                    print(f"Parse complete, got {len(stig_files)} STIG(s)")  # Debug
+                    self.stig_files.extend(stig_files)  # Add all STIGs
+                    imported_count += len(stig_files)
+                    for stig in stig_files:
+                        print(f"Successfully imported {stig.stig_name} with {len(stig.vuln_codes)} V-codes")  # Debug output
                 except StigParserError as e:
                     print(f"StigParserError: {e}")  # Debug output
                     self._show_error(f"Error parsing STIG file {file_path.name}: {e}")
@@ -342,9 +344,9 @@ class AppController:
                 if path.exists():
                     try:
                         print(f"Parsing {path}...")  # Debug
-                        stig_file = StigParser.parse(path)
-                        self.stig_files.append(stig_file)
-                        print(f"Successfully loaded {path.name}")  # Debug
+                        stig_files = StigParser.parse(path)  # Returns a list
+                        self.stig_files.extend(stig_files)  # Add all STIGs from the file
+                        print(f"Successfully loaded {len(stig_files)} STIG(s) from {path.name}")  # Debug
                     except Exception as e:
                         print(f"Error loading {path}: {e}")  # Debug
                 else:
@@ -406,6 +408,46 @@ class AppController:
             traceback.print_exc()
             self._show_error(f"Error updating explorer view: {e}")
     
+    @objc.python_method
+    def _get_checklist_vulns(self):
+        """
+        Get all V-codes from open checklist tabs.
+        
+        Returns:
+            dict: Map of v_code -> CklVuln for all V-codes in open checklists
+        """
+        checklist_vulns = {}
+        
+        # Access open checklist tabs from main_window
+        if not self.main_window or not self.main_window.ckl_tabs:
+            return checklist_vulns
+        
+        # Iterate through all open CKL tabs
+        for ckl_path, tab_item in self.main_window.ckl_tabs.items():
+            try:
+                # Get the CklView from the tab
+                ckl_view = tab_item.view()
+                if not ckl_view:
+                    continue
+                
+                # Get the CKL file from the view's attrs
+                attrs = get_view_attrs(ckl_view)
+                ckl_file = attrs.get('ckl_file')
+                if not ckl_file:
+                    continue
+                
+                print(f"_get_checklist_vulns: Processing {ckl_file.file_name} with {len(ckl_file.vulns)} vulns")  # Debug
+                
+                # Add all V-codes from this checklist
+                for vuln in ckl_file.vulns:
+                    # Store by V-code (overwrite if duplicate - last one wins)
+                    checklist_vulns[vuln.v_code] = vuln
+            except Exception as e:
+                print(f"_get_checklist_vulns: Error processing tab {ckl_path}: {e}")  # Debug
+                continue
+        
+        return checklist_vulns
+    
     def _update_vcode_list(self):
         """Update the V-code list based on checked STIGs and search."""
         try:
@@ -454,6 +496,31 @@ class AppController:
             
             print(f"_update_vcode_list: After severity filter: {len(filtered_vuln_codes)} V-codes")  # Debug
             all_vuln_codes = filtered_vuln_codes
+            
+            # Apply Rule Title mismatch filter (if enabled)
+            rule_title_filter = SearchPane.get_rule_title_mismatch_filter(search_pane)
+            print(f"_update_vcode_list: Rule Title mismatch filter = {rule_title_filter}")  # Debug
+            
+            if rule_title_filter:
+                # Get all open checklist tabs
+                checklist_vulns = self._get_checklist_vulns()
+                print(f"_update_vcode_list: Found {len(checklist_vulns)} V-codes in open checklists")  # Debug
+                
+                filtered_vuln_codes = []
+                for vc in all_vuln_codes:
+                    # Check if this V-code exists in any checklist with a different Rule Title
+                    if vc.v_code in checklist_vulns:
+                        ckl_vuln = checklist_vulns[vc.v_code]
+                        # Compare Rule Titles (case-insensitive, strip whitespace)
+                        stig_title = (vc.rule_title or "").strip()
+                        ckl_title = (ckl_vuln.rule_title or "").strip()
+                        if stig_title != ckl_title:
+                            print(f"_update_vcode_list: {vc.v_code} has different Rule Title: STIG='{stig_title[:50]}...' vs CKL='{ckl_title[:50]}...'")  # Debug
+                            filtered_vuln_codes.append(vc)
+                    # If V-code is not in any checklist, don't include it
+                
+                print(f"_update_vcode_list: After Rule Title filter: {len(filtered_vuln_codes)} V-codes")  # Debug
+                all_vuln_codes = filtered_vuln_codes
             
             # Apply search filter (currently not implemented, but placeholder)
             filtered_vuln_codes = all_vuln_codes

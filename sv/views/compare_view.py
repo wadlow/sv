@@ -474,11 +474,17 @@ class CompareView(NSView):
             from pathlib import Path
             
             print("CompareView.compareStigs_: Loading STIG A...")  # Debug
-            stig_a = StigParser.parse(Path(stig_a_path))
+            stig_a_list = StigParser.parse(Path(stig_a_path))  # Returns a list
+            stig_a = stig_a_list[0]  # Use first STIG if multiple in .zip
+            if len(stig_a_list) > 1:
+                print(f"CompareView.compareStigs_: Warning - STIG A .zip contains {len(stig_a_list)} STIGs, using first: {stig_a.stig_name}")  # Debug
             print(f"CompareView.compareStigs_: STIG A loaded: {len(stig_a.vuln_codes)} V-codes")  # Debug
             
             print("CompareView.compareStigs_: Loading STIG B...")  # Debug
-            stig_b = StigParser.parse(Path(stig_b_path))
+            stig_b_list = StigParser.parse(Path(stig_b_path))  # Returns a list
+            stig_b = stig_b_list[0]  # Use first STIG if multiple in .zip
+            if len(stig_b_list) > 1:
+                print(f"CompareView.compareStigs_: Warning - STIG B .zip contains {len(stig_b_list)} STIGs, using first: {stig_b.stig_name}")  # Debug
             print(f"CompareView.compareStigs_: STIG B loaded: {len(stig_b.vuln_codes)} V-codes")  # Debug
             
             # Store the parsed STIGs
