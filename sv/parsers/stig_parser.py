@@ -76,7 +76,7 @@ class StigParser:
             for i, xccdf_file in enumerate(xccdf_files):
                 try:
                     print(f"StigParser._parse_from_zip: Parsing XCCDF {i+1}/{len(xccdf_files)}: {xccdf_file.name}")  # Debug
-                    stig = StigParser._parse_xccdf(xccdf_file.read_bytes(), file_name, zip_path, progress_callback)
+                    stig = StigParser._parse_xccdf(xccdf_file.read_bytes(), file_name, zip_path, progress_callback, xccdf_file.name)
                     stig_files.append(stig)
                 except Exception as e:
                     print(f"StigParser._parse_from_zip: Error parsing {xccdf_file.name}: {e}")  # Debug
@@ -145,8 +145,16 @@ class StigParser:
         return StigParser._parse_xccdf(xml_data, file_name, xml_path, progress_callback)
     
     @staticmethod
-    def _parse_xccdf(xml_data: bytes, file_name: str, file_path: Path, progress_callback=None) -> StigFile:
-        """Parse XCCDF XML data."""
+    def _parse_xccdf(xml_data: bytes, file_name: str, file_path: Path, progress_callback=None, xccdf_filename: str = None) -> StigFile:
+        """Parse XCCDF XML data.
+        
+        Args:
+            xml_data: The XCCDF XML content as bytes
+            file_name: Display name for the STIG
+            file_path: Path to store in StigFile (ZIP path or XML path)
+            progress_callback: Optional callback for progress updates
+            xccdf_filename: Optional XCCDF filename for release extraction
+        """
         print(f"StigParser._parse_xccdf: progress_callback = {progress_callback}")  # Debug
         try:
             root = ET.fromstring(xml_data)
@@ -176,7 +184,9 @@ class StigParser:
         # Extract Benchmark metadata
         stig_name = StigParser._get_text(benchmark, 'title', ns) or file_name
         stig_version = StigParser._get_text(benchmark, 'version', ns) or "Unknown"
-        stig_release = StigParser._extract_release(benchmark, ns)
+        # Use xccdf_filename for release extraction if provided, otherwise use file_path
+        filename_for_release = xccdf_filename if xccdf_filename else (file_path.name if file_path else None)
+        stig_release = StigParser._extract_release(benchmark, ns, filename_for_release)
         
         # Extract Groups and Rules
         vuln_codes = []
@@ -249,15 +259,25 @@ class StigParser:
         )
     
     @staticmethod
-    def _extract_release(benchmark: ET.Element, ns: dict) -> str:
+    def _extract_release(benchmark: ET.Element, ns: dict, filename: str = None) -> str:
         """Extract release information from Benchmark element.
         
         Tries multiple methods:
-        1. Simple <release> element
-        2. <status>/<plain-text> element (e.g., "Release: 4 Benchmark Date: 23 Oct 2024")
-        3. Extract from version text (e.g., "V2R4" -> "R4")
+        1. Extract from XCCDF filename (e.g., "U_RHEL_9_STIG_V2R6_Manual-xccdf.xml" -> "R6")
+        2. Simple <release> element
+        3. <status>/<plain-text> element (e.g., "Release: 4 Benchmark Date: 23 Oct 2024")
+        4. Extract from version text (e.g., "V2R4" -> "R4")
         """
-        # Try simple <release> element first
+        # Try to extract from filename first (highest priority)
+        if filename:
+            # Look for pattern like V#R# in the filename
+            match = re.search(r'V\d+R(\d+)', filename, re.IGNORECASE)
+            if match:
+                release_num = match.group(1)
+                print(f"StigParser: Extracted release R{release_num} from filename {filename}")
+                return f"R{release_num}"
+        
+        # Try simple <release> element
         release = StigParser._get_text(benchmark, 'release', ns)
         if release and release != "Unknown":
             return release

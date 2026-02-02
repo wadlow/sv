@@ -319,8 +319,10 @@ class CklView(NSView):
             StatusFilterPane.set_on_filter_changed(status_filter_pane, lambda: CklView._on_status_filter_changed(self))
             # Wire up close callback
             StatusFilterPane.set_on_close_callback(status_filter_pane, lambda: CklView._on_close_checklist(self))
+            # Wire up compare to check text callback
+            StatusFilterPane.set_on_compare_to_check_text(status_filter_pane, lambda: CklView._on_compare_to_check_text(self))
             if _CKL_DEBUG:
-                print("CklView.updateDisplay: Wired up status filter and close callbacks")  # Debug
+                print("CklView.updateDisplay: Wired up status filter, close, and compare callbacks")  # Debug
         else:
             if _CKL_DEBUG:
                 print("CklView.updateDisplay: WARNING - No status_filter_pane found!")  # Debug
@@ -479,8 +481,12 @@ class CklView(NSView):
             invalid_arg_filter_enabled = StatusFilterPane.is_invalid_arg_filter_enabled(status_filter_pane)
             rule_title_mismatch_filter_enabled = StatusFilterPane.is_rule_title_mismatch_filter_enabled(status_filter_pane)
             no_info_filter_enabled = StatusFilterPane.is_no_info_filter_enabled(status_filter_pane)
+            low_confidence_filter_enabled = StatusFilterPane.is_low_confidence_filter_enabled(status_filter_pane)
+            not_met_filter_enabled = StatusFilterPane.is_not_met_filter_enabled(status_filter_pane)
+            hide_manual_filter_enabled = StatusFilterPane.is_hide_manual_filter_enabled(status_filter_pane)
+            hide_audit_filter_enabled = StatusFilterPane.is_hide_audit_filter_enabled(status_filter_pane)
             if _CKL_DEBUG:
-                print(f"CklView._update_vcode_list: {len(enabled_statuses)} statuses, {len(enabled_severities)} severities enabled, MTF={mtf_filter_enabled}, Invalid Arg={invalid_arg_filter_enabled}, Rule Title Mismatch={rule_title_mismatch_filter_enabled}, No info={no_info_filter_enabled}")  # Debug
+                print(f"CklView._update_vcode_list: {len(enabled_statuses)} statuses, {len(enabled_severities)} severities enabled, MTF={mtf_filter_enabled}, Invalid Arg={invalid_arg_filter_enabled}, Rule Title Mismatch={rule_title_mismatch_filter_enabled}, No info={no_info_filter_enabled}, Low Confidence={low_confidence_filter_enabled}, Not Met={not_met_filter_enabled}, Hide MANUAL={hide_manual_filter_enabled}, Hide Audit={hide_audit_filter_enabled}")  # Debug
             
             # Filter V-codes based on their status in the CKL, severity, MTF, and Invalid Arg
             vuln_code_to_ckl_vuln = attrs.get('vuln_code_to_ckl_vuln', {})
@@ -528,6 +534,56 @@ class CklView(NSView):
                                 continue  # Skip this V-code (has "no info" Finding Details)
                             if _CKL_DEBUG:
                                 print(f"CklView: {vc.v_code} passed No info filter check")  # Debug
+                        
+                        # Check Low Confidence filter (show ONLY V-codes with low confidence Check Text analysis when enabled)
+                        if low_confidence_filter_enabled:
+                            # Analyze Finding Details against Check Text
+                            from ..utils.check_text_analyzer import CheckTextAnalyzer
+                            check_text = vc.check_text or ""
+                            finding_details_full = ckl_vuln.finding_details or ""
+                            
+                            result = CheckTextAnalyzer.analyze(check_text, finding_details_full)
+                            confidence = result.get('confidence', 'low')
+                            
+                            # Only include if confidence is low
+                            if confidence != 'low':
+                                continue  # Skip this V-code (confidence is not low)
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} has low confidence ({confidence})")  # Debug
+                        
+                        # Check Not Met filter (show ONLY V-codes where Check Text criteria are not met when enabled)
+                        if not_met_filter_enabled:
+                            # Analyze Finding Details against Check Text
+                            from ..utils.check_text_analyzer import CheckTextAnalyzer
+                            check_text = vc.check_text or ""
+                            finding_details_full = ckl_vuln.finding_details or ""
+                            
+                            result = CheckTextAnalyzer.analyze(check_text, finding_details_full)
+                            met = result.get('met', False)
+                            
+                            # Only include if criteria are NOT met
+                            if met:
+                                continue  # Skip this V-code (criteria are met)
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} criteria not met")  # Debug
+                        
+                        # Check Hide MANUAL filter (hide V-codes with "MANUAL TEST REQUIRED" in Finding Details when enabled)
+                        if hide_manual_filter_enabled:
+                            finding_details_full = ckl_vuln.finding_details or ""
+                            # Check if finding_details contains "MANUAL TEST REQUIRED"
+                            if "MANUAL TEST REQUIRED" in finding_details_full.upper():
+                                continue  # Skip this V-code (has "MANUAL TEST REQUIRED")
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} passed Hide MANUAL filter check")  # Debug
+                        
+                        # Check Hide Audit filter (hide V-codes with "audit" in their title when enabled)
+                        if hide_audit_filter_enabled:
+                            rule_title = (vc.rule_title or "").lower()
+                            # Check if "audit" appears in the rule title
+                            if "audit" in rule_title:
+                                continue  # Skip this V-code (has "audit" in title)
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} passed Hide Audit filter check")  # Debug
                         
                         filtered_vuln_codes.append(vc)
             
@@ -634,6 +690,10 @@ class CklView(NSView):
             invalid_arg_filter_enabled = StatusFilterPane.is_invalid_arg_filter_enabled(status_filter_pane)
             rule_title_mismatch_filter_enabled = StatusFilterPane.is_rule_title_mismatch_filter_enabled(status_filter_pane)
             no_info_filter_enabled = StatusFilterPane.is_no_info_filter_enabled(status_filter_pane)
+            low_confidence_filter_enabled = StatusFilterPane.is_low_confidence_filter_enabled(status_filter_pane)
+            not_met_filter_enabled = StatusFilterPane.is_not_met_filter_enabled(status_filter_pane)
+            hide_manual_filter_enabled = StatusFilterPane.is_hide_manual_filter_enabled(status_filter_pane)
+            hide_audit_filter_enabled = StatusFilterPane.is_hide_audit_filter_enabled(status_filter_pane)
             
             # Apply status filter
             filtered_vulns = [v for v in filtered_vulns if v.status in enabled_statuses]
@@ -698,6 +758,86 @@ class CklView(NSView):
                                  if not _is_no_info_finding_detail(v.finding_details)]
                 if _CKL_DEBUG:
                     print(f"CklView._update_pie_chart: No info filter removed {before_count - len(filtered_vulns)} vulns, {len(filtered_vulns)} remain")
+            
+            # Apply Low Confidence filter (show ONLY V-codes with low confidence Check Text analysis when enabled)
+            if low_confidence_filter_enabled:
+                from ..utils.check_text_analyzer import CheckTextAnalyzer
+                # Need to get check_text from STIG V-codes
+                stigs_pane = attrs.get('stigs_pane')
+                if stigs_pane:
+                    from .stigs_pane import StigsPane
+                    checked_stigs = StigsPane.get_checked_stigs(stigs_pane)
+                    # Build dict of v_code to check_text
+                    vcode_check_text = {}
+                    for stig_file in checked_stigs:
+                        for vc in stig_file.vuln_codes:
+                            if vc.v_code not in vcode_check_text:
+                                vcode_check_text[vc.v_code] = vc.check_text or ""
+                    
+                    before_count = len(filtered_vulns)
+                    low_confidence_vulns = []
+                    for v in filtered_vulns:
+                        check_text = vcode_check_text.get(v.v_code, "")
+                        finding_details = v.finding_details or ""
+                        
+                        result = CheckTextAnalyzer.analyze(check_text, finding_details)
+                        confidence = result.get('confidence', 'low')
+                        
+                        # Only include if confidence is low
+                        if confidence == 'low':
+                            low_confidence_vulns.append(v)
+                    
+                    filtered_vulns = low_confidence_vulns
+                    if _CKL_DEBUG:
+                        print(f"CklView._update_pie_chart: Low confidence filter kept {len(filtered_vulns)} of {before_count} vulns")
+            
+            # Apply Not Met filter (show ONLY V-codes where Check Text criteria are not met when enabled)
+            if not_met_filter_enabled:
+                from ..utils.check_text_analyzer import CheckTextAnalyzer
+                # Need to get check_text from STIG V-codes
+                stigs_pane = attrs.get('stigs_pane')
+                if stigs_pane:
+                    from .stigs_pane import StigsPane
+                    checked_stigs = StigsPane.get_checked_stigs(stigs_pane)
+                    # Build dict of v_code to check_text
+                    vcode_check_text = {}
+                    for stig_file in checked_stigs:
+                        for vc in stig_file.vuln_codes:
+                            if vc.v_code not in vcode_check_text:
+                                vcode_check_text[vc.v_code] = vc.check_text or ""
+                    
+                    before_count = len(filtered_vulns)
+                    not_met_vulns = []
+                    for v in filtered_vulns:
+                        check_text = vcode_check_text.get(v.v_code, "")
+                        finding_details = v.finding_details or ""
+                        
+                        result = CheckTextAnalyzer.analyze(check_text, finding_details)
+                        met = result.get('met', False)
+                        
+                        # Only include if criteria are NOT met
+                        if not met:
+                            not_met_vulns.append(v)
+                    
+                    filtered_vulns = not_met_vulns
+                    if _CKL_DEBUG:
+                        print(f"CklView._update_pie_chart: Not met filter kept {len(filtered_vulns)} of {before_count} vulns")
+            
+            # Apply Hide MANUAL filter (hide V-codes with "MANUAL TEST REQUIRED" in Finding Details when enabled)
+            if hide_manual_filter_enabled:
+                before_count = len(filtered_vulns)
+                filtered_vulns = [v for v in filtered_vulns 
+                                 if "MANUAL TEST REQUIRED" not in (v.finding_details or "").upper()]
+                if _CKL_DEBUG:
+                    print(f"CklView._update_pie_chart: Hide MANUAL filter removed {before_count - len(filtered_vulns)} vulns, {len(filtered_vulns)} remain")
+            
+            # Apply Hide Audit filter (hide V-codes with "audit" in their title when enabled)
+            if hide_audit_filter_enabled:
+                before_count = len(filtered_vulns)
+                filtered_vulns = [v for v in filtered_vulns 
+                                 if "audit" not in (v.rule_title or "").lower()]
+                if _CKL_DEBUG:
+                    print(f"CklView._update_pie_chart: Hide Audit filter removed {before_count - len(filtered_vulns)} vulns, {len(filtered_vulns)} remain")
         
         if _CKL_DEBUG:
             print(f"CklView._update_pie_chart: Updating pie chart with {len(filtered_vulns)} vulns")  # Debug
@@ -733,6 +873,15 @@ class CklView(NSView):
         attrs = get_view_attrs(self)
         vcode_detail_pane = attrs.get('vcode_detail_pane')
         
+        # Store currently selected V-code for compare button
+        attrs['selected_vuln_code'] = vuln_code
+        
+        # Enable/disable compare button based on selection
+        status_filter_pane = attrs.get('status_filter_pane')
+        if status_filter_pane:
+            from .status_filter_pane import StatusFilterPane
+            StatusFilterPane.set_compare_button_enabled(status_filter_pane, vuln_code is not None)
+        
         if not vcode_detail_pane:
             if _CKL_DEBUG:
                 print("CklView._on_vcode_selected: No detail pane")  # Debug
@@ -765,4 +914,48 @@ class CklView(NSView):
         
         if _CKL_DEBUG:
             print(f"CklView._on_vcode_selected: Updated detail pane")  # Debug
+    
+    @objc.python_method
+    def _on_compare_to_check_text(self):
+        """Handle Compare to Check Text button click."""
+        print("CklView._on_compare_to_check_text: Button clicked")  # Debug
+        attrs = get_view_attrs(self)
+        
+        # Get currently selected V-code
+        vuln_code = attrs.get('selected_vuln_code')
+        if not vuln_code:
+            print("CklView._on_compare_to_check_text: No V-code selected")  # Debug
+            return
+        
+        # Get the corresponding CKL vuln to get finding details
+        vuln_code_to_ckl_vuln = attrs.get('vuln_code_to_ckl_vuln', {})
+        ckl_vuln = vuln_code_to_ckl_vuln.get(vuln_code.id)
+        
+        if not ckl_vuln:
+            print(f"CklView._on_compare_to_check_text: No CKL vuln found for {vuln_code.v_code}")  # Debug
+            return
+        
+        # Get check text and finding details
+        check_text = vuln_code.check_text or ""
+        finding_details = ckl_vuln.finding_details or ""
+        
+        print(f"CklView._on_compare_to_check_text: Analyzing {vuln_code.v_code}")  # Debug
+        print(f"CklView._on_compare_to_check_text: Check text length: {len(check_text)}")  # Debug
+        print(f"CklView._on_compare_to_check_text: Finding details length: {len(finding_details)}")  # Debug
+        
+        # Perform analysis
+        from ..utils.check_text_analyzer import CheckTextAnalyzer
+        result = CheckTextAnalyzer.analyze(check_text, finding_details)
+        
+        # Show dialog with results
+        from ..dialogs.compare_check_text_dialog import CompareCheckTextDialog
+        
+        # Get or create dialog
+        if 'compare_check_text_dialog' not in attrs:
+            attrs['compare_check_text_dialog'] = CompareCheckTextDialog()
+        
+        dialog = attrs['compare_check_text_dialog']
+        dialog.show(vuln_code.v_code, result['analysis'])
+        
+        print("CklView._on_compare_to_check_text: Dialog shown")  # Debug
 

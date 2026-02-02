@@ -16,6 +16,114 @@ from .view_helpers import get_view_attrs, get_bounds_size
 _CKL_DEBUG = os.environ.get('SV_CKL_DEBUG') == '1'
 
 
+class TooltipTableView(NSTableView):
+    """Custom NSTableView that supports row-specific tooltips."""
+    
+    def initWithFrame_(self, frame):
+        """Initialize the table view with a frame."""
+        self = objc.super(TooltipTableView, self).initWithFrame_(frame)
+        if self is None:
+            return None
+        attrs = get_view_attrs(self)
+        attrs['tooltip_tags'] = []
+        print("TooltipTableView.initWithFrame_: Initialized")  # Debug
+        return self
+    
+    def viewDidMoveToWindow(self):
+        """Called when the view is added to a window."""
+        objc.super(TooltipTableView, self).viewDidMoveToWindow()
+        # Tooltips will be set up when data is loaded
+    
+    def reloadData(self):
+        """Override reloadData to refresh tooltips."""
+        objc.super(TooltipTableView, self).reloadData()
+        # Set up tooltips after data is reloaded
+        self.performSelector_withObject_afterDelay_("_setupTooltipsDelayed", None, 0.1)
+    
+    def _setupTooltipsDelayed(self):
+        """Set up tooltips after a short delay to ensure layout is complete."""
+        self._setupTooltips()
+    
+    @objc.python_method
+    def _setupTooltips(self):
+        """Set up tooltip tracking for each row."""
+        attrs = get_view_attrs(self)
+        
+        # Remove all existing tooltips
+        self.removeAllToolTips()
+        attrs['tooltip_tags'] = []
+        
+        data_source = self.dataSource()
+        if not data_source or not hasattr(data_source, 'stig_files'):
+            return
+        
+        num_rows = len(data_source.stig_files)
+        print(f"TooltipTableView._setupTooltips: Setting up tooltips for {num_rows} rows")  # Debug
+        
+        # Add a tooltip rect for each row
+        for row in range(num_rows):
+            row_rect = self.rectOfRow_(row)
+            tag = self.addToolTipRect_owner_userData_(
+                row_rect,
+                self,
+                row  # Pass row number as userData
+            )
+            attrs['tooltip_tags'].append(tag)
+        
+        print(f"TooltipTableView._setupTooltips: Added {len(attrs['tooltip_tags'])} tooltip rects")  # Debug
+    
+    def view_stringForToolTip_point_userData_(self, view, tag, point, userData):
+        """Return tooltip string for the point under the mouse."""
+        # userData contains the row number (if we passed it)
+        # But we'll also calculate it from the point to be safe
+        row = self.rowAtPoint_(point)
+        print(f"TooltipTableView.view_stringForToolTip_point_userData_: point={point}, row={row}, userData={userData}")  # Debug
+        
+        if row < 0:
+            print("TooltipTableView: No tooltip (row < 0)")  # Debug
+            return ""
+        
+        data_source = self.dataSource()
+        if not data_source or not hasattr(data_source, 'stig_files'):
+            print("TooltipTableView: No tooltip (no data source)")  # Debug
+            return ""
+        
+        if row >= len(data_source.stig_files):
+            print("TooltipTableView: No tooltip (row out of bounds)")  # Debug
+            return ""
+        
+        stig_file = data_source.stig_files[row]
+        print(f"TooltipTableView: STIG at row {row}: version={stig_file.stig_version}, release={stig_file.stig_release}")  # Debug
+        
+        # Build tooltip: check if prefixes are already present
+        tooltip_parts = []
+        
+        if stig_file.stig_version:
+            version_str = str(stig_file.stig_version)
+            # Check if version already starts with "V"
+            if version_str.upper().startswith('V'):
+                tooltip_parts.append(version_str)
+            else:
+                tooltip_parts.append(f"V{version_str}")
+        
+        if stig_file.stig_release and stig_file.stig_release != "Unknown":
+            release_str = str(stig_file.stig_release)
+            # Release already includes "R" prefix (e.g., "R6")
+            if release_str.upper().startswith('R'):
+                tooltip_parts.append(release_str)
+            else:
+                tooltip_parts.append(f"R{release_str}")
+        
+        if tooltip_parts:
+            tooltip = ''.join(tooltip_parts)
+            print(f"TooltipTableView: Returning tooltip: '{tooltip}'")  # Debug
+            return tooltip
+        
+        print("TooltipTableView: No tooltip (no version/release)")  # Debug
+        return ""
+
+
+
 class StigsTableDataSource(NSObject):
     """Data source for the STIGs table view."""
     
@@ -132,8 +240,8 @@ class StigsPane(NSView):
         scroll_view.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         scroll_view.setBorderType_(1)  # NSBezelBorder
         
-        # Create table view
-        table_view = NSTableView.alloc().initWithFrame_(bounds)
+        # Create custom table view with tooltip support
+        table_view = TooltipTableView.alloc().initWithFrame_(bounds)
         table_view.setDataSource_(data_source)
         table_view.setDelegate_(data_source)
         table_view.setAllowsColumnReordering_(False)

@@ -29,6 +29,8 @@ class SearchPane(NSView):
         attrs['severity_checkboxes'] = {}
         attrs['rule_title_mismatch_filter'] = False  # Initially unchecked
         attrs['rule_title_checkbox'] = None
+        attrs['hide_audit_filter'] = False  # Initially unchecked
+        attrs['hide_audit_checkbox'] = None
         attrs['count_label'] = None
         SearchPane.createUI(self)
         return self
@@ -71,16 +73,16 @@ class SearchPane(NSView):
         self.addSubview_(count_label)
         attrs['count_label'] = count_label
         
-        # Create severity checkboxes
+        # Create severity checkboxes with tooltips
         severity_checkboxes = {}
         severities = [
-            ('high', "High"),
-            ('medium', "Medium"),
-            ('low', "Low/Other"),
+            ('high', "High", "Show V-codes with CAT I (high) severity"),
+            ('medium', "Medium", "Show V-codes with CAT II (medium) severity"),
+            ('low', "Low/Other", "Show V-codes with CAT III (low) severity and other severities"),
         ]
         
         y_pos = height - 50
-        for sev_key, label in severities:
+        for sev_key, label, tooltip in severities:
             checkbox_frame = NSRect((10, y_pos), (width - 20, 20))
             checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
             checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
@@ -89,6 +91,7 @@ class SearchPane(NSView):
             checkbox.setTarget_(self)
             checkbox.setAction_("severityCheckboxChanged:")
             checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+            checkbox.setToolTip_(tooltip)
             self.addSubview_(checkbox)
             
             severity_checkboxes[sev_key] = checkbox
@@ -105,8 +108,23 @@ class SearchPane(NSView):
         rule_title_checkbox.setTarget_(self)
         rule_title_checkbox.setAction_("ruleTitleCheckboxChanged:")
         rule_title_checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+        rule_title_checkbox.setToolTip_("Show ONLY V-codes where STIG Rule Title differs from Checklist Rule Title")
         self.addSubview_(rule_title_checkbox)
         attrs['rule_title_checkbox'] = rule_title_checkbox
+        
+        # Add "Hide Audit" checkbox
+        y_pos -= 25
+        hide_audit_checkbox_frame = NSRect((10, y_pos), (width - 20, 20))
+        hide_audit_checkbox = NSButton.alloc().initWithFrame_(hide_audit_checkbox_frame)
+        hide_audit_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        hide_audit_checkbox.setTitle_("Hide Audit")
+        hide_audit_checkbox.setState_(0)  # Initially unchecked
+        hide_audit_checkbox.setTarget_(self)
+        hide_audit_checkbox.setAction_("hideAuditCheckboxChanged:")
+        hide_audit_checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+        hide_audit_checkbox.setToolTip_("Hide V-codes with 'audit' in their title (e.g., auditing, audited)")
+        self.addSubview_(hide_audit_checkbox)
+        attrs['hide_audit_checkbox'] = hide_audit_checkbox
         
         # Add Delete Selected STIG button at the bottom right corner (small)
         btn_width = 130
@@ -173,6 +191,25 @@ class SearchPane(NSView):
         else:
             print("SearchPane: WARNING - No filter changed callback set!")  # Debug
     
+    def hideAuditCheckboxChanged_(self, sender):
+        """Handle Hide Audit checkbox state change."""
+        print(f"SearchPane.hideAuditCheckboxChanged_: Checkbox changed")  # Debug
+        attrs = get_view_attrs(self)
+        hide_audit_checkbox = attrs.get('hide_audit_checkbox')
+        
+        # Update hide audit filter state
+        if hide_audit_checkbox:
+            attrs['hide_audit_filter'] = (hide_audit_checkbox.state() == 1)
+            print(f"SearchPane: Hide Audit filter = {attrs['hide_audit_filter']}")  # Debug
+        
+        # Call the filter changed callback
+        on_search_changed = attrs.get('on_search_changed')
+        if on_search_changed:
+            print("SearchPane: Calling filter changed callback")  # Debug
+            on_search_changed()
+        else:
+            print("SearchPane: WARNING - No filter changed callback set!")  # Debug
+    
     def deleteStigClicked_(self, sender):
         """Handle Delete STIG button click."""
         print("SearchPane.deleteStigClicked_: Called")  # Debug
@@ -211,6 +248,12 @@ class SearchPane(NSView):
         """Get the state of the Rule Title mismatch filter."""
         attrs = get_view_attrs(self)
         return attrs.get('rule_title_mismatch_filter', False)
+    
+    @objc.python_method
+    def get_hide_audit_filter(self):
+        """Get the state of the Hide Audit filter."""
+        attrs = get_view_attrs(self)
+        return attrs.get('hide_audit_filter', False)
     
     @objc.python_method
     def update_vcode_count(self, count):

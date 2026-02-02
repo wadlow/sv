@@ -522,6 +522,21 @@ class AppController:
                 print(f"_update_vcode_list: After Rule Title filter: {len(filtered_vuln_codes)} V-codes")  # Debug
                 all_vuln_codes = filtered_vuln_codes
             
+            # Apply Hide Audit filter (if enabled)
+            hide_audit_filter = SearchPane.get_hide_audit_filter(search_pane)
+            print(f"_update_vcode_list: Hide Audit filter = {hide_audit_filter}")  # Debug
+            
+            if hide_audit_filter:
+                filtered_vuln_codes = []
+                for vc in all_vuln_codes:
+                    # Check if "audit" appears in the rule title (case-insensitive)
+                    rule_title = (vc.rule_title or "").lower()
+                    if "audit" not in rule_title:
+                        filtered_vuln_codes.append(vc)
+                
+                print(f"_update_vcode_list: After Hide Audit filter: {len(filtered_vuln_codes)} V-codes")  # Debug
+                all_vuln_codes = filtered_vuln_codes
+            
             # Apply search filter (currently not implemented, but placeholder)
             filtered_vuln_codes = all_vuln_codes
             

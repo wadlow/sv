@@ -36,14 +36,24 @@ class StatusFilterPane(NSView):
         attrs['invalid_arg_filter'] = False  # Default OFF - when ON, shows ONLY Invalid Argument items
         attrs['rule_title_mismatch_filter'] = False  # Default OFF - when ON, shows ONLY V-codes with Rule Title mismatches
         attrs['no_info_filter'] = False  # Default OFF - when ON, hides V-codes with "no info" Finding Details
+        attrs['low_confidence_filter'] = False  # Default OFF - when ON, shows ONLY V-codes with low confidence Check Text analysis
+        attrs['not_met_filter'] = False  # Default OFF - when ON, shows ONLY V-codes where Check Text criteria are not met
+        attrs['hide_manual_filter'] = False  # Default OFF - when ON, hides V-codes with "MANUAL TEST REQUIRED" in Finding Details
+        attrs['hide_audit_filter'] = False  # Default OFF - when ON, hides V-codes with "audit" in their title
         attrs['on_filter_changed'] = None
+        attrs['on_compare_to_check_text'] = None
         attrs['status_checkboxes'] = {}
         attrs['severity_checkboxes'] = {}
         attrs['mtf_checkbox'] = None
         attrs['invalid_arg_checkbox'] = None
         attrs['rule_title_checkbox'] = None
         attrs['no_info_checkbox'] = None
+        attrs['low_confidence_checkbox'] = None
+        attrs['not_met_checkbox'] = None
+        attrs['hide_manual_checkbox'] = None
+        attrs['hide_audit_checkbox'] = None
         attrs['vcode_count_label'] = None
+        attrs['compare_button'] = None
         StatusFilterPane.createUI(self)
         return self
     
@@ -97,17 +107,17 @@ class StatusFilterPane(NSView):
         status_title.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
         self.addSubview_(status_title)
         
-        # Create status checkboxes
+        # Create status checkboxes with tooltips
         status_checkboxes = {}
         statuses = [
-            (ChecklistStatus.OPEN, "Open"),
-            (ChecklistStatus.NOT_A_FINDING, "Not a Fi..."),
-            (ChecklistStatus.NOT_REVIEWED, "Not Revi..."),
-            (ChecklistStatus.NOT_APPLICABLE, "Not App..."),
+            (ChecklistStatus.OPEN, "Open", "Show V-codes with status: Open"),
+            (ChecklistStatus.NOT_A_FINDING, "Not a Fi...", "Show V-codes with status: Not a Finding"),
+            (ChecklistStatus.NOT_REVIEWED, "Not Revi...", "Show V-codes with status: Not Reviewed"),
+            (ChecklistStatus.NOT_APPLICABLE, "Not App...", "Show V-codes with status: Not Applicable"),
         ]
         
         y_pos -= row_spacing
-        for status, label in statuses:
+        for status, label, tooltip in statuses:
             checkbox_frame = NSRect((10, y_pos), (third_width - 15, 20))
             checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
             checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
@@ -116,6 +126,7 @@ class StatusFilterPane(NSView):
             checkbox.setTarget_(self)
             checkbox.setAction_("statusCheckboxChanged:")
             checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+            checkbox.setToolTip_(tooltip)
             self.addSubview_(checkbox)
             
             status_checkboxes[status] = checkbox
@@ -133,16 +144,16 @@ class StatusFilterPane(NSView):
         severity_title.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
         self.addSubview_(severity_title)
         
-        # Create severity checkboxes
+        # Create severity checkboxes with tooltips
         severity_checkboxes = {}
         severities = [
-            ('high', "High"),
-            ('medium', "Medium"),
-            ('low', "Low/Other"),
+            ('high', "High", "Show V-codes with CAT I (high) severity"),
+            ('medium', "Medium", "Show V-codes with CAT II (medium) severity"),
+            ('low', "Low/Other", "Show V-codes with CAT III (low) severity and other severities"),
         ]
         
         y_pos -= row_spacing
-        for sev_key, label in severities:
+        for sev_key, label, tooltip in severities:
             checkbox_frame = NSRect((third_width + 5, y_pos), (third_width - 15, 20))
             checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
             checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
@@ -151,6 +162,7 @@ class StatusFilterPane(NSView):
             checkbox.setTarget_(self)
             checkbox.setAction_("severityCheckboxChanged:")
             checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+            checkbox.setToolTip_(tooltip)
             self.addSubview_(checkbox)
             
             severity_checkboxes[sev_key] = checkbox
@@ -178,6 +190,7 @@ class StatusFilterPane(NSView):
         mtf_checkbox.setTarget_(self)
         mtf_checkbox.setAction_("mtfCheckboxChanged:")
         mtf_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        mtf_checkbox.setToolTip_("Hide V-codes marked as MTF (Mitigated by Technical Fix) or risk-accepted in Finding Details")
         self.addSubview_(mtf_checkbox)
         
         # Create Invalid Arg checkbox
@@ -190,6 +203,7 @@ class StatusFilterPane(NSView):
         invalid_arg_checkbox.setTarget_(self)
         invalid_arg_checkbox.setAction_("invalidArgCheckboxChanged:")
         invalid_arg_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        invalid_arg_checkbox.setToolTip_("Show ONLY V-codes with 'Invalid Argument' in Finding Details")
         self.addSubview_(invalid_arg_checkbox)
         
         # Create STIG/Checklist Rule Title checkbox
@@ -202,6 +216,7 @@ class StatusFilterPane(NSView):
         rule_title_checkbox.setTarget_(self)
         rule_title_checkbox.setAction_("ruleTitleCheckboxChanged:")
         rule_title_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        rule_title_checkbox.setToolTip_("Show ONLY V-codes where STIG Rule Title differs from Checklist Rule Title")
         self.addSubview_(rule_title_checkbox)
         
         # Create No info checkbox
@@ -214,11 +229,76 @@ class StatusFilterPane(NSView):
         no_info_checkbox.setTarget_(self)
         no_info_checkbox.setAction_("noInfoCheckboxChanged:")
         no_info_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        no_info_checkbox.setToolTip_("Hide V-codes with 'no info' or placeholder text in Finding Details")
         self.addSubview_(no_info_checkbox)
+        
+        # Create Low Confidence checkbox
+        y_pos -= row_spacing
+        low_confidence_checkbox_frame = NSRect((third_width * 2 + 5, y_pos), (third_width - 15, 20))
+        low_confidence_checkbox = NSButton.alloc().initWithFrame_(low_confidence_checkbox_frame)
+        low_confidence_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        low_confidence_checkbox.setTitle_("Low Confid...")
+        low_confidence_checkbox.setState_(0)  # Initially UNchecked
+        low_confidence_checkbox.setTarget_(self)
+        low_confidence_checkbox.setAction_("lowConfidenceCheckboxChanged:")
+        low_confidence_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        low_confidence_checkbox.setToolTip_("Show ONLY V-codes with low confidence Check Text analysis results")
+        self.addSubview_(low_confidence_checkbox)
+        
+        # Create Not Met checkbox
+        y_pos -= row_spacing
+        not_met_checkbox_frame = NSRect((third_width * 2 + 5, y_pos), (third_width - 15, 20))
+        not_met_checkbox = NSButton.alloc().initWithFrame_(not_met_checkbox_frame)
+        not_met_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        not_met_checkbox.setTitle_("Not Met")
+        not_met_checkbox.setState_(0)  # Initially UNchecked
+        not_met_checkbox.setTarget_(self)
+        not_met_checkbox.setAction_("notMetCheckboxChanged:")
+        not_met_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        not_met_checkbox.setToolTip_("Show ONLY V-codes where Check Text criteria are not met based on Finding Details")
+        self.addSubview_(not_met_checkbox)
+        
+        # Create Hide MANUAL checkbox
+        y_pos -= row_spacing
+        hide_manual_checkbox_frame = NSRect((third_width * 2 + 5, y_pos), (third_width - 15, 20))
+        hide_manual_checkbox = NSButton.alloc().initWithFrame_(hide_manual_checkbox_frame)
+        hide_manual_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        hide_manual_checkbox.setTitle_("Hide MANUAL")
+        hide_manual_checkbox.setState_(0)  # Initially UNchecked
+        hide_manual_checkbox.setTarget_(self)
+        hide_manual_checkbox.setAction_("hideManualCheckboxChanged:")
+        hide_manual_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        hide_manual_checkbox.setToolTip_("Hide V-codes with 'MANUAL TEST REQUIRED' in Finding Details")
+        self.addSubview_(hide_manual_checkbox)
+        
+        # Create Hide Audit checkbox
+        y_pos -= row_spacing
+        hide_audit_checkbox_frame = NSRect((third_width * 2 + 5, y_pos), (third_width - 15, 20))
+        hide_audit_checkbox = NSButton.alloc().initWithFrame_(hide_audit_checkbox_frame)
+        hide_audit_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        hide_audit_checkbox.setTitle_("Hide Audit")
+        hide_audit_checkbox.setState_(0)  # Initially UNchecked
+        hide_audit_checkbox.setTarget_(self)
+        hide_audit_checkbox.setAction_("hideAuditCheckboxChanged:")
+        hide_audit_checkbox.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        hide_audit_checkbox.setToolTip_("Hide V-codes with 'audit' in their title (e.g., auditing, audited)")
+        self.addSubview_(hide_audit_checkbox)
+        
+        # Add "Compare to Check Text" button at bottom (left of Close button)
+        compare_btn_width = 180
+        btn_height = 28
+        compare_btn_frame = NSRect((5, 5), (compare_btn_width, btn_height))
+        compare_btn = NSButton.alloc().initWithFrame_(compare_btn_frame)
+        compare_btn.setTitle_("Compare to Check Text")
+        compare_btn.setBezelStyle_(1)  # NSRoundedBezelStyle
+        compare_btn.setTarget_(self)
+        compare_btn.setAction_("compareToCheckText:")
+        compare_btn.setEnabled_(False)  # Initially disabled until V-code is selected
+        self.addSubview_(compare_btn)
+        attrs['compare_button'] = compare_btn
         
         # Add "Close Checklist" button at bottom right corner
         btn_width = 130
-        btn_height = 28
         close_btn_frame = NSRect((width - btn_width - 5, 5), (btn_width, btn_height))
         close_btn = NSButton.alloc().initWithFrame_(close_btn_frame)
         close_btn.setTitle_("Close Checklist")
@@ -236,7 +316,11 @@ class StatusFilterPane(NSView):
         attrs['invalid_arg_checkbox'] = invalid_arg_checkbox
         attrs['rule_title_checkbox'] = rule_title_checkbox
         attrs['no_info_checkbox'] = no_info_checkbox
-        print(f"StatusFilterPane.createUI: Created {len(status_checkboxes)} status + {len(severity_checkboxes)} severity + 4 other checkboxes")  # Debug
+        attrs['low_confidence_checkbox'] = low_confidence_checkbox
+        attrs['not_met_checkbox'] = not_met_checkbox
+        attrs['hide_manual_checkbox'] = hide_manual_checkbox
+        attrs['hide_audit_checkbox'] = hide_audit_checkbox
+        print(f"StatusFilterPane.createUI: Created {len(status_checkboxes)} status + {len(severity_checkboxes)} severity + 8 other checkboxes")  # Debug
         print("StatusFilterPane.createUI: Complete")  # Debug
     
     def statusCheckboxChanged_(self, sender):
@@ -319,6 +403,58 @@ class StatusFilterPane(NSView):
         
         self._trigger_callback()
     
+    def lowConfidenceCheckboxChanged_(self, sender):
+        """Handle Low Confidence checkbox state change."""
+        print(f"StatusFilterPane.lowConfidenceCheckboxChanged_: Checkbox changed")  # Debug
+        attrs = get_view_attrs(self)
+        low_confidence_checkbox = attrs.get('low_confidence_checkbox')
+        
+        # Update Low Confidence filter state (when checked, show ONLY V-codes with low confidence Check Text analysis)
+        if low_confidence_checkbox:
+            attrs['low_confidence_filter'] = (low_confidence_checkbox.state() == 1)
+            print(f"StatusFilterPane: Low confidence filter = {attrs['low_confidence_filter']}")  # Debug
+        
+        self._trigger_callback()
+    
+    def notMetCheckboxChanged_(self, sender):
+        """Handle Not Met checkbox state change."""
+        print(f"StatusFilterPane.notMetCheckboxChanged_: Checkbox changed")  # Debug
+        attrs = get_view_attrs(self)
+        not_met_checkbox = attrs.get('not_met_checkbox')
+        
+        # Update Not Met filter state (when checked, show ONLY V-codes where Check Text criteria are not met)
+        if not_met_checkbox:
+            attrs['not_met_filter'] = (not_met_checkbox.state() == 1)
+            print(f"StatusFilterPane: Not met filter = {attrs['not_met_filter']}")  # Debug
+        
+        self._trigger_callback()
+    
+    def hideManualCheckboxChanged_(self, sender):
+        """Handle Hide MANUAL checkbox state change."""
+        print(f"StatusFilterPane.hideManualCheckboxChanged_: Checkbox changed")  # Debug
+        attrs = get_view_attrs(self)
+        hide_manual_checkbox = attrs.get('hide_manual_checkbox')
+        
+        # Update Hide MANUAL filter state (when checked, hide V-codes with "MANUAL TEST REQUIRED" in Finding Details)
+        if hide_manual_checkbox:
+            attrs['hide_manual_filter'] = (hide_manual_checkbox.state() == 1)
+            print(f"StatusFilterPane: Hide MANUAL filter = {attrs['hide_manual_filter']}")  # Debug
+        
+        self._trigger_callback()
+    
+    def hideAuditCheckboxChanged_(self, sender):
+        """Handle Hide Audit checkbox state change."""
+        print(f"StatusFilterPane.hideAuditCheckboxChanged_: Checkbox changed")  # Debug
+        attrs = get_view_attrs(self)
+        hide_audit_checkbox = attrs.get('hide_audit_checkbox')
+        
+        # Update Hide Audit filter state (when checked, hide V-codes with "audit" in their title)
+        if hide_audit_checkbox:
+            attrs['hide_audit_filter'] = (hide_audit_checkbox.state() == 1)
+            print(f"StatusFilterPane: Hide Audit filter = {attrs['hide_audit_filter']}")  # Debug
+        
+        self._trigger_callback()
+    
     @objc.python_method
     def _trigger_callback(self):
         """Trigger the filter changed callback."""
@@ -380,6 +516,38 @@ class StatusFilterPane(NSView):
         print(f"StatusFilterPane.is_no_info_filter_enabled: {no_info_enabled}")  # Debug
         return no_info_enabled
     
+    @objc.python_method
+    def is_low_confidence_filter_enabled(self):
+        """Check if Low Confidence filter is enabled (show ONLY V-codes with low confidence Check Text analysis)."""
+        attrs = get_view_attrs(self)
+        low_confidence_enabled = attrs.get('low_confidence_filter', False)
+        print(f"StatusFilterPane.is_low_confidence_filter_enabled: {low_confidence_enabled}")  # Debug
+        return low_confidence_enabled
+    
+    @objc.python_method
+    def is_not_met_filter_enabled(self):
+        """Check if Not Met filter is enabled (show ONLY V-codes where Check Text criteria are not met)."""
+        attrs = get_view_attrs(self)
+        not_met_enabled = attrs.get('not_met_filter', False)
+        print(f"StatusFilterPane.is_not_met_filter_enabled: {not_met_enabled}")  # Debug
+        return not_met_enabled
+    
+    @objc.python_method
+    def is_hide_manual_filter_enabled(self):
+        """Check if Hide MANUAL filter is enabled (hide V-codes with 'MANUAL TEST REQUIRED' in Finding Details)."""
+        attrs = get_view_attrs(self)
+        hide_manual_enabled = attrs.get('hide_manual_filter', False)
+        print(f"StatusFilterPane.is_hide_manual_filter_enabled: {hide_manual_enabled}")  # Debug
+        return hide_manual_enabled
+    
+    @objc.python_method
+    def is_hide_audit_filter_enabled(self):
+        """Check if Hide Audit filter is enabled (hide V-codes with 'audit' in their title)."""
+        attrs = get_view_attrs(self)
+        hide_audit_enabled = attrs.get('hide_audit_filter', False)
+        print(f"StatusFilterPane.is_hide_audit_filter_enabled: {hide_audit_enabled}")  # Debug
+        return hide_audit_enabled
+    
     def closeChecklist_(self, sender):
         """Handle Close Checklist button click."""
         print("StatusFilterPane.closeChecklist_: Button clicked")  # Debug
@@ -390,6 +558,17 @@ class StatusFilterPane(NSView):
             on_close_callback()
         else:
             print("StatusFilterPane.closeChecklist_: WARNING - No close callback set!")  # Debug
+    
+    def compareToCheckText_(self, sender):
+        """Handle Compare to Check Text button click."""
+        print("StatusFilterPane.compareToCheckText_: Button clicked")  # Debug
+        attrs = get_view_attrs(self)
+        on_compare_callback = attrs.get('on_compare_to_check_text')
+        if on_compare_callback:
+            print("StatusFilterPane.compareToCheckText_: Calling compare callback")  # Debug
+            on_compare_callback()
+        else:
+            print("StatusFilterPane.compareToCheckText_: WARNING - No compare callback set!")  # Debug
     
     @objc.python_method
     def set_on_filter_changed(self, callback):
@@ -419,4 +598,22 @@ class StatusFilterPane(NSView):
             print(f"StatusFilterPane.update_vcode_count: Updated count to {count}")  # Debug
         else:
             print("StatusFilterPane.update_vcode_count: WARNING - No count label!")  # Debug
+    
+    @objc.python_method
+    def set_on_compare_to_check_text(self, callback):
+        """Set the callback for Compare to Check Text button."""
+        attrs = get_view_attrs(self)
+        attrs['on_compare_to_check_text'] = callback
+        print("StatusFilterPane.set_on_compare_to_check_text: Callback set")  # Debug
+    
+    @objc.python_method
+    def set_compare_button_enabled(self, enabled):
+        """Enable or disable the Compare to Check Text button."""
+        attrs = get_view_attrs(self)
+        compare_button = attrs.get('compare_button')
+        if compare_button:
+            compare_button.setEnabled_(enabled)
+            print(f"StatusFilterPane.set_compare_button_enabled: Set to {enabled}")  # Debug
+        else:
+            print("StatusFilterPane.set_compare_button_enabled: WARNING - No compare button!")  # Debug
 
