@@ -66,6 +66,7 @@ class CklDetailPane(NSView):
         pane1_scroll.setHasHorizontalScroller_(False)
         pane1_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane1_scroll.setBorderType_(1)  # NSBezelBorder
+        pane1_scroll.setToolTip_("General information about the selected V-code: STIG name/version, V-code ID, Rule ID, Severity, Status, and Rule Title")
         
         attrs = get_view_attrs(self)
         # Create text view with proper frame initialization
@@ -88,6 +89,7 @@ class CklDetailPane(NSView):
         pane2_scroll.setHasHorizontalScroller_(False)
         pane2_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane2_scroll.setBorderType_(1)  # NSBezelBorder
+        pane2_scroll.setToolTip_("Detailed STIG information: Discussion (why this requirement exists), Check Text (how to verify compliance), and Fix Text (how to remediate)")
         
         # Create text view with proper frame initialization
         text_frame = NSRect((0, 0), (width, pane2_height))
@@ -109,6 +111,7 @@ class CklDetailPane(NSView):
         pane3_scroll.setHasHorizontalScroller_(False)
         pane3_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane3_scroll.setBorderType_(1)  # NSBezelBorder
+        pane3_scroll.setToolTip_("Finding Details (EDITABLE): Document the specific findings from testing this V-code, including evidence, command output, or screenshots")
         
         # Create text view with proper frame initialization
         text_frame = NSRect((0, 0), (width, pane3_height))
@@ -135,6 +138,7 @@ class CklDetailPane(NSView):
         pane4_scroll.setHasHorizontalScroller_(False)
         pane4_scroll.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         pane4_scroll.setBorderType_(1)  # NSBezelBorder
+        pane4_scroll.setToolTip_("Comments (EDITABLE): Add notes, explanations, or additional context about the finding, remediation status, or exceptions")
         
         # Create text view with proper frame initialization
         text_frame = NSRect((0, 0), (width, pane4_height))

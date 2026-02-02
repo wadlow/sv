@@ -519,8 +519,10 @@ class CklView(NSView):
             not_met_filter_enabled = StatusFilterPane.is_not_met_filter_enabled(status_filter_pane)
             hide_manual_filter_enabled = StatusFilterPane.is_hide_manual_filter_enabled(status_filter_pane)
             hide_audit_filter_enabled = StatusFilterPane.is_hide_audit_filter_enabled(status_filter_pane)
+            no_comment_filter_enabled = StatusFilterPane.is_no_comment_filter_enabled(status_filter_pane)
+            tbd_filter_enabled = StatusFilterPane.is_tbd_filter_enabled(status_filter_pane)
             if _CKL_DEBUG:
-                print(f"CklView._update_vcode_list: {len(enabled_statuses)} statuses, {len(enabled_severities)} severities enabled, MTF={mtf_filter_enabled}, Invalid Arg={invalid_arg_filter_enabled}, Rule Title Mismatch={rule_title_mismatch_filter_enabled}, No info={no_info_filter_enabled}, Low Confidence={low_confidence_filter_enabled}, Not Met={not_met_filter_enabled}, Hide MANUAL={hide_manual_filter_enabled}, Hide Audit={hide_audit_filter_enabled}")  # Debug
+                print(f"CklView._update_vcode_list: {len(enabled_statuses)} statuses, {len(enabled_severities)} severities enabled, MTF={mtf_filter_enabled}, Invalid Arg={invalid_arg_filter_enabled}, Rule Title Mismatch={rule_title_mismatch_filter_enabled}, No info={no_info_filter_enabled}, Low Confidence={low_confidence_filter_enabled}, Not Met={not_met_filter_enabled}, Hide MANUAL={hide_manual_filter_enabled}, Hide Audit={hide_audit_filter_enabled}, No Comment={no_comment_filter_enabled}, TBD={tbd_filter_enabled}")  # Debug
             
             # Filter V-codes based on their status in the CKL, severity, MTF, and Invalid Arg
             vuln_code_to_ckl_vuln = attrs.get('vuln_code_to_ckl_vuln', {})
@@ -618,6 +620,24 @@ class CklView(NSView):
                                 continue  # Skip this V-code (has "audit" in title)
                             if _CKL_DEBUG:
                                 print(f"CklView: {vc.v_code} passed Hide Audit filter check")  # Debug
+                        
+                        # Check No Comment filter (show ONLY V-codes with empty Comment pane when enabled)
+                        if no_comment_filter_enabled:
+                            comments_full = (ckl_vuln.comments or "").strip()
+                            # Only include if comments are empty
+                            if comments_full:
+                                continue  # Skip this V-code (has comments)
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} has no comments")  # Debug
+                        
+                        # Check TBD filter (show ONLY V-codes with "TBD" in Comment pane when enabled)
+                        if tbd_filter_enabled:
+                            comments_full = (ckl_vuln.comments or "").upper()
+                            # Only include if comments contain "TBD"
+                            if "TBD" not in comments_full:
+                                continue  # Skip this V-code (no "TBD" in comments)
+                            if _CKL_DEBUG:
+                                print(f"CklView: {vc.v_code} has TBD in comments")  # Debug
                         
                         filtered_vuln_codes.append(vc)
             
@@ -728,6 +748,8 @@ class CklView(NSView):
             not_met_filter_enabled = StatusFilterPane.is_not_met_filter_enabled(status_filter_pane)
             hide_manual_filter_enabled = StatusFilterPane.is_hide_manual_filter_enabled(status_filter_pane)
             hide_audit_filter_enabled = StatusFilterPane.is_hide_audit_filter_enabled(status_filter_pane)
+            no_comment_filter_enabled = StatusFilterPane.is_no_comment_filter_enabled(status_filter_pane)
+            tbd_filter_enabled = StatusFilterPane.is_tbd_filter_enabled(status_filter_pane)
             
             # Apply status filter
             filtered_vulns = [v for v in filtered_vulns if v.status in enabled_statuses]
@@ -872,6 +894,22 @@ class CklView(NSView):
                                  if "audit" not in (v.rule_title or "").lower()]
                 if _CKL_DEBUG:
                     print(f"CklView._update_pie_chart: Hide Audit filter removed {before_count - len(filtered_vulns)} vulns, {len(filtered_vulns)} remain")
+            
+            # Apply No Comment filter (show ONLY V-codes with empty Comment pane when enabled)
+            if no_comment_filter_enabled:
+                before_count = len(filtered_vulns)
+                filtered_vulns = [v for v in filtered_vulns 
+                                 if not (v.comments or "").strip()]
+                if _CKL_DEBUG:
+                    print(f"CklView._update_pie_chart: No Comment filter kept {len(filtered_vulns)} of {before_count} vulns")
+            
+            # Apply TBD filter (show ONLY V-codes with "TBD" in Comment pane when enabled)
+            if tbd_filter_enabled:
+                before_count = len(filtered_vulns)
+                filtered_vulns = [v for v in filtered_vulns 
+                                 if "TBD" in (v.comments or "").upper()]
+                if _CKL_DEBUG:
+                    print(f"CklView._update_pie_chart: TBD filter kept {len(filtered_vulns)} of {before_count} vulns")
         
         if _CKL_DEBUG:
             print(f"CklView._update_pie_chart: Updating pie chart with {len(filtered_vulns)} vulns")  # Debug
