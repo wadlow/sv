@@ -243,6 +243,9 @@ class AppController:
                 
                 # Create CKL view and add tab
                 ckl_view = CklView.alloc().init()
+                # Store reference to app_controller so it can access loaded STIGs
+                ckl_view_attrs = get_view_attrs(ckl_view)
+                ckl_view_attrs['app_controller'] = self
                 CklView.set_ckl_file(ckl_view, ckl_file)
                 self.main_window.add_ckl_tab(ckl_file, ckl_view)
             except CklParserError as e:
@@ -274,6 +277,9 @@ class AppController:
             
             # Create CKL view and add tab
             ckl_view = CklView.alloc().init()
+            # Store reference to app_controller so it can access loaded STIGs
+            ckl_view_attrs = get_view_attrs(ckl_view)
+            ckl_view_attrs['app_controller'] = self
             CklView.set_ckl_file(ckl_view, ckl_file)
             self.main_window.add_ckl_tab(ckl_file, ckl_view)
         except Exception as e:

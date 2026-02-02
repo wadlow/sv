@@ -95,6 +95,9 @@ class TooltipTableView(NSTableView):
         stig_file = data_source.stig_files[row]
         print(f"TooltipTableView: STIG at row {row}: version={stig_file.stig_version}, release={stig_file.stig_release}")  # Debug
         
+        # Check if this STIG is outdated (only set for CKL tab STIGs)
+        is_outdated = getattr(stig_file, 'is_outdated', False)
+        
         # Build tooltip: check if prefixes are already present
         tooltip_parts = []
         
@@ -116,6 +119,9 @@ class TooltipTableView(NSTableView):
         
         if tooltip_parts:
             tooltip = ''.join(tooltip_parts)
+            # Prepend "**OLD** " if this STIG is outdated
+            if is_outdated:
+                tooltip = f"**OLD** {tooltip}"
             print(f"TooltipTableView: Returning tooltip: '{tooltip}'")  # Debug
             return tooltip
         

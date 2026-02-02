@@ -257,11 +257,40 @@ class CklView(NSView):
         if _CKL_DEBUG:
             print(f"CklView.updateDisplay: Updating display for {ckl_file.file_name}")  # Debug
         
+        # Get loaded STIGs to compare versions
+        app_controller = attrs.get('app_controller')
+        loaded_stigs = {}
+        if app_controller and hasattr(app_controller, 'stig_files'):
+            # Build a map of STIG name to StigFile for version comparison
+            for stig in app_controller.stig_files:
+                loaded_stigs[stig.stig_name] = stig
+            if _CKL_DEBUG:
+                print(f"CklView.updateDisplay: Found {len(loaded_stigs)} loaded STIGs for comparison")  # Debug
+        
         # Convert CKL STIGs to StigFile objects for display
         stig_files = []
         for stig_info in ckl_file.stigs:
             # Get vulns for this STIG
             stig_vulns = [v for v in ckl_file.vulns if v.stig_info.stig_id == stig_info.stig_id]
+            
+            # Use the release info from the CKL file (it represents the STIG version used to create the CKL)
+            release_info = stig_info.release_info
+            version_info = stig_info.version
+            
+            # Check if this STIG version is outdated compared to loaded STIG
+            is_outdated = False
+            if stig_info.title in loaded_stigs:
+                loaded_stig = loaded_stigs[stig_info.title]
+                # Compare version and release
+                ckl_version = str(version_info or "").strip()
+                ckl_release = str(release_info or "").strip()
+                loaded_version = str(loaded_stig.stig_version or "").strip()
+                loaded_release = str(loaded_stig.stig_release or "").strip()
+                
+                if (ckl_version != loaded_version) or (ckl_release != loaded_release):
+                    is_outdated = True
+                    if _CKL_DEBUG:
+                        print(f"CklView.updateDisplay: '{stig_info.title}' is outdated - CKL: V{ckl_version}{ckl_release} vs Loaded: V{loaded_version}{loaded_release}")  # Debug
             
             # Convert CklVuln to VulnCode for this STIG
             vuln_codes = []
@@ -278,8 +307,8 @@ class CklView(NSView):
                     rule_id=ckl_vuln.rule_id,
                     rule_ver=ckl_vuln.rule_ver,
                     stig_name=stig_info.title,
-                    stig_version=stig_info.version,
-                    stig_release=stig_info.release_info
+                    stig_version=version_info,
+                    stig_release=release_info
                 )
                 vuln_codes.append(vuln_code)
             
@@ -288,11 +317,16 @@ class CklView(NSView):
                 file_path=Path(stig_info.filename),
                 file_name=stig_info.filename,
                 stig_name=stig_info.title,
-                stig_version=stig_info.version,
-                stig_release=stig_info.release_info,
+                stig_version=version_info,
+                stig_release=release_info,
                 vuln_codes=vuln_codes,
                 is_checked=True  # Initially checked
             )
+            
+            # Store whether this STIG is outdated in the StigFile object
+            # We'll use a custom attribute that the tooltip can check
+            stig_file.is_outdated = is_outdated
+            
             stig_files.append(stig_file)
         
         if _CKL_DEBUG:

@@ -36,11 +36,23 @@ class CklWriter:
         
         for stig_file in stig_files:
             # Create CklStigInfo from StigFile
+            # Format release_info in the standard CKL format: "Release: X"
+            release_str = stig_file.stig_release or ""
+            if release_str:
+                # If release already has "R" prefix (e.g., "R6"), strip it for the CKL format
+                if release_str.upper().startswith('R') and len(release_str) > 1:
+                    release_num = release_str[1:]
+                else:
+                    release_num = release_str
+                release_info = f"Release: {release_num}"
+            else:
+                release_info = "Release: Unknown"
+            
             stig_info = CklStigInfo(
                 stig_id=stig_file.stig_name.replace(' ', '_'),
                 version=stig_file.stig_version,
                 title=stig_file.stig_name,
-                release_info=f"Release: {stig_file.stig_release}",
+                release_info=release_info,
                 uuid=str(uuid.uuid4()),  # Generate a valid UUID
                 filename=stig_file.file_name,
             )

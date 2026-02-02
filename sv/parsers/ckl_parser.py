@@ -146,6 +146,32 @@ class CklParser:
             version = stig_data.get('version', 'Unknown')
             title = stig_data.get('title', '')
             release_info = stig_data.get('releaseinfo', '')
+            
+            # Parse release_info to extract just the release number in "RX" format
+            # Format can be: "Release: 6", "Release: R6", "Release: Unknown", or just "R6"
+            if release_info:
+                if release_info.startswith('Release: '):
+                    # Strip "Release: " prefix
+                    release_value = release_info[9:].strip()
+                    
+                    # If it's "Unknown", set to empty
+                    if release_value.upper() == 'UNKNOWN':
+                        release_info = ''
+                    # If it's just a number, add "R" prefix
+                    elif release_value.isdigit():
+                        release_info = f"R{release_value}"
+                    # If it already has "R" prefix (e.g., "R6"), keep it
+                    elif release_value.upper().startswith('R') and release_value[1:].isdigit():
+                        release_info = release_value.upper()
+                    else:
+                        # Unknown format, keep as-is
+                        release_info = release_value
+                # If no "Release: " prefix, assume it's already in correct format (e.g., "R6")
+                elif not release_info.upper().startswith('R'):
+                    # If it's just a number, add "R" prefix
+                    if release_info.isdigit():
+                        release_info = f"R{release_info}"
+            
             uuid = stig_data.get('uuid', '')
             filename = stig_data.get('filename', '')
             
