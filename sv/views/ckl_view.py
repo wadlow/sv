@@ -308,7 +308,8 @@ class CklView(NSView):
                     rule_ver=ckl_vuln.rule_ver,
                     stig_name=stig_info.title,
                     stig_version=version_info,
-                    stig_release=release_info
+                    stig_release=release_info,
+                    references=ckl_vuln.references,
                 )
                 vuln_codes.append(vuln_code)
             
@@ -977,7 +978,8 @@ class CklView(NSView):
                 vuln_code,
                 finding_details=ckl_vuln.finding_details,
                 comments=ckl_vuln.comments,
-                status=str(ckl_vuln.status)
+                status=str(ckl_vuln.status),
+                ckl_vuln=ckl_vuln
             )
         else:
             if _CKL_DEBUG:

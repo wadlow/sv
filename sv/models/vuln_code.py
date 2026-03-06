@@ -24,6 +24,18 @@ class Severity:
     def display_name(cls, severity: str) -> str:
         """Human-readable display name."""
         return severity.capitalize()
+    
+    @classmethod
+    def to_cat_format(cls, severity: str) -> str:
+        """Convert severity to official STIGViewer CAT format (CAT I, CAT II, CAT III)."""
+        value_lower = (severity or "").lower()
+        if value_lower in (cls.HIGH, cls.CRITICAL):
+            return "CAT I"
+        if value_lower == cls.MEDIUM:
+            return "CAT II"
+        if value_lower == cls.LOW:
+            return "CAT III"
+        return "CAT II"  # Default for unknown
 
 
 @dataclass
@@ -43,6 +55,7 @@ class VulnCode:
     stig_name: str
     stig_version: str
     stig_release: str
+    references: str = ""  # CCI, NIST 800-53, etc. (formatted for display)
     
     def __hash__(self):
         """Make hashable for use in sets/dicts."""

@@ -1048,6 +1048,9 @@ class CompareCklView(NSView):
         details.append("")
         details.append("Fix Text:")
         details.append(vuln.fix_text or "(None)")
+        details.append("")
+        details.append("References:")
+        details.append(getattr(vuln, 'references', '') or "(None)")
         
         detail_text = "\n".join(details)
         

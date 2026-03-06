@@ -7,7 +7,7 @@ from AppKit import (
 from Foundation import NSObject
 from typing import Optional
 
-from ..models.vuln_code import VulnCode
+from ..models.vuln_code import VulnCode, Severity
 from .view_helpers import get_view_attrs, get_bounds_size
 
 
@@ -132,15 +132,16 @@ class VCodeDetailPane(NSView):
         print(f"VCodeDetailPane.set_vuln_code: vuln_code.check_text = {vuln_code.check_text[:50] if vuln_code.check_text else 'None'}...")  # Debug
         print(f"VCodeDetailPane.set_vuln_code: vuln_code.fix_text = {vuln_code.fix_text[:50] if vuln_code.fix_text else 'None'}...")  # Debug
         
-        # Build description text without header banner
+        # Build description text - use CAT severity format to match official STIGViewer
+        cat_severity = Severity.to_cat_format(vuln_code.severity)
         desc_lines = [
             f"STIG: {vuln_code.stig_name}",
             f"Version: {vuln_code.stig_version}",
             f"Release: {vuln_code.stig_release}",
             "",
-            f"V-code: {vuln_code.v_code}",
+            f"Vul ID: {vuln_code.v_code}",
             f"Rule ID: {vuln_code.rule_id}",
-            f"Severity: {vuln_code.severity.upper()}",
+            f"Severity: {cat_severity}",
             "",
             f"Rule Title:",
             f"{vuln_code.rule_title}",
@@ -154,7 +155,7 @@ class VCodeDetailPane(NSView):
         else:
             print("VCodeDetailPane.set_vuln_code: WARNING - No description_text view!")  # Debug
         
-        # Build details text without header banner
+        # Build details text without header banner (Discussion, Check Text, Fix Text, References)
         details_lines = [
             "Discussion:",
             "-" * 80,
@@ -170,6 +171,14 @@ class VCodeDetailPane(NSView):
             "-" * 80,
             vuln_code.fix_text or "(No fix text available)",
         ]
+        references = getattr(vuln_code, 'references', '') or ""
+        details_lines.extend([
+            "",
+            "",
+            "References",
+            "-" * 80,
+            references or "(None)",
+        ])
         details = "\n".join(details_lines)
         print(f"VCodeDetailPane.set_vuln_code: discussion={len(vuln_code.discussion or '')} chars, check_text={len(vuln_code.check_text or '')} chars, fix_text={len(vuln_code.fix_text or '')} chars")  # Debug
         

@@ -8,7 +8,7 @@ from Foundation import NSObject
 from typing import Optional
 import objc
 
-from ..models.vuln_code import VulnCode
+from ..models.vuln_code import VulnCode, Severity
 from ..models.ckl_file import CklVuln
 from .view_helpers import get_view_attrs, get_bounds_size
 
@@ -173,8 +173,12 @@ class CklDetailPane(NSView):
         print("CklDetailPane.createUI: Complete")  # Debug
     
     @objc.python_method
-    def set_vuln_code(self, vuln_code: Optional[VulnCode], finding_details: str = "", comments: str = "", status: str = ""):
-        """Set the V-code to display with CKL-specific fields."""
+    def set_vuln_code(self, vuln_code: Optional[VulnCode], finding_details: str = "", comments: str = "", status: str = "", ckl_vuln: Optional[CklVuln] = None):
+        """Set the V-code to display with CKL-specific fields.
+        
+        When ckl_vuln is provided, uses official STIGViewer format with STIG ID,
+        Classification, Legacy IDs, and CAT severity.
+        """
         print(f"CklDetailPane.set_vuln_code: Called with {vuln_code.v_code if vuln_code else 'None'}")  # Debug
         attrs = get_view_attrs(self)
         attrs['current_vuln_code'] = vuln_code
@@ -196,22 +200,58 @@ class CklDetailPane(NSView):
                 comments_text.setString_("")
             return
         
-        # Build general info text without banner
-        general_lines = [
-            f"STIG: {vuln_code.stig_name}",
-            f"Version: {vuln_code.stig_version}",
-            f"Release: {vuln_code.stig_release}",
-            "",
-            f"V-code: {vuln_code.v_code}",
-            f"Rule ID: {vuln_code.rule_id}",
-            f"Severity: {vuln_code.severity.upper()}",
-        ]
+        # Use CAT severity format (CAT I, CAT II, CAT III)
+        cat_severity = Severity.to_cat_format(vuln_code.severity)
         
-        # Add status if provided
-        if status:
-            # Convert status enum to readable string
-            status_display = str(status).replace("ChecklistStatus.", "").replace("_", " ").title()
-            general_lines.append(f"Status: {status_display}")
+        if ckl_vuln and ckl_vuln.stig_info:
+            # Official STIGViewer format with full metadata
+            stig_info = ckl_vuln.stig_info
+            version_str = stig_info.version or vuln_code.stig_version
+            release_str = stig_info.release_info or vuln_code.stig_release
+            # Format: "STIG Name :: Version X, Release: Y Benchmark Date: Z"
+            extra_parts = []
+            if version_str:
+                extra_parts.append(f"Version {version_str}")
+            release_benchmark = []
+            if release_str:
+                release_num = release_str[1:] if release_str.upper().startswith("R") and len(release_str) > 1 else release_str
+                release_benchmark.append(f"Release: {release_num}")
+            if stig_info.benchmark_date:
+                release_benchmark.append(f"Benchmark Date: {stig_info.benchmark_date}")
+            if release_benchmark:
+                extra_parts.append(" ".join(release_benchmark))
+            title_line = vuln_code.stig_name
+            if extra_parts:
+                title_line += " :: " + ", ".join(extra_parts)
+            
+            general_lines = [
+                f"Title: {title_line}",
+                "",
+                f"Vul ID: {vuln_code.v_code}",
+                f"Rule ID: {vuln_code.rule_id}",
+                f"STIG ID: {stig_info.stig_id}",
+                f"Severity: {cat_severity}",
+                f"Classification: {stig_info.classification or 'Unclass'}",
+            ]
+            if ckl_vuln.legacy_ids:
+                general_lines.append(f"Legacy IDs: {ckl_vuln.legacy_ids}")
+            if status:
+                status_display = str(status).replace("ChecklistStatus.", "").replace("_", " ").title()
+                general_lines.append(f"Status: {status_display}")
+        else:
+            # Fallback format when ckl_vuln not available
+            general_lines = [
+                f"STIG: {vuln_code.stig_name}",
+                f"Version: {vuln_code.stig_version}",
+                f"Release: {vuln_code.stig_release}",
+                "",
+                f"Vul ID: {vuln_code.v_code}",
+                f"Rule ID: {vuln_code.rule_id}",
+                f"Severity: {cat_severity}",
+            ]
+            if status:
+                status_display = str(status).replace("ChecklistStatus.", "").replace("_", " ").title()
+                general_lines.append(f"Status: {status_display}")
         
         general_lines.extend([
             "",
@@ -223,22 +263,30 @@ class CklDetailPane(NSView):
         if general_info_text:
             general_info_text.setString_(general_info)
         
-        # Build specific details text without banner
+        # Build specific details text without banner (Discussion, Check Text, Fix Text, References)
         details_lines = [
             "Discussion:",
             "-" * 80,
-            vuln_code.discussion,
+            vuln_code.discussion or "",
             "",
             "",
             "Check Text:",
             "-" * 80,
-            vuln_code.check_text,
+            vuln_code.check_text or "",
             "",
             "",
             "Fix Text:",
             "-" * 80,
-            vuln_code.fix_text,
+            vuln_code.fix_text or "",
         ]
+        references = getattr(vuln_code, 'references', '') or ""
+        details_lines.extend([
+            "",
+            "",
+            "References",
+            "-" * 80,
+            references or "(None)",
+        ])
         specific_details = "\n".join(details_lines)
         
         if specific_details_text:

@@ -1,5 +1,6 @@
 """CKL file parser for checklist XML format."""
 
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Optional
@@ -145,7 +146,16 @@ class CklParser:
             stig_id = stig_data.get('stigid', '')
             version = stig_data.get('version', 'Unknown')
             title = stig_data.get('title', '')
-            release_info = stig_data.get('releaseinfo', '')
+            raw_release_info = stig_data.get('releaseinfo', '')
+            release_info = raw_release_info
+            
+            # Extract benchmark date (e.g., "01 Oct 2025" from "Release: 4 Benchmark Date: 01 Oct 2025")
+            benchmark_date = ''
+            benchmark_match = re.search(r'Benchmark Date:\s*(.+)', raw_release_info, re.IGNORECASE)
+            if benchmark_match:
+                benchmark_date = benchmark_match.group(1).strip()
+            
+            classification = stig_data.get('classification', '') or stig_data.get('Classification', '') or 'Unclass'
             
             # Parse release_info to extract just the release number in "RX" format
             # Format can be: "Release: 6", "Release: R6", "Release: Unknown", or just "R6"
@@ -183,6 +193,8 @@ class CklParser:
                     release_info=release_info,
                     uuid=uuid,
                     filename=filename,
+                    classification=classification or 'Unclass',
+                    benchmark_date=benchmark_date,
                 )
                 stigs.append(stig_info)
         
@@ -254,6 +266,23 @@ class CklParser:
                 severity_str = vuln_data.get('Severity', 'medium')
                 severity = Severity.from_string(severity_str)
                 
+                # Extract legacy IDs (various attribute names used in CKL format)
+                legacy_ids = (
+                    vuln_data.get('Legacy_IDs', '') or
+                    vuln_data.get('Legacy_ID', '') or
+                    vuln_data.get('Legacy', '') or
+                    vuln_data.get('Identifiers', '') or
+                    ''
+                )
+                
+                # Extract references (CCI, NIST 800-53) from IA_Controls or References
+                references = (
+                    vuln_data.get('IA_Controls', '') or
+                    vuln_data.get('References', '') or
+                    vuln_data.get('IAControls', '') or
+                    ''
+                )
+                
                 vuln = CklVuln(
                     id=f"{v_code}-{stig_id}",
                     v_code=v_code,
@@ -269,6 +298,8 @@ class CklParser:
                     finding_details=finding_details,
                     comments=comments,
                     stig_info=stig_info,
+                    legacy_ids=legacy_ids,
+                    references=references,
                 )
                 vulns.append(vuln)
         

@@ -4,6 +4,7 @@ from AppKit import (
     NSWindow, NSWindowStyleMask, NSRect, NSView, NSTabView, NSTabViewItem,
     NSApplication, NSBackingStoreBuffered, NSScreen
 )
+from PyObjCTools import AppHelper
 
 from .explorer_view import ExplorerView
 
@@ -18,6 +19,7 @@ class MainWindow:
         self.explorer_tab = None
         self.ckl_tabs = {}  # Map of CKL file paths to tab items
         self.compare_tab = None  # Compare tab item
+        self.check_for_stigs_tab = None  # Check for STIGs tab item
         self.createWindow()
     
     def createWindow(self):
@@ -205,6 +207,27 @@ class MainWindow:
             print(f"MainWindow.add_compare_ckl_tab: ERROR - {e}")  # Debug
             traceback.print_exc()
     
+    def add_check_for_stigs_tab(self, check_view):
+        """Add the Check for STIGs tab."""
+        from .view_helpers import get_view_attrs
+        attrs = get_view_attrs(check_view)
+        attrs['main_window'] = self
+        tab_item = NSTabViewItem.alloc().init()
+        tab_item.setLabel_("Check for STIGs")
+        check_view.setAutoresizingMask_(0x12)
+        tab_item.setView_(check_view)
+        self.tab_view.addTabViewItem_(tab_item)
+        self.check_for_stigs_tab = tab_item
+        self.tab_view.selectTabViewItem_(tab_item)
+    
+    def remove_check_for_stigs_tab(self):
+        """Remove the Check for STIGs tab."""
+        if hasattr(self, 'check_for_stigs_tab') and self.check_for_stigs_tab:
+            self.tab_view.removeTabViewItem_(self.check_for_stigs_tab)
+            self.check_for_stigs_tab = None
+            if self.tab_view.numberOfTabViewItems() > 0:
+                self.tab_view.selectTabViewItemAtIndex_(0)
+    
     def remove_compare_ckl_tab(self):
         """Remove the Compare CKLs tab."""
         print("MainWindow.remove_compare_ckl_tab: Called")  # Debug
@@ -233,9 +256,16 @@ class MainWindow:
         return self.tab_view.indexOfTabViewItem_(selected_item) == 0
     
     def show(self):
-        """Show the window."""
+        """Show the window and bring it to the front."""
         if self.window:
+            app = NSApplication.sharedApplication()
+            app.activateIgnoringOtherApps_(True)
             self.window.makeKeyAndOrderFront_(None)
+            # Defer a second activation pass so the window reliably comes to front when launched from terminal
+            def bring_to_front():
+                app.activateIgnoringOtherApps_(True)
+                self.window.orderFrontRegardless()
+            AppHelper.callAfter(0.1, bring_to_front)
     
     def close(self):
         """Close the window."""

@@ -52,7 +52,7 @@ class AppDelegate(NSObject):
             return False
         
         action = menu_item.action()
-        if action == 'importStig:' or action == 'compareStigs:' or \
+        if action == 'importStig:' or action == 'compareStigs:' or action == 'checkForStigs:' or \
            action == 'openChecklist:' or action == 'compareCkls:' or action == 'showPreferences:':
             return True
         
@@ -73,6 +73,11 @@ class AppDelegate(NSObject):
         """Handle Compare STIGs menu action."""
         if hasattr(self, 'app_controller') and self.app_controller:
             self.app_controller.compare_stigs()
+    
+    def checkForStigs_(self, sender):
+        """Handle Check for STIGs menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.check_for_stigs()
     
     def openChecklist_(self, sender):
         """Handle Open Checklist menu action."""

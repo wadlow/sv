@@ -101,6 +101,29 @@ class AppController:
             traceback.print_exc()
             self._show_error(f"Error opening Compare tab: {e}")
     
+    def check_for_stigs(self):
+        """Open the Check for STIGs tab."""
+        print("AppController.check_for_stigs: Called")  # Debug
+        try:
+            from PyObjCTools import AppHelper
+            from ..views.check_for_stigs_view import CheckForStigsView
+            check_view = CheckForStigsView.alloc().init()
+            check_view_attrs = get_view_attrs(check_view)
+            check_view_attrs['app_controller'] = self
+            check_view.set_app_controller(self)
+            self.main_window.add_check_for_stigs_tab(check_view)
+            # Use same STIGs as Explorer (app_controller.stig_files is the source of truth)
+            stig_files = self.stig_files
+            check_view.set_stig_files(stig_files)
+            # Also refresh after layout in case table wasn't ready
+            AppHelper.callAfter(0.1, lambda: check_view.set_stig_files(stig_files))
+            print("AppController.check_for_stigs: Tab added successfully")  # Debug
+        except Exception as e:
+            import traceback
+            print(f"AppController.check_for_stigs: ERROR - {e}")  # Debug
+            traceback.print_exc()
+            self._show_error(f"Error opening Check for STIGs tab: {e}")
+    
     def compare_ckls(self):
         """Open the Compare CKLs tab."""
         print("AppController.compare_ckls: Called")  # Debug
@@ -189,6 +212,9 @@ class AppController:
                     self._show_error(f"Unexpected error loading {file_path.name}: {e}")
             
             print(f"Imported {imported_count} file(s), updating view...")  # Debug output
+            # Deduplicate in case same file was imported twice or path was duplicated
+            self._deduplicate_stigs()
+            
             # Update explorer view on main thread
             from PyObjCTools import AppHelper
             from AppKit import NSApplication
@@ -335,6 +361,20 @@ class AppController:
             self._save_persistent_stigs()
             self._update_explorer_view()
     
+    def _deduplicate_stigs(self):
+        """Remove duplicate STIGs (same file_path + stig_name + version + release)."""
+        seen = set()
+        unique = []
+        for stig in self.stig_files:
+            key = (str(stig.file_path), stig.stig_name, stig.stig_version, stig.stig_release)
+            if key not in seen:
+                seen.add(key)
+                unique.append(stig)
+        if len(unique) < len(self.stig_files):
+            removed = len(self.stig_files) - len(unique)
+            self.stig_files = unique
+            print(f"_deduplicate_stigs: Removed {removed} duplicate STIG(s)")  # Debug
+    
     def _load_persistent_stigs(self):
         """Load persistent STIG files from disk."""
         if not self.PERSIST_FILE.exists():
@@ -344,6 +384,8 @@ class AppController:
             with open(self.PERSIST_FILE, 'r') as f:
                 stig_paths = json.load(f)
             
+            # Parse each path only once (avoid duplicates from old saves)
+            stig_paths = list(dict.fromkeys(stig_paths))
             print(f"Loading {len(stig_paths)} persistent STIG files...")  # Debug
             for path_str in stig_paths:
                 path = Path(path_str)
@@ -358,6 +400,9 @@ class AppController:
                 else:
                     print(f"Skipping non-existent file: {path}")  # Debug
             
+            # Deduplicate in case of corrupted persistent data
+            self._deduplicate_stigs()
+            
             # Update explorer view with loaded files
             if len(self.stig_files) > 0:
                 self._update_explorer_view()
@@ -367,8 +412,8 @@ class AppController:
     def _save_persistent_stigs(self):
         """Save persistent STIG file paths to disk."""
         try:
-            # Save only the file paths as strings
-            stig_paths = [str(stig.file_path) for stig in self.stig_files]
+            # Save unique file paths only (one ZIP can produce multiple STIGs with same path)
+            stig_paths = list(dict.fromkeys(str(stig.file_path) for stig in self.stig_files))
             with open(self.PERSIST_FILE, 'w') as f:
                 json.dump(stig_paths, f)
             print(f"Saved {len(stig_paths)} STIG paths to {self.PERSIST_FILE}")  # Debug

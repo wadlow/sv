@@ -34,6 +34,8 @@ class CklStigInfo:
     release_info: str
     uuid: str
     filename: str
+    classification: str = ""
+    benchmark_date: str = ""
 
 
 @dataclass
@@ -54,6 +56,8 @@ class CklVuln:
     finding_details: str
     comments: str
     stig_info: CklStigInfo
+    legacy_ids: str = ""
+    references: str = ""  # CCI, NIST 800-53, etc.
     
     @classmethod
     def from_vuln_code(cls, vuln_code: VulnCode, stig_info: CklStigInfo, 
@@ -77,6 +81,8 @@ class CklVuln:
             finding_details="",
             comments="",
             stig_info=stig_info,
+            legacy_ids="",
+            references=getattr(vuln_code, 'references', '') or "",
         )
 
 

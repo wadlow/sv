@@ -2,6 +2,11 @@
 # Launcher script for STIG Viewer
 cd "$(dirname "$0")"
 
+# Activate virtual environment if it exists
+if [ -d "venv" ]; then
+    source venv/bin/activate
+fi
+
 # Parse command line flags
 DEBUG_MODE=0
 for arg in "$@"; do

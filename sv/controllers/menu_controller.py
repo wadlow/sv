@@ -52,6 +52,13 @@ def _compare_ckls_handler(self, sender):
         _app_controller_ref.compare_ckls()
 
 
+def _check_for_stigs_handler(self, sender):
+    """Handle Check for STIGs menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.check_for_stigs()
+
+
 class MenuController(NSObject):
     """Controller for menu bar actions."""
     
@@ -61,6 +68,7 @@ class MenuController(NSObject):
     openChecklist_ = selector(_open_checklist_handler, signature=b'v@:@')
     createCklFile_ = selector(_create_ckl_file_handler, signature=b'v@:@')
     compareCkls_ = selector(_compare_ckls_handler, signature=b'v@:@')
+    checkForStigs_ = selector(_check_for_stigs_handler, signature=b'v@:@')
     showPreferences_ = selector(_show_preferences_handler, signature=b'v@:@')
     
     def init(self):
@@ -117,6 +125,11 @@ def _create_menu_bar(menu_controller):
         "Compare STIGs", "compareStigs:", ""
     )
     file_menu.addItem_(compare_stigs_item)
+    
+    check_for_stigs_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Check for STIGs", "checkForStigs:", ""
+    )
+    file_menu.addItem_(check_for_stigs_item)
     
     file_menu.addItem_(NSMenuItem.separatorItem())
     
@@ -205,6 +218,9 @@ def _create_menu_bar(menu_controller):
     
     compare_stigs_item.setTarget_(app_delegate)
     compare_stigs_item.setAction_("compareStigs:")
+    
+    check_for_stigs_item.setTarget_(app_delegate)
+    check_for_stigs_item.setAction_("checkForStigs:")
     
     create_ckl_file_item.setTarget_(app_delegate)
     create_ckl_file_item.setAction_("createCklFile:")

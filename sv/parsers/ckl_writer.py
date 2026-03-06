@@ -164,7 +164,7 @@ class CklWriter:
                 add_stig_data(vuln_elem, 'Rule_Ver', vuln.rule_ver or '')
                 add_stig_data(vuln_elem, 'Rule_Title', vuln.rule_title)
                 add_stig_data(vuln_elem, 'Vuln_Discuss', vuln.discussion or '')
-                add_stig_data(vuln_elem, 'IA_Controls', '')
+                add_stig_data(vuln_elem, 'IA_Controls', vuln.references or '')
                 add_stig_data(vuln_elem, 'Check_Content', vuln.check_text or '')
                 add_stig_data(vuln_elem, 'Fix_Text', vuln.fix_text or '')
                 add_stig_data(vuln_elem, 'False_Positives', '')

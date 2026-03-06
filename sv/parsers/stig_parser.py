@@ -227,6 +227,9 @@ class StigParser:
             rule_ver = rule.find('version') or rule.find('{*}version')
             rule_ver_text = rule_ver.text if rule_ver is not None and rule_ver.text else None
             
+            # Extract references from Rule (reference elements, ident elements) and description XML
+            references = StigParser._extract_references(rule, ns, description_raw)
+            
             vuln_code_obj = VulnCode(
                 id=v_code,
                 v_code=v_code,
@@ -241,6 +244,7 @@ class StigParser:
                 stig_name=stig_name,
                 stig_version=stig_version,
                 stig_release=stig_release,
+                references=references,
             )
             vuln_codes.append(vuln_code_obj)
             
@@ -402,4 +406,73 @@ class StigParser:
         # If no VulnDiscussion tags found, return the original text
         print(f"_extract_vuln_discussion: No VulnDiscussion tags found, returning original text")  # Debug
         return description_text
+    
+    @staticmethod
+    def _extract_references(rule: ET.Element, ns: dict, description_raw: str) -> str:
+        """Extract references (CCI, NIST 800-53, etc.) from Rule and description.
+        
+        Sources: Rule's reference/ident elements, description XML (IAControls, References).
+        """
+        ref_lines = []
+        
+        # 1. Extract from Rule's reference elements (handle namespaces)
+        for ref in rule.iter():
+            local_tag = ref.tag.split('}')[-1] if '}' in ref.tag else ref.tag
+            if local_tag != 'reference':
+                continue
+            href = ref.get('href', '') or ''
+            text = ''.join(ref.itertext()).strip()
+            if href or text:
+                if 'cci' in href.lower() or href == '':
+                    ref_lines.append(f"CCI: {text}" if text else f"CCI: {href}")
+                else:
+                    ref_lines.append(text if text else href)
+        
+        # 2. Extract from Rule's ident elements (CCI, etc.)
+        for ident in rule.iter():
+            local_tag = ident.tag.split('}')[-1] if '}' in ident.tag else ident.tag
+            if local_tag != 'ident':
+                continue
+            system = ident.get('system', '') or ''
+            text = ''.join(ident.itertext()).strip()
+            if text:
+                if 'cci' in system.lower():
+                    ref_lines.append(f"CCI: {text}")
+                else:
+                    ref_lines.append(text)
+        
+        # 3. Extract from description XML (IAControls, References)
+        if description_raw:
+            # Regex extraction first (handles malformed XML, namespaces, and mixed content)
+            for pattern in (r'<IAControls[^>]*>(.*?)</IAControls>', r'<References[^>]*>(.*?)</References>',
+                            r'<IA_Controls[^>]*>(.*?)</IA_Controls>'):
+                match = re.search(pattern, description_raw, re.DOTALL | re.IGNORECASE)
+                if match:
+                    content = match.group(1).strip()
+                    # Strip any inner XML tags to get plain text
+                    content = re.sub(r'<[^>]+>', '\n', content)
+                    for line in content.split('\n'):
+                        line = line.strip()
+                        if line and line not in ref_lines:
+                            ref_lines.append(line)
+                    break
+            # XML parsing fallback (for well-formed description)
+            if not ref_lines:
+                try:
+                    wrapped = f"<root>{description_raw}</root>"
+                    root = ET.fromstring(wrapped)
+                    target_tags = ('IAControls', 'References', 'IA_Controls')
+                    for elem in root.iter():
+                        local_tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+                        if local_tag in target_tags:
+                            text = (elem.text or '') + ''.join(elem.itertext())
+                            if text.strip():
+                                for line in text.strip().split('\n'):
+                                    line = line.strip()
+                                    if line and line not in ref_lines:
+                                        ref_lines.append(line)
+                except ET.ParseError:
+                    pass
+        
+        return '\n'.join(ref_lines) if ref_lines else ''
 

@@ -232,6 +232,15 @@ class ExplorerView(NSView):
             return SearchPane.get_search_text(search_pane)
         return ""
     
+    def get_stig_files(self):
+        """Get the list of STIG files displayed in the STIGs pane."""
+        attrs = get_view_attrs(self)
+        stigs_pane = attrs.get('stigs_pane')
+        if stigs_pane:
+            pane_attrs = get_view_attrs(stigs_pane)
+            return pane_attrs.get('stig_files', [])
+        return []
+    
     def get_checked_stigs(self):
         """Get the list of checked STIG files (for V-code display)."""
         attrs = get_view_attrs(self)

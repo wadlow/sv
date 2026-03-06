@@ -48,9 +48,19 @@ def main():
     
     try:
         # Set the application name to "STIG Viewer" instead of "Python"
-        from Foundation import NSProcessInfo
+        from Foundation import NSBundle, NSProcessInfo
+        
+        # Set process name
         processInfo = NSProcessInfo.processInfo()
         processInfo.setProcessName_("STIG Viewer")
+        
+        # Get the main bundle and override the display name
+        mainBundle = NSBundle.mainBundle()
+        if mainBundle:
+            infoDictionary = mainBundle.localizedInfoDictionary() or mainBundle.infoDictionary()
+            if infoDictionary:
+                infoDictionary['CFBundleName'] = 'STIG Viewer'
+                infoDictionary['CFBundleDisplayName'] = 'STIG Viewer'
         
         app = NSApplication.sharedApplication()
         delegate = AppDelegate.alloc().init()
