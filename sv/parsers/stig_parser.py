@@ -188,6 +188,13 @@ class StigParser:
         filename_for_release = xccdf_filename if xccdf_filename else (file_path.name if file_path else None)
         stig_release = StigParser._extract_release(benchmark, ns, filename_for_release)
         
+        # Extract Benchmark-level STIG UUID (id attribute, e.g. "xccdf_mil.disa.stig_benchmark_RHEL_9")
+        stig_uuid = benchmark.get('id', '')
+        
+        # Construct full STIGRef string
+        release_num = stig_release.lstrip('Rr') if stig_release and stig_release.upper().startswith('R') else stig_release
+        stig_ref = f"{stig_name} :: Version {stig_version}, Release {release_num}" if stig_name else ""
+        
         # Extract Groups and Rules
         vuln_codes = []
         
@@ -212,13 +219,17 @@ class StigParser:
             # Extract just the VulnDiscussion text from the description XML
             description = StigParser._extract_vuln_discussion(description_raw)
             
-            # Extract check text
+            # Extract check text and check content reference
             check_text = ""
+            check_content_ref = ""
             check_elem = rule.find('check') or rule.find('{*}check')
             if check_elem is not None:
                 check_content = check_elem.find('check-content') or check_elem.find('{*}check-content')
                 if check_content is not None:
                     check_text = (check_content.text or "").strip()
+                ref_elem = check_elem.find('check-content-ref') or check_elem.find('{*}check-content-ref')
+                if ref_elem is not None:
+                    check_content_ref = ref_elem.get('name', '')
             
             # Extract fix text
             fix_text = StigParser._get_text(rule, 'fixtext', ns) or ""
@@ -227,7 +238,17 @@ class StigParser:
             rule_ver = rule.find('version') or rule.find('{*}version')
             rule_ver_text = rule_ver.text if rule_ver is not None and rule_ver.text else None
             
-            # Extract references from Rule (reference elements, ident elements) and description XML
+            # Weight and classification from Rule attributes
+            weight = rule.get('weight', '')
+            classification = rule.get('class', '')
+            
+            # Extract CCI refs and legacy IDs from ident elements
+            cci_refs, legacy_ids = StigParser._extract_idents(rule)
+            
+            # Extract target key from description XML
+            target_key = StigParser._extract_xml_field(description_raw, 'TargetKey')
+            
+            # Extract non-CCI/non-legacy references (IAControls, reference elements)
             references = StigParser._extract_references(rule, ns, description_raw)
             
             vuln_code_obj = VulnCode(
@@ -245,6 +266,14 @@ class StigParser:
                 stig_version=stig_version,
                 stig_release=stig_release,
                 references=references,
+                cci_ref='\n'.join(cci_refs),
+                check_content_ref=check_content_ref,
+                classification=classification,
+                legacy_id='\n'.join(legacy_ids),
+                stig_ref=stig_ref,
+                stig_uuid=stig_uuid,
+                target_key=target_key,
+                weight=weight,
             )
             vuln_codes.append(vuln_code_obj)
             
@@ -408,55 +437,75 @@ class StigParser:
         return description_text
     
     @staticmethod
-    def _extract_references(rule: ET.Element, ns: dict, description_raw: str) -> str:
-        """Extract references (CCI, NIST 800-53, etc.) from Rule and description.
+    def _extract_idents(rule: ET.Element) -> tuple:
+        """Extract CCI identifiers and legacy IDs from Rule ident elements.
         
-        Sources: Rule's reference/ident elements, description XML (IAControls, References).
+        Returns:
+            Tuple of (cci_refs list, legacy_ids list)
+        """
+        cci_refs = []
+        legacy_ids = []
+        for ident in rule.iter():
+            local_tag = ident.tag.split('}')[-1] if '}' in ident.tag else ident.tag
+            if local_tag != 'ident':
+                continue
+            system = (ident.get('system', '') or '').lower()
+            text = ''.join(ident.itertext()).strip()
+            if not text:
+                continue
+            if 'cci' in system:
+                cci_refs.append(text)
+            elif 'legacy' in system:
+                legacy_ids.append(text)
+        return cci_refs, legacy_ids
+    
+    @staticmethod
+    def _extract_xml_field(description_raw: str, field_name: str) -> str:
+        """Extract a named field from the description XML blob (e.g. TargetKey)."""
+        if not description_raw:
+            return ""
+        match = re.search(
+            rf'<{re.escape(field_name)}[^>]*>(.*?)</{re.escape(field_name)}>',
+            description_raw, re.DOTALL | re.IGNORECASE
+        )
+        if match:
+            return match.group(1).strip()
+        return ""
+    
+    @staticmethod
+    def _extract_references(rule: ET.Element, ns: dict, description_raw: str) -> str:
+        """Extract non-CCI/non-legacy references from Rule and description XML.
+        
+        CCI identifiers and legacy IDs are now handled by _extract_idents().
+        This method captures: non-CCI reference elements and IAControls from description.
         """
         ref_lines = []
         
-        # 1. Extract from Rule's reference elements (handle namespaces)
+        # 1. Extract from Rule's reference elements — skip CCI hrefs (those are in cci_ref)
         for ref in rule.iter():
             local_tag = ref.tag.split('}')[-1] if '}' in ref.tag else ref.tag
             if local_tag != 'reference':
                 continue
             href = ref.get('href', '') or ''
             text = ''.join(ref.itertext()).strip()
-            if href or text:
-                if 'cci' in href.lower() or href == '':
-                    ref_lines.append(f"CCI: {text}" if text else f"CCI: {href}")
-                else:
-                    ref_lines.append(text if text else href)
+            if 'cci' in href.lower():
+                continue  # CCI references are captured in cci_ref
+            if text or href:
+                ref_lines.append(text if text else href)
         
-        # 2. Extract from Rule's ident elements (CCI, etc.)
-        for ident in rule.iter():
-            local_tag = ident.tag.split('}')[-1] if '}' in ident.tag else ident.tag
-            if local_tag != 'ident':
-                continue
-            system = ident.get('system', '') or ''
-            text = ''.join(ident.itertext()).strip()
-            if text:
-                if 'cci' in system.lower():
-                    ref_lines.append(f"CCI: {text}")
-                else:
-                    ref_lines.append(text)
-        
-        # 3. Extract from description XML (IAControls, References)
+        # 2. Extract from description XML (IAControls, References) — skip CCI-looking lines
         if description_raw:
-            # Regex extraction first (handles malformed XML, namespaces, and mixed content)
             for pattern in (r'<IAControls[^>]*>(.*?)</IAControls>', r'<References[^>]*>(.*?)</References>',
                             r'<IA_Controls[^>]*>(.*?)</IA_Controls>'):
                 match = re.search(pattern, description_raw, re.DOTALL | re.IGNORECASE)
                 if match:
                     content = match.group(1).strip()
-                    # Strip any inner XML tags to get plain text
                     content = re.sub(r'<[^>]+>', '\n', content)
                     for line in content.split('\n'):
                         line = line.strip()
                         if line and line not in ref_lines:
                             ref_lines.append(line)
                     break
-            # XML parsing fallback (for well-formed description)
             if not ref_lines:
                 try:
                     wrapped = f"<root>{description_raw}</root>"

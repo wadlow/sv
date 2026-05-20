@@ -70,13 +70,13 @@ class StatusFilterPane(NSView):
         
         # If bounds are zero, use default size
         if width == 0 or height == 0:
-            width, height = 300, 120
+            width, height = 450, 120
             bounds = NSRect((0, 0), (width, height))
             self.setFrame_(bounds)
             print(f"StatusFilterPane.createUI: Set default frame {width}x{height}")  # Debug
         
         attrs = get_view_attrs(self)
-        quarter_width = width / 4
+        sixth_width = width / 6
         
         # Position controls from top down with margin
         # Note: When inside NSBox, use the actual content view height
@@ -102,7 +102,7 @@ class StatusFilterPane(NSView):
         # COLUMN 1: Status Filter
         # Title label
         y_pos = height - column_start_margin - 20 if height > 0 else 155
-        status_title_frame = NSRect((10, y_pos), (quarter_width - 15, 20))
+        status_title_frame = NSRect((10, y_pos), (sixth_width - 15, 20))
         status_title = NSTextField.alloc().initWithFrame_(status_title_frame)
         status_title.setStringValue_("Status Filter:")
         status_title.setBordered_(False)
@@ -122,7 +122,7 @@ class StatusFilterPane(NSView):
         
         y_pos -= row_spacing
         for status, label, tooltip in statuses:
-            checkbox_frame = NSRect((10, y_pos), (quarter_width - 15, 20))
+            checkbox_frame = NSRect((10, y_pos), (sixth_width - 15, 20))
             checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
             checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
             checkbox.setTitle_(label)
@@ -139,7 +139,7 @@ class StatusFilterPane(NSView):
         # COLUMN 2: Severity Filter
         # Title label
         y_pos = height - column_start_margin - 20 if height > 0 else 155
-        severity_title_frame = NSRect((quarter_width + 5, y_pos), (quarter_width - 15, 20))
+        severity_title_frame = NSRect((sixth_width + 5, y_pos), (sixth_width - 15, 20))
         severity_title = NSTextField.alloc().initWithFrame_(severity_title_frame)
         severity_title.setStringValue_("Severity:")
         severity_title.setBordered_(False)
@@ -158,7 +158,7 @@ class StatusFilterPane(NSView):
         
         y_pos -= row_spacing
         for sev_key, label, tooltip in severities:
-            checkbox_frame = NSRect((quarter_width + 5, y_pos), (quarter_width - 15, 20))
+            checkbox_frame = NSRect((sixth_width + 5, y_pos), (sixth_width - 15, 20))
             checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
             checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
             checkbox.setTitle_(label)
@@ -175,7 +175,7 @@ class StatusFilterPane(NSView):
         # COLUMN 3: Analysis filters
         # Title label
         y_pos = height - column_start_margin - 20 if height > 0 else 155
-        analysis_title_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        analysis_title_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         analysis_title = NSTextField.alloc().initWithFrame_(analysis_title_frame)
         analysis_title.setStringValue_("Analysis:")
         analysis_title.setBordered_(False)
@@ -186,7 +186,7 @@ class StatusFilterPane(NSView):
         
         # Create MTF checkbox
         y_pos -= row_spacing
-        mtf_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        mtf_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         mtf_checkbox = NSButton.alloc().initWithFrame_(mtf_checkbox_frame)
         mtf_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         mtf_checkbox.setTitle_("Hide MTF")
@@ -199,7 +199,7 @@ class StatusFilterPane(NSView):
         
         # Create Invalid Arg checkbox
         y_pos -= row_spacing
-        invalid_arg_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        invalid_arg_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         invalid_arg_checkbox = NSButton.alloc().initWithFrame_(invalid_arg_checkbox_frame)
         invalid_arg_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         invalid_arg_checkbox.setTitle_("Invalid A...")
@@ -212,7 +212,7 @@ class StatusFilterPane(NSView):
         
         # Create STIG/Checklist Rule Title checkbox
         y_pos -= row_spacing
-        rule_title_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        rule_title_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         rule_title_checkbox = NSButton.alloc().initWithFrame_(rule_title_checkbox_frame)
         rule_title_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         rule_title_checkbox.setTitle_("STIG/Chec...")
@@ -225,7 +225,7 @@ class StatusFilterPane(NSView):
         
         # Create No info checkbox
         y_pos -= row_spacing
-        no_info_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        no_info_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         no_info_checkbox = NSButton.alloc().initWithFrame_(no_info_checkbox_frame)
         no_info_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         no_info_checkbox.setTitle_("No info")
@@ -238,7 +238,7 @@ class StatusFilterPane(NSView):
         
         # Create Low Confidence checkbox
         y_pos -= row_spacing
-        low_confidence_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        low_confidence_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         low_confidence_checkbox = NSButton.alloc().initWithFrame_(low_confidence_checkbox_frame)
         low_confidence_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         low_confidence_checkbox.setTitle_("Low Confid...")
@@ -251,7 +251,7 @@ class StatusFilterPane(NSView):
         
         # Create Not Met checkbox
         y_pos -= row_spacing
-        not_met_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        not_met_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         not_met_checkbox = NSButton.alloc().initWithFrame_(not_met_checkbox_frame)
         not_met_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         not_met_checkbox.setTitle_("Not Met")
@@ -264,7 +264,7 @@ class StatusFilterPane(NSView):
         
         # Create Hide MANUAL checkbox
         y_pos -= row_spacing
-        hide_manual_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        hide_manual_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         hide_manual_checkbox = NSButton.alloc().initWithFrame_(hide_manual_checkbox_frame)
         hide_manual_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         hide_manual_checkbox.setTitle_("Hide MANUAL")
@@ -277,7 +277,7 @@ class StatusFilterPane(NSView):
         
         # Create Hide Audit checkbox
         y_pos -= row_spacing
-        hide_audit_checkbox_frame = NSRect((quarter_width * 2 + 5, y_pos), (quarter_width - 15, 20))
+        hide_audit_checkbox_frame = NSRect((sixth_width * 2 + 5, y_pos), (sixth_width * 2 - 15, 20))
         hide_audit_checkbox = NSButton.alloc().initWithFrame_(hide_audit_checkbox_frame)
         hide_audit_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         hide_audit_checkbox.setTitle_("Hide Audit")
@@ -291,7 +291,7 @@ class StatusFilterPane(NSView):
         # COLUMN 4: Other filters
         # Title label
         y_pos = height - column_start_margin - 20 if height > 0 else 155
-        other_title_frame = NSRect((quarter_width * 3 + 5, y_pos), (quarter_width - 15, 20))
+        other_title_frame = NSRect((sixth_width * 4 + 5, y_pos), (sixth_width * 2 - 15, 20))
         other_title = NSTextField.alloc().initWithFrame_(other_title_frame)
         other_title.setStringValue_("Other:")
         other_title.setBordered_(False)
@@ -302,7 +302,7 @@ class StatusFilterPane(NSView):
         
         # Create No Comment checkbox
         y_pos -= row_spacing
-        no_comment_checkbox_frame = NSRect((quarter_width * 3 + 5, y_pos), (quarter_width - 15, 20))
+        no_comment_checkbox_frame = NSRect((sixth_width * 4 + 5, y_pos), (sixth_width * 2 - 15, 20))
         no_comment_checkbox = NSButton.alloc().initWithFrame_(no_comment_checkbox_frame)
         no_comment_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         no_comment_checkbox.setTitle_("No Comment")
@@ -315,7 +315,7 @@ class StatusFilterPane(NSView):
         
         # Create TBD checkbox
         y_pos -= row_spacing
-        tbd_checkbox_frame = NSRect((quarter_width * 3 + 5, y_pos), (quarter_width - 15, 20))
+        tbd_checkbox_frame = NSRect((sixth_width * 4 + 5, y_pos), (sixth_width * 2 - 15, 20))
         tbd_checkbox = NSButton.alloc().initWithFrame_(tbd_checkbox_frame)
         tbd_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
         tbd_checkbox.setTitle_("TBD")

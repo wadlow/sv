@@ -55,7 +55,15 @@ class VulnCode:
     stig_name: str
     stig_version: str
     stig_release: str
-    references: str = ""  # CCI, NIST 800-53, etc. (formatted for display)
+    references: str = ""        # Non-CCI references (IAControls, NIST 800-53, etc.)
+    cci_ref: str = ""           # Newline-separated CCI identifiers (e.g. "CCI-000001\nCCI-000002")
+    check_content_ref: str = "" # Check content reference name (e.g. "M")
+    classification: str = ""    # Classification class (e.g. "Unclass")
+    legacy_id: str = ""         # Newline-separated legacy vulnerability identifiers
+    stig_ref: str = ""          # Full STIG reference string
+    stig_uuid: str = ""         # STIG unique identifier
+    target_key: str = ""        # Numeric target key from description XML
+    weight: str = ""            # Finding weight value from Rule element
     
     def __hash__(self):
         """Make hashable for use in sets/dicts."""

@@ -176,6 +176,24 @@ class CklWriter:
                 add_stig_data(vuln_elem, 'Mitigation_Control', '')
                 add_stig_data(vuln_elem, 'Responsibility', '')
                 add_stig_data(vuln_elem, 'Security_Override_Guidance', '')
+                add_stig_data(vuln_elem, 'Check_Content_Ref', getattr(vuln, 'check_content_ref', '') or '')
+                add_stig_data(vuln_elem, 'Class', getattr(vuln, 'classification', '') or '')
+                add_stig_data(vuln_elem, 'STIGRef', getattr(vuln, 'stig_ref', '') or '')
+                add_stig_data(vuln_elem, 'TargetKey', getattr(vuln, 'target_key', '') or '')
+                # CCI_REF: one STIG_DATA block per CCI identifier
+                cci_ref_val = getattr(vuln, 'cci_ref', '') or ''
+                for cci in (line for line in cci_ref_val.splitlines() if line.strip()):
+                    add_stig_data(vuln_elem, 'CCI_REF', cci.strip())
+                if not cci_ref_val.strip():
+                    add_stig_data(vuln_elem, 'CCI_REF', '')
+                # LEGACY_ID: one STIG_DATA block per legacy identifier
+                legacy_id_val = getattr(vuln, 'legacy_id', '') or ''
+                for lid in (line for line in legacy_id_val.splitlines() if line.strip()):
+                    add_stig_data(vuln_elem, 'LEGACY_ID', lid.strip())
+                if not legacy_id_val.strip():
+                    add_stig_data(vuln_elem, 'LEGACY_ID', '')
+                add_stig_data(vuln_elem, 'STIG_UUID', getattr(vuln, 'stig_uuid', '') or '')
+                add_stig_data(vuln_elem, 'Weight', getattr(vuln, 'weight', '') or '')
                 
                 # Add STATUS, FINDING_DETAILS, COMMENTS (always have content)
                 add_element(vuln_elem, 'STATUS', vuln.status.ckl_string)

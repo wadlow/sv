@@ -57,7 +57,15 @@ class CklVuln:
     comments: str
     stig_info: CklStigInfo
     legacy_ids: str = ""
-    references: str = ""  # CCI, NIST 800-53, etc.
+    references: str = ""        # Non-CCI references (IAControls, NIST 800-53, etc.)
+    cci_ref: str = ""           # Newline-separated CCI identifiers
+    check_content_ref: str = "" # Check content reference name (e.g. "M")
+    classification: str = ""    # Classification class (e.g. "Unclass")
+    legacy_id: str = ""         # Newline-separated legacy vulnerability identifiers
+    stig_ref: str = ""          # Full STIG reference string
+    stig_uuid: str = ""         # STIG unique identifier
+    target_key: str = ""        # Numeric target key
+    weight: str = ""            # Finding weight value
     
     @classmethod
     def from_vuln_code(cls, vuln_code: VulnCode, stig_info: CklStigInfo, 
@@ -81,8 +89,16 @@ class CklVuln:
             finding_details="",
             comments="",
             stig_info=stig_info,
-            legacy_ids="",
+            legacy_ids=getattr(vuln_code, 'legacy_id', '') or "",
             references=getattr(vuln_code, 'references', '') or "",
+            cci_ref=getattr(vuln_code, 'cci_ref', '') or "",
+            check_content_ref=getattr(vuln_code, 'check_content_ref', '') or "",
+            classification=getattr(vuln_code, 'classification', '') or "",
+            legacy_id=getattr(vuln_code, 'legacy_id', '') or "",
+            stig_ref=getattr(vuln_code, 'stig_ref', '') or "",
+            stig_uuid=getattr(vuln_code, 'stig_uuid', '') or "",
+            target_key=getattr(vuln_code, 'target_key', '') or "",
+            weight=getattr(vuln_code, 'weight', '') or "",
         )
 
 

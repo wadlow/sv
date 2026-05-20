@@ -234,7 +234,8 @@ class CklParser:
             # Parse VULN elements
             for vuln_elem in istig.findall(CklParser._ns_tag('VULN', namespace)):
                 vuln_data = {}
-                last_vuln_attribute = None
+                cci_ref_list = []
+                legacy_id_list = []
                 
                 # Parse STIG_DATA pairs
                 for stig_data in vuln_elem.findall(CklParser._ns_tag('STIG_DATA', namespace)):
@@ -244,7 +245,15 @@ class CklParser:
                     if vuln_attr_elem is not None and attr_data_elem is not None:
                         attr_name = (vuln_attr_elem.text or "").strip()
                         attr_data = (attr_data_elem.text or "").strip()
-                        vuln_data[attr_name] = attr_data
+                        # CCI_REF and LEGACY_ID can repeat; collect into lists
+                        if attr_name == 'CCI_REF':
+                            if attr_data:
+                                cci_ref_list.append(attr_data)
+                        elif attr_name == 'LEGACY_ID':
+                            if attr_data:
+                                legacy_id_list.append(attr_data)
+                        else:
+                            vuln_data[attr_name] = attr_data
                 
                 # Extract status
                 status_elem = vuln_elem.find(CklParser._ns_tag('STATUS', namespace))
@@ -275,7 +284,7 @@ class CklParser:
                     ''
                 )
                 
-                # Extract references (CCI, NIST 800-53) from IA_Controls or References
+                # Extract references (NIST 800-53, IAControls) — non-CCI
                 references = (
                     vuln_data.get('IA_Controls', '') or
                     vuln_data.get('References', '') or
@@ -300,6 +309,14 @@ class CklParser:
                     stig_info=stig_info,
                     legacy_ids=legacy_ids,
                     references=references,
+                    cci_ref='\n'.join(cci_ref_list),
+                    check_content_ref=vuln_data.get('Check_Content_Ref', ''),
+                    classification=vuln_data.get('Class', ''),
+                    legacy_id='\n'.join(legacy_id_list),
+                    stig_ref=vuln_data.get('STIGRef', ''),
+                    stig_uuid=vuln_data.get('STIG_UUID', ''),
+                    target_key=vuln_data.get('TargetKey', ''),
+                    weight=vuln_data.get('Weight', ''),
                 )
                 vulns.append(vuln)
         
