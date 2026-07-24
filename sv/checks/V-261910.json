@@ -1,0 +1,16 @@
+{
+  "v_code": "V-261910",
+  "severity": "medium",
+  "rule_id": "SV-261910r1043182_rule",
+  "rule_ver": "CD16-00-006200",
+  "rule_title": "PostgreSQL must automatically terminate a user session after organization-defined conditions or trigger events requiring session disconnect.",
+  "check_text": "Review system documentation to obtain the organization's definition of circumstances requiring automatic session termination. If the documentation explicitly states that such termination is not required or is prohibited, this is not a finding.\n\nIf the documentation requires automatic session termination, but PostgreSQL is not configured accordingly, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation to obtain the organization's definition of circumstances requiring automatic session termination. If the documentation explicitly states that such termination is not required or is prohibited, this is not a finding.\nIf the documentation requires automatic session termination, but PostgreSQL is not configured accordingly, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

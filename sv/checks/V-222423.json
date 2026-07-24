@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222423",
+  "severity": "medium",
+  "rule_id": "SV-222423r961302_rule",
+  "rule_ver": "APSC-DV-000440",
+  "rule_title": "Application data protection requirements must be identified and documented.",
+  "check_text": "Ask the application representative for the documentation that identifies the application data elements, the protection requirements, and any associated steps that are being taken to protect the data.\n\nIf the application data protection requirements are not documented, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application representative for the documentation that identifies the application data elements, the protection requirements, and any associated steps that are being taken to protect the data.\nIf the application data protection requirements are not documented, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "v_code": "V-261876",
+  "severity": "medium",
+  "rule_id": "SV-261876r1000978_rule",
+  "rule_ver": "CD16-00-002100",
+  "rule_title": "The audit information produced by PostgreSQL must be protected from unauthorized modification.",
+  "check_text": "Review locations of audit logs, both internal to the database and database audit logs located at the operating system level. \n\nVerify there are appropriate controls and permissions to protect the audit information from unauthorized modification. \n\nNote: The following instructions use the PGLOG environment variable. Refer to supplementary content APPENDIX-I for instructions on configuring PGLOG. \n\n#### stderr Logging \n\nIf the PostgreSQL server is configured to use stderr for logging, the logs will be owned by the database owner (usually postgres user) with a default permissions level of 0600. The permissions can be configured in postgresql.conf. \n\nTo check the permissions for log files in postgresql.conf, as the database owner (shown here as \"postgres\"), run the following command: \n\n$ sudo su - postgres \n$ psql -c \"show log_file_mode;\" \n\nIf the permissions are not 0600, this is a finding. \n\nAs the database owner (shown here as \"postgres\"), list the permissions of the logs: \n\n$ sudo su - postgres \n$ ls -la ${PGLOG?} \n\nIf logs are not owned by the database owner (shown here as \"postgres\") and are not the same permissions as configured in postgresql.conf, this is a finding. \n\n#### syslog Logging \n\nIf the PostgreSQL server is configured to use syslog for logging, consult the organization syslog setting for permissions and ownership of logs.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review locations of audit logs, both internal to the database and database audit logs located at the operating system level.\nVerify there are appropriate controls and permissions to protect the audit information from unauthorized modification.\nNote: The following instructions use the PGLOG environment variable. Refer to supplementary content APPENDIX-I for instructions on configuring PGLOG.",
+      "commands": [],
+      "finding_condition": null
+    },
+    {
+      "section": "stderr Logging",
+      "description": "If the PostgreSQL server is configured to use stderr for logging, the logs will be owned by the database owner (usually postgres user) with a default permissions level of 0600. The permissions can be configured in postgresql.conf.\nTo check the permissions for log files in postgresql.conf, as the database owner (shown here as \"postgres\"), run the following command:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"show log_file_mode;\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": "stderr Logging",
+      "description": "If the permissions are not 0600, this is a finding.\nAs the database owner (shown here as \"postgres\"), list the permissions of the logs:",
+      "commands": [
+        "sudo su - postgres",
+        "ls -la ${PGLOG?}"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": "syslog Logging",
+      "description": "If the PostgreSQL server is configured to use syslog for logging, consult the organization syslog setting for permissions and ownership of logs.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

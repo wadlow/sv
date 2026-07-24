@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222471",
+  "severity": "medium",
+  "rule_id": "SV-222471r960891_rule",
+  "rule_ver": "APSC-DV-000960",
+  "rule_title": "The application must log user actions involving access to data.",
+  "check_text": "Review and monitor the application logs. When accessing data, the logs are most likely database logs.\n\nIf the application design documents include specific data elements that require protection, ensure user access to those data elements are logged.\n\nUtilize the application as a regular user and operate the application so as to access data elements contained within the application. This includes using the application user interface to browse through data elements, query/search data elements and using report generation capability if it exists.\n\nObserve and determine if the application log includes an entry to indicate the user’s access to the data was recorded.\n\nIf successful access to application data elements is not recorded in the logs, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review and monitor the application logs. When accessing data, the logs are most likely database logs.\nIf the application design documents include specific data elements that require protection, ensure user access to those data elements are logged.\nUtilize the application as a regular user and operate the application so as to access data elements contained within the application. This includes using the application user interface to browse through data elements, query/search data elements and using report generation capability if it exists.\nObserve and determine if the application log includes an entry to indicate the user’s access to the data was recorded.\nIf successful access to application data elements is not recorded in the logs, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

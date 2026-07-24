@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261867",
+  "severity": "medium",
+  "rule_id": "SV-261867r1000955_rule",
+  "rule_ver": "CD16-00-001100",
+  "rule_title": "PostgreSQL must produce audit records containing time stamps to establish when the events occurred.",
+  "check_text": "As the database administrator (usually postgres), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_line_prefix\"\n\nIf the query result does not contain \"%m\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (usually postgres), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_line_prefix\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

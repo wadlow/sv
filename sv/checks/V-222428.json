@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222428",
+  "severity": "medium",
+  "rule_id": "SV-222428r1117169_rule",
+  "rule_ver": "APSC-DV-000490",
+  "rule_title": "The application must enforce approved authorizations for controlling the flow of information between interconnected systems based on organization-defined information flow control policies.",
+  "check_text": "Review the application documentation and interview the application and system administrators.\n\nIdentify application features and functions to determine if the application is designed to control the flow of information between interconnected systems.\n\nIdentify:\n\n- rulesets,\n- data labels\n- policies\n- systems\n\nto determine if the application is designed to control the flow of data between interconnected systems.\n\nIf the application does not provide data flow control capabilities, the requirement is not applicable.\n\nAccess the system as a user with access rights allowing the creation of test data or use of existing test data.\n\nCreate a test data set and label the data with a data label provided with or by the application (for example, a Personally Identifiable Information (PII) data label).\n\nReview the policy settings to determine where the PII labeled data is allowed and is not allowed.\n\nUsing application features and functions, attempt to transmit the labeled data to an interconnected system that is prohibited by policy.\n\nVerify the flow control policy was enforced and the data was not transmitted.\n\nIf the application does not enforce the approved authorizations for controlling data flow, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application and system administrators.\nIdentify application features and functions to determine if the application is designed to control the flow of information between interconnected systems.\nIdentify:\n- rulesets,\n- data labels\n- policies\n- systems\nto determine if the application is designed to control the flow of data between interconnected systems.\nIf the application does not provide data flow control capabilities, the requirement is not applicable.\nAccess the system as a user with access rights allowing the creation of test data or use of existing test data.\nCreate a test data set and label the data with a data label provided with or by the application (for example, a Personally Identifiable Information (PII) data label).\nReview the policy settings to determine where the PII labeled data is allowed and is not allowed.\nUsing application features and functions, attempt to transmit the labeled data to an interconnected system that is prohibited by policy.\nVerify the flow control policy was enforced and the data was not transmitted.\nIf the application does not enforce the approved authorizations for controlling data flow, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

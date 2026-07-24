@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222507",
+  "severity": "medium",
+  "rule_id": "SV-222507r960951_rule",
+  "rule_ver": "APSC-DV-001350",
+  "rule_title": "The application must use cryptographic mechanisms to protect the integrity of audit information.",
+  "check_text": "Review the system documentation and interview the application administrator for details regarding application architecture, audit methods, and provided audit tools.\n\nIdentify the location of the application audit information.\n\nIf the application is configured to utilize a centralized audit log solution that uses cryptographic methods that meet this requirement such as creating cryptographic hash values or message digests that can be used to validate integrity of audit files, the requirement is not applicable.\n\nAsk application administrator to demonstrate the cryptographic mechanisms used to protect the integrity of audit data.\n\nVerify when application logs are stored on the file system, a process that includes the creation of an integrity check of the audit file being stored is utilized. This integrity check can be the creation of a checksum, message digest or other one-way cryptographic hash of the audit file that is created.\n\nIf an integrity check is not created to protect the integrity of the audit information, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and interview the application administrator for details regarding application architecture, audit methods, and provided audit tools.\nIdentify the location of the application audit information.\nIf the application is configured to utilize a centralized audit log solution that uses cryptographic methods that meet this requirement such as creating cryptographic hash values or message digests that can be used to validate integrity of audit files, the requirement is not applicable.\nAsk application administrator to demonstrate the cryptographic mechanisms used to protect the integrity of audit data.\nVerify when application logs are stored on the file system, a process that includes the creation of an integrity check of the audit file being stored is utilized. This integrity check can be the creation of a checksum, message digest or other one-way cryptographic hash of the audit file that is created.\nIf an integrity check is not created to protect the integrity of the audit information, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

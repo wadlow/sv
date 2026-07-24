@@ -1,7 +1,8 @@
 """Search criteria pane."""
 
 from AppKit import (
-    NSView, NSRect, NSTextField, NSButton, NSViewWidthSizable, NSViewHeightSizable
+    NSView, NSRect, NSTextField, NSButton, NSViewWidthSizable, NSViewHeightSizable,
+    NSViewMinXMargin, NSViewMaxXMargin, NSColor, NSFont, NSRightTextAlignment,
 )
 from Foundation import NSObject
 import objc
@@ -34,48 +35,56 @@ class SearchPane(NSView):
         attrs['count_label'] = None
         attrs['check_texts_btn'] = None
         attrs['on_check_texts'] = None
+        attrs['title_label'] = None
         SearchPane.createUI(self)
         return self
+
+    FOOTER_HEIGHT = 36
+    CHECKBOX_ROW_HEIGHT = 25
+    TOP_MARGIN = 5
+    TITLE_HEIGHT = 20
+
+    def resizeSubviewsWithOldSize_(self, old_size):
+        objc.super(SearchPane, self).resizeSubviewsWithOldSize_(old_size)
+        SearchPane._layout_content(self)
+
+    def viewDidMoveToWindow(self):
+        SearchPane._layout_content(self)
     
     def createUI(self):
         """Create the UI with severity filter checkboxes."""
+        self.setFlipped_(True)
         bounds = self.bounds()
         width, height = get_bounds_size(bounds)
         
         # If bounds are zero, use default size
         if width == 0 or height == 0:
-            from AppKit import NSRect
-            width, height = 300, 120
+            width, height = 300, 220
             bounds = NSRect((0, 0), (width, height))
             self.setFrame_(bounds)
         
         attrs = get_view_attrs(self)
         
-        # Title label (left side)
-        title_frame = NSRect((10, height - 25), (width // 2 - 10, 20))
-        title_label = NSTextField.alloc().initWithFrame_(title_frame)
+        title_label = NSTextField.alloc().initWithFrame_(NSRect((10, self.TOP_MARGIN), (width // 2 - 10, self.TITLE_HEIGHT)))
         title_label.setStringValue_("Severity Filter:")
         title_label.setBordered_(False)
         title_label.setDrawsBackground_(False)
         title_label.setEditable_(False)
-        title_label.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin (stays at top)
+        title_label.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         self.addSubview_(title_label)
+        attrs['title_label'] = title_label
         
-        # V-code count label (right side, same row as title)
-        from AppKit import NSColor, NSRightTextAlignment
-        count_frame = NSRect((width // 2, height - 25), (width // 2 - 10, 20))
-        count_label = NSTextField.alloc().initWithFrame_(count_frame)
+        count_label = NSTextField.alloc().initWithFrame_(NSRect((width // 2, self.TOP_MARGIN), (width // 2 - 10, self.TITLE_HEIGHT)))
         count_label.setStringValue_("V-codes: 0")
         count_label.setBordered_(False)
         count_label.setDrawsBackground_(False)
         count_label.setEditable_(False)
         count_label.setTextColor_(NSColor.whiteColor())
-        count_label.setAlignment_(NSRightTextAlignment)  # Right-align the text
-        count_label.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+        count_label.setAlignment_(NSRightTextAlignment)
+        count_label.setAutoresizingMask_(NSViewWidthSizable | NSViewHeightSizable)
         self.addSubview_(count_label)
         attrs['count_label'] = count_label
         
-        # Create severity checkboxes with tooltips
         severity_checkboxes = {}
         severities = [
             ('high', "High", "Show V-codes with CAT I (high) severity"),
@@ -83,83 +92,117 @@ class SearchPane(NSView):
             ('low', "Low/Other", "Show V-codes with CAT III (low) severity and other severities"),
         ]
         
-        y_pos = height - 50
         for sev_key, label, tooltip in severities:
-            checkbox_frame = NSRect((10, y_pos), (width - 20, 20))
-            checkbox = NSButton.alloc().initWithFrame_(checkbox_frame)
+            checkbox = NSButton.alloc().initWithFrame_(NSRect((10, 0), (width - 20, 20)))
             checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
             checkbox.setTitle_(label)
             checkbox.setState_(1)  # Initially checked
             checkbox.setTarget_(self)
             checkbox.setAction_("severityCheckboxChanged:")
-            checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+            checkbox.setAutoresizingMask_(NSViewWidthSizable)
             checkbox.setToolTip_(tooltip)
             self.addSubview_(checkbox)
-            
             severity_checkboxes[sev_key] = checkbox
-            y_pos -= 25
         
         attrs['severity_checkboxes'] = severity_checkboxes
         
-        # Add "STIG/Checklist Rule Title" checkbox after severity filters
-        rule_title_checkbox_frame = NSRect((10, y_pos), (width - 20, 20))
-        rule_title_checkbox = NSButton.alloc().initWithFrame_(rule_title_checkbox_frame)
-        rule_title_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        rule_title_checkbox = NSButton.alloc().initWithFrame_(NSRect((10, 0), (width - 20, 20)))
+        rule_title_checkbox.setButtonType_(3)
         rule_title_checkbox.setTitle_("STIG/Checklist Rule Title")
-        rule_title_checkbox.setState_(0)  # Initially unchecked
+        rule_title_checkbox.setState_(0)
         rule_title_checkbox.setTarget_(self)
         rule_title_checkbox.setAction_("ruleTitleCheckboxChanged:")
-        rule_title_checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+        rule_title_checkbox.setAutoresizingMask_(NSViewWidthSizable)
         rule_title_checkbox.setToolTip_("Show ONLY V-codes where STIG Rule Title differs from Checklist Rule Title")
         self.addSubview_(rule_title_checkbox)
         attrs['rule_title_checkbox'] = rule_title_checkbox
         
-        # Add "Hide Audit" checkbox
-        y_pos -= 25
-        hide_audit_checkbox_frame = NSRect((10, y_pos), (width - 20, 20))
-        hide_audit_checkbox = NSButton.alloc().initWithFrame_(hide_audit_checkbox_frame)
-        hide_audit_checkbox.setButtonType_(3)  # NSSwitchButton (checkbox)
+        hide_audit_checkbox = NSButton.alloc().initWithFrame_(NSRect((10, 0), (width - 20, 20)))
+        hide_audit_checkbox.setButtonType_(3)
         hide_audit_checkbox.setTitle_("Hide Audit")
-        hide_audit_checkbox.setState_(0)  # Initially unchecked
+        hide_audit_checkbox.setState_(0)
         hide_audit_checkbox.setTarget_(self)
         hide_audit_checkbox.setAction_("hideAuditCheckboxChanged:")
-        hide_audit_checkbox.setAutoresizingMask_(NSViewWidthSizable | 0x08)  # Width sizable + NSViewMinYMargin
+        hide_audit_checkbox.setAutoresizingMask_(NSViewWidthSizable)
         hide_audit_checkbox.setToolTip_("Hide V-codes with 'audit' in their title (e.g., auditing, audited)")
         self.addSubview_(hide_audit_checkbox)
         attrs['hide_audit_checkbox'] = hide_audit_checkbox
 
-        from AppKit import NSFont
-        btn_width = 130
-        btn_height = 24
         small_font = NSFont.systemFontOfSize_(11)
+        delete_btn = NSButton.alloc().initWithFrame_(NSRect((0, 0), (130, 24)))
+        delete_btn.setTitle_("Delete Selected STIG")
+        delete_btn.setButtonType_(0)
+        delete_btn.setBezelStyle_(4)
+        delete_btn.setFont_(small_font)
+        delete_btn.setTarget_(self)
+        delete_btn.setAction_("deleteStigClicked:")
+        delete_btn.setEnabled_(False)
+        delete_btn.setAutoresizingMask_(NSViewMinXMargin | NSViewMaxXMargin)
+        self.addSubview_(delete_btn)
+        attrs['delete_btn'] = delete_btn
 
-        # Add Check Texts button at the bottom left
-        check_texts_btn_frame = NSRect((10, 10), (110, btn_height))
-        check_texts_btn = NSButton.alloc().initWithFrame_(check_texts_btn_frame)
+        check_texts_btn = NSButton.alloc().initWithFrame_(NSRect((0, 0), (100, 24)))
         check_texts_btn.setTitle_("Check Texts")
         check_texts_btn.setButtonType_(0)
         check_texts_btn.setBezelStyle_(4)
         check_texts_btn.setFont_(small_font)
         check_texts_btn.setTarget_(self)
         check_texts_btn.setAction_("checkTextsClicked:")
-        check_texts_btn.setAutoresizingMask_(0x04 | 0x08)
+        check_texts_btn.setAutoresizingMask_(NSViewMinXMargin | NSViewMaxXMargin)
         self.addSubview_(check_texts_btn)
         attrs['check_texts_btn'] = check_texts_btn
 
-        # Add Delete Selected STIG button at the bottom right corner (small)
-        delete_btn_frame = NSRect((width - btn_width - 10, 10), (btn_width, btn_height))
-        delete_btn = NSButton.alloc().initWithFrame_(delete_btn_frame)
-        delete_btn.setTitle_("Delete Selected STIG")
-        delete_btn.setButtonType_(0)  # NSMomentaryPushInButton
-        delete_btn.setBezelStyle_(4)  # NSRoundedBezelStyle (4 = small rounded)
-        delete_btn.setFont_(small_font)
-        delete_btn.setTarget_(self)
-        delete_btn.setAction_("deleteStigClicked:")
-        delete_btn.setEnabled_(False)  # Initially disabled
-        self.addSubview_(delete_btn)
-        attrs['delete_btn'] = delete_btn
+        SearchPane._layout_content(self)
         
-        print(f"SearchPane.createUI: Created {len(severity_checkboxes)} severity checkboxes + delete button")  # Debug
+        print(f"SearchPane.createUI: Created {len(severity_checkboxes)} severity checkboxes + footer buttons")  # Debug
+
+    @objc.python_method
+    def _layout_content(self):
+        """Lay out filter controls with buttons pinned to the bottom."""
+        width, height = get_bounds_size(self.bounds())
+        if width == 0 or height == 0:
+            return
+
+        attrs = get_view_attrs(self)
+        title_label = attrs.get('title_label')
+        count_label = attrs.get('count_label')
+        if title_label:
+            title_label.setFrame_(NSRect((10, self.TOP_MARGIN), (max(80, width // 2 - 10), self.TITLE_HEIGHT)))
+        if count_label:
+            count_label.setFrame_(NSRect((width // 2, self.TOP_MARGIN), (max(80, width // 2 - 10), self.TITLE_HEIGHT)))
+
+        checkbox_y = self.TOP_MARGIN + self.TITLE_HEIGHT + 8
+        for checkbox in attrs.get('severity_checkboxes', {}).values():
+            checkbox.setFrame_(NSRect((10, checkbox_y), (max(100, width - 20), 20)))
+            checkbox_y += self.CHECKBOX_ROW_HEIGHT
+
+        rule_title_checkbox = attrs.get('rule_title_checkbox')
+        if rule_title_checkbox:
+            rule_title_checkbox.setFrame_(NSRect((10, checkbox_y), (max(100, width - 20), 20)))
+            checkbox_y += self.CHECKBOX_ROW_HEIGHT
+
+        hide_audit_checkbox = attrs.get('hide_audit_checkbox')
+        if hide_audit_checkbox:
+            hide_audit_checkbox.setFrame_(NSRect((10, checkbox_y), (max(100, width - 20), 20)))
+
+        btn_height = 24
+        btn_y = height - btn_height - 8
+        btn_right = width - 10
+        delete_btn = attrs.get('delete_btn')
+        check_texts_btn = attrs.get('check_texts_btn')
+        delete_width = 130
+        check_texts_width = 100
+        btn_gap = 10
+
+        if delete_btn:
+            delete_btn.setFrame_(NSRect((btn_right - delete_width, btn_y), (delete_width, btn_height)))
+        if check_texts_btn:
+            check_texts_btn.setFrame_(
+                NSRect(
+                    (btn_right - delete_width - btn_gap - check_texts_width, btn_y),
+                    (check_texts_width, btn_height),
+                )
+            )
     
     @objc.python_method
     def get_search_text(self) -> str:

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222494",
+  "severity": "medium",
+  "rule_id": "SV-222494r961425_rule",
+  "rule_ver": "APSC-DV-001200",
+  "rule_title": "The application must provide a report generation capability that supports after-the-fact investigations of security incidents.",
+  "check_text": "Review the application documentation and interview the application administrator for details regarding audit reduction (log record event filtering).\n\nAccess the application with user rights sufficient to read and filter audit records.\n\nNavigate the application user interface and select the application functionality that provides access and interface to audit records and audit reduction (event filtering).\n\nIf the application uses a centralized logging solution that performs the report generation functions, the requirement is not applicable.\n\nCreate an event report. Report data can be based on date ranges, times or events, or other criteria that could be used in an investigation. Use of data from previous checks for audit reduction is encouraged.\n\nReview the report and ensure the data in the report coincides with event filters used to create the report.\n\nIf the application does not have a report generation capability that supports after the fact security investigations, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator for details regarding audit reduction (log record event filtering).\nAccess the application with user rights sufficient to read and filter audit records.\nNavigate the application user interface and select the application functionality that provides access and interface to audit records and audit reduction (event filtering).\nIf the application uses a centralized logging solution that performs the report generation functions, the requirement is not applicable.\nCreate an event report. Report data can be based on date ranges, times or events, or other criteria that could be used in an investigation. Use of data from previous checks for audit reduction is encouraged.\nReview the report and ensure the data in the report coincides with event filters used to create the report.\nIf the application does not have a report generation capability that supports after the fact security investigations, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

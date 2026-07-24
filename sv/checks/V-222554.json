@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222554",
+  "severity": "high",
+  "rule_id": "SV-222554r961047_rule",
+  "rule_ver": "APSC-DV-001850",
+  "rule_title": "The application must not display passwords/PINs as clear text.",
+  "check_text": "Ask the application admin to log on to the application.\n\nObserve the authentication process and verify any display feedback provided when the admin enters her/his password is obfuscated and not clear text.\n\nFor applications that display authentication feedback for a very limited time, ensure the feedback time the character is displayed is only momentary i.e., fractions of a second.\n\nUsing a text editor, copy the obfuscated password and paste to a text file.  Do not save the file.\n\nIf the application displays clear text when the password/PIN is entered, or if the time period for displayed feedback exceeds fractions of a second, or if the clear text password/PIN is displayed when pasted, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application admin to log on to the application.\nObserve the authentication process and verify any display feedback provided when the admin enters her/his password is obfuscated and not clear text.\nFor applications that display authentication feedback for a very limited time, ensure the feedback time the character is displayed is only momentary i.e., fractions of a second.\nUsing a text editor, copy the obfuscated password and paste to a text file.  Do not save the file.\nIf the application displays clear text when the password/PIN is entered, or if the time period for displayed feedback exceeds fractions of a second, or if the clear text password/PIN is displayed when pasted, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222466",
+  "severity": "medium",
+  "rule_id": "SV-222466r961839_rule",
+  "rule_ver": "APSC-DV-000870",
+  "rule_title": "The application must generate audit records for all direct access to the information system.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify if the application implements a direct access feature or function that allows users to directly access the underlying OS.\n\nDirect access includes but is not limited to: executing OS commands, navigating the file system, manipulating system resources such as print queues, or reading files hosted on the OS that are not specifically shared or made available on the website.\n\nIf the application does not provide direct access to the system, this requirement is not applicable.\n\nAccess the application logs.\n\nAccess the application as a user or test user with appropriate permissions and attempt to execute application features and functions that provide direct access to the system.\n\nReview the logs and ensure the actions executed were logged.\n\nLog information must include the user responsible for executing the action, the action executed, and the result of the action.\n\nIf the application does not log all direct access to the system, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify if the application implements a direct access feature or function that allows users to directly access the underlying OS.\nDirect access includes but is not limited to: executing OS commands, navigating the file system, manipulating system resources such as print queues, or reading files hosted on the OS that are not specifically shared or made available on the website.\nIf the application does not provide direct access to the system, this requirement is not applicable.\nAccess the application logs.\nAccess the application as a user or test user with appropriate permissions and attempt to execute application features and functions that provide direct access to the system.\nReview the logs and ensure the actions executed were logged.\nLog information must include the user responsible for executing the action, the action executed, and the result of the action.\nIf the application does not log all direct access to the system, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222556",
+  "severity": "medium",
+  "rule_id": "SV-222556r961053_rule",
+  "rule_ver": "APSC-DV-001870",
+  "rule_title": "The application must uniquely identify and authenticate non-organizational users (or processes acting on behalf of non-organizational users).",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIf the application does not host non-organizational users, this requirement is not applicable.\n\nReview the application and verify authentication is enabled and required in order for users to access the application.\n\nReview the application user base and determine if all user accounts are documented and assigned to a unique individual.\n\nReview risk acceptance documentation to determine if there are specific accesses identified that do not require authentication.\n\nIf the application does not identify and authenticate non-organizational users and there is no risk acceptance documentation approving the exception, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIf the application does not host non-organizational users, this requirement is not applicable.\nReview the application and verify authentication is enabled and required in order for users to access the application.\nReview the application user base and determine if all user accounts are documented and assigned to a unique individual.\nReview risk acceptance documentation to determine if there are specific accesses identified that do not require authentication.\nIf the application does not identify and authenticate non-organizational users and there is no risk acceptance documentation approving the exception, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

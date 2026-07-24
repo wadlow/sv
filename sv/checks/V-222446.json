@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222446",
+  "severity": "medium",
+  "rule_id": "SV-222446r960879_rule",
+  "rule_ver": "APSC-DV-000670",
+  "rule_title": "The application must record a time stamp indicating when the event occurred.",
+  "check_text": "Review the application logs.\n\nIf the time the event occurred is not included as part of the event, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application logs.\nIf the time the event occurred is not included as part of the event, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

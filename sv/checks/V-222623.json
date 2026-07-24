@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222623",
+  "severity": "medium",
+  "rule_id": "SV-222623r961863_rule",
+  "rule_ver": "APSC-DV-002920",
+  "rule_title": "The ISSO must report all suspected violations of IA policies in accordance with DoD information system IA procedures.",
+  "check_text": "Interview the application representative and review the SOPs to ensure that violations of IA policies are analyzed and reported.\n \nIf there is no policy for reporting IA violations, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the application representative and review the SOPs to ensure that violations of IA policies are analyzed and reported.\nIf there is no policy for reporting IA violations, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

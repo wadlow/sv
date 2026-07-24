@@ -1,0 +1,28 @@
+{
+  "v_code": "V-261960",
+  "severity": "medium",
+  "rule_id": "SV-261960r1000885_rule",
+  "rule_ver": "CD16-00-011600",
+  "rule_title": "PostgreSQL must generate audit records showing starting and ending time for user access to the database(s).",
+  "check_text": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\n\nLog into the database with the postgres user by running the following commands:\n\n$ sudo su - postgres\n$ psql -U postgres\n\nAs the database administrator, verify the log for a connection audit trail:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/${PGLOG?}/<latest_log>\n< 2024-02-23 20:25:39.931 UTC postgres 56cfa993.7a72 postgres: >LOG: connection authorized: user=postgres database=postgres\n< 2024-02-23 20:27:45.428 UTC postgres 56cfa993.7a72 postgres: >LOG: AUDIT: SESSION,1,1,READ,SELECT,,,SELECT current_user;,<none>\n< 2024-02-23 20:27:47.988 UTC postgres 56cfa993.7a72 postgres: >LOG: disconnection: session time: 0:00:08.057 user=postgres database=postgres host=[local]\n\nIf connections are not logged, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\nLog into the database with the postgres user by running the following commands:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -U postgres"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "As the database administrator, verify the log for a connection audit trail:\n< 2024-02-23 20:25:39.931 UTC postgres 56cfa993.7a72 postgres: >LOG: connection authorized: user=postgres database=postgres\n< 2024-02-23 20:27:45.428 UTC postgres 56cfa993.7a72 postgres: >LOG: AUDIT: SESSION,1,1,READ,SELECT,,,SELECT current_user;,<none>\n< 2024-02-23 20:27:47.988 UTC postgres 56cfa993.7a72 postgres: >LOG: disconnection: session time: 0:00:08.057 user=postgres database=postgres host=[local]",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/${PGLOG?}/<latest_log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

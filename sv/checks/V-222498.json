@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222498",
+  "severity": "medium",
+  "rule_id": "SV-222498r961443_rule",
+  "rule_ver": "APSC-DV-001260",
+  "rule_title": "The application must record time stamps for audit records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT).",
+  "check_text": "Review the system documentation and interview the application administrator for details regarding application architecture and logging configuration.\n\nIdentify the application components and the logs associated with the components. \n\nIf the application utilizes the underlying OS system clock, and the system clock is mapped to UTC or GMT, this is not a finding.\n\nIdentify where clock settings are configured within the application.\n\nAccess the configuration settings and determine if the application is configured to set the time stamps for audit records according to UTC or GMT (e.g., East coast standard time is represented as GMT -5, east coast daylight savings time is represented as GMT-4).\n\nIf the application is not configured to map to UTC or GMT, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and interview the application administrator for details regarding application architecture and logging configuration.\nIdentify the application components and the logs associated with the components.\nIf the application utilizes the underlying OS system clock, and the system clock is mapped to UTC or GMT, this is not a finding.\nIdentify where clock settings are configured within the application.\nAccess the configuration settings and determine if the application is configured to set the time stamps for audit records according to UTC or GMT (e.g., East coast standard time is represented as GMT -5, east coast daylight savings time is represented as GMT-4).\nIf the application is not configured to map to UTC or GMT, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

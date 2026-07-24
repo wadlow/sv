@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222650",
+  "severity": "medium",
+  "rule_id": "SV-222650r961863_rule",
+  "rule_ver": "APSC-DV-003190",
+  "rule_title": "Flaws found during a code review must be tracked in a defect tracking system.",
+  "check_text": "This requirement is meant to apply to developers or organizations that are doing application development work.\n\nIf application development is not being done or managed by the organization, this requirement is not applicable.\n\nAsk the application representative to demonstrate that the configuration management repository captures flaws in the code review process. The configuration management repository may consist of a separate application for capturing code defects.\n\nIf there is no configuration management repository or the code review flaws are not captured in the configuration management repository, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement is meant to apply to developers or organizations that are doing application development work.\nIf application development is not being done or managed by the organization, this requirement is not applicable.\nAsk the application representative to demonstrate that the configuration management repository captures flaws in the code review process. The configuration management repository may consist of a separate application for capturing code defects.\nIf there is no configuration management repository or the code review flaws are not captured in the configuration management repository, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

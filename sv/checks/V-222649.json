@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222649",
+  "severity": "low",
+  "rule_id": "SV-222649r961863_rule",
+  "rule_ver": "APSC-DV-003180",
+  "rule_title": "Code coverage statistics must be maintained for each release of the application.",
+  "check_text": "If the organization does not do or manage the application development work for the application, this requirement is not applicable.\n\nAsk the application representative to provide code coverage statistics maintained for the application.\n\nIf these code coverage statistics do not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the organization does not do or manage the application development work for the application, this requirement is not applicable.\nAsk the application representative to provide code coverage statistics maintained for the application.\nIf these code coverage statistics do not exist, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

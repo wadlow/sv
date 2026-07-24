@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222620",
+  "severity": "high",
+  "rule_id": "SV-222620r961863_rule",
+  "rule_ver": "APSC-DV-002890",
+  "rule_title": "Application web servers must be on a separate network segment from the application and database servers if it is a tiered application operating in the DoD DMZ.",
+  "check_text": "Review the application documentation.\n\nReview the application data protection requirements and identify if all data types hosted on server are identical.\n\nReview the network diagram and identify web servers/web services, web application servers, and database servers.\n\nIf the application is not hosted in the DoD DMZ, this requirement is not applicable.\n\nVerify the application web servers are separated from the application and database servers if the application is a tiered design as per DoD DMZ STIG requirements.\n\nIf the application is tiered and the network infrastructure hosting the application is not configured to provide separation and security access controls between the tiered layers in accordance with DoD DMZ requirements, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation.\nReview the application data protection requirements and identify if all data types hosted on server are identical.\nReview the network diagram and identify web servers/web services, web application servers, and database servers.\nIf the application is not hosted in the DoD DMZ, this requirement is not applicable.\nVerify the application web servers are separated from the application and database servers if the application is a tiered design as per DoD DMZ STIG requirements.\nIf the application is tiered and the network infrastructure hosting the application is not configured to provide separation and security access controls between the tiered layers in accordance with DoD DMZ requirements, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

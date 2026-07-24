@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222611",
+  "severity": "medium",
+  "rule_id": "SV-222611r961170_rule",
+  "rule_ver": "APSC-DV-002580",
+  "rule_title": "The application must reveal error messages only to the ISSO, ISSM, or SA.",
+  "check_text": "Review the application documentation and interview the application administrator for details regarding how the application displays error messages.\n\nAuthenticate to the application as a non-privileged user and attempt to execute functionality that will generate error messages.\n\nReview the error messages displayed to ensure no sensitive information is provided to end users.\n\nAuthenticate as a privileged user and repeat tests.\n\nIf error messages are designed to provide users with just enough detail to pass along to support staff in order to aid in troubleshooting such as date, time or other generic information, this is not a finding.\n\nIf detailed error messages are provided to privileged users, this is not a finding.\n\nIf variable names, SQL strings, system path information, or source or program code are displayed in error messages sent to non-privileged users, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator for details regarding how the application displays error messages.\nAuthenticate to the application as a non-privileged user and attempt to execute functionality that will generate error messages.\nReview the error messages displayed to ensure no sensitive information is provided to end users.\nAuthenticate as a privileged user and repeat tests.\nIf error messages are designed to provide users with just enough detail to pass along to support staff in order to aid in troubleshooting such as date, time or other generic information, this is not a finding.\nIf detailed error messages are provided to privileged users, this is not a finding.\nIf variable names, SQL strings, system path information, or source or program code are displayed in error messages sent to non-privileged users, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

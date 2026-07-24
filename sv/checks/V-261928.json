@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261928",
+  "severity": "high",
+  "rule_id": "SV-261928r1117186_rule",
+  "rule_ver": "CD16-00-008300",
+  "rule_title": "PostgreSQL must use NSA-approved cryptography to protect classified information in accordance with the data owner's requirements.",
+  "check_text": "If PostgreSQL is deployed in an unclassified environment, this is not applicable.\n\nIf PostgreSQL is not using NSA-approved cryptography to protect classified information in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards, this is a finding.\n\nTo check if PostgreSQL is configured to use SSL, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW ssl\"\n\nIf SSL is off, this is a finding.\n\nConsult network administration staff to determine whether the server is protected by NSA-approved encrypting devices. If not, this a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If PostgreSQL is deployed in an unclassified environment, this is not applicable.\nIf PostgreSQL is not using NSA-approved cryptography to protect classified information in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards, this is a finding.\nTo check if PostgreSQL is configured to use SSL, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW ssl\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

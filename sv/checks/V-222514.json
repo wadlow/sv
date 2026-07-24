@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222514",
+  "severity": "medium",
+  "rule_id": "SV-222514r960960_rule",
+  "rule_ver": "APSC-DV-001440",
+  "rule_title": "The applications must limit privileges to change the software resident within software libraries.",
+  "check_text": "Review the application documentation and interview the application administrator to identify the application architecture.\n\nIdentify application folders where application libraries are stored.\n\nReview permissions of application folders and library files contained with the folders to ensure file permissions restrict access to authorized users or processes.\n\nAccess application configuration settings.\n\nExamine settings for capability to update software libraries or extend application functionality via the application.\n\nReview user roles and access rights within the application to determine if access to this capability is restricted to authorized users.\n\nIf file restrictions do not limit write access to library files and if the application does not restrict access to library update functionality, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify the application architecture.\nIdentify application folders where application libraries are stored.\nReview permissions of application folders and library files contained with the folders to ensure file permissions restrict access to authorized users or processes.\nAccess application configuration settings.\nExamine settings for capability to update software libraries or extend application functionality via the application.\nReview user roles and access rights within the application to determine if access to this capability is restricted to authorized users.\nIf file restrictions do not limit write access to library files and if the application does not restrict access to library update functionality, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

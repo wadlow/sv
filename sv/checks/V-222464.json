@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222464",
+  "severity": "medium",
+  "rule_id": "SV-222464r961830_rule",
+  "rule_ver": "APSC-DV-000850",
+  "rule_title": "The application must generate audit records showing starting and ending time for user access to the system.",
+  "check_text": "Review and monitor the application logs.\n\nInitiate a user session and observe if the log includes a time stamp showing the start of the session.\n\nTerminate the user session and observe if the log includes a time stamp showing the end of the session.\n\nIf the start and the end time of the session are not recorded in the logs, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review and monitor the application logs.\nInitiate a user session and observe if the log includes a time stamp showing the start of the session.\nTerminate the user session and observe if the log includes a time stamp showing the end of the session.\nIf the start and the end time of the session are not recorded in the logs, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

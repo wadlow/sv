@@ -1,0 +1,37 @@
+{
+  "v_code": "V-261893",
+  "severity": "medium",
+  "rule_id": "SV-261893r1000684_rule",
+  "rule_ver": "CD16-00-004000",
+  "rule_title": "PostgreSQL, when using PKI-based authentication, must validate certificates by performing RFC 5280-compliant certification path validation.",
+  "check_text": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\n\nTo verify that a CRL file exists, as the database administrator (shown here as \"postgres\"), run the following:\n\n$ sudo su - postgres\n$ psql -c \"SELECT CASE WHEN length(setting) > 0 \nTHEN CASE WHEN substring(setting, 1, 1) = '/' \nTHEN setting \nELSE (SELECT setting FROM pg_settings WHERE name = 'data_directory') || '/' || setting\nEND\nELSE ''\nEND AS ssl_crl_file\nFROM pg_settings\nWHERE name = 'ssl_crl_file';\"\n\nIf this is not set to a CRL file, this is a finding.\n\nVerify the existence of the CRL file by checking the directory from above:\n\n$ sudo su - postgres\n$ ls -ld <ssl_crl_file>\n\nIf the CRL file does not exist, this is a finding.\n\nVerify that hostssl entries in pg_hba.conf have \"cert\" and \"clientcert=verify-ca\" enabled:\n\n$ sudo su - postgres\n$ grep '^hostssl.*cert.*clientcert=verify-ca ' ${PGDATA?}/pg_hba.conf\n\nIf hostssl entries are not returned, this is a finding.\n\nIf certificates are not being validated by performing RFC 5280-compliant certification path validation, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\nTo verify that a CRL file exists, as the database administrator (shown here as \"postgres\"), run the following:\nTHEN CASE WHEN substring(setting, 1, 1) = '/'\nTHEN setting\nELSE (SELECT setting FROM pg_settings WHERE name = 'data_directory') || '/' || setting\nEND\nELSE ''\nEND AS ssl_crl_file\nFROM pg_settings\nWHERE name = 'ssl_crl_file';\"",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SELECT CASE WHEN length(setting) > 0"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If this is not set to a CRL file, this is a finding.\nVerify the existence of the CRL file by checking the directory from above:",
+      "commands": [
+        "sudo su - postgres",
+        "ls -ld <ssl_crl_file>"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If the CRL file does not exist, this is a finding.\nVerify that hostssl entries in pg_hba.conf have \"cert\" and \"clientcert=verify-ca\" enabled:",
+      "commands": [
+        "sudo su - postgres",
+        "grep '^hostssl.*cert.*clientcert=verify-ca ' ${PGDATA?}/pg_hba.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

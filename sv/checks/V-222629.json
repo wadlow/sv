@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222629",
+  "severity": "medium",
+  "rule_id": "SV-222629r961863_rule",
+  "rule_ver": "APSC-DV-002990",
+  "rule_title": "The application must be registered with the DoD Ports and Protocols Database.",
+  "check_text": "Verify registration of the application and ports in the Ports and Protocols Database for a production site.\n\nIf the application requires registration, and is not registered or all ports used have not been identified in the database, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify registration of the application and ports in the Ports and Protocols Database for a production site.\nIf the application requires registration, and is not registered or all ports used have not been identified in the database, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

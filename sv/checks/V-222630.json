@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222630",
+  "severity": "medium",
+  "rule_id": "SV-222630r961863_rule",
+  "rule_ver": "APSC-DV-002995",
+  "rule_title": "The Configuration Management (CM) repository must be properly patched and STIG compliant.",
+  "check_text": "Review the application system documentation and interview the application administrator.\n\nIdentify if the STIG is being applied to application developers or organizations responsible for code management or who have and operate an application CM repository. If this is not the case, the requirement is not applicable.\n\nReview CM patch management processes and procedures.  Have the system and CM admins demonstrate their patch management processes and verify the system has the latest security patches applied.  \n\nReview the ATO documentation and verify the system that operates the CM repository software has had all relevant STIGs applied.\n\nIf CM repository is not at the latest security patch level and is not operating on a STIG compliant system, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application system documentation and interview the application administrator.\nIdentify if the STIG is being applied to application developers or organizations responsible for code management or who have and operate an application CM repository. If this is not the case, the requirement is not applicable.\nReview CM patch management processes and procedures.  Have the system and CM admins demonstrate their patch management processes and verify the system has the latest security patches applied.\nReview the ATO documentation and verify the system that operates the CM repository software has had all relevant STIGs applied.\nIf CM repository is not at the latest security patch level and is not operating on a STIG compliant system, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

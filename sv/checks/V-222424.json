@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222424",
+  "severity": "medium",
+  "rule_id": "SV-222424r961305_rule",
+  "rule_ver": "APSC-DV-000450",
+  "rule_title": "The application must utilize organization-defined data mining detection techniques for organization-defined data storage objects to adequately detect data mining attempts.",
+  "check_text": "Review the security plan, application and system documentation and interview the application administrator to identify data mining protections that are required of the application.\n\nIf there are no data mining protections required, this requirement is not applicable.\n\nReview the application authentication requirements and permissions.\n\nReview documented protections that have been established to protect from data mining.\n\nThis can include limiting the number of queries allowed.\n\nAutomated alarming on atypical query events.\n\nLimiting the number of records allowed to be returned in a query.\n\nNot allowing data dumps.\n\nIf the application requirements specify protections for data mining and the application administrator is unable to identify or demonstrate that the protections are in place, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the security plan, application and system documentation and interview the application administrator to identify data mining protections that are required of the application.\nIf there are no data mining protections required, this requirement is not applicable.\nReview the application authentication requirements and permissions.\nReview documented protections that have been established to protect from data mining.\nThis can include limiting the number of queries allowed.\nAutomated alarming on atypical query events.\nLimiting the number of records allowed to be returned in a query.\nNot allowing data dumps.\nIf the application requirements specify protections for data mining and the application administrator is unable to identify or demonstrate that the protections are in place, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

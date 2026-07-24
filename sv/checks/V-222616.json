@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222616",
+  "severity": "medium",
+  "rule_id": "SV-222616r961734_rule",
+  "rule_ver": "APSC-DV-002770",
+  "rule_title": "The application must perform verification of the correct operation of security functions: upon system startup and/or restart; upon command by a user with privileged access; and/or every 30 days.",
+  "check_text": "Review the application documentation and interview the system administrator to determine if the application performs security function testing.\n\nIf the application is not designed or intended to perform security function testing, the requirement is not applicable.\n\nAccess the application design documents or have the system administrator provide proof if the application is designed to verify the correct operation of security functions.\n\nReview application logs and take note of log entries that indicate security function testing is being performed and verified on startup, restart, or on command by an authorized user.\n\nIf the application is designed to perform security function testing and does not verify the correct operation of security functions on startup, restart, or upon command by a privileged user, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the system administrator to determine if the application performs security function testing.\nIf the application is not designed or intended to perform security function testing, the requirement is not applicable.\nAccess the application design documents or have the system administrator provide proof if the application is designed to verify the correct operation of security functions.\nReview application logs and take note of log entries that indicate security function testing is being performed and verified on startup, restart, or on command by an authorized user.\nIf the application is designed to perform security function testing and does not verify the correct operation of security functions on startup, restart, or upon command by a privileged user, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

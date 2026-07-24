@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222660",
+  "severity": "low",
+  "rule_id": "SV-222660r961863_rule",
+  "rule_ver": "APSC-DV-003260",
+  "rule_title": "Procedures must be in place to notify users when an application is decommissioned.",
+  "check_text": "Interview the application representative to determine if provisions are in place to notify users when an application is decommissioned.\n \nIf provisions are not in place to notify users when an application is decommissioned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the application representative to determine if provisions are in place to notify users when an application is decommissioned.\nIf provisions are not in place to notify users when an application is decommissioned, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

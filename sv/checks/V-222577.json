@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222577",
+  "severity": "high",
+  "rule_id": "SV-222577r1043178_rule",
+  "rule_ver": "APSC-DV-002230",
+  "rule_title": "The application must not expose session IDs.",
+  "check_text": "Review the application documentation and configuration.\n\nInterview the application administrator and obtain implementation documentation identifying system architecture.\n\nIdentify the application communication paths. This includes system to system communication and client to server communication that transmit session identifiers over the network.\n\nHave the application administrator identify the methods and mechanisms used to protect the application session ID traffic. Acceptable methods include SSL/TLS both one-way and two-way and VPN tunnel.\n\nThe protections must be implemented on a point-to-point basis based upon the architecture of the application.\n\nFor example; a web application hosting static data will provide SSL/TLS encryption from web client to the web server. More complex designs may encrypt from application server to application server (if applicable) and application server to database as well.\n\nIf the session IDs are unencrypted across network segments, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and configuration.\nInterview the application administrator and obtain implementation documentation identifying system architecture.\nIdentify the application communication paths. This includes system to system communication and client to server communication that transmit session identifiers over the network.\nHave the application administrator identify the methods and mechanisms used to protect the application session ID traffic. Acceptable methods include SSL/TLS both one-way and two-way and VPN tunnel.\nThe protections must be implemented on a point-to-point basis based upon the architecture of the application.\nFor example; a web application hosting static data will provide SSL/TLS encryption from web client to the web server. More complex designs may encrypt from application server to application server (if applicable) and application server to database as well.\nIf the session IDs are unencrypted across network segments, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

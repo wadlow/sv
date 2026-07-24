@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222390",
+  "severity": "medium",
+  "rule_id": "SV-222390r1043182_rule",
+  "rule_ver": "APSC-DV-000080",
+  "rule_title": "The application must automatically terminate the admin user session and log off admin users after a 10 minute idle time period is exceeded.",
+  "check_text": "Ask the application representative to demonstrate the application configuration setting where the idle time out value is defined for admin users.\n\nAlternatively, logon with an admin user account and let the session sit idle for 10 minutes.\n\nAttempt to access the application after 10 minutes of inactivity.\n\nIf the configuration setting is not set to time out admin user sessions after 10 minutes of inactivity, or if the session used for testing does not time out after 10 minutes of inactivity, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application representative to demonstrate the application configuration setting where the idle time out value is defined for admin users.\nAlternatively, logon with an admin user account and let the session sit idle for 10 minutes.\nAttempt to access the application after 10 minutes of inactivity.\nIf the configuration setting is not set to time out admin user sessions after 10 minutes of inactivity, or if the session used for testing does not time out after 10 minutes of inactivity, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

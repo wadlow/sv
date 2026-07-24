@@ -1,0 +1,21 @@
+{
+  "v_code": "V-261861",
+  "severity": "medium",
+  "rule_id": "SV-261861r1000588_rule",
+  "rule_ver": "CD16-00-000500",
+  "rule_title": "PostgreSQL must provide audit record generation capability for DOD-defined auditable events within all DBMS/database components.",
+  "check_text": "Note: The following instructions use the PGLOG environment variables. Refer to supplementary content APPENDIX-I for instructions on configuring PGVER.\n\nCheck PostgreSQL audit logs to determine whether organization-defined auditable events are being audited by the system.\n\nFor example, if the organization defines 'CREATE TABLE' as an auditable event, issuing the following command should return a result:\n\n$ sudo su - postgres\n$ psql -c \"CREATE TABLE example (id int)\"\n$ grep 'AUDIT:.*,CREATE TABLE.*example' ${PGLOG?}/<latest_log>\n$ psql -c 'DROP TABLE example;'\n\nIf organization-defined auditable events are not being audited, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGLOG environment variables. Refer to supplementary content APPENDIX-I for instructions on configuring PGVER.\nCheck PostgreSQL audit logs to determine whether organization-defined auditable events are being audited by the system.\nFor example, if the organization defines 'CREATE TABLE' as an auditable event, issuing the following command should return a result:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"CREATE TABLE example (id int)\"",
+        "grep 'AUDIT:.*,CREATE TABLE.*example' ${PGLOG?}/<latest_log>",
+        "psql -c 'DROP TABLE example;'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222621",
+  "severity": "medium",
+  "rule_id": "SV-222621r1136913_rule",
+  "rule_ver": "APSC-DV-002900",
+  "rule_title": "The ISSO must ensure application audit trails are retained for at least 30 months (12 months active + 18 months cold storage) for applications without SAMI data and five years for applications including SAMI data.",
+  "check_text": "Verify a process is in place to retain application audit log files for 30 months (12 months active + 18 months cold storage) for non-SAMI data and five years for SAMI data.\n\nIf audit logs have not been retained for 30 months (12 months active + 18 months cold storage) or five years for SAMI data, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify a process is in place to retain application audit log files for 30 months (12 months active + 18 months cold storage) for non-SAMI data and five years for SAMI data.\nIf audit logs have not been retained for 30 months (12 months active + 18 months cold storage) or five years for SAMI data, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

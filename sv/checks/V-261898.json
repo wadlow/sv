@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261898",
+  "severity": "medium",
+  "rule_id": "SV-261898r1137655_rule",
+  "rule_ver": "CD16-00-004600",
+  "rule_title": "PostgreSQL must separate user functionality (including user interface services) from database management functionality.",
+  "check_text": "Check PostgreSQL settings and vendor documentation to verify that administrative functionality is separate from user functionality.\n\nAs the database administrator (shown here as \"postgres\"), list all roles and permissions for the database:\n\n$ sudo su - postgres\n$ psql -c \"\\du\"\n\nIf any nonadministrative role has the attribute \"Superuser\", \"Create role\", \"Create DB\" or \"Bypass RLS\", this is a finding.\n\nIf administrator and general user functionality are not separated either physically or logically, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Check PostgreSQL settings and vendor documentation to verify that administrative functionality is separate from user functionality.\nAs the database administrator (shown here as \"postgres\"), list all roles and permissions for the database:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\du\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222433",
+  "severity": "medium",
+  "rule_id": "SV-222433r961368_rule",
+  "rule_ver": "APSC-DV-000540",
+  "rule_title": "The application administrator must follow an approved process to unlock locked user accounts.",
+  "check_text": "Interview the application administrator and identify the approved process for unlocking user accounts.\n\nThe process may involve a manual or automated reset after the locked out user has identified themselves using standard user identification processes outlined in the vulnerability discussion.\n\nIf the admin does not unlock the account following the approved process, and if the process does not have documented ISSO and ISSM approvals, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the application administrator and identify the approved process for unlocking user accounts.\nThe process may involve a manual or automated reset after the locked out user has identified themselves using standard user identification processes outlined in the vulnerability discussion.\nIf the admin does not unlock the account following the approved process, and if the process does not have documented ISSO and ISSM approvals, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214247",
+  "severity": "medium",
+  "rule_id": "SV-214247r1138072_rule",
+  "rule_ver": "AS24-U1-000430",
+  "rule_title": "Apache web server accounts accessing the directory tree, the shell, or other operating system functions and utilities must only be administrative accounts.",
+  "check_text": "Review the web server documentation and configuration to determine what web server accounts are available on the server.\n\nAny directories or files owned by anyone other than an administrative service account is a finding. \n\nIf non-privileged web server accounts are available with access to functions, directories, or files not needed for the role of the account, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the web server documentation and configuration to determine what web server accounts are available on the server.\nAny directories or files owned by anyone other than an administrative service account is a finding.\nIf non-privileged web server accounts are available with access to functions, directories, or files not needed for the role of the account, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

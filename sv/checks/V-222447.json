@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222447",
+  "severity": "medium",
+  "rule_id": "SV-222447r960879_rule",
+  "rule_ver": "APSC-DV-000680",
+  "rule_title": "The application must provide audit record generation capability for HTTP headers including User-Agent, Referer, GET, and POST.",
+  "check_text": "Review the application documentation and interview the application administrator to identify log locations for application session activity.\n\nOpen the log file that tracks user session activity.\n\nAccess the application as a regular user and identify the user session within the log files.\n\nPerform several actions within the application in order to generate HTTP header traffic.\n\nReview the logs to ensure the HTTP header information is recorded in the logs. Header information logged will vary based upon the application and environment. Examples of headers include but are not limited to:\n\nUser-Agent:\nReferer:\nX-Forwarded-For:\nDate:\nExpires:\n\nIf HTTP headers are not logged, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify log locations for application session activity.\nOpen the log file that tracks user session activity.\nAccess the application as a regular user and identify the user session within the log files.\nPerform several actions within the application in order to generate HTTP header traffic.\nReview the logs to ensure the HTTP header information is recorded in the logs. Header information logged will vary based upon the application and environment. Examples of headers include but are not limited to:\nUser-Agent:\nReferer:\nX-Forwarded-For:\nDate:\nExpires:\nIf HTTP headers are not logged, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

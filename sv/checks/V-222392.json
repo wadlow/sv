@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222392",
+  "severity": "low",
+  "rule_id": "SV-222392r961227_rule",
+  "rule_ver": "APSC-DV-000100",
+  "rule_title": "The application must display an explicit logoff message to users indicating the reliable termination of authenticated communications sessions.",
+  "check_text": "If the application does not provide an interface for interactive user access, this is not applicable.\n\nLog on to the application with a valid user account. Examine the user interface. Identify the command or link that provides the logoff function.\n\nActivate the user logoff function.\n\nIf the application does not provide an explicit logoff message indicating the user session has been terminated, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the application does not provide an interface for interactive user access, this is not applicable.\nLog on to the application with a valid user account. Examine the user interface. Identify the command or link that provides the logoff function.\nActivate the user logoff function.\nIf the application does not provide an explicit logoff message indicating the user session has been terminated, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

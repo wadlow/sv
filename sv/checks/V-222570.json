@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222570",
+  "severity": "medium",
+  "rule_id": "SV-222570r1117181_rule",
+  "rule_ver": "APSC-DV-002020",
+  "rule_title": "The application must utilize FIPS-validated cryptographic modules when signing application components.",
+  "check_text": "Review the application documentation and interview the application administrator to identify the cryptographic modules used by the application.\n\nReview the application components and application requirements. Interview application developers and application admins to determine if code signing is performed on distributable application components, files or packages.  \n\nFor example, a developer may sign application code components or an admin may sign application files or packages in order to provide application consumers with integrity assurances.\n\nIf signing has been identified in the application security plan as not being required and if a documented acceptance of risk is provided, this is not a finding.\n\nHave the application admin or the developer demonstrate how the signing algorithms are used and how signing of components including files, code and packages is performed.\n\nWhile SHA1 is currently FIPS-140-2 approved, due to known vulnerabilities with this algorithm, DoD PKI policy prohibits the use of SHA1 as of December 2016.  See DoD CIO Memo Subject: Revised Schedule to Update DoD Public Key Infrastructure Certificates to Secure Hash Algorithm-256. \n\nIf the application signing process does not use FIPS validated cryptographic modules, or if the signing process includes SHA1 or MD5 hashing algorithms, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify the cryptographic modules used by the application.\nReview the application components and application requirements. Interview application developers and application admins to determine if code signing is performed on distributable application components, files or packages.\nFor example, a developer may sign application code components or an admin may sign application files or packages in order to provide application consumers with integrity assurances.\nIf signing has been identified in the application security plan as not being required and if a documented acceptance of risk is provided, this is not a finding.\nHave the application admin or the developer demonstrate how the signing algorithms are used and how signing of components including files, code and packages is performed.\nWhile SHA1 is currently FIPS-140-2 approved, due to known vulnerabilities with this algorithm, DoD PKI policy prohibits the use of SHA1 as of December 2016.  See DoD CIO Memo Subject: Revised Schedule to Update DoD Public Key Infrastructure Certificates to Secure Hash Algorithm-256.\nIf the application signing process does not use FIPS validated cryptographic modules, or if the signing process includes SHA1 or MD5 hashing algorithms, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

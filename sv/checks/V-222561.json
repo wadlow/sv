@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222561",
+  "severity": "medium",
+  "rule_id": "SV-222561r961548_rule",
+  "rule_ver": "APSC-DV-001930",
+  "rule_title": "Applications used for non-local maintenance sessions must audit non-local maintenance and diagnostic sessions for organization-defined auditable events.",
+  "check_text": "Review the application documentation and interview the application administrator to identify application maintenance functions.\n\nIf the application does not provide non-local maintenance and diagnostic capability, this requirement is not applicable.\n\nIdentify the maintenance functions/capabilities that are provided by the application and performed by an individual which can be performed remotely.\n\nFor example, the application may provide the ability to clean up a folder of temporary files, add users, remove users, restart processes, backup certain files, manage logs, or execute diagnostic sessions.\n\nIdentify and open the audit logs that capture maintenance actions performed by the application.\n\nAccessing the application in the appropriate role to execute maintenance tasks, perform several maintenance tasks and observe the logs.\n\nIf the application provides maintenance functions and capabilities and those functions are not logged when they are executed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify application maintenance functions.\nIf the application does not provide non-local maintenance and diagnostic capability, this requirement is not applicable.\nIdentify the maintenance functions/capabilities that are provided by the application and performed by an individual which can be performed remotely.\nFor example, the application may provide the ability to clean up a folder of temporary files, add users, remove users, restart processes, backup certain files, manage logs, or execute diagnostic sessions.\nIdentify and open the audit logs that capture maintenance actions performed by the application.\nAccessing the application in the appropriate role to execute maintenance tasks, perform several maintenance tasks and observe the logs.\nIf the application provides maintenance functions and capabilities and those functions are not logged when they are executed, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

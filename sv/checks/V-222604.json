@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222604",
+  "severity": "high",
+  "rule_id": "SV-222604r961158_rule",
+  "rule_ver": "APSC-DV-002510",
+  "rule_title": "The application must protect from command injection.",
+  "check_text": "Review the application documentation and the system configuration settings.\n\nInterview the application administrator for details regarding security assessment including automated code review and vulnerability scans conducted to test for command injection.\n\nReview the scan results from the entire application.\n\nVerify scan configuration is set to check for command injection vulnerabilities.\n\nIf results indicate vulnerability, verify a subsequent scan has been run to ensure the issue has been remediated.\n\nManual test procedures are available on the OWASP website. Procedures may need to be modified to suit application architecture.\n\nhttps://www.owasp.org/index.php/Testing_for_Command_Injection_%28OTG-INPVAL-013%29\n\nIf testing results are not provided demonstrating the vulnerability does not exist, or if the application representative cannot demonstrate how actions are taken to identify and protect from command injection vulnerabilities, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and the system configuration settings.\nInterview the application administrator for details regarding security assessment including automated code review and vulnerability scans conducted to test for command injection.\nReview the scan results from the entire application.\nVerify scan configuration is set to check for command injection vulnerabilities.\nIf results indicate vulnerability, verify a subsequent scan has been run to ensure the issue has been remediated.\nManual test procedures are available on the OWASP website. Procedures may need to be modified to suit application architecture.\nhttps://www.owasp.org/index.php/Testing_for_Command_Injection_%28OTG-INPVAL-013%29\nIf testing results are not provided demonstrating the vulnerability does not exist, or if the application representative cannot demonstrate how actions are taken to identify and protect from command injection vulnerabilities, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

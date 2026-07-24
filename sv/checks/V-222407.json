@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222407",
+  "severity": "medium",
+  "rule_id": "SV-222407r1043176_rule",
+  "rule_ver": "APSC-DV-000280",
+  "rule_title": "The application must provide automated mechanisms for supporting account management functions.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify the account management methods, processes and procedures that are used.\n\nIf the application is utilizing a centralized authentication mechanism such as Active Directory or LDAP, verify all user account activity is conducted via that solution and no local user accounts that circumvent the automated solution are used.\n\nDetermine if automated mechanisms are used when managing application user accounts and taking management action on application user accounts. Automated methods include but are not limited to:\n\nTaking action on accounts that have been determined to be inactive, suspended, terminated, or disabled.\n\nAutomated action examples include: deleting such accounts, reactivating accounts in conjunction with a validation or verification process, or sending notifications or reminders to the account holders that their account is about to be disabled or deleted.\n\nVerify the action that is taken is automated and repeatable.\n\nIf the account management process is manual in nature, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify the account management methods, processes and procedures that are used.\nIf the application is utilizing a centralized authentication mechanism such as Active Directory or LDAP, verify all user account activity is conducted via that solution and no local user accounts that circumvent the automated solution are used.\nDetermine if automated mechanisms are used when managing application user accounts and taking management action on application user accounts. Automated methods include but are not limited to:\nTaking action on accounts that have been determined to be inactive, suspended, terminated, or disabled.\nAutomated action examples include: deleting such accounts, reactivating accounts in conjunction with a validation or verification process, or sending notifications or reminders to the account holders that their account is about to be disabled or deleted.\nVerify the action that is taken is automated and repeatable.\nIf the account management process is manual in nature, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

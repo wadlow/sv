@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222662",
+  "severity": "high",
+  "rule_id": "SV-222662r961863_rule",
+  "rule_ver": "APSC-DV-003280",
+  "rule_title": "Default passwords must be changed.",
+  "check_text": "Identify the application name and version and do an Internet search for the product name and the string \"default password\".\n\nIf default passwords are found, attempt to authenticate with the published default passwords.\n\nIf authentication is successful, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Identify the application name and version and do an Internet search for the product name and the string \"default password\".\nIf default passwords are found, attempt to authenticate with the published default passwords.\nIf authentication is successful, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

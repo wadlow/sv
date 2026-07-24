@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222499",
+  "severity": "medium",
+  "rule_id": "SV-222499r961446_rule",
+  "rule_ver": "APSC-DV-001270",
+  "rule_title": "The application must record time stamps for audit records that meet a granularity of one second for a minimum degree of precision.",
+  "check_text": "Review the system documentation and interview the application administrator to determine where application audit logs are written and how time stamps are recorded.\n\nIf the application utilizes the underlying OS for time stamping and time synchronization when writing the audit logs, this requirement is not applicable.\n\nAccess and review log files over a period of at least 10 minutes; compare time stamps written in the application log to the system clock to ensure time is synchronized to within 1 second of precision.\n\nIf the application audit log time stamps differ from the OS time source by more than one second, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and interview the application administrator to determine where application audit logs are written and how time stamps are recorded.\nIf the application utilizes the underlying OS for time stamping and time synchronization when writing the audit logs, this requirement is not applicable.\nAccess and review log files over a period of at least 10 minutes; compare time stamps written in the application log to the system clock to ensure time is synchronized to within 1 second of precision.\nIf the application audit log time stamps differ from the OS time source by more than one second, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

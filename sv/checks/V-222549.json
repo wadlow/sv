@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222549",
+  "severity": "medium",
+  "rule_id": "SV-222549r961521_rule",
+  "rule_ver": "APSC-DV-001800",
+  "rule_title": "The application must terminate existing user sessions upon account deletion.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify the user management functions of the application and create a test user account.\n\nAccess the application and perform application functions as the test user.\n\nAccess the user management functions and delete the test account while the test user sessions are still active.\n\nVerify the test user application sessions are terminated by attempting to perform additional application functions.\n\nIf the test user retains access after the test account has been deleted, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify the user management functions of the application and create a test user account.\nAccess the application and perform application functions as the test user.\nAccess the user management functions and delete the test account while the test user sessions are still active.\nVerify the test user application sessions are terminated by attempting to perform additional application functions.\nIf the test user retains access after the test account has been deleted, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

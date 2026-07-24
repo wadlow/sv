@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261908",
+  "severity": "medium",
+  "rule_id": "SV-261908r1000729_rule",
+  "rule_ver": "CD16-00-006000",
+  "rule_title": "PostgreSQL must provide nonprivileged users with error messages that provide information necessary for corrective actions without revealing information that could be exploited by adversaries.",
+  "check_text": "To check the level of detail for errors exposed to clients, as the DBA (shown here as \"postgres\"), run the following:\n\n$ sudo su - postgres\n$ psql -c \"SHOW client_min_messages;\"\n\nIf client_min_messages is not set to error, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To check the level of detail for errors exposed to clients, as the DBA (shown here as \"postgres\"), run the following:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW client_min_messages;\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

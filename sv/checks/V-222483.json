@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222483",
+  "severity": "medium",
+  "rule_id": "SV-222483r961398_rule",
+  "rule_ver": "APSC-DV-001090",
+  "rule_title": "The application must provide an immediate warning to the SA and ISSO (at a minimum) when allocated audit record storage volume reaches 75% of repository maximum audit record storage capacity.",
+  "check_text": "Review system documentation and interview application administrator for details regarding logging configuration. \n\nIf the application utilizes a centralized logging system that provides storage capacity alarming, this requirement is not applicable.\n\nIdentify application alarming capability relating to storage capacity alarming for the log repository. Coordinate with the appropriate personnel regarding the generation of test alarms.\n\nReview log alarm settings and ensure audit log storage capacity alarming is enabled and set to alarm when the storage threshold exceeds 75% of disk storage capacity or the capacity value the SA and ISSO have determined will provide adequate time to plan for capacity expansion.\n\nEnsure the alarm will be sent to the ISSO and the application administrator when the utilization threshold is exceeded by changing the threshold settings to below the current disk space utilization. An alarm should be triggered at that point and forwarded to the ISSO and the SA/application admin.\n\nIf the application is not configured to send an alarm when storage volume exceeds 75% of disc capacity or if the designated alarm recipients did not receive an alarm when the test was conducted, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation and interview application administrator for details regarding logging configuration.\nIf the application utilizes a centralized logging system that provides storage capacity alarming, this requirement is not applicable.\nIdentify application alarming capability relating to storage capacity alarming for the log repository. Coordinate with the appropriate personnel regarding the generation of test alarms.\nReview log alarm settings and ensure audit log storage capacity alarming is enabled and set to alarm when the storage threshold exceeds 75% of disk storage capacity or the capacity value the SA and ISSO have determined will provide adequate time to plan for capacity expansion.\nEnsure the alarm will be sent to the ISSO and the application administrator when the utilization threshold is exceeded by changing the threshold settings to below the current disk space utilization. An alarm should be triggered at that point and forwarded to the ISSO and the SA/application admin.\nIf the application is not configured to send an alarm when storage volume exceeds 75% of disc capacity or if the designated alarm recipients did not receive an alarm when the test was conducted, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

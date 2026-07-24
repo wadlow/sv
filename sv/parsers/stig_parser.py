@@ -226,7 +226,7 @@ class StigParser:
             if check_elem is not None:
                 check_content = check_elem.find('check-content') or check_elem.find('{*}check-content')
                 if check_content is not None:
-                    check_text = (check_content.text or "").strip()
+                    check_text = StigParser._extract_element_text(check_content)
                 ref_elem = check_elem.find('check-content-ref') or check_elem.find('{*}check-content-ref')
                 if ref_elem is not None:
                     check_content_ref = ref_elem.get('name', '')
@@ -345,6 +345,13 @@ class StigParser:
         
         return "Unknown"
     
+    @staticmethod
+    def _extract_element_text(elem: ET.Element) -> str:
+        """Extract all text content from an XML element."""
+        if elem is None:
+            return ""
+        return "".join(elem.itertext()).strip()
+
     @staticmethod
     def _get_text(elem: ET.Element, tag: str, ns: dict) -> Optional[str]:
         """Get text content from element, handling namespaces."""

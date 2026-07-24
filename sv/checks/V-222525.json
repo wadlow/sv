@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222525",
+  "severity": "medium",
+  "rule_id": "SV-222525r961497_rule",
+  "rule_ver": "APSC-DV-001570",
+  "rule_title": "The application must electronically verify Personal Identity Verification (PIV) credentials.",
+  "check_text": "Review the application documentation and interview the application administrator to identify application access methods.\n\nIf the application is not PK-enabled due to the hosted data being publicly releasable, this check is not applicable.\n\nAsk the application administrator to log on to the application.\n\nValidate the application prompts the user to provide a certificate from the CAC.\n\nValidate the application requests the user to input their CAC PIN.\n\nIf the application allows access without requiring a CAC, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify application access methods.\nIf the application is not PK-enabled due to the hosted data being publicly releasable, this check is not applicable.\nAsk the application administrator to log on to the application.\nValidate the application prompts the user to provide a certificate from the CAC.\nValidate the application requests the user to input their CAC PIN.\nIf the application allows access without requiring a CAC, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

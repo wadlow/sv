@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222481",
+  "severity": "medium",
+  "rule_id": "SV-222481r961395_rule",
+  "rule_ver": "APSC-DV-001070",
+  "rule_title": "The application must off-load audit records onto a different system or media than the system being audited.",
+  "check_text": "Review application documentation and interview application administrator.  Identify log functionality and locations of log files.  Obtain risk acceptance documentation and task scheduling information.\n\nIf the application is configured to utilize a centralized logging solution, this requirement is not applicable.\n\nEvaluate log management processes and determine if there are automated tasks that move the logs off of the system hosting the application.   \n\nVerify automated tasks are performed on an ISSO approved schedule (hourly, daily etc.).  Automation can be via scripting, log management oriented tools or other automated means.\n\nReview risk acceptance documentation for not utilizing a centralized logging solution.\n\nIf the logs are not automatically moved off the system as per approved schedule, or if there is no formal risk acceptance documentation, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review application documentation and interview application administrator.  Identify log functionality and locations of log files.  Obtain risk acceptance documentation and task scheduling information.\nIf the application is configured to utilize a centralized logging solution, this requirement is not applicable.\nEvaluate log management processes and determine if there are automated tasks that move the logs off of the system hosting the application.\nVerify automated tasks are performed on an ISSO approved schedule (hourly, daily etc.).  Automation can be via scripting, log management oriented tools or other automated means.\nReview risk acceptance documentation for not utilizing a centralized logging solution.\nIf the logs are not automatically moved off the system as per approved schedule, or if there is no formal risk acceptance documentation, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222535",
+  "severity": "medium",
+  "rule_id": "SV-222535r1015697_rule",
+  "rule_ver": "APSC-DV-001670",
+  "rule_title": "The application must disable device identifiers after 35 days of inactivity unless a cryptographic certificate is used for authentication.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIf the application is not designed to authenticate devices (such as mobile phones, gateways or other smart devices), or uses DOD PKI certificates to authenticate these devices, this requirement is Not Applicable.\n\nAccess the user management interface for the application.\n\nIdentify application device IDs.\n\nIf the application utilizes approved certificates or a centralized authentication store (Active Directory or LDAP) as the authoritative source for application authentication, and the authentication store is configured to meet the requirement to disable device IDs after 35 days of inactivity, this is not a finding.\n\nAccounts such as guest and anonymous as well as roles and groups or other identities used to operate the application or to provide limited guest access are not applicable.\n\nAccess the application user management interface and review the account settings that pertain to devices.\n\nVerify the application is configured to disable device accounts that have not been active or logged into the application for the past 35 days.\n\nIf the application does not disable accounts used to authenticate devices after 35 days of inactivity, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIf the application is not designed to authenticate devices (such as mobile phones, gateways or other smart devices), or uses DOD PKI certificates to authenticate these devices, this requirement is Not Applicable.\nAccess the user management interface for the application.\nIdentify application device IDs.\nIf the application utilizes approved certificates or a centralized authentication store (Active Directory or LDAP) as the authoritative source for application authentication, and the authentication store is configured to meet the requirement to disable device IDs after 35 days of inactivity, this is not a finding.\nAccounts such as guest and anonymous as well as roles and groups or other identities used to operate the application or to provide limited guest access are not applicable.\nAccess the application user management interface and review the account settings that pertain to devices.\nVerify the application is configured to disable device accounts that have not been active or logged into the application for the past 35 days.\nIf the application does not disable accounts used to authenticate devices after 35 days of inactivity, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

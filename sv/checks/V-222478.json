@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222478",
+  "severity": "medium",
+  "rule_id": "SV-222478r960909_rule",
+  "rule_ver": "APSC-DV-001030",
+  "rule_title": "The application must generate audit records containing the full-text recording of privileged commands or the individual identities of group account users.",
+  "check_text": "Review application documentation and interview application administrator. Identify audit log locations and review audit logs.\n\nAccess the system as a privileged user and execute privileged commands.\n\nReview the application logs and ensure that the logs contain all details of the actions performed.  \n\nIf a privileged command was typed within the application that command text must be included in the logs. Authentication information provided as part of the text must NOT be logged, just the commands.\n\nIf an action was performed, such as activating a check box, that action must be logged.\n\nReview group account users, review logs to determine if the individual users of group accounts are identified in the logs.\n\nIf the application does not log the full text recording of privileged commands or if the application does not identify and log the individuals associated with group accounts, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review application documentation and interview application administrator. Identify audit log locations and review audit logs.\nAccess the system as a privileged user and execute privileged commands.\nReview the application logs and ensure that the logs contain all details of the actions performed.\nIf a privileged command was typed within the application that command text must be included in the logs. Authentication information provided as part of the text must NOT be logged, just the commands.\nIf an action was performed, such as activating a check box, that action must be logged.\nReview group account users, review logs to determine if the individual users of group accounts are identified in the logs.\nIf the application does not log the full text recording of privileged commands or if the application does not identify and log the individuals associated with group accounts, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

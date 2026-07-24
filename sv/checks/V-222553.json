@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222553",
+  "severity": "medium",
+  "rule_id": "SV-222553r1015707_rule",
+  "rule_ver": "APSC-DV-001840",
+  "rule_title": "The application, for PKI-based authentication, must implement a local cache of revocation data to support path discovery and validation in case of the inability to access revocation information via the network.",
+  "check_text": "Review the application documentation and interview the system administrator to identify how the application checks certificate revocation.\n\nIf the application resides on the SIPRnet and does not have access to the root CAs, this requirement is Not Applicable.\n\nDifferent application frameworks may handle this requirement for the developer or the developer may have chosen to implement their own implementation for managing and implementing the CRL.\n\nHave the administrator demonstrate the process used for obtaining and importing the CRL. CAs may publish the CRL in an LDAP directory or it may be posted to an HTTP server.\n\nVerify the application is configured to import the CRL on a regular basis.\n\nHave the administrator demonstrate the configuration setting that enables CRL checking in the event the OCSP server is not available.\n\nIf the application is not configured to implement a CRL, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the system administrator to identify how the application checks certificate revocation.\nIf the application resides on the SIPRnet and does not have access to the root CAs, this requirement is Not Applicable.\nDifferent application frameworks may handle this requirement for the developer or the developer may have chosen to implement their own implementation for managing and implementing the CRL.\nHave the administrator demonstrate the process used for obtaining and importing the CRL. CAs may publish the CRL in an LDAP directory or it may be posted to an HTTP server.\nVerify the application is configured to import the CRL on a regular basis.\nHave the administrator demonstrate the configuration setting that enables CRL checking in the event the OCSP server is not available.\nIf the application is not configured to implement a CRL, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

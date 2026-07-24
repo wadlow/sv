@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222646",
+  "severity": "medium",
+  "rule_id": "SV-222646r961863_rule",
+  "rule_ver": "APSC-DV-003150",
+  "rule_title": "At least one tester must be designated to test for security flaws in addition to functional testing.",
+  "check_text": "Review the organization chart and interview the admin staff.\n\nIdentify personnel designated as application security testers.\n\nIf the organization operating the application is not doing development work, this requirement is not applicable.\n\nIf the organization has not designated personnel to conduct security testing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the organization chart and interview the admin staff.\nIdentify personnel designated as application security testers.\nIf the organization operating the application is not doing development work, this requirement is not applicable.\nIf the organization has not designated personnel to conduct security testing, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

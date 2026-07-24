@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222597",
+  "severity": "medium",
+  "rule_id": "SV-222597r1117180_rule",
+  "rule_ver": "APSC-DV-002450",
+  "rule_title": "The application must implement cryptographic mechanisms to prevent unauthorized disclosure of information and/or detect changes to information during transmission unless otherwise protected by alternative physical safeguards, such as, at a minimum, a Protected Distribution System (PDS).",
+  "check_text": "Review the application documentation, the application architecture designs and interview the application administrator.\n\nAsk the application admin to identify the network path taken by the application data and demonstrate the application support integrity mechanisms for transmission of both incoming and outgoing files and any transmitted data.\n\nFor example, hashing/digital signature and cyclic redundancy checks (CRCs) can be used to confirm integrity on data streams and transmitted files.\n\nUse of TLS can be used to assure integrity in point-to-point communication sessions.\n\nWhen the application uses messaging or web services or other technologies where the data can traverse multiple hops, the individual message or packet must be encrypted to protect the integrity of the message.\n\nIf the application is not configured to provide cryptographic protections to application data while it is transmitted unless protected by alternative safety measures like a PDS, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation, the application architecture designs and interview the application administrator.\nAsk the application admin to identify the network path taken by the application data and demonstrate the application support integrity mechanisms for transmission of both incoming and outgoing files and any transmitted data.\nFor example, hashing/digital signature and cyclic redundancy checks (CRCs) can be used to confirm integrity on data streams and transmitted files.\nUse of TLS can be used to assure integrity in point-to-point communication sessions.\nWhen the application uses messaging or web services or other technologies where the data can traverse multiple hops, the individual message or packet must be encrypted to protect the integrity of the message.\nIf the application is not configured to provide cryptographic protections to application data while it is transmitted unless protected by alternative safety measures like a PDS, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222465",
+  "severity": "medium",
+  "rule_id": "SV-222465r961836_rule",
+  "rule_ver": "APSC-DV-000860",
+  "rule_title": "The application must generate audit records when successful/unsuccessful accesses to objects occur.",
+  "check_text": "Review the application documentation and interview the application administrator to identify log locations.\n\nAccess the application logs.\n\nReview the logs and identify if the application is logging both successful and unsuccessful access to application objects such as files, folders, processes, or application modules and sub components, or systems.\n\nIf the application does not log application object access, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify log locations.\nAccess the application logs.\nReview the logs and identify if the application is logging both successful and unsuccessful access to application objects such as files, folders, processes, or application modules and sub components, or systems.\nIf the application does not log application object access, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

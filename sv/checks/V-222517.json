@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222517",
+  "severity": "medium",
+  "rule_id": "SV-222517r961479_rule",
+  "rule_ver": "APSC-DV-001490",
+  "rule_title": "The application must employ a deny-all, permit-by-exception (whitelist) policy to allow the execution of authorized software programs.",
+  "check_text": "If the application is not a configuration management or similar type of application designed to manage system processes and configurations, this requirement is not applicable.\n\nReview the application documentation and interview the application administrator to identify if application whitelisting specifying which applications or application subcomponents are allowed to execute is in use.\n\nCheck for the existence of policy settings or policy files that can be configured to restrict application execution. Have the application administrator demonstrate how the program execution is restricted. Look for a deny-all, permit-by-exception policy of restriction.\n\nSome methods for restricting execution include but are not limited to the use of custom capabilities built into the application or leveraging of Windows Group Policy, AppLocker, Software Restriction Policies, Java Security Manager or Role-Based Access Controls (RBAC).\n\nIf application whitelisting is not utilized or does not follow a deny-all, permit-by-exception (whitelist) policy, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the application is not a configuration management or similar type of application designed to manage system processes and configurations, this requirement is not applicable.\nReview the application documentation and interview the application administrator to identify if application whitelisting specifying which applications or application subcomponents are allowed to execute is in use.\nCheck for the existence of policy settings or policy files that can be configured to restrict application execution. Have the application administrator demonstrate how the program execution is restricted. Look for a deny-all, permit-by-exception policy of restriction.\nSome methods for restricting execution include but are not limited to the use of custom capabilities built into the application or leveraging of Windows Group Policy, AppLocker, Software Restriction Policies, Java Security Manager or Role-Based Access Controls (RBAC).\nIf application whitelisting is not utilized or does not follow a deny-all, permit-by-exception (whitelist) policy, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

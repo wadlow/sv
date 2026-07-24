@@ -1,0 +1,34 @@
+{
+  "v_code": "V-261887",
+  "severity": "medium",
+  "rule_id": "SV-261887r1000666_rule",
+  "rule_ver": "CD16-00-003300",
+  "rule_title": "Unused database components that are integrated in PostgreSQL and cannot be uninstalled must be disabled.",
+  "check_text": "To list all installed packages, as the system administrator, run the following:\n\n# RHEL/CENT 8/9 Systems\n$ sudo dnf list installed | grep postgres\n\n# RHEL/CENT 7 Systems\n$ sudo yum list installed | grep postgres\n\n# Debian Systems\n$ dpkg --get-selections | grep postgres\n\nIf any of the packages installed not required, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To list all installed packages, as the system administrator, run the following:\n# RHEL/CENT 8/9 Systems",
+      "commands": [
+        "sudo dnf list installed | grep postgres"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "# RHEL/CENT 7 Systems",
+      "commands": [
+        "sudo yum list installed | grep postgres"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "# Debian Systems",
+      "commands": [
+        "dpkg --get-selections | grep postgres"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

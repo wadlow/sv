@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222436",
+  "severity": "low",
+  "rule_id": "SV-222436r960849_rule",
+  "rule_ver": "APSC-DV-000570",
+  "rule_title": "The publicly accessible application must display the Standard Mandatory DoD Notice and Consent Banner before granting access to the application.",
+  "check_text": "This requirement only applies to publicly accessible applications. If the application is not publicly accessible, this requirement is not applicable.\n\nAccess the application and observe the screen to ensure the DoD-approved banner is displayed prior to obtaining full access to the application. Refer to the vulnerability discussion for the approved banner text.\n\nIf the standard DoD-approved banner is not displayed prior to obtaining access, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement only applies to publicly accessible applications. If the application is not publicly accessible, this requirement is not applicable.\nAccess the application and observe the screen to ensure the DoD-approved banner is displayed prior to obtaining full access to the application. Refer to the vulnerability discussion for the approved banner text.\nIf the standard DoD-approved banner is not displayed prior to obtaining access, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

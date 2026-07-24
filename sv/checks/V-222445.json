@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222445",
+  "severity": "medium",
+  "rule_id": "SV-222445r960879_rule",
+  "rule_ver": "APSC-DV-000660",
+  "rule_title": "The application must provide audit record generation capability for session timeouts.",
+  "check_text": "Review the application documentation and interview the application administrator to identify log locations for application session activity.\n\nOpen the log file that tracks user session activity.\n\nAccess the application as a regular user and identify the user session within the log files.\n\nIdentify the session timeout threshold defined by the application.\n\nPerform no action within the application in order to allow the session to timeout.\n\nOnce the session timeout threshold has been exceeded, verify the session has been terminated due to the timeout event and review the logs again to ensure the session timeout event was recorded in the logs.\n\nIf a web-based application delegates session timeout auditing to an application server, this is not a finding. \n\nIf the session timeout event is not recorded in the logs, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify log locations for application session activity.\nOpen the log file that tracks user session activity.\nAccess the application as a regular user and identify the user session within the log files.\nIdentify the session timeout threshold defined by the application.\nPerform no action within the application in order to allow the session to timeout.\nOnce the session timeout threshold has been exceeded, verify the session has been terminated due to the timeout event and review the logs again to ensure the session timeout event was recorded in the logs.\nIf a web-based application delegates session timeout auditing to an application server, this is not a finding.\nIf the session timeout event is not recorded in the logs, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

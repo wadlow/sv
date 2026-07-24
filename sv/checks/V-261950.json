@@ -1,0 +1,27 @@
+{
+  "v_code": "V-261950",
+  "severity": "medium",
+  "rule_id": "SV-261950r1000855_rule",
+  "rule_ver": "CD16-00-010600",
+  "rule_title": "PostgreSQL must generate audit records when privileges/permissions are deleted.",
+  "check_text": "As the database administrator, verify pgaudit is enabled by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW shared_preload_libraries\"\n\nIf the output does not contain pgaudit, this is a finding.\n\nVerify that role, read, write, and ddl auditing are enabled:\n\n$ psql -c \"SHOW pgaudit.log\"\n\nIf the output does not contain role, read, write, and ddl, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator, verify pgaudit is enabled by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW shared_preload_libraries\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If the output does not contain pgaudit, this is a finding.\nVerify that role, read, write, and ddl auditing are enabled:",
+      "commands": [
+        "psql -c \"SHOW pgaudit.log\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

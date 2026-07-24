@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222573",
+  "severity": "medium",
+  "rule_id": "SV-222573r1117181_rule",
+  "rule_ver": "APSC-DV-002050",
+  "rule_title": "Applications making SAML assertions must use FIPS-approved random numbers in the generation of SessionIndex in the SAML element AuthnStatement.",
+  "check_text": "Interview the system administrator, review the application components, and the application requirements to determine if the application uses SAML assertions.\n\nIf the application does not use SAML assertions, the requirement is not applicable.\n\nReview the application documentation and interview he application administrator to identify the cryptographic modules used by the application.\n\nAccess the NIST site to determine if the cryptographic modules used by the application have been FIPS-validated.\n\nhttp://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm\n\nIf the application is using cryptographic modules that are not FIPS-validated when generating the SessionIndex in the SAML AuthnStatement, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the system administrator, review the application components, and the application requirements to determine if the application uses SAML assertions.\nIf the application does not use SAML assertions, the requirement is not applicable.\nReview the application documentation and interview he application administrator to identify the cryptographic modules used by the application.\nAccess the NIST site to determine if the cryptographic modules used by the application have been FIPS-validated.\nhttp://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm\nIf the application is using cryptographic modules that are not FIPS-validated when generating the SessionIndex in the SAML AuthnStatement, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

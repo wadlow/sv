@@ -1,0 +1,39 @@
+{
+  "v_code": "V-261959",
+  "severity": "medium",
+  "rule_id": "SV-261959r1000882_rule",
+  "rule_ver": "CD16-00-011500",
+  "rule_title": "PostgreSQL must generate audit records when unsuccessful attempts to execute privileged activities or other system-level access occur.",
+  "check_text": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I on PGLOG.\n\nAs the database administrator (shown here as \"postgres\"), create the role \"bob\" by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"CREATE ROLE bob\"\n\nChange the current role to bob and attempt to execute privileged activity:\n\n$ psql -c \"CREATE ROLE stig_test SUPERUSER\"\n$ psql -c \"CREATE ROLE stig_test CREATEDB\"\n$ psql -c \"CREATE ROLE stig_test CREATEROLE\"\n$ psql -c \"CREATE ROLE stig_test CREATEUSER\"\n\nAs the database administrator (shown here as \"postgres\"), verify that an audit event was produced (use the latest log):\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/${PGLOG?}/<latest_log>\n< 2024-02-23 20:16:32.396 UTC postgres 56cfa74f.79eb postgres: >ERROR: must be superuser to create superusers\n< 2024-02-23 20:16:32.396 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test SUPERUSER;\n< 2024-02-23 20:16:48.725 UTC postgres 56cfa74f.79eb postgres: >ERROR: permission denied to create role\n< 2024-02-23 20:16:48.725 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test CREATEDB;\n< 2024-02-23 20:16:54.365 UTC postgres 56cfa74f.79eb postgres: >ERROR: permission denied to create role\n< 2024-02-23 20:16:54.365 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test CREATEROLE;\n< 2024-02-23 20:17:05.949 UTC postgres 56cfa74f.79eb postgres: >ERROR: must be superuser to create superusers\n< 2024-02-23 20:17:05.949 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test CREATEUSER;\n\nIf audit records are not produced, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I on PGLOG.\nAs the database administrator (shown here as \"postgres\"), create the role \"bob\" by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"CREATE ROLE bob\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Change the current role to bob and attempt to execute privileged activity:",
+      "commands": [
+        "psql -c \"CREATE ROLE stig_test SUPERUSER\"",
+        "psql -c \"CREATE ROLE stig_test CREATEDB\"",
+        "psql -c \"CREATE ROLE stig_test CREATEROLE\"",
+        "psql -c \"CREATE ROLE stig_test CREATEUSER\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), verify that an audit event was produced (use the latest log):\n< 2024-02-23 20:16:32.396 UTC postgres 56cfa74f.79eb postgres: >ERROR: must be superuser to create superusers\n< 2024-02-23 20:16:32.396 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test SUPERUSER;\n< 2024-02-23 20:16:48.725 UTC postgres 56cfa74f.79eb postgres: >ERROR: permission denied to create role\n< 2024-02-23 20:16:48.725 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test CREATEDB;\n< 2024-02-23 20:16:54.365 UTC postgres 56cfa74f.79eb postgres: >ERROR: permission denied to create role\n< 2024-02-23 20:16:54.365 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test CREATEROLE;\n< 2024-02-23 20:17:05.949 UTC postgres 56cfa74f.79eb postgres: >ERROR: must be superuser to create superusers\n< 2024-02-23 20:17:05.949 UTC postgres 56cfa74f.79eb postgres: >STATEMENT: CREATE ROLE stig_test CREATEUSER;",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/${PGLOG?}/<latest_log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

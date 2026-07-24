@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222670",
+  "severity": "low",
+  "rule_id": "SV-222670r961863_rule",
+  "rule_ver": "APSC-DV-003345",
+  "rule_title": "The application must provide notifications or alerts when product update and security related patches are available.",
+  "check_text": "Review the components of the application.  Interview the application administrator.\n\nHave the application administrator demonstrate the application notification process that occurs when a security patch or product update is available.\n\nThe process must include a brief description of the issue and any potential risks related to the issue.\n\nThe process must also include information regarding the availability of the patch or update and how it can be obtained as well as any potential mitigations that can be utilized in the interim.\n\nIf there is no application security patch or update notification process, this is a finding.\n\nIf the application notification process does not include a brief description, information on risks, how to obtain the patch or update and any potential mitigations, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the components of the application.  Interview the application administrator.\nHave the application administrator demonstrate the application notification process that occurs when a security patch or product update is available.\nThe process must include a brief description of the issue and any potential risks related to the issue.\nThe process must also include information regarding the availability of the patch or update and how it can be obtained as well as any potential mitigations that can be utilized in the interim.\nIf there is no application security patch or update notification process, this is a finding.\nIf the application notification process does not include a brief description, information on risks, how to obtain the patch or update and any potential mitigations, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

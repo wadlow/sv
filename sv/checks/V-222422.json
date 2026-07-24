@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222422",
+  "severity": "low",
+  "rule_id": "SV-222422r1015688_rule",
+  "rule_ver": "APSC-DV-000430",
+  "rule_title": "The application must notify system administrators (SAs) and information system security officers (ISSOs) of account enabling actions.",
+  "check_text": "Review the application and system documentation.\n\nInterview application administrator and determine if the application is configured to utilize a centralized user management system like Active Directory for user management or if the application manages user accounts within the application.\n\nIf the application is configured to use an enterprise-based application user management capability that is STIG compliant, the requirement is Not Applicable.\n\nEnsure the application is configured to notify SAs when accounts are enabled by identifying the SAs who will be notified when accounts are enabled.\n\nDisable and then enable a test account and check with the SA to verify the notification was received to indicate the account was enabled.\n\nIf SAs and ISSOs are not notified when accounts are enabled, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application and system documentation.\nInterview application administrator and determine if the application is configured to utilize a centralized user management system like Active Directory for user management or if the application manages user accounts within the application.\nIf the application is configured to use an enterprise-based application user management capability that is STIG compliant, the requirement is Not Applicable.\nEnsure the application is configured to notify SAs when accounts are enabled by identifying the SAs who will be notified when accounts are enabled.\nDisable and then enable a test account and check with the SA to verify the notification was received to indicate the account was enabled.\nIf SAs and ISSOs are not notified when accounts are enabled, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

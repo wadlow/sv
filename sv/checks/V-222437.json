@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222437",
+  "severity": "low",
+  "rule_id": "SV-222437r987626_rule",
+  "rule_ver": "APSC-DV-000580",
+  "rule_title": "The application must display the time and date of the users last successful logon.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIf the application does not provide a user interface, this requirement is not applicable.\n\nLogon to the application as a test user and verify successful authentication by creating test data, navigating the application functionality or otherwise utilizing the application.\n\nNote the date and time access was granted.\n\nLog out of the application.\n\nRe-authenticate to the application as the same user.\n\nValidate the last logon date and time is displayed in the user interface. \n\nIf the date and time the user account was last granted access to the application is not displayed in the user interface, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIf the application does not provide a user interface, this requirement is not applicable.\nLogon to the application as a test user and verify successful authentication by creating test data, navigating the application functionality or otherwise utilizing the application.\nNote the date and time access was granted.\nLog out of the application.\nRe-authenticate to the application as the same user.\nValidate the last logon date and time is displayed in the user interface.\nIf the date and time the user account was last granted access to the application is not displayed in the user interface, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

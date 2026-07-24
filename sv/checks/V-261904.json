@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261904",
+  "severity": "medium",
+  "rule_id": "SV-261904r1137658_rule",
+  "rule_ver": "CD16-00-005600",
+  "rule_title": "Access to database files must be limited to relevant processes and to authorized, administrative users.",
+  "check_text": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\n\nReview the permissions granted to users by the operating system/file system on the database files, database log files and database backup files.\n\nTo verify that all files are owned by the database administrator and have the correct permissions, run the following as the database administrator (shown here as \"postgres\"):\n\n$ sudo su - postgres\n$ ls -lR ${PGDATA?}\n\nIf any files are not owned by the database administrator or allow anyone but the database administrator to read/write/execute, this is a finding.\n\nIf any user/role that is not an authorized system administrator with a need-to-know or database administrator with a need-to-know, or a system account for running PostgreSQL processes, is permitted to read/view any of these files, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\nReview the permissions granted to users by the operating system/file system on the database files, database log files and database backup files.\nTo verify that all files are owned by the database administrator and have the correct permissions, run the following as the database administrator (shown here as \"postgres\"):",
+      "commands": [
+        "sudo su - postgres",
+        "ls -lR ${PGDATA?}"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

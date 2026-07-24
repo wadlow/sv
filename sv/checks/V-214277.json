@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214277",
+  "severity": "medium",
+  "rule_id": "SV-214277r960735_rule",
+  "rule_ver": "AS24-U2-000020",
+  "rule_title": "The Apache web server must perform server-side session management.",
+  "check_text": "In a command line, run \"httpd -M | grep -i session_module\" and \"httpd -M | grep -i usertrack_module\". \n \nIf \"session_module\" module and \"usertrack_module\" are not enabled or do not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "In a command line, run \"httpd -M | grep -i session_module\" and \"httpd -M | grep -i usertrack_module\".\nIf \"session_module\" module and \"usertrack_module\" are not enabled or do not exist, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

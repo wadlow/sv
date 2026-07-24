@@ -1,14 +1,14 @@
 {
   "v_code": "V-214288",
   "severity": "medium",
-  "rule_id": "SV-214288r1043180_rule",
+  "rule_id": "SV-214288r1211011_rule",
   "rule_ver": "AS24-U2-000470",
   "rule_title": "Cookies exchanged between the Apache web server and client, such as session cookies, must have security settings that disallow cookie access outside the originating Apache web server and hosted application.",
   "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file: \n \n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n\nSearch for the Set-Cookie Header directive:\n\n# cat /<path_to_file>/httpd.conf | grep -i \"Header.*Set-Cookie\"\n \nIf \"HttpOnly\" \"secure\" is not configured, this is a finding. \n \n\"Header always edit Set-Cookie ^(.*)$ $1;HttpOnly;secure\" \n \nReview the code. If, when creating cookies, the following is not occurring, this is a finding: \n \nfunction setCookie() { document.cookie = \"ALEPH_SESSION_ID = $SESS; path = /; secure\"; }",
   "checks": [
     {
       "section": null,
-      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"",
       "commands": [
         "apachectl -V | egrep -i 'httpd_root|server_config_file'"
       ],
@@ -16,11 +16,11 @@
     },
     {
       "section": null,
-      "description": "Search for the Set-Cookie Header directive:",
+      "description": "Note: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nSearch for the Set-Cookie Header directive:",
       "commands": [
         "cat /<path_to_file>/httpd.conf | grep -i \"Header.*Set-Cookie\""
       ],
-      "finding_condition": "If \"HttpOnly\" and \"secure\" are not configured on the Set-Cookie Header directive, this is a finding."
+      "finding_condition": null
     }
   ]
 }

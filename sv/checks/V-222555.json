@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222555",
+  "severity": "high",
+  "rule_id": "SV-222555r961050_rule",
+  "rule_ver": "APSC-DV-001860",
+  "rule_title": "The application must use mechanisms meeting the requirements of applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic module.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify if the application provides access to cryptographic modules and if access is required in order to manage cryptographic modules contained within the application.\n\nIf the application does not provide authenticated access to a cryptographic module, the requirement is not applicable.\n\nReview and identify the cryptographic module. Refer to the NIST website listing all FIPS-approved cryptographic modules.\n\nhttp://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm\n\nIf the cryptographic module that requires authentication is not on the FIPS-approved module list, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify if the application provides access to cryptographic modules and if access is required in order to manage cryptographic modules contained within the application.\nIf the application does not provide authenticated access to a cryptographic module, the requirement is not applicable.\nReview and identify the cryptographic module. Refer to the NIST website listing all FIPS-approved cryptographic modules.\nhttp://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm\nIf the cryptographic module that requires authentication is not on the FIPS-approved module list, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

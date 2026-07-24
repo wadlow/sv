@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222479",
+  "severity": "medium",
+  "rule_id": "SV-222479r960909_rule",
+  "rule_ver": "APSC-DV-001040",
+  "rule_title": "The application must implement transaction recovery logs when transaction based.",
+  "check_text": "Review the application documentation and interview the application administrator.  Have the application administrator provide configuration settings that demonstrate transaction logging is enabled.\n\nReview configuration settings for the location of transaction specific logs and verify transaction logs exist and the log records access and changes to the data.\n\nIf the application is not configured to utilize transaction logging, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.  Have the application administrator provide configuration settings that demonstrate transaction logging is enabled.\nReview configuration settings for the location of transaction specific logs and verify transaction logs exist and the log records access and changes to the data.\nIf the application is not configured to utilize transaction logging, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

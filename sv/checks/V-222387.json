@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222387",
+  "severity": "medium",
+  "rule_id": "SV-222387r960735_rule",
+  "rule_ver": "APSC-DV-000010",
+  "rule_title": "The application must provide a capability to limit the number of logon sessions per user.",
+  "check_text": "For production environments;  Review the system documentation, identify the number of application user logon sessions allowed per user, identify the methods utilized for user session management or have application administrator describe how the application implements user session management.\n\nUtilize the management interface that is used to set the user session values, or examine configuration files in order to review user session configuration settings.\n\nEnsure the number of sessions allowed per user is specified in accordance with the organizational requirements.\n\nFor development environments;  have the developer provide design documentation or demonstrate how the application is designed to limit the number of simultaneous user logon sessions.\n\nIf the application is not configured to limit the number of logon sessions per user as defined by the organization, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "For production environments;  Review the system documentation, identify the number of application user logon sessions allowed per user, identify the methods utilized for user session management or have application administrator describe how the application implements user session management.\nUtilize the management interface that is used to set the user session values, or examine configuration files in order to review user session configuration settings.\nEnsure the number of sessions allowed per user is specified in accordance with the organizational requirements.\nFor development environments;  have the developer provide design documentation or demonstrate how the application is designed to limit the number of simultaneous user logon sessions.\nIf the application is not configured to limit the number of logon sessions per user as defined by the organization, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

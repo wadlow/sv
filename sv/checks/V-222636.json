@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222636",
+  "severity": "medium",
+  "rule_id": "SV-222636r1051323_rule",
+  "rule_ver": "APSC-DV-003050",
+  "rule_title": "A contingency plan must exist in accordance with DOD policy based on the application's availability requirements.",
+  "check_text": "Review contingency plans.\n\nFor high availability applications, verify the contingency plan exists and provides for the smooth transfer of all mission or business essential functions to an alternate site for the duration of an event with little or no loss of operational continuity.\n \nFor moderate availability applications, verify the contingency plan exists and provides for the resumption of mission or business essential functions within 12 hours activation or as defined in the contingency plan.\n\nFor low availability applications, verify the contingency plan exists and provides for the partial resumption of mission or business essential functions within 5 to 30 days of activation as defined in the contingency plan.\n \nIf the contingency plan does not exist or does not meet the severity level requirements, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review contingency plans.\nFor high availability applications, verify the contingency plan exists and provides for the smooth transfer of all mission or business essential functions to an alternate site for the duration of an event with little or no loss of operational continuity.\nFor moderate availability applications, verify the contingency plan exists and provides for the resumption of mission or business essential functions within 12 hours activation or as defined in the contingency plan.\nFor low availability applications, verify the contingency plan exists and provides for the partial resumption of mission or business essential functions within 5 to 30 days of activation as defined in the contingency plan.\nIf the contingency plan does not exist or does not meet the severity level requirements, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

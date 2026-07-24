@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222581",
+  "severity": "medium",
+  "rule_id": "SV-222581r1043180_rule",
+  "rule_ver": "APSC-DV-002270",
+  "rule_title": "Applications must not use URL embedded session IDs.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify how the application generates session IDs.\n\nIf using a web development framework, ask the application administrator to provide details on the framework's session configuration.\n\nReview the framework configuration setting to determine how the session identifiers are created.\n\nIdentify any compensating controls that may be leveraged to minimize risk to user sessions.\n\nIf the framework or the application is configured to transmit cookies within the URL or via URL rewriting, or if the session ID is created using a GET method and there are no compensating controls configured to address user session security, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify how the application generates session IDs.\nIf using a web development framework, ask the application administrator to provide details on the framework's session configuration.\nReview the framework configuration setting to determine how the session identifiers are created.\nIdentify any compensating controls that may be leveraged to minimize risk to user sessions.\nIf the framework or the application is configured to transmit cookies within the URL or via URL rewriting, or if the session ID is created using a GET method and there are no compensating controls configured to address user session security, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

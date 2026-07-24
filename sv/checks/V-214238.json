@@ -1,18 +1,16 @@
 {
   "v_code": "V-214238",
   "severity": "medium",
-  "rule_id": "SV-214238r1016509_rule",
+  "rule_id": "SV-214238r1212181_rule",
   "rule_ver": "AS24-U1-000230",
   "rule_title": "Expansion modules must be fully reviewed, tested, and signed before they can exist on a production Apache web server.",
   "check_text": "Enter the following command:\n\n\"httpd -M\"\n\nThis will provide a list of the loaded modules. Validate that all displayed modules are required for operation.\n\nIf any module is not required for operation, this is a finding.\n\nNote: The following modules are needed for basic web function and do not need to be reviewed:\n\ncore_module\nhttp_module\nso_module\nmpm_prefork_module\n\nFor a complete list of signed Apache modules, review https://httpd.apache.org/docs/2.4/mod/.",
   "checks": [
     {
       "section": null,
-      "description": "List loaded Apache modules and validate that each is required for operation:",
-      "commands": [
-        "httpd -M"
-      ],
-      "finding_condition": "If any module is not required for operation, this is a finding. The following modules do not need to be reviewed: core_module, http_module, so_module, mpm_prefork_module."
+      "description": "Enter the following command:\n\"httpd -M\"\nThis will provide a list of the loaded modules. Validate that all displayed modules are required for operation.\nIf any module is not required for operation, this is a finding.\nNote: The following modules are needed for basic web function and do not need to be reviewed:\ncore_module\nhttp_module\nso_module\nmpm_prefork_module\nFor a complete list of signed Apache modules, review https://httpd.apache.org/docs/2.4/mod/.",
+      "commands": [],
+      "finding_condition": null
     }
   ]
 }

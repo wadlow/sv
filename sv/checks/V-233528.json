@@ -1,0 +1,16 @@
+{
+  "v_code": "V-233528",
+  "severity": "medium",
+  "rule_id": "SV-233528r961158_rule",
+  "rule_ver": "CD12-00-002000",
+  "rule_title": "PostgreSQL and associated applications, when making use of dynamic code execution, must scan input data for invalid values that may indicate a code injection attack.",
+  "check_text": "Review PostgreSQL source code (trigger procedures, functions) and application source code to identify cases of dynamic code execution.\n\nIf dynamic code execution is employed without protective measures against code injection, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review PostgreSQL source code (trigger procedures, functions) and application source code to identify cases of dynamic code execution.\nIf dynamic code execution is employed without protective measures against code injection, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

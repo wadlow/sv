@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222574",
+  "severity": "medium",
+  "rule_id": "SV-222574r1117171_rule",
+  "rule_ver": "APSC-DV-002150",
+  "rule_title": "The application user interface must be either physically or logically separated from data storage and management interfaces.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nReview the design documents and the interfaces used by the application.\n\nVerify that the application provides separate interfaces for user traffic and for management traffic. The separation may be virtual in nature (virtual host, virtual NIC, virtual network) or physically separate.\n\nIf the application user interface and the application management interface are shared, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nReview the design documents and the interfaces used by the application.\nVerify that the application provides separate interfaces for user traffic and for management traffic. The separation may be virtual in nature (virtual host, virtual NIC, virtual network) or physically separate.\nIf the application user interface and the application management interface are shared, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

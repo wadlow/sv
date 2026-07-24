@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222395",
+  "severity": "medium",
+  "rule_id": "SV-222395r1136908_rule",
+  "rule_ver": "APSC-DV-000130",
+  "rule_title": "The application must associate organization-defined types of security attributes having organization-defined security attribute values with information in transmission.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify if the application requirements include data marking. Also determine if the application processes classified, CUI, or other data that is required to be marked.\n\nAccess the user interface for the application and navigate through the application. Perform an application action that will transmit marked data that is contained within the application.\n\nIf the application does not contain classified or CUI data or have data marking requirements, or if the application does not transmit data, this requirement is not applicable.\n\nFor example, create a test record and assign a data marking to the data element. Save the test record, close the data entry fields, and navigate to display the test record. Initiate the application processes to transmit data. Access a remote system or have someone with access to a remote system verify the data marking is retained after the data transmission.\n\nIf application data required to be marked does not retain its marking when it is being transmitted by the application, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify if the application requirements include data marking. Also determine if the application processes classified, CUI, or other data that is required to be marked.\nAccess the user interface for the application and navigate through the application. Perform an application action that will transmit marked data that is contained within the application.\nIf the application does not contain classified or CUI data or have data marking requirements, or if the application does not transmit data, this requirement is not applicable.\nFor example, create a test record and assign a data marking to the data element. Save the test record, close the data entry fields, and navigate to display the test record. Initiate the application processes to transmit data. Access a remote system or have someone with access to a remote system verify the data marking is retained after the data transmission.\nIf application data required to be marked does not retain its marking when it is being transmitted by the application, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

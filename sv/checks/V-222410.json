@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222410",
+  "severity": "low",
+  "rule_id": "SV-222410r961863_rule",
+  "rule_ver": "APSC-DV-000310",
+  "rule_title": "The application must have a process, feature or function that prevents removal or disabling of emergency accounts.",
+  "check_text": "Review the application documentation and interview the application administrator. Identify if emergency accounts are ever used. \n\nIf emergency accounts are not used, this requirement is not applicable.\n\nIf emergency accounts are used, validate a procedure, process, feature or function exists that will prevent the emergency account from being deleted or disabled during a crisis situation.\n\nExamples include but are not limited to adding a flag to the account to ensure it is not deleted during a specified emergency period or placing the account in a designated group that is monitored and controlled in accordance with the crisis.\n\nIf a process, procedure, function or feature designed to prevent emergency accounts from being  deleted or disabled during a crisis situation is not available, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator. Identify if emergency accounts are ever used.\nIf emergency accounts are not used, this requirement is not applicable.\nIf emergency accounts are used, validate a procedure, process, feature or function exists that will prevent the emergency account from being deleted or disabled during a crisis situation.\nExamples include but are not limited to adding a flag to the account to ensure it is not deleted during a specified emergency period or placing the account in a designated group that is monitored and controlled in accordance with the crisis.\nIf a process, procedure, function or feature designed to prevent emergency accounts from being  deleted or disabled during a crisis situation is not available, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

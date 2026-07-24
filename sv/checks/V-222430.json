@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222430",
+  "severity": "high",
+  "rule_id": "SV-222430r961359_rule",
+  "rule_ver": "APSC-DV-000510",
+  "rule_title": "The application must execute without excessive account permissions.",
+  "check_text": "Review the system documentation or interview the application representative and identify if the application utilizes an account in order to operate.\n\nDetermine the OS user groups in which each application account is a member.  List the user rights assigned to these users and groups using relevant OS commands and evaluate whether any of them provide admin rights or if they are unnecessary or excessive. \n\nIf the application connects to a database, open an admin console to the database and view the database users, their roles and group rights.\n\nLocate the application user account used to access the database and examine the accounts privileges. This includes group privileges.\n\nIf the application user account has excessive OS privileges such as being in the admin group, database privileges such as being in the DBA role, has the ability to create, drop, alter the database (not application database tables), or if the application user account has other excessive or undefined system privileges, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation or interview the application representative and identify if the application utilizes an account in order to operate.\nDetermine the OS user groups in which each application account is a member.  List the user rights assigned to these users and groups using relevant OS commands and evaluate whether any of them provide admin rights or if they are unnecessary or excessive.\nIf the application connects to a database, open an admin console to the database and view the database users, their roles and group rights.\nLocate the application user account used to access the database and examine the accounts privileges. This includes group privileges.\nIf the application user account has excessive OS privileges such as being in the admin group, database privileges such as being in the DBA role, has the ability to create, drop, alter the database (not application database tables), or if the application user account has other excessive or undefined system privileges, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

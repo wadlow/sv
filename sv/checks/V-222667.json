@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222667",
+  "severity": "medium",
+  "rule_id": "SV-222667r961863_rule",
+  "rule_ver": "APSC-DV-003320",
+  "rule_title": "Protections against DoS attacks must be implemented.",
+  "check_text": "Ask the application representative for the threat model document.\n\nExamine the threat model document and determine if DoS attacks are specified as a threat.\n\nIf there are no DoS threats identified in the threat model, the requirement is not applicable.\n\nVerify the mitigations provided for DoS attacks are implemented from the threat model.\n\nIf mitigations for DoS attacks are identified in the threat model but are not implemented, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application representative for the threat model document.\nExamine the threat model document and determine if DoS attacks are specified as a threat.\nIf there are no DoS threats identified in the threat model, the requirement is not applicable.\nVerify the mitigations provided for DoS attacks are implemented from the threat model.\nIf mitigations for DoS attacks are identified in the threat model but are not implemented, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

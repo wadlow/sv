@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222533",
+  "severity": "medium",
+  "rule_id": "SV-222533r961503_rule",
+  "rule_ver": "APSC-DV-001650",
+  "rule_title": "The application must authenticate all network connected endpoint devices before establishing any connection.",
+  "check_text": "Review the application documentation, implementation documentation and interview the application administrator.\n\nIdentify if the application utilizes Web Services/Service-Oriented Architecture (SOA). Using the web services framework that has been implemented, have the application administrator identify the remote devices allowed to communicate to the service provider.\n\nIf the application is designed to provide end-user, interactive application access only and does not use web services or allow connections from remote devices, this requirement is not applicable.\n\nIdentify the authentication mechanism used to authenticate the remote consumers/devices. Commonly available authentication methods are Client Certificate Authentication and Basic Authentication.\n\nThe Basic Authentication method provides insufficient protection for authentication sessions and is not allowed.\n\nIf no authentication mechanism is used to authenticate remote service consumers/devices, or if Basic Authentication is used to authentication remote service consumers/devices, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation, implementation documentation and interview the application administrator.\nIdentify if the application utilizes Web Services/Service-Oriented Architecture (SOA). Using the web services framework that has been implemented, have the application administrator identify the remote devices allowed to communicate to the service provider.\nIf the application is designed to provide end-user, interactive application access only and does not use web services or allow connections from remote devices, this requirement is not applicable.\nIdentify the authentication mechanism used to authenticate the remote consumers/devices. Commonly available authentication methods are Client Certificate Authentication and Basic Authentication.\nThe Basic Authentication method provides insufficient protection for authentication sessions and is not allowed.\nIf no authentication mechanism is used to authenticate remote service consumers/devices, or if Basic Authentication is used to authentication remote service consumers/devices, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

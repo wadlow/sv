@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222647",
+  "severity": "low",
+  "rule_id": "SV-222647r961863_rule",
+  "rule_ver": "APSC-DV-003160",
+  "rule_title": "Test procedures must be created and at least annually executed to ensure system initialization, shutdown, and aborts are configured to verify the system remains in a secure state.",
+  "check_text": "Review the process documentation and interview the admin staff.\n\nIdentify if testing procedures exist and if they include annual testing to ensure the application remains in a secure state on initialization, shutdown, and aborts.\n\nChecks should include at a minimum, attempts to access the application and application configuration settings without credentials or with improper credentials both locally and remotely.\n\nDates should be noted as to the last date of testing.\n\nIf annual testing procedures do not exist, or if administrators are unable to provide testing dates that indicate the tests were conducted within the last year, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the process documentation and interview the admin staff.\nIdentify if testing procedures exist and if they include annual testing to ensure the application remains in a secure state on initialization, shutdown, and aborts.\nChecks should include at a minimum, attempts to access the application and application configuration settings without credentials or with improper credentials both locally and remotely.\nDates should be noted as to the last date of testing.\nIf annual testing procedures do not exist, or if administrators are unable to provide testing dates that indicate the tests were conducted within the last year, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

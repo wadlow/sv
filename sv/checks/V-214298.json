@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214298",
+  "severity": "medium",
+  "rule_id": "SV-214298r961353_rule",
+  "rule_ver": "AS24-U2-000700",
+  "rule_title": "Non-privileged accounts on the hosting system must only access Apache web server security-relevant information and functions through a distinct administrative account.",
+  "check_text": "Determine which tool or control file is used to control the configuration of the web server. \n \nIf the control of the web server is done via control files, verify who has update access to them. If tools are being used to configure the web server, determine who has access to execute the tools. \n \nIf accounts other than the System Administrator, Web Manager, or the Web Manager designees have access to the web administration tool or control files, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine which tool or control file is used to control the configuration of the web server.\nIf the control of the web server is done via control files, verify who has update access to them. If tools are being used to configure the web server, determine who has access to execute the tools.\nIf accounts other than the System Administrator, Web Manager, or the Web Manager designees have access to the web administration tool or control files, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

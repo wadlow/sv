@@ -1,0 +1,27 @@
+{
+  "v_code": "V-261967",
+  "severity": "medium",
+  "rule_id": "SV-261967r1000906_rule",
+  "rule_ver": "CD16-00-012400",
+  "rule_title": "PostgreSQL must offload audit data to a separate log management facility; this must be continuous and in near real time for systems with a network connection to the storage facility and weekly or more often for standalone systems.",
+  "check_text": "As the database administrator (shown here as \"postgres\"), ensure PostgreSQL uses syslog by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_destination\"\n\nIf log_destination is not syslog, this is a finding.\n\nAs the database administrator, check which log facility is configured by running the following SQL:\n\n$ psql -c \"SHOW syslog_facility\" \n\nCheck with the organization to refer to how syslog facilities are defined in their organization.\n\nIf the wrong facility is configured, this is a finding.\n\nIf PostgreSQL does not have a continuous network connection to the centralized log management system, and PostgreSQL audit records are not transferred to the centralized log management system weekly or more often, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), ensure PostgreSQL uses syslog by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_destination\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If log_destination is not syslog, this is a finding.\nAs the database administrator, check which log facility is configured by running the following SQL:",
+      "commands": [
+        "psql -c \"SHOW syslog_facility\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

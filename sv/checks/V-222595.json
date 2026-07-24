@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222595",
+  "severity": "medium",
+  "rule_id": "SV-222595r961155_rule",
+  "rule_ver": "APSC-DV-002410",
+  "rule_title": "The web service design must include redundancy mechanisms when used with high-availability systems.",
+  "check_text": "Interview the application administrator and review the system documentation to determine if the application has been designated as a high availability system and if the application is designed to operate in a high availability environment.\n\nIf the application has not been designated as a high availability system, this requirement is not applicable.\n\nReview the application architecture documentation and identify solutions that provide application DoS protections. \n\nVerify the application has been built to work in a clustered or otherwise high availability environment in accordance with documented availability requirements.\n\nThis includes:\n\n- load balancers\n- redundant systems such as multiple web, application servers or DB servers\n- high bandwidth or redundant data circuits\n- multiple data centers (geographic dispersal)\n- server clusters\n\nIf the application has been designated as high availability but the architecture is not built to high availability standards, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the application administrator and review the system documentation to determine if the application has been designated as a high availability system and if the application is designed to operate in a high availability environment.\nIf the application has not been designated as a high availability system, this requirement is not applicable.\nReview the application architecture documentation and identify solutions that provide application DoS protections.\nVerify the application has been built to work in a clustered or otherwise high availability environment in accordance with documented availability requirements.\nThis includes:\n- load balancers\n- redundant systems such as multiple web, application servers or DB servers\n- high bandwidth or redundant data circuits\n- multiple data centers (geographic dispersal)\n- server clusters\nIf the application has been designated as high availability but the architecture is not built to high availability standards, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

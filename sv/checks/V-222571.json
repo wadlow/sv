@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222571",
+  "severity": "medium",
+  "rule_id": "SV-222571r1117181_rule",
+  "rule_ver": "APSC-DV-002030",
+  "rule_title": "The application must utilize FIPS-validated cryptographic modules when generating cryptographic hashes.",
+  "check_text": "Review the application components and the application requirements to determine if the application is capable of generating cryptographic hashes.\n\nReview the application documentation and interview the application developer or administrator to identify the cryptographic modules used by the application.\n\nIf hashing of application components has been identified in the application security plan as not being required and if a documented acceptance of risk is provided, this is not a finding.\n\nHave the application admin or the developer demonstrate how the application generates hashes and what hashing algorithms are used when generating a hash value.\n\nWhile SHA1 is currently FIPS-140-2 approved, due to known vulnerabilities with this algorithm, DoD PKI policy prohibits the use of SHA1 as of December 2016.  See DoD CIO Memo Subject: Revised Schedule to Update DoD Public Key Infrastructure Certificates to Secure Hash Algorithm-256. \n\nIf the application resides on a National Security System (NSS) and uses an algorithm weaker than SHA-384, this is a finding.\n\nIf FIPS-validated cryptographic modules are not used when generating hashes or if the application is configured to use the MD5 or SHA1 hashing algorithm, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application components and the application requirements to determine if the application is capable of generating cryptographic hashes.\nReview the application documentation and interview the application developer or administrator to identify the cryptographic modules used by the application.\nIf hashing of application components has been identified in the application security plan as not being required and if a documented acceptance of risk is provided, this is not a finding.\nHave the application admin or the developer demonstrate how the application generates hashes and what hashing algorithms are used when generating a hash value.\nWhile SHA1 is currently FIPS-140-2 approved, due to known vulnerabilities with this algorithm, DoD PKI policy prohibits the use of SHA1 as of December 2016.  See DoD CIO Memo Subject: Revised Schedule to Update DoD Public Key Infrastructure Certificates to Secure Hash Algorithm-256.\nIf the application resides on a National Security System (NSS) and uses an algorithm weaker than SHA-384, this is a finding.\nIf FIPS-validated cryptographic modules are not used when generating hashes or if the application is configured to use the MD5 or SHA1 hashing algorithm, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

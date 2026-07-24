@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214263",
+  "severity": "medium",
+  "rule_id": "SV-214263r961395_rule",
+  "rule_ver": "AS24-U1-000720",
+  "rule_title": "The Apache web server must not impede the ability to write specified log record content to an audit log server.",
+  "check_text": "Work with SIEM administrator to determine audit configurations. \n\nIf there is a setting within the SIEM that could impede the ability to write specific log record content, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Work with SIEM administrator to determine audit configurations.\nIf there is a setting within the SIEM that could impede the ability to write specific log record content, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

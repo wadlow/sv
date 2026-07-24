@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222669",
+  "severity": "low",
+  "rule_id": "SV-222669r961863_rule",
+  "rule_ver": "APSC-DV-003340",
+  "rule_title": "At least one application administrator must be registered to receive update notifications, or security alerts, when automated alerts are available.",
+  "check_text": "Review the components of the application.\n\nAsk the application representative to demonstrate deployment personnel are registered to receive notifications for update notification for all of the application components including custom-developed software, libraries and third-party tools.\n\nIf no deployment personnel are registered to receive the alerts, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the components of the application.\nAsk the application representative to demonstrate deployment personnel are registered to receive notifications for update notification for all of the application components including custom-developed software, libraries and third-party tools.\nIf no deployment personnel are registered to receive the alerts, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

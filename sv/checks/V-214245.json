@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214245",
+  "severity": "medium",
+  "rule_id": "SV-214245r960963_rule",
+  "rule_ver": "AS24-U1-000330",
+  "rule_title": "The Apache web server must have Web Distributed Authoring (WebDAV) disabled.",
+  "check_text": "In a command line, run \"httpd -M | sort\" to view a list of installed modules.\n\nIf any of the following modules are present, this is a finding:\n\ndav_module\ndav_fs_module\ndav_lock_module",
+  "checks": [
+    {
+      "section": null,
+      "description": "In a command line, run \"httpd -M | sort\" to view a list of installed modules.\nIf any of the following modules are present, this is a finding:\ndav_module\ndav_fs_module\ndav_lock_module",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

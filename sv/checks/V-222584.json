@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222584",
+  "severity": "medium",
+  "rule_id": "SV-222584r961596_rule",
+  "rule_ver": "APSC-DV-002300",
+  "rule_title": "The application must only allow the use of DoD-approved certificate authorities for verification of the establishment of protected sessions.",
+  "check_text": "Review the application documentation and interview the application administrator to identify certificate location.\n\nInternet Explorer can be used to view certificate information:\n\nSelect “Tools”\nSelect “Internet Options”\nSelect “Content” tab\nSelect “Certificates”\nSelect the certificate used for authentication:\n\nClick “View”\nSelect “Details” tab\nSelect “Issuer”\n\nIf the application utilizes PKI certificates other than DoD-approved PKI and ECA certificates, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify certificate location.\nInternet Explorer can be used to view certificate information:\nSelect “Tools”\nSelect “Internet Options”\nSelect “Content” tab\nSelect “Certificates”\nSelect the certificate used for authentication:\nClick “View”\nSelect “Details” tab\nSelect “Issuer”\nIf the application utilizes PKI certificates other than DoD-approved PKI and ECA certificates, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

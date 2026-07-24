@@ -1,0 +1,22 @@
+{
+  "v_code": "V-261899",
+  "severity": "medium",
+  "rule_id": "SV-261899r1043179_rule",
+  "rule_ver": "CD16-00-004700",
+  "rule_title": "PostgreSQL must invalidate session identifiers upon user logout or other session termination.",
+  "check_text": "As the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -h localhost -c \"SHOW tcp_keepalives_idle\"\n$ psql -h localhost -c \"SHOW tcp_keepalives_interval\"\n$ psql -h localhost -c \"SHOW tcp_keepalives_count\"\n$ psql -h localhost -c \"SHOW statement_timeout\"\n\nIf these settings are not set to something other than zero, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -h localhost -c \"SHOW tcp_keepalives_idle\"",
+        "psql -h localhost -c \"SHOW tcp_keepalives_interval\"",
+        "psql -h localhost -c \"SHOW tcp_keepalives_count\"",
+        "psql -h localhost -c \"SHOW statement_timeout\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

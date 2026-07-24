@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222565",
+  "severity": "medium",
+  "rule_id": "SV-222565r961062_rule",
+  "rule_ver": "APSC-DV-001970",
+  "rule_title": "The application must employ strong authenticators in the establishment of non-local maintenance and diagnostic sessions.",
+  "check_text": "Review the application documentation and interview the application administrator to identify application maintenance functions.\n\nIf the application does not provide non-local maintenance and diagnostic capability, this requirement is not applicable.\n\nIdentify the maintenance functions/capabilities that are provided by the application, performed by an individual/admin and which can be performed remotely.\n\nExamples include but are not limited to:\n\nThe application may provide the ability to clean up a folder of temporary files, add users, remove users, restart processes, backup certain files, manage logs, or execute diagnostic sessions.\n\nHave the application admin authenticate to the application in an administrative role and verify that strong credentials (CAC) are required to access when performing application maintenance.\n\nHave the application admin authenticate to the application host OS and verify that strong credentials (CAC) are required to access when performing application maintenance.\n\nIf the application administrator is prevented from accessing the OS by policy requirement or separation of duties requirements, this is not a finding.\n\nIf a CAC is not used when remotely accessing the application for maintenance or diagnostic sessions, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify application maintenance functions.\nIf the application does not provide non-local maintenance and diagnostic capability, this requirement is not applicable.\nIdentify the maintenance functions/capabilities that are provided by the application, performed by an individual/admin and which can be performed remotely.\nExamples include but are not limited to:\nThe application may provide the ability to clean up a folder of temporary files, add users, remove users, restart processes, backup certain files, manage logs, or execute diagnostic sessions.\nHave the application admin authenticate to the application in an administrative role and verify that strong credentials (CAC) are required to access when performing application maintenance.\nHave the application admin authenticate to the application host OS and verify that strong credentials (CAC) are required to access when performing application maintenance.\nIf the application administrator is prevented from accessing the OS by policy requirement or separation of duties requirements, this is not a finding.\nIf a CAC is not used when remotely accessing the application for maintenance or diagnostic sessions, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

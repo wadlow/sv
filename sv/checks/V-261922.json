@@ -1,0 +1,28 @@
+{
+  "v_code": "V-261922",
+  "severity": "medium",
+  "rule_id": "SV-261922r1000771_rule",
+  "rule_ver": "CD16-00-007600",
+  "rule_title": "PostgreSQL must generate time stamps for audit records and application data with a minimum granularity of one second.",
+  "check_text": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\n\nAs the database administrator (shown here as \"postgres\"), verify the current log_line_prefix setting by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_line_prefix\"\n\nIf log_line_prefix does not contain %m, this is a finding.\n\nCheck the logs to verify time stamps are being logged:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/${PGLOG?}/<latest_log>\n< 2024-02-23 12:53:33.947 EDT postgres postgres 570bd68d.3912 >LOG: connection authorized: user=postgres database=postgres\n< 2024-02-23 12:53:41.576 EDT postgres postgres 570bd68d.3912 >LOG: AUDIT: SESSION,1,1,DDL,CREATE TABLE,,,CREATE TABLE test_srg(id INT);,<none>\n< 2024-02-23 12:53:44.372 EDT postgres postgres 570bd68d.3912 >LOG: disconnection: session time: 0:00:10.426 user=postgres database=postgres host=[local]\n\nIf time stamps are not being logged, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\nAs the database administrator (shown here as \"postgres\"), verify the current log_line_prefix setting by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_line_prefix\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If log_line_prefix does not contain %m, this is a finding.\nCheck the logs to verify time stamps are being logged:\n< 2024-02-23 12:53:33.947 EDT postgres postgres 570bd68d.3912 >LOG: connection authorized: user=postgres database=postgres\n< 2024-02-23 12:53:41.576 EDT postgres postgres 570bd68d.3912 >LOG: AUDIT: SESSION,1,1,DDL,CREATE TABLE,,,CREATE TABLE test_srg(id INT);,<none>\n< 2024-02-23 12:53:44.372 EDT postgres postgres 570bd68d.3912 >LOG: disconnection: session time: 0:00:10.426 user=postgres database=postgres host=[local]",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/${PGLOG?}/<latest_log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

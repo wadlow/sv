@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222518",
+  "severity": "medium",
+  "rule_id": "SV-222518r960963_rule",
+  "rule_ver": "APSC-DV-001500",
+  "rule_title": "The application must be configured to disable non-essential capabilities.",
+  "check_text": "Review the application guidance, application requirements documentation, and interview the application administrator.\n\nIdentify the application's operational requirements and what services the application is intended to provide users.\n\nReview the overall application features and functionality via the user interface.\n\nReview and identify installed application software modules via configuration settings.\n\nUsing the relevant OS commands, identify services running on the system and have the application administrator identify the services related to the application.\n\nIf the application is operating with extraneous capabilities that have not been defined as required in order to meet mission objectives, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application guidance, application requirements documentation, and interview the application administrator.\nIdentify the application's operational requirements and what services the application is intended to provide users.\nReview the overall application features and functionality via the user interface.\nReview and identify installed application software modules via configuration settings.\nUsing the relevant OS commands, identify services running on the system and have the application administrator identify the services related to the application.\nIf the application is operating with extraneous capabilities that have not been defined as required in order to meet mission objectives, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "v_code": "V-261875",
+  "severity": "medium",
+  "rule_id": "SV-261875r1000630_rule",
+  "rule_ver": "CD16-00-002000",
+  "rule_title": "The audit information produced by PostgreSQL must be protected from unauthorized read access.",
+  "check_text": "Note: The following instructions use the PGLOG environment variable. Refer to supplementary content APPENDIX-I for instructions on configuring PGLOG.\n\nReview locations of audit logs, both internal to the database and database audit logs located at the operating system level.\n\nVerify appropriate controls and permissions exist to protect the audit information from unauthorized access.\n\n#### syslog Logging\n\nIf PostgreSQL is configured to use syslog for logging, consult organization location and permissions for syslog log files.\n\n#### stderr Logging\n\nAs the database administrator (shown here as \"postgres\"), check the current log_file_mode configuration by running the following:\n\nNote: Consult the organization's documentation on acceptable log privileges.\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_file_mode\"\n\nIf log_file_mode is not 600, this is a finding.\n\nVerify the log files have the set permissions in ${PGLOG?}:\n\n$ ls -l ${PGLOG?}/\ntotal 32\n-rw-------. 1 postgres postgres 0 Apr 8 00:00 postgresql-Fri.log\n-rw-------. 1 postgres postgres 8288 Apr 11 17:36 postgresql-Mon.log\n-rw-------. 1 postgres postgres 0 Apr 9 00:00 postgresql-Sat.log\n-rw-------. 1 postgres postgres 0 Apr 10 00:00 postgresql-Sun.log\n-rw-------. 1 postgres postgres 16212 Apr 7 17:05 postgresql-Thu.log \n-rw-------. 1 postgres postgres 1130 Apr 6 17:56 postgresql-Wed.log \n\nIf logs with 600 permissions do not exist in ${PGLOG?}, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGLOG environment variable. Refer to supplementary content APPENDIX-I for instructions on configuring PGLOG.\nReview locations of audit logs, both internal to the database and database audit logs located at the operating system level.\nVerify appropriate controls and permissions exist to protect the audit information from unauthorized access.",
+      "commands": [],
+      "finding_condition": null
+    },
+    {
+      "section": "syslog Logging",
+      "description": "If PostgreSQL is configured to use syslog for logging, consult organization location and permissions for syslog log files.",
+      "commands": [],
+      "finding_condition": null
+    },
+    {
+      "section": "stderr Logging",
+      "description": "As the database administrator (shown here as \"postgres\"), check the current log_file_mode configuration by running the following:\nNote: Consult the organization's documentation on acceptable log privileges.",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_file_mode\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": "stderr Logging",
+      "description": "If log_file_mode is not 600, this is a finding.\nVerify the log files have the set permissions in ${PGLOG?}:\ntotal 32\n-rw-------. 1 postgres postgres 0 Apr 8 00:00 postgresql-Fri.log\n-rw-------. 1 postgres postgres 8288 Apr 11 17:36 postgresql-Mon.log\n-rw-------. 1 postgres postgres 0 Apr 9 00:00 postgresql-Sat.log\n-rw-------. 1 postgres postgres 0 Apr 10 00:00 postgresql-Sun.log\n-rw-------. 1 postgres postgres 16212 Apr 7 17:05 postgresql-Thu.log\n-rw-------. 1 postgres postgres 1130 Apr 6 17:56 postgresql-Wed.log",
+      "commands": [
+        "ls -l ${PGLOG?}/"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

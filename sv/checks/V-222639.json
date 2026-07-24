@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222639",
+  "severity": "medium",
+  "rule_id": "SV-222639r961863_rule",
+  "rule_ver": "APSC-DV-003080",
+  "rule_title": "Back-up copies of the application software or source code must be stored in a fire-rated container or stored separately (offsite).",
+  "check_text": "When reviewing a COTS or GOTS application, verify that a back-up copy of the software is stored in a fire rated container or is stored separately (offsite) from the operational environment.\n\nDetermine if application development is done in-house. \n\nIf application development occurs in-house and source code is available, verify a back-up copy of the source code is kept in a fire-rated container or stored offsite from the development environment.\n\nIf back-up copies of the application software or source code are not stored in a fire-rated container or stored separately (offsite) from their respective environments, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "When reviewing a COTS or GOTS application, verify that a back-up copy of the software is stored in a fire rated container or is stored separately (offsite) from the operational environment.\nDetermine if application development is done in-house.\nIf application development occurs in-house and source code is available, verify a back-up copy of the source code is kept in a fire-rated container or stored offsite from the development environment.\nIf back-up copies of the application software or source code are not stored in a fire-rated container or stored separately (offsite) from their respective environments, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

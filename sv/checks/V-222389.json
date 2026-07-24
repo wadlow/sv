@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222389",
+  "severity": "medium",
+  "rule_id": "SV-222389r1043182_rule",
+  "rule_ver": "APSC-DV-000070",
+  "rule_title": "The application must automatically terminate the non-privileged user session and log off non-privileged users after a 15 minute idle time period has elapsed.",
+  "check_text": "Ask the application representative to demonstrate the configuration setting where the idle time out value is defined.\n\nAlternatively, logon with a regular application user account and let the session sit idle for 15 minutes.\n\nAttempt to access the application after 15 minutes of inactivity.\n\nIf the configuration setting is not set to time out user sessions after 15 minutes of inactivity, or if the regular user session used for testing does not time out after 15 minutes of inactivity, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application representative to demonstrate the configuration setting where the idle time out value is defined.\nAlternatively, logon with a regular application user account and let the session sit idle for 15 minutes.\nAttempt to access the application after 15 minutes of inactivity.\nIf the configuration setting is not set to time out user sessions after 15 minutes of inactivity, or if the regular user session used for testing does not time out after 15 minutes of inactivity, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

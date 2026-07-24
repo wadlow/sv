@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222472",
+  "severity": "medium",
+  "rule_id": "SV-222472r960891_rule",
+  "rule_ver": "APSC-DV-000970",
+  "rule_title": "The application must log user actions involving changes to data.",
+  "check_text": "Review and monitor the application logs. When modifying data, the logs are most likely database logs.\n\nIf the application design documents include specific data elements that require protection, ensure any changes to those specific data elements are logged. Otherwise, a random check is sufficient.\n\nIf the application uses a database configured to use Transaction SQL logging this is not a finding if the application admin can demonstrate a process for reviewing the transaction log for data changes. The process must include using the transaction log and some form of query capability to identify users and the data they changed within the application and vice versa.\n\nUtilize the application as a regular user and operate the application so as to modify a data element contained within the application.\n\nObserve and determine if the application log includes an entry to indicate the users data change event was recorded.\n\nIf successful changes/modifications to application data elements are not recorded in the logs, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review and monitor the application logs. When modifying data, the logs are most likely database logs.\nIf the application design documents include specific data elements that require protection, ensure any changes to those specific data elements are logged. Otherwise, a random check is sufficient.\nIf the application uses a database configured to use Transaction SQL logging this is not a finding if the application admin can demonstrate a process for reviewing the transaction log for data changes. The process must include using the transaction log and some form of query capability to identify users and the data they changed within the application and vice versa.\nUtilize the application as a regular user and operate the application so as to modify a data element contained within the application.\nObserve and determine if the application log includes an entry to indicate the users data change event was recorded.\nIf successful changes/modifications to application data elements are not recorded in the logs, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

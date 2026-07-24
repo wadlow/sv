@@ -1,0 +1,29 @@
+{
+  "v_code": "V-261924",
+  "severity": "medium",
+  "rule_id": "SV-261924r1000777_rule",
+  "rule_ver": "CD16-00-007800",
+  "rule_title": "PostgreSQL must enforce access restrictions associated with changes to the configuration of the DBMS or database(s).",
+  "check_text": "To list all the permissions of individual roles, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"\\du\"\n\nIf any role has SUPERUSER that should not, this is a finding.\n\nList all the permissions of databases and schemas by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"\\l\"\n$ psql -c \"\\dn+\"\n\nIf any database or schema has update (\"W\") or create (\"C\") privileges and should not, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To list all the permissions of individual roles, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\du\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If any role has SUPERUSER that should not, this is a finding.\nList all the permissions of databases and schemas by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\l\"",
+        "psql -c \"\\dn+\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

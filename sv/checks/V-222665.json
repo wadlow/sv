@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222665",
+  "severity": "medium",
+  "rule_id": "SV-222665r961863_rule",
+  "rule_ver": "APSC-DV-003300",
+  "rule_title": "The designer must ensure uncategorized or emerging mobile code is not used in applications.",
+  "check_text": "Review the application documentation and interview application administrator.\n\nDetermine what mobile code types are used by the application.\n\nIf uncategorized mobile code types are found, ask the application administrator to provide the documented waiver and risk acceptance. If the application is using uncategorized or emerging mobile code and there is no waiver provided, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview application administrator.\nDetermine what mobile code types are used by the application.\nIf uncategorized mobile code types are found, ask the application administrator to provide the documented waiver and risk acceptance. If the application is using uncategorized or emerging mobile code and there is no waiver provided, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

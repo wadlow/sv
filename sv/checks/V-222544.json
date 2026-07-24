@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222544",
+  "severity": "medium",
+  "rule_id": "SV-222544r1015705_rule",
+  "rule_ver": "APSC-DV-001760",
+  "rule_title": "The application must enforce 24 hours/1 day as the minimum password lifetime.",
+  "check_text": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\n\nIf the application does not use passwords, this requirement is Not Applicable.\n\nAccess the application management interface and create a test user account or logon to the system with a test account and access the functionality that provides password change capabilities.\n\nAttempt to change the password more than once.\n\nIf a password can be changed more than once within 24 hours, the minimum lifetime setting is not set and this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\nIf the application does not use passwords, this requirement is Not Applicable.\nAccess the application management interface and create a test user account or logon to the system with a test account and access the functionality that provides password change capabilities.\nAttempt to change the password more than once.\nIf a password can be changed more than once within 24 hours, the minimum lifetime setting is not set and this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

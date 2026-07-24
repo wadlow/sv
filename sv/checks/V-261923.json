@@ -1,0 +1,20 @@
+{
+  "v_code": "V-261923",
+  "severity": "medium",
+  "rule_id": "SV-261923r1000993_rule",
+  "rule_ver": "CD16-00-007700",
+  "rule_title": "PostgreSQL must prohibit user installation of logic modules (stored procedures, functions, triggers, views, etc.) without explicit privileged status.",
+  "check_text": "If PostgreSQL supports only software development, experimentation and/or developer-level testing (that is, excluding production systems, integration testing, stress testing, and user acceptance testing), this is not a finding.\n\nReview PostgreSQL and database security settings with respect to nonadministrative users ability to create, alter, or replace logic modules, to include but not necessarily only stored procedures, functions, triggers, and views.\n\nTo list the privileges for all tables and schemas, as the database administrator (shown here as \"postgres\"), run the following:\n\n$ sudo su - postgres\n$ psql -c \"\\dp\"\n$ psql -c \"\\dn+\"\n\nThe privileges are as follows:\n\nrolename=xxxx -- privileges granted to a role\n=xxxx -- privileges granted to PUBLIC\n\nr -- SELECT (\"read\")\nw -- UPDATE (\"write\")\na -- INSERT (\"append\")\nd -- DELETE\nD -- TRUNCATE\nx -- REFERENCES\nt -- TRIGGER\nX -- EXECUTE\nU -- USAGE\nC -- CREATE\nc -- CONNECT\nT -- TEMPORARY\narwdDxt -- ALL PRIVILEGES (for tables, varies for other objects)\n* -- grant option for preceding privilege\n\n/yyyy -- role that granted this privilege\n\nIf any such permissions exist and are not documented and approved, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If PostgreSQL supports only software development, experimentation and/or developer-level testing (that is, excluding production systems, integration testing, stress testing, and user acceptance testing), this is not a finding.\nReview PostgreSQL and database security settings with respect to nonadministrative users ability to create, alter, or replace logic modules, to include but not necessarily only stored procedures, functions, triggers, and views.\nTo list the privileges for all tables and schemas, as the database administrator (shown here as \"postgres\"), run the following:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\dp\"",
+        "psql -c \"\\dn+\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "v_code": "V-261957",
+  "severity": "medium",
+  "rule_id": "SV-261957r1000876_rule",
+  "rule_ver": "CD16-00-011300",
+  "rule_title": "PostgreSQL must generate audit records when unsuccessful logons or connection attempts occur.",
+  "check_text": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I on PGLOG.\n\nIn this example the user \"joe\" will log in to the Postgres database unsuccessfully:\n\n$ psql -d postgres -U joe\n\nAs the database administrator (shown here as \"postgres\"), check ${PGLOG?} for a FATAL connection audit trail:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/${PGLOG?}/{latest_log>\n< 2024-02-16 16:18:13.027 UTC joe 56c65135.b5f postgres: >LOG: connection authorized: user=joe database=postgres\n< 2024-02-16 16:18:13.027 UTC joe 56c65135.b5f postgres: >FATAL: role \"joe\" does not exist\n\nIf an audit record is not generated each time a user (or other principal) attempts, but fails to log on or connect to PostgreSQL (including attempts where the user ID is invalid/unknown), this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I on PGLOG.\nIn this example the user \"joe\" will log in to the Postgres database unsuccessfully:",
+      "commands": [
+        "psql -d postgres -U joe"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), check ${PGLOG?} for a FATAL connection audit trail:\n< 2024-02-16 16:18:13.027 UTC joe 56c65135.b5f postgres: >LOG: connection authorized: user=joe database=postgres\n< 2024-02-16 16:18:13.027 UTC joe 56c65135.b5f postgres: >FATAL: role \"joe\" does not exist",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/${PGLOG?}/{latest_log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

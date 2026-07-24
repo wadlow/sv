@@ -1,0 +1,27 @@
+{
+  "v_code": "V-261862",
+  "severity": "medium",
+  "rule_id": "SV-261862r1000591_rule",
+  "rule_ver": "CD16-00-000600",
+  "rule_title": "PostgreSQL must allow only the information system security manager (ISSM), or individuals or roles appointed by the ISSM, to select which events are to be audited.",
+  "check_text": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\n\nCheck PostgreSQL settings and documentation to determine whether designated personnel are able to select which auditable events are being audited.\n\nAs the database administrator (shown here as \"postgres\"), verify the permissions for PGDATA:\n\n$ ls -la ${PGDATA?}\n\nIf anything in PGDATA is not owned by the database administrator, this is a finding.\n\nAs the database administrator, run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"\\du\"\n\nReview the role permissions, if any role is listed as superuser but should not have that access, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\nCheck PostgreSQL settings and documentation to determine whether designated personnel are able to select which auditable events are being audited.\nAs the database administrator (shown here as \"postgres\"), verify the permissions for PGDATA:",
+      "commands": [
+        "ls -la ${PGDATA?}"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If anything in PGDATA is not owned by the database administrator, this is a finding.\nAs the database administrator, run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\du\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222586",
+  "severity": "medium",
+  "rule_id": "SV-222586r961125_rule",
+  "rule_ver": "APSC-DV-002320",
+  "rule_title": "In the event of a system failure, applications must preserve any information necessary to determine cause of failure and any information necessary to return to operations with least disruption to mission processes.",
+  "check_text": "Review application documentation, interview application administrator to identify how the application logs error events.\n\nThe application operational requirements documentation should provide the specific information that must be preserved in order to return the application back into operation as quickly and efficiently as possible. The application administrator will need to identify and provide the information based upon operational requirements documents.\n\nApplication diagnostic information should be kept in logs for evaluation and investigation into root cause.\n\nIf documentation is provided stating that no particular information needs to be retained in order to expediently bring the application back online, this is not a finding.\n\nIf the application does not log the data required to determine root cause of application failure, or if information specified as required in order to expediently bring the application back online is not retained, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review application documentation, interview application administrator to identify how the application logs error events.\nThe application operational requirements documentation should provide the specific information that must be preserved in order to return the application back into operation as quickly and efficiently as possible. The application administrator will need to identify and provide the information based upon operational requirements documents.\nApplication diagnostic information should be kept in logs for evaluation and investigation into root cause.\nIf documentation is provided stating that no particular information needs to be retained in order to expediently bring the application back online, this is not a finding.\nIf the application does not log the data required to determine root cause of application failure, or if information specified as required in order to expediently bring the application back online is not retained, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

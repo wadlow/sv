@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261897",
+  "severity": "medium",
+  "rule_id": "SV-261897r1000696_rule",
+  "rule_ver": "CD16-00-004500",
+  "rule_title": "PostgreSQL must uniquely identify and authenticate nonorganizational users (or processes acting on behalf of nonorganizational users).",
+  "check_text": "PostgreSQL uniquely identifies and authenticates PostgreSQL users through the use of DBMS roles.\n\nTo list all roles in the database, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"\\du\"\n\nIf users are not uniquely identified per organizational documentation, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "PostgreSQL uniquely identifies and authenticates PostgreSQL users through the use of DBMS roles.\nTo list all roles in the database, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\du\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

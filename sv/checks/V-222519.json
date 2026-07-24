@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222519",
+  "severity": "medium",
+  "rule_id": "SV-222519r1043177_rule",
+  "rule_ver": "APSC-DV-001510",
+  "rule_title": "The application must be configured to use only functions, ports, and protocols permitted to it in the PPSM CAL.",
+  "check_text": "Review the application documentation and configuration.\n\nInterview the application administrator.\n\nIdentify the network ports and protocols that are utilized by the application.\n\nUsing a combination of relevant OS commands and application configuration utilities, identify the TCP/IP port numbers the application is configured to utilize and is utilizing.\n\nReview the PPSM Category Assurance List (CAL) at: \n\nhttps://cyber.mil/ppsm/cal/\n\nVerify the ports used by the application are approved by the PPSM CAL.\n\nIf the ports are not approved by the PPSM CAL, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and configuration.\nInterview the application administrator.\nIdentify the network ports and protocols that are utilized by the application.\nUsing a combination of relevant OS commands and application configuration utilities, identify the TCP/IP port numbers the application is configured to utilize and is utilizing.\nReview the PPSM Category Assurance List (CAL) at:\nhttps://cyber.mil/ppsm/cal/\nVerify the ports used by the application are approved by the PPSM CAL.\nIf the ports are not approved by the PPSM CAL, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

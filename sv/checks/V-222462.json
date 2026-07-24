@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222462",
+  "severity": "medium",
+  "rule_id": "SV-222462r961824_rule",
+  "rule_ver": "APSC-DV-000830",
+  "rule_title": "The application must generate audit records when successful/unsuccessful logon attempts occur.",
+  "check_text": "Review and monitor the application logs.\n\nAuthenticate to the application and observe if the log includes an entry to indicate the user’s authentication was successful.\n\nTerminate the user session by logging out.\n\nReauthenticate using invalid user credentials and observe if the log includes an entry to indicate the authentication was unsuccessful.\n\nIf successful and unsuccessful logon events are not recorded in the logs, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review and monitor the application logs.\nAuthenticate to the application and observe if the log includes an entry to indicate the user’s authentication was successful.\nTerminate the user session by logging out.\nReauthenticate using invalid user credentials and observe if the log includes an entry to indicate the authentication was unsuccessful.\nIf successful and unsuccessful logon events are not recorded in the logs, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

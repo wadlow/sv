@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222575",
+  "severity": "medium",
+  "rule_id": "SV-222575r1043178_rule",
+  "rule_ver": "APSC-DV-002210",
+  "rule_title": "The application must set the HTTPOnly flag on session cookies.",
+  "check_text": "Review the application documentation and interview the application administrator to identify when session cookies are created.\n\nIdentify any mitigating controls the application developer may have implemented. Examples include utilizing a separate Web Application Firewall that is configured to provide this capability or configuring the web server with Mod_Security or ESAPI WAF with the HTTPOnly flag directives enabled.\n\nReference the most recent vulnerability scan documentation.\n\nVerify the configuration settings for the scan include web application checks including HTTPOnly tests.\n\nReview the scan results and determine if vulnerabilities related to HTTPOnly flag not being set for session cookies have been identified.\n\nUtilize a web browser or other web application diagnostic tool to view the session cookies the application sets on the client.\n\nInternet Explorer versions 8, 9, and 10 includes a utility called Developer tools.\n\nAccess the application website and establish an application session.\n\nAccess the page that sets the session cookie.\n\nPress “F12” to open Developer Tools.\n\nSelect \"cache\" and then \"view cookie information\".\n\nIdentify the session cookies. An example of an HTTPOnly session cookie is as follows:\n\nSet-Cookie: SessionId=z5ymkk45aworjo2l31tlhqqv; path=/; HttpOnly\n\nIf the application does not set the HTTPOnly flag on session cookies or if the application administrator cannot demonstrate mitigating controls, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify when session cookies are created.\nIdentify any mitigating controls the application developer may have implemented. Examples include utilizing a separate Web Application Firewall that is configured to provide this capability or configuring the web server with Mod_Security or ESAPI WAF with the HTTPOnly flag directives enabled.\nReference the most recent vulnerability scan documentation.\nVerify the configuration settings for the scan include web application checks including HTTPOnly tests.\nReview the scan results and determine if vulnerabilities related to HTTPOnly flag not being set for session cookies have been identified.\nUtilize a web browser or other web application diagnostic tool to view the session cookies the application sets on the client.\nInternet Explorer versions 8, 9, and 10 includes a utility called Developer tools.\nAccess the application website and establish an application session.\nAccess the page that sets the session cookie.\nPress “F12” to open Developer Tools.\nSelect \"cache\" and then \"view cookie information\".\nIdentify the session cookies. An example of an HTTPOnly session cookie is as follows:\nSet-Cookie: SessionId=z5ymkk45aworjo2l31tlhqqv; path=/; HttpOnly\nIf the application does not set the HTTPOnly flag on session cookies or if the application administrator cannot demonstrate mitigating controls, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

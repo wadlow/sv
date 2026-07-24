@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214264",
+  "severity": "medium",
+  "rule_id": "SV-214264r961395_rule",
+  "rule_ver": "AS24-U1-000730",
+  "rule_title": "The Apache web server must be configured to integrate with an organizations security infrastructure.",
+  "check_text": "Work with the SIEM administrator to determine current security integrations. \n\nIf the SIEM is not integrated with security, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Work with the SIEM administrator to determine current security integrations.\nIf the SIEM is not integrated with security, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

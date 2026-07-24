@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222666",
+  "severity": "medium",
+  "rule_id": "SV-222666r961863_rule",
+  "rule_ver": "APSC-DV-003310",
+  "rule_title": "Production database exports must have database administration credentials and sensitive data removed before releasing the export.",
+  "check_text": "Review the application documentation and identify the existence of databases within the application architecture.\n\nAsk the application admin to identify when data exports from this database are imported to test or development databases.\n \nIf no data is exported to test or development databases, this check is not applicable.\n\nIf there are such data exports, ask if the production database includes sensitive data identified by the data owner as sensitive such as passwords, financial, personnel, personal, HIPAA, Privacy Act, or classified data is included.\n\nIf any database exports include sensitive data and that data is not sanitized or removed prior to or immediately after import to the development database, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and identify the existence of databases within the application architecture.\nAsk the application admin to identify when data exports from this database are imported to test or development databases.\nIf no data is exported to test or development databases, this check is not applicable.\nIf there are such data exports, ask if the production database includes sensitive data identified by the data owner as sensitive such as passwords, financial, personnel, personal, HIPAA, Privacy Act, or classified data is included.\nIf any database exports include sensitive data and that data is not sanitized or removed prior to or immediately after import to the development database, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

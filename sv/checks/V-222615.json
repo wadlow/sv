@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222615",
+  "severity": "medium",
+  "rule_id": "SV-222615r961731_rule",
+  "rule_ver": "APSC-DV-002760",
+  "rule_title": "The application performing organization-defined security functions must verify correct operation of security functions.",
+  "check_text": "Review the application documentation and interview the system administrator to determine if the application performs security function testing.\n\nIf the application is not designed or intended to perform security function testing, the requirement is not applicable.\n\nAccess the application design documents and determine if the application is designed to verify the correct operation of security functions.\n\nReview application logs and take note of log entries that indicate security function testing is being performed and verified.\n\nIf the application is designed to perform security function testing and does not verify the correct operation of security functions, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the system administrator to determine if the application performs security function testing.\nIf the application is not designed or intended to perform security function testing, the requirement is not applicable.\nAccess the application design documents and determine if the application is designed to verify the correct operation of security functions.\nReview application logs and take note of log entries that indicate security function testing is being performed and verified.\nIf the application is designed to perform security function testing and does not verify the correct operation of security functions, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

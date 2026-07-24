@@ -1,0 +1,16 @@
+{
+  "v_code": "V-261918",
+  "severity": "medium",
+  "rule_id": "SV-261918r1000759_rule",
+  "rule_ver": "CD16-00-007200",
+  "rule_title": "PostgreSQL must allocate audit record storage capacity in accordance with organization-defined audit record storage requirements.",
+  "check_text": "Investigate whether there have been any incidents where PostgreSQL ran out of audit log space since the last time the space was allocated or other corrective measures were taken.\n\nIf there have been incidents where PostgreSQL ran out of audit log space, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Investigate whether there have been any incidents where PostgreSQL ran out of audit log space since the last time the space was allocated or other corrective measures were taken.\nIf there have been incidents where PostgreSQL ran out of audit log space, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

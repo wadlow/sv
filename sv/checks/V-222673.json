@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222673",
+  "severity": "medium",
+  "rule_id": "SV-222673r961863_rule",
+  "rule_ver": "APSC-DV-003400",
+  "rule_title": "The Program Manager must verify all levels of program management, designers, developers, and testers receive annual security training pertaining to their job function.",
+  "check_text": "This requirement is meant to be applied to developers and development teams only, otherwise, this requirement is not applicable.  \n\nInterview the application representative.\n\nAsk for evidence of annual security training for application managers, designers, developers, and testers. \n\nExamples of evidence include course completion certificates and a class roster. At a minimum, security training should include security awareness training pertaining to overall principles of secure application development.\n\nTraining must be in addition to DoD 8570 training requirements as DoD 8570 annual security training does not presently cover application SDLC security concerns. \n\nIf there is no evidence of security training, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement is meant to be applied to developers and development teams only, otherwise, this requirement is not applicable.\nInterview the application representative.\nAsk for evidence of annual security training for application managers, designers, developers, and testers.\nExamples of evidence include course completion certificates and a class roster. At a minimum, security training should include security awareness training pertaining to overall principles of secure application development.\nTraining must be in addition to DoD 8570 training requirements as DoD 8570 annual security training does not presently cover application SDLC security concerns.\nIf there is no evidence of security training, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

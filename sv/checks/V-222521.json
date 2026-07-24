@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222521",
+  "severity": "medium",
+  "rule_id": "SV-222521r985974_rule",
+  "rule_ver": "APSC-DV-001530",
+  "rule_title": "The application must require devices to reauthenticate when organization-defined circumstances or situations requiring reauthentication.",
+  "check_text": "Review the application guidance and interview the application administrator.\n\nIdentify the methods and manner in which application devices such as an XML gateway, SOA application gateway, or application firewall is allowed to access the application. Most devices themselves will not change role or authenticators once they are established but will need to periodically reauthenticate.\n\nReview the configuration setting in the application where the time period is set to force the device to reauthenticate.\n\nReview local policy requirements to determine if reauthentication intervals are specified.\n\nIf the device is not forced to reauthenticate periodically, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application guidance and interview the application administrator.\nIdentify the methods and manner in which application devices such as an XML gateway, SOA application gateway, or application firewall is allowed to access the application. Most devices themselves will not change role or authenticators once they are established but will need to periodically reauthenticate.\nReview the configuration setting in the application where the time period is set to force the device to reauthenticate.\nReview local policy requirements to determine if reauthentication intervals are specified.\nIf the device is not forced to reauthenticate periodically, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

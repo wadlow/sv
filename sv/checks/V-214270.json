@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214270",
+  "severity": "medium",
+  "rule_id": "SV-214270r1138080_rule",
+  "rule_ver": "AS24-U1-000930",
+  "rule_title": "The Apache web server must install security-relevant software updates within the configured time period directed by an authoritative source (e.g., IAVM, CTOs, DTMs, and STIGs).",
+  "check_text": "Determine the most recent patch level of the Apache Web Server 2.4 software, as posted on the Apache HTTP Server Project website. If the Apache installation is a proprietary installation supporting an application and is supported by a vendor, determine the most recent patch level of the vendor’s installation.\n\nIn a command line, type \"httpd -v\".\n\nIf the version is more than one version behind the most recent patch level, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the most recent patch level of the Apache Web Server 2.4 software, as posted on the Apache HTTP Server Project website. If the Apache installation is a proprietary installation supporting an application and is supported by a vendor, determine the most recent patch level of the vendor’s installation.\nIn a command line, type \"httpd -v\".\nIf the version is more than one version behind the most recent patch level, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-233537",
+  "severity": "medium",
+  "rule_id": "SV-233537r960915_rule",
+  "rule_ver": "CD12-00-002900",
+  "rule_title": "PostgreSQL must by default shut down upon audit failure, to include the unavailability of space for more audit log records; or must be configurable to shut down upon audit failure.",
+  "check_text": "If the application owner has determined that the need for system availability outweighs the need for a complete audit trail, this is not applicable (NA). \n\nOtherwise, review the procedures, manual and/or automated, for monitoring the space used by audit trail(s) and for off-loading audit records to a centralized log management system.\n\nIf the procedures do not exist, this is a finding.\n\nIf the procedures exist, request evidence that they are followed. If the evidence indicates that the procedures are not followed, this is a finding.\n\nIf the procedures exist, inquire if the system has ever run out of audit trail space in the last two years or since the last system upgrade, whichever is more recent. If it has run out of space in this period, and the procedures have not been updated to compensate, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the application owner has determined that the need for system availability outweighs the need for a complete audit trail, this is not applicable (NA).\nOtherwise, review the procedures, manual and/or automated, for monitoring the space used by audit trail(s) and for off-loading audit records to a centralized log management system.\nIf the procedures do not exist, this is a finding.\nIf the procedures exist, request evidence that they are followed. If the evidence indicates that the procedures are not followed, this is a finding.\nIf the procedures exist, inquire if the system has ever run out of audit trail space in the last two years or since the last system upgrade, whichever is more recent. If it has run out of space in this period, and the procedures have not been updated to compensate, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

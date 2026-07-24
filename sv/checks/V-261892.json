@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261892",
+  "severity": "high",
+  "rule_id": "SV-261892r1000681_rule",
+  "rule_ver": "CD16-00-003900",
+  "rule_title": "If passwords are used for authentication, PostgreSQL must transmit only encrypted representations of passwords.",
+  "check_text": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\n\nAs the database administrator (shown here as \"postgres\"), review the authentication entries in pg_hba.conf:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/pg_hba.conf\n\nIf any entries use the auth_method (last column in records) \"password\" or \"md5\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\nAs the database administrator (shown here as \"postgres\"), review the authentication entries in pg_hba.conf:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/pg_hba.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

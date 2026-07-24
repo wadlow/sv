@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222644",
+  "severity": "low",
+  "rule_id": "SV-222644r961863_rule",
+  "rule_ver": "APSC-DV-003130",
+  "rule_title": "Prior to each release of the application, updates to system, or applying patches; tests plans and procedures must be created and executed.",
+  "check_text": "If the review is not being done with the developer of the application, this requirement is not applicable.\n\nAsk the application representative to provide tests plans, procedures, and results to ensure they are updated for each application release or updates to system patches.\n\nIf test plans, procedures, and results do not exist, or are not updated for each application release, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the review is not being done with the developer of the application, this requirement is not applicable.\nAsk the application representative to provide tests plans, procedures, and results to ensure they are updated for each application release or updates to system patches.\nIf test plans, procedures, and results do not exist, or are not updated for each application release, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

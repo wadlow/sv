@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222640",
+  "severity": "medium",
+  "rule_id": "SV-222640r961863_rule",
+  "rule_ver": "APSC-DV-003090",
+  "rule_title": "Procedures must be in place to assure the appropriate physical and technical protection of the backup and restoration of the application.",
+  "check_text": "Validate that backup and recovery procedures incorporate protection of the backup and restoration assets.\n\nVerify assets housing the backup data (e.g., SANS, tapes, backup directories, software) and the assets used for restoration (e.g., equipment and system software) are included in the backup and recovery procedures.\n\nIf backup and restoration devices are not included in the recovery procedures, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Validate that backup and recovery procedures incorporate protection of the backup and restoration assets.\nVerify assets housing the backup data (e.g., SANS, tapes, backup directories, software) and the assets used for restoration (e.g., equipment and system software) are included in the backup and recovery procedures.\nIf backup and restoration devices are not included in the recovery procedures, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

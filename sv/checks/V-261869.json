@@ -1,0 +1,20 @@
+{
+  "v_code": "V-261869",
+  "severity": "medium",
+  "rule_id": "SV-261869r1000956_rule",
+  "rule_ver": "CD16-00-001300",
+  "rule_title": "PostgreSQL must produce audit records containing sufficient information to establish the sources (origins) of the events.",
+  "check_text": "Check PostgreSQL settings and existing audit records to verify information specific to the source (origin) of the event is being captured and stored with audit records.\n\nAs the database administrator (usually postgres) check the current log_line_prefix and log_hostname setting by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_line_prefix\"\n$ psql -c \"SHOW log_hostname\"\n\nFor a complete list of extra information that can be added to log_line_prefix, refer to the official documentation: https://www.postgresql.org/docs/current/static/runtime-config-logging.html#GUC-LOG-LINE-PREFIX.\n\nIf the current settings do not provide enough information regarding the source of the event, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Check PostgreSQL settings and existing audit records to verify information specific to the source (origin) of the event is being captured and stored with audit records.\nAs the database administrator (usually postgres) check the current log_line_prefix and log_hostname setting by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_line_prefix\"",
+        "psql -c \"SHOW log_hostname\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

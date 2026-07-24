@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222542",
+  "severity": "high",
+  "rule_id": "SV-222542r1015704_rule",
+  "rule_ver": "APSC-DV-001740",
+  "rule_title": "The application must only store cryptographic representations of passwords.",
+  "check_text": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\n\nIf the application does not use passwords, this requirement is Not Applicable.\n\nHave the application administrator identify the application's password storage locations. Potential locations include the local file system where the application is stored or in an application-related database table that should not be accessible to application users.\n\nReview application files and folders using a text editor or by using a database tool that allows you to view data stored in database tables. Look for indications of stored user information and review that information. Determine if password strings are readable/discernable.\n\nDetermine if the application uses the MD5 hashing algorithm to create password hashes.\n\nIf the passwords are readable or there is no indication the application utilizes cryptographic hashing to protect passwords, or if the MD5 hash algorithm is used to create password hashes, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\nIf the application does not use passwords, this requirement is Not Applicable.\nHave the application administrator identify the application's password storage locations. Potential locations include the local file system where the application is stored or in an application-related database table that should not be accessible to application users.\nReview application files and folders using a text editor or by using a database tool that allows you to view data stored in database tables. Look for indications of stored user information and review that information. Determine if password strings are readable/discernable.\nDetermine if the application uses the MD5 hashing algorithm to create password hashes.\nIf the passwords are readable or there is no indication the application utilizes cryptographic hashing to protect passwords, or if the MD5 hash algorithm is used to create password hashes, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

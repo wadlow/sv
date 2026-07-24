@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222484",
+  "severity": "medium",
+  "rule_id": "SV-222484r961401_rule",
+  "rule_ver": "APSC-DV-001100",
+  "rule_title": "Applications categorized as having a moderate or high impact must provide an immediate real-time alert to the SA and ISSO (at a minimum) for all audit failure events.",
+  "check_text": "Review system documentation and interview application administrator for details regarding application security categorization and logging configuration.\n\nIf the application utilizes a centralized logging system that provides the real-time alarms, this requirement is not applicable.\n\nReview application log alert configuration.\n\nIdentify audit failure events and associated alarming configuration.\n\nIf the application is categorized as having a moderate or high impact and is not configured to provide a real-time alert that indicates the audit system has failed or is failing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation and interview application administrator for details regarding application security categorization and logging configuration.\nIf the application utilizes a centralized logging system that provides the real-time alarms, this requirement is not applicable.\nReview application log alert configuration.\nIdentify audit failure events and associated alarming configuration.\nIf the application is categorized as having a moderate or high impact and is not configured to provide a real-time alert that indicates the audit system has failed or is failing, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222626",
+  "severity": "medium",
+  "rule_id": "SV-222626r961863_rule",
+  "rule_ver": "APSC-DV-002960",
+  "rule_title": "The designer must ensure the application does not store configuration and control files in the same directory as user data.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nAsk the application administrator or examine the application documentation to determine the file location of the application configuration settings and user data.\n\nIdentify the directory where the application code, configuration settings and other application control data are located.\n\nIdentify where user data is stored.\n\nExamine file permissions to application folder.\n\nIf the application user data is located in the same directory as the application configuration settings or control files, or if the file permissions allow application users write access to application configuration settings, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nAsk the application administrator or examine the application documentation to determine the file location of the application configuration settings and user data.\nIdentify the directory where the application code, configuration settings and other application control data are located.\nIdentify where user data is stored.\nExamine file permissions to application folder.\nIf the application user data is located in the same directory as the application configuration settings or control files, or if the file permissions allow application users write access to application configuration settings, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

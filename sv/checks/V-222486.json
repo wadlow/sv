@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222486",
+  "severity": "medium",
+  "rule_id": "SV-222486r1043188_rule",
+  "rule_ver": "APSC-DV-001120",
+  "rule_title": "The application must shut down by default upon audit failure (unless availability is an overriding concern).",
+  "check_text": "Review system documentation and interview application administrator for details regarding logging configuration.\n\nIdentify application shut down capability regarding audit processing failure events.  Locate and verify application logging settings that specify the application will halt processing on detected audit failure.\n\nIf ISSO approval to continue operating and not shut down the application upon an audit failure exists and is documented, validate the application is configured as follows:\n\nIf logging locally and the failure is attributed to a lack of disk space:\n\nEnsure the application is configured to overwrite the oldest logs first so as to maintain the most up to date audit events in the event of an audit failure.\n\nWhen logging centrally:\n\nEnsure the application is configured to locally spool/queue audit events in the event an audit failure is detected with the centralized system.\n\nIf the application does not shut down processing when an audit failure is detected, or if the application does not take steps needed to ensure audit events are not lost due to audit failure, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation and interview application administrator for details regarding logging configuration.\nIdentify application shut down capability regarding audit processing failure events.  Locate and verify application logging settings that specify the application will halt processing on detected audit failure.\nIf ISSO approval to continue operating and not shut down the application upon an audit failure exists and is documented, validate the application is configured as follows:\nIf logging locally and the failure is attributed to a lack of disk space:\nEnsure the application is configured to overwrite the oldest logs first so as to maintain the most up to date audit events in the event of an audit failure.\nWhen logging centrally:\nEnsure the application is configured to locally spool/queue audit events in the event an audit failure is detected with the centralized system.\nIf the application does not shut down processing when an audit failure is detected, or if the application does not take steps needed to ensure audit events are not lost due to audit failure, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

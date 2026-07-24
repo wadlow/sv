@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222628",
+  "severity": "medium",
+  "rule_id": "SV-222628r961863_rule",
+  "rule_ver": "APSC-DV-002980",
+  "rule_title": "New IP addresses, data services, and associated ports used by the application must be submitted to the appropriate approving authority for the organization, which in turn will be submitted through the DoD Ports, Protocols, and Services Management (DoD PPSM)",
+  "check_text": "All application ports, protocols, and services needed for application operation need to be in compliance with the DoD Ports and Protocols guidance.\n\nCheck:\n\nhttp://iase.disa.mil/ppsm/Pages/index.aspx\n\nto verify the ports, protocols, and services are in compliance with the PPS CAL.\n\nCheck all necessary ports and protocols needed for application operation (only those accessed from outside the local enclave) are checked against the DoD Ports and Protocols guidance to ensure compliance.\n\nIdentify the ports needed for the application:\n\n- Look at System Security Plan/Accreditation documentation\n- Ask System Administrator\n- Go to Network Administrator\n- Go to Network Reviewer\n- If a network scan is available, use it\n- Use netstat/task manager\n- Check /etc./services\n\nIf the application is not in compliance with DoD Ports and Protocols guidance, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "All application ports, protocols, and services needed for application operation need to be in compliance with the DoD Ports and Protocols guidance.\nCheck:\nhttp://iase.disa.mil/ppsm/Pages/index.aspx\nto verify the ports, protocols, and services are in compliance with the PPS CAL.\nCheck all necessary ports and protocols needed for application operation (only those accessed from outside the local enclave) are checked against the DoD Ports and Protocols guidance to ensure compliance.\nIdentify the ports needed for the application:\n- Look at System Security Plan/Accreditation documentation\n- Ask System Administrator\n- Go to Network Administrator\n- Go to Network Reviewer\n- If a network scan is available, use it\n- Use netstat/task manager\n- Check /etc./services\nIf the application is not in compliance with DoD Ports and Protocols guidance, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

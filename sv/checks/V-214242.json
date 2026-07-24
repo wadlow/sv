@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214242",
+  "severity": "high",
+  "rule_id": "SV-214242r960963_rule",
+  "rule_ver": "AS24-U1-000270",
+  "rule_title": "The Apache web server must provide install options to exclude the installation of documentation, sample code, example applications, and tutorials.",
+  "check_text": "Verify the document root directory and the configuration files do not provide for default index.html or welcome page.\n\nVerify the Apache User Manual content is not installed by checking the configuration files for manual location directives.\n\nVerify the Apache configuration files do not have the Server Status handler configured.\n\nVerify the Server Information handler is not configured.\n\nVerify that any other handler configurations such as perl-status are not enabled.\n\nIf any of these are present, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the document root directory and the configuration files do not provide for default index.html or welcome page.\nVerify the Apache User Manual content is not installed by checking the configuration files for manual location directives.\nVerify the Apache configuration files do not have the Server Status handler configured.\nVerify the Server Information handler is not configured.\nVerify that any other handler configurations such as perl-status are not enabled.\nIf any of these are present, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-261927",
+  "severity": "medium",
+  "rule_id": "SV-261927r1050788_rule",
+  "rule_ver": "CD16-00-008100",
+  "rule_title": "PostgreSQL must require users to reauthenticate when organization-defined circumstances or situations require reauthentication.",
+  "check_text": "Determine all situations where a user must reauthenticate. Check if the mechanisms that handle such situations use the following SQL:\n\nTo make a single user reauthenticate, the following must be present:\n\nSELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE user='<username>'\n\nTo make all users reauthenticate, run the following:\n\nSELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE user LIKE '%'\n\nIf the provided SQL does not force reauthentication, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine all situations where a user must reauthenticate. Check if the mechanisms that handle such situations use the following SQL:\nTo make a single user reauthenticate, the following must be present:\nSELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE user='<username>'\nTo make all users reauthenticate, run the following:\nSELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE user LIKE '%'\nIf the provided SQL does not force reauthentication, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

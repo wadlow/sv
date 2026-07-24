@@ -1,0 +1,28 @@
+{
+  "v_code": "V-261934",
+  "severity": "medium",
+  "rule_id": "SV-261934r1000807_rule",
+  "rule_ver": "CD16-00-009000",
+  "rule_title": "When invalid inputs are received, PostgreSQL must behave in a predictable and documented manner that reflects organizational and system objectives.",
+  "check_text": "Review system documentation to determine how input errors from application to PostgreSQL are to be handled in general and if any special handling is defined for specific circumstances.\n\nIf it does not implement the documented behavior, this is a finding.\n\nAs the database administrator (shown here as \"postgres\"), make a small SQL syntax error in psql by running the following:\n\n$ sudo su - postgres\n$ psql -c \"CREAT TABLE incorrect_syntax(id INT)\"\nERROR: syntax error at or near \"CREAT\"\n\nNote: The following instructions use the PGVER and PGLOG environment variables. Refer to supplementary content APPENDIX-H for instructions on configuring PGVER and APPENDIX-I for PGLOG.\n\nAs the database administrator (shown here as \"postgres\"), verify the syntax error was logged (change the log file name and part to suit the circumstances):\n\n$ sudo su - postgres\n$ cat ~/${PGVER?}/data/${PGLOG?}/<latest log>\n2024-03-30 16:18:10.772 EDT postgres postgres 5706bb87.90dERROR: syntax error at or near \"CREAT\" at character 1\n2024-03-30 16:18:10.772 EDT postgres postgres 5706bb87.90dSTATEMENT: CREAT TABLE incorrect_syntax(id INT);\n\nIf no matching log entry containing the 'ERROR: syntax error' is present, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation to determine how input errors from application to PostgreSQL are to be handled in general and if any special handling is defined for specific circumstances.\nIf it does not implement the documented behavior, this is a finding.\nAs the database administrator (shown here as \"postgres\"), make a small SQL syntax error in psql by running the following:\nERROR: syntax error at or near \"CREAT\"",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"CREAT TABLE incorrect_syntax(id INT)\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGVER and PGLOG environment variables. Refer to supplementary content APPENDIX-H for instructions on configuring PGVER and APPENDIX-I for PGLOG.\nAs the database administrator (shown here as \"postgres\"), verify the syntax error was logged (change the log file name and part to suit the circumstances):\n2024-03-30 16:18:10.772 EDT postgres postgres 5706bb87.90dERROR: syntax error at or near \"CREAT\" at character 1\n2024-03-30 16:18:10.772 EDT postgres postgres 5706bb87.90dSTATEMENT: CREAT TABLE incorrect_syntax(id INT);",
+      "commands": [
+        "sudo su - postgres",
+        "cat ~/${PGVER?}/data/${PGLOG?}/<latest log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222624",
+  "severity": "medium",
+  "rule_id": "SV-222624r1051272_rule",
+  "rule_ver": "APSC-DV-002930",
+  "rule_title": "The ISSO must ensure active vulnerability testing is performed.",
+  "check_text": "Ask the application representative to provide vulnerability test procedures and vulnerability test results.\n\nAsk the application representative to provide the settings that were used to conduct the vulnerability testing.\n\nVerify the automated vulnerability scanning tool was appropriately configured to ensure as complete a test as possible of the application architecture components (e.g., if the application includes a web server, web server tests must be included).\n\nIf the vulnerability scan report includes informational and/or noncritical results, this is not a finding.\n\nIf previously identified vulnerabilities have subsequently been resolved, this is not a finding.\n\nIf the application test procedures and test results do not include active vulnerability and fuzz testing, this is a finding.\n\nIf the vulnerability scan results include critical vulnerabilities 21 business days or older, this is a finding.\n\nIf the vulnerability scanning tests are not relevant to the architecture of the application, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application representative to provide vulnerability test procedures and vulnerability test results.\nAsk the application representative to provide the settings that were used to conduct the vulnerability testing.\nVerify the automated vulnerability scanning tool was appropriately configured to ensure as complete a test as possible of the application architecture components (e.g., if the application includes a web server, web server tests must be included).\nIf the vulnerability scan report includes informational and/or noncritical results, this is not a finding.\nIf previously identified vulnerabilities have subsequently been resolved, this is not a finding.\nIf the application test procedures and test results do not include active vulnerability and fuzz testing, this is a finding.\nIf the vulnerability scan results include critical vulnerabilities 21 business days or older, this is a finding.\nIf the vulnerability scanning tests are not relevant to the architecture of the application, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

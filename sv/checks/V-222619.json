@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222619",
+  "severity": "medium",
+  "rule_id": "SV-222619r961863_rule",
+  "rule_ver": "APSC-DV-002880",
+  "rule_title": "The ISSO must ensure an account management process is implemented, verifying only authorized users can gain access to the application, and individual accounts designated as inactive, suspended, or terminated are promptly removed.",
+  "check_text": "Interview the application representative to verify that a documented process exists for user and system account creation, termination, and expiration.\n\nObtain a list of recently departed personnel and verify that their accounts were removed or deactivated on all systems in a timely manner (e.g., less than two days).\n \nIf a documented account management process does not exist or unauthorized users have active accounts, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the application representative to verify that a documented process exists for user and system account creation, termination, and expiration.\nObtain a list of recently departed personnel and verify that their accounts were removed or deactivated on all systems in a timely manner (e.g., less than two days).\nIf a documented account management process does not exist or unauthorized users have active accounts, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

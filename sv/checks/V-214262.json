@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214262",
+  "severity": "medium",
+  "rule_id": "SV-214262r961392_rule",
+  "rule_ver": "AS24-U1-000710",
+  "rule_title": "The Apache web server must use a logging mechanism that is configured to allocate log record storage capacity large enough to accommodate the logging requirements of the Apache web server.",
+  "check_text": "Work with SIEM administrator to determine log storage capacity. \n\nIf there is no setting within a SIEM to accommodate enough a large logging capacity, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Work with SIEM administrator to determine log storage capacity.\nIf there is no setting within a SIEM to accommodate enough a large logging capacity, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

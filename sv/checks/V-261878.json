@@ -1,0 +1,46 @@
+{
+  "v_code": "V-261878",
+  "severity": "medium",
+  "rule_id": "SV-261878r1000958_rule",
+  "rule_ver": "CD16-00-002300",
+  "rule_title": "PostgreSQL must protect its audit features from unauthorized access.",
+  "check_text": "Note: The following instructions use the PGDATA and PGVER environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA, APPENDIX-H for PGVER, and APPENDIX-I for PGLOG. Only the database owner and superuser can alter configuration of PostgreSQL.\n\nEnsure the PGLOG directory is owned by postgres user and group:\n\n$ sudo su - postgres\n$ ls -la ${PGLOG?} \n\nIf PGLOG is not owned by the database owner, this is a finding. \n\nEnsure the data directory is owned by postgres user and group. \n\n$ sudo su - postgres\n$ ls -la ${PGDATA?}\n\nIf PGDATA is not owned by the database owner, this is a finding.\n\nEnsure the pgaudit installation is owned by root:\n\n$ sudo su - postgres\n$ ls -la /usr/pgsql-${PGVER?}/share/extension/pgaudit*\n\nIf the pgaudit installation is not owned by root, this is a finding.\n\nAs the database administrator (shown here as \"postgres\"), run the following SQL to list all roles and their privileges:\n\n$ sudo su - postgres\n$ psql -x -c \"\\du\"\n\nIf any role has \"superuser\" that should not, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGVER environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA, APPENDIX-H for PGVER, and APPENDIX-I for PGLOG. Only the database owner and superuser can alter configuration of PostgreSQL.\nEnsure the PGLOG directory is owned by postgres user and group:",
+      "commands": [
+        "sudo su - postgres",
+        "ls -la ${PGLOG?}"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If PGLOG is not owned by the database owner, this is a finding.\nEnsure the data directory is owned by postgres user and group.",
+      "commands": [
+        "sudo su - postgres",
+        "ls -la ${PGDATA?}"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If PGDATA is not owned by the database owner, this is a finding.\nEnsure the pgaudit installation is owned by root:",
+      "commands": [
+        "sudo su - postgres",
+        "ls -la /usr/pgsql-${PGVER?}/share/extension/pgaudit*"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If the pgaudit installation is not owned by root, this is a finding.\nAs the database administrator (shown here as \"postgres\"), run the following SQL to list all roles and their privileges:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -x -c \"\\du\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

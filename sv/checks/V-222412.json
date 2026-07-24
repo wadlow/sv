@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222412",
+  "severity": "medium",
+  "rule_id": "SV-222412r960774_rule",
+  "rule_ver": "APSC-DV-000330",
+  "rule_title": "Unnecessary application accounts must be disabled, or deleted.",
+  "check_text": "Review the system documentation and identify any valid application accounts that are required in order for the application to operate. Accounts the application itself uses in order to function are not in scope for this requirement.\n\nHave the application administrator generate a list of all application users. This should include relevant user metadata such as phone numbers or department identifiers.\n\nHave the application administrator identify and validate all user accounts.\n\nIf any accounts cannot be validated and are deemed to be unnecessary, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and identify any valid application accounts that are required in order for the application to operate. Accounts the application itself uses in order to function are not in scope for this requirement.\nHave the application administrator generate a list of all application users. This should include relevant user metadata such as phone numbers or department identifiers.\nHave the application administrator identify and validate all user accounts.\nIf any accounts cannot be validated and are deemed to be unnecessary, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

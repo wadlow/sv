@@ -1,0 +1,23 @@
+{
+  "v_code": "V-261884",
+  "severity": "medium",
+  "rule_id": "SV-261884r1000657_rule",
+  "rule_ver": "CD16-00-002900",
+  "rule_title": "Database objects (including but not limited to tables, indexes, storage, stored procedures, functions, triggers, links to software external to the DBMS, etc.) must be owned by database/PostgreSQL principals authorized for ownership.",
+  "check_text": "Review system documentation to identify accounts authorized to own database objects. Review accounts that own objects in the database(s).\n\nIf any database objects are found to be owned by users not authorized to own database objects, this is a finding.\n\nTo check the ownership of objects in the database, as the database administrator, run the following SQL:\n\n$ sudo su - postgres\n$ psql -X -c '\\dnS'\n$ psql -x -c \"\\dt *.*\"\n$ psql -X -c '\\dsS'\n$ psql -x -c \"\\dv *.*\"\n$ psql -x -c \"\\df+ *.*\"\n\nIf any object is not owned by an authorized role for ownership, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation to identify accounts authorized to own database objects. Review accounts that own objects in the database(s).\nIf any database objects are found to be owned by users not authorized to own database objects, this is a finding.\nTo check the ownership of objects in the database, as the database administrator, run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -X -c '\\dnS'",
+        "psql -x -c \"\\dt *.*\"",
+        "psql -X -c '\\dsS'",
+        "psql -x -c \"\\dv *.*\"",
+        "psql -x -c \"\\df+ *.*\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

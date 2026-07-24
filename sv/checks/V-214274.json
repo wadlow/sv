@@ -1,26 +1,16 @@
 {
   "v_code": "V-214274",
   "severity": "medium",
-  "rule_id": "SV-214274r961863_rule",
+  "rule_id": "SV-214274r1212183_rule",
   "rule_ver": "AS24-U1-000970",
   "rule_title": "The Apache web server htpasswd files (if present) must reflect proper ownership and permissions.",
   "check_text": "Locate the htpasswd file using the AuthUserFile directive by entering the following command:\n\ncat /<path_to_file>/httpd.conf | grep -i \"AuthUserFile\" | awk '{print $2}'\n\nIf the above command produces any output, run the \"ls -l\" command on it; for example:\n\nls -l /etc/httpd/.htpasswd\n\nPermissions should be: r-x r - x - - - (550)\n\nIf permissions on the password file are greater than \"550\", this is a finding.\n\nVerify the owner is the SA or web manager account.\n\nIf another account has access to this file, this is a finding.",
   "checks": [
     {
       "section": null,
-      "description": "Locate the htpasswd file using the AuthUserFile directive:",
-      "commands": [
-        "cat /<path_to_file>/httpd.conf | grep -i \"AuthUserFile\" | awk '{print $2}'"
-      ],
+      "description": "Locate the htpasswd file using the AuthUserFile directive by entering the following command:\ncat /<path_to_file>/httpd.conf | grep -i \"AuthUserFile\" | awk '{print $2}'\nIf the above command produces any output, run the \"ls -l\" command on it; for example:\nls -l /etc/httpd/.htpasswd\nPermissions should be: r-x r - x - - - (550)\nIf permissions on the password file are greater than \"550\", this is a finding.\nVerify the owner is the SA or web manager account.\nIf another account has access to this file, this is a finding.",
+      "commands": [],
       "finding_condition": null
-    },
-    {
-      "section": null,
-      "description": "If AuthUserFile paths are configured, inspect each password file:",
-      "commands": [
-        "ls -l /etc/httpd/.htpasswd"
-      ],
-      "finding_condition": "If permissions on the password file are greater than 550, this is a finding. If the owner is not the SA or web manager account, or another account has access to this file, this is a finding."
     }
   ]
 }

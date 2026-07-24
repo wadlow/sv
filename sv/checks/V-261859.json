@@ -1,0 +1,37 @@
+{
+  "v_code": "V-261859",
+  "severity": "high",
+  "rule_id": "SV-261859r1137654_rule",
+  "rule_ver": "CD16-00-000300",
+  "rule_title": "PostgreSQL must enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies.",
+  "check_text": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\n\nFrom the system security plan or equivalent documentation, determine the appropriate permissions on database objects for each kind (group role) of user. If this documentation is missing, this is a finding.\n\nAs the database administrator (shown here as \"postgres\"), check the privileges of all roles in the database by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c '\\du'\n\nReview all roles and their associated privileges. If any roles' privileges exceed those documented, this is a finding.\n\nAs the database administrator (shown here as \"postgres\"), check the configured privileges for tables and columns by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c '\\dp'\n\nReview all access privileges and column access privileges list. If any roles' privileges exceed those documented, this is a finding.\n\nAs the database administrator (shown here as \"postgres\"), check the configured authentication settings in pg_hba.conf:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/pg_hba.conf\n\nReview all entries and their associated authentication methods. If any entries do not have their documented authentication requirements, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA environment variable. Refer to APPENDIX-F for instructions on configuring PGDATA.\nFrom the system security plan or equivalent documentation, determine the appropriate permissions on database objects for each kind (group role) of user. If this documentation is missing, this is a finding.\nAs the database administrator (shown here as \"postgres\"), check the privileges of all roles in the database by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c '\\du'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Review all roles and their associated privileges. If any roles' privileges exceed those documented, this is a finding.\nAs the database administrator (shown here as \"postgres\"), check the configured privileges for tables and columns by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c '\\dp'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Review all access privileges and column access privileges list. If any roles' privileges exceed those documented, this is a finding.\nAs the database administrator (shown here as \"postgres\"), check the configured authentication settings in pg_hba.conf:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/pg_hba.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

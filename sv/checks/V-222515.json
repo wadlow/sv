@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222515",
+  "severity": "medium",
+  "rule_id": "SV-222515r961863_rule",
+  "rule_ver": "APSC-DV-001460",
+  "rule_title": "An application vulnerability assessment must be conducted.",
+  "check_text": "Review the application documentation to understand application architecture.\n\nInterview the application administrator, obtain and review their application vulnerability scanning process.\n\nRequest the latest scan results including scan configuration settings.\n\nReview scan configurations and ensure coverage of all application architecture has been tested.  The proper scanning tool or combination of tools must be utilized in order to ensure the full range of application features and functionality is tested. \n\nFor example, if the application includes a web interface and a SQL database, then ensure test results for web and SQL vulnerabilities are provided.  Although web and SQL applications are included as examples and are the prevalent types of applications, this requirement is not intended to be limited to just the aforementioned application architectures.   Ensure test results are provided from all testing tools employed during vulnerability testing.\n\nIf high risk security vulnerabilities are identified in the scan results, request subsequent test results that indicate the issues have been fixed or mitigated.\n\nIf the high risk issues identified in the report have not been fixed or mitigated to a level accepted by the ISSO and the ISSM, or if the application administrator cannot produce vulnerability security testing results that cover the range of application functionality, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation to understand application architecture.\nInterview the application administrator, obtain and review their application vulnerability scanning process.\nRequest the latest scan results including scan configuration settings.\nReview scan configurations and ensure coverage of all application architecture has been tested.  The proper scanning tool or combination of tools must be utilized in order to ensure the full range of application features and functionality is tested.\nFor example, if the application includes a web interface and a SQL database, then ensure test results for web and SQL vulnerabilities are provided.  Although web and SQL applications are included as examples and are the prevalent types of applications, this requirement is not intended to be limited to just the aforementioned application architectures.   Ensure test results are provided from all testing tools employed during vulnerability testing.\nIf high risk security vulnerabilities are identified in the scan results, request subsequent test results that indicate the issues have been fixed or mitigated.\nIf the high risk issues identified in the report have not been fixed or mitigated to a level accepted by the ISSO and the ISSM, or if the application administrator cannot produce vulnerability security testing results that cover the range of application functionality, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

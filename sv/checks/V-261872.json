@@ -1,0 +1,16 @@
+{
+  "v_code": "V-261872",
+  "severity": "medium",
+  "rule_id": "SV-261872r1000621_rule",
+  "rule_ver": "CD16-00-001600",
+  "rule_title": "PostgreSQL must include additional, more detailed, organization-defined information in the audit records for audit events identified by type, location, or subject.",
+  "check_text": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F and APPENDIX-I for instructions on configuring them.\n\nReview the system documentation to identify what additional information the organization has determined necessary.\n\nCheck PostgreSQL settings by examining ${PGDATA?}/postgresql.conf to ensure additional auditing is configured and then examine existing audit records in ${PGLOG?}/<latest.log> to verify that all organization-defined additional, more detailed information is in the audit records for audit events identified by type, location, or subject after executing SQL commands that fall under the additional audit classes.\n\nIf any additional information is defined and is not contained in the audit records, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F and APPENDIX-I for instructions on configuring them.\nReview the system documentation to identify what additional information the organization has determined necessary.\nCheck PostgreSQL settings by examining ${PGDATA?}/postgresql.conf to ensure additional auditing is configured and then examine existing audit records in ${PGLOG?}/<latest.log> to verify that all organization-defined additional, more detailed information is in the audit records for audit events identified by type, location, or subject after executing SQL commands that fall under the additional audit classes.\nIf any additional information is defined and is not contained in the audit records, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

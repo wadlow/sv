@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222396",
+  "severity": "medium",
+  "rule_id": "SV-222396r960759_rule",
+  "rule_ver": "APSC-DV-000160",
+  "rule_title": "The application must implement DoD-approved encryption to protect the confidentiality of remote access sessions.",
+  "check_text": "Review the application documentation and interview the system administrator.\n\nIdentify the application encryption capabilities and methods for implementing encryption protection.\n\nFor web based applications; open the web browser and access the website URL. Use the browser and determine if the session is protected via TLS. A secure connection is usually indicated in the upper left hand corner of the URL by a padlock icon. Click on the padlock icon and examine the connection information. Determine if TLS encryption is used to secure the session.\n\nFor non-web based applications, determine the TCP/IP port, protocol and method used for establishing client connections to the remote server. Review application configuration settings to ensure encryption is specified and  via TLS.\n\nIf the connection is not secured with TLS, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the system administrator.\nIdentify the application encryption capabilities and methods for implementing encryption protection.\nFor web based applications; open the web browser and access the website URL. Use the browser and determine if the session is protected via TLS. A secure connection is usually indicated in the upper left hand corner of the URL by a padlock icon. Click on the padlock icon and examine the connection information. Determine if TLS encryption is used to secure the session.\nFor non-web based applications, determine the TCP/IP port, protocol and method used for establishing client connections to the remote server. Review application configuration settings to ensure encryption is specified and  via TLS.\nIf the connection is not secured with TLS, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261868",
+  "severity": "medium",
+  "rule_id": "SV-261868r1000609_rule",
+  "rule_ver": "CD16-00-001200",
+  "rule_title": "PostgreSQL must produce audit records containing sufficient information to establish where the events occurred.",
+  "check_text": "As the database administrator (shown here as \"postgres\"), check the current log_line_prefix setting by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_line_prefix\"\n\nIf log_line_prefix does not contain \"%m %u %d %s\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), check the current log_line_prefix setting by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_line_prefix\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

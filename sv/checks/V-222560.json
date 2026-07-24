@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222560",
+  "severity": "medium",
+  "rule_id": "SV-222560r1067800_rule",
+  "rule_ver": "APSC-DV-001910",
+  "rule_title": "The application must conform to Federal Identity, Credential, and Access Management (FICAM)-issued profiles.",
+  "check_text": "Review the application documentation and interview the application administrator to identify application access methods.\n\nIf the application is not PKI-enabled due to the hosted data being publicly releasable, this check is Not Applicable.\n\nIf the application is only deployed to SIPRnet, this requirement is Not Applicable.\n\nIf the application is not intended to be available to federal government partners this requirement is Not Applicable.\n\nThis requirement applies to DOD service providers who are relying parties of external (federal government) identity providers.\n \nAsk the application administrator to demonstrate how the application conforms to FICAM issued profiles such as SAML or OPENID. \n\nIf the application is designed to be a service provider utilizing an external identify provider and does not conform to FICAM-issued profiles, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify application access methods.\nIf the application is not PKI-enabled due to the hosted data being publicly releasable, this check is Not Applicable.\nIf the application is only deployed to SIPRnet, this requirement is Not Applicable.\nIf the application is not intended to be available to federal government partners this requirement is Not Applicable.\nThis requirement applies to DOD service providers who are relying parties of external (federal government) identity providers.\nAsk the application administrator to demonstrate how the application conforms to FICAM issued profiles such as SAML or OPENID.\nIf the application is designed to be a service provider utilizing an external identify provider and does not conform to FICAM-issued profiles, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

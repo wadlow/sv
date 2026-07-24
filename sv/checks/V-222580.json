@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222580",
+  "severity": "medium",
+  "rule_id": "SV-222580r1043180_rule",
+  "rule_ver": "APSC-DV-002260",
+  "rule_title": "Applications must validate session identifiers.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify how the application validates session IDs.\n\nIf using a web development framework, ask the application administrator to provide details on the framework's session configuration as it relates to session validation.\n\nIf the application is not configured to validate user session identifiers, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify how the application validates session IDs.\nIf using a web development framework, ask the application administrator to provide details on the framework's session configuration as it relates to session validation.\nIf the application is not configured to validate user session identifiers, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

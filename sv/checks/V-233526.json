@@ -1,0 +1,16 @@
+{
+  "v_code": "V-233526",
+  "severity": "medium",
+  "rule_id": "SV-233526r961158_rule",
+  "rule_ver": "CD12-00-001800",
+  "rule_title": "PostgreSQL must check the validity of all data inputs except those specifically identified by the organization.",
+  "check_text": "Review PostgreSQL code (trigger procedures, functions), application code, settings, column and field definitions, and constraints to determine whether the database is protected against invalid input.\n\nIf code exists that allows invalid data to be acted upon or input into the database, this is a finding.\n\nIf column/field definitions do not exist in the database, this is a finding.\n\nIf columns/fields do not contain constraints and validity checking where required, this is a finding.\n\nWhere a column/field is noted in the system documentation as necessarily free-form, even though its name and context suggest that it should be strongly typed and constrained, the absence of these protections is not a finding.\n\nWhere a column/field is clearly identified by name, caption, or context as Notes, Comments, Description, Text, etc., the absence of these protections is not a finding.\n\nCheck application code that interacts with PostgreSQL for the use of prepared statements. If prepared statements are not used, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review PostgreSQL code (trigger procedures, functions), application code, settings, column and field definitions, and constraints to determine whether the database is protected against invalid input.\nIf code exists that allows invalid data to be acted upon or input into the database, this is a finding.\nIf column/field definitions do not exist in the database, this is a finding.\nIf columns/fields do not contain constraints and validity checking where required, this is a finding.\nWhere a column/field is noted in the system documentation as necessarily free-form, even though its name and context suggest that it should be strongly typed and constrained, the absence of these protections is not a finding.\nWhere a column/field is clearly identified by name, caption, or context as Notes, Comments, Description, Text, etc., the absence of these protections is not a finding.\nCheck application code that interacts with PostgreSQL for the use of prepared statements. If prepared statements are not used, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

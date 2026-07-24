@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261894",
+  "severity": "high",
+  "rule_id": "SV-261894r1000687_rule",
+  "rule_ver": "CD16-00-004100",
+  "rule_title": "PostgreSQL must enforce authorized access to all PKI private keys stored/used by PostgreSQL.",
+  "check_text": "As the database administrator (shown here as \"postgres\"), verify the following settings:\n\n$ sudo su - postgres\n$ psql -c \"select name,                                                         case when setting = '' then                                                                            '<undefined>'                                                                                      when substring(setting, 1, 1) = '/' then                                                               setting                                                                                            else (select setting from pg_settings where name = 'data_directory') || '/' || setting               end as setting                                                                                     from pg_settings                                                                                     where name in ('ssl_ca_file', 'ssl_cert_file', 'ssl_crl_file', 'ssl_key_file');\"\n\nIf the directory in which these files are stored is not protected, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), verify the following settings:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"select name,                                                         case when setting = '' then                                                                            '<undefined>'                                                                                      when substring(setting, 1, 1) = '/' then                                                               setting                                                                                            else (select setting from pg_settings where name = 'data_directory') || '/' || setting               end as setting                                                                                     from pg_settings                                                                                     where name in ('ssl_ca_file', 'ssl_cert_file', 'ssl_crl_file', 'ssl_key_file');\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

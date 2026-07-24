@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222578",
+  "severity": "high",
+  "rule_id": "SV-222578r1043179_rule",
+  "rule_ver": "APSC-DV-002240",
+  "rule_title": "The application must destroy the session ID value and/or cookie on logoff or browser close.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify how the application destroys session IDs.\n\nIf using a web development framework, ask the application administrator to provide details on the framework's session configuration.\n\nReview framework configuration setting to determine how the session identifiers are destroyed.\n\nReview the client system and using a browser or other tool capable of viewing client cookies, identify cookies set by the application and verify that application session ID cookies are destroyed once the user has logged off or the browser has closed.\n\nIf the session IDs and associated cookies are not destroyed on logoff or browser close, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify how the application destroys session IDs.\nIf using a web development framework, ask the application administrator to provide details on the framework's session configuration.\nReview framework configuration setting to determine how the session identifiers are destroyed.\nReview the client system and using a browser or other tool capable of viewing client cookies, identify cookies set by the application and verify that application session ID cookies are destroyed once the user has logged off or the browser has closed.\nIf the session IDs and associated cookies are not destroyed on logoff or browser close, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

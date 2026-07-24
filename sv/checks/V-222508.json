@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222508",
+  "severity": "medium",
+  "rule_id": "SV-222508r961206_rule",
+  "rule_ver": "APSC-DV-001360",
+  "rule_title": "Application audit tools must be cryptographically hashed.",
+  "check_text": "Review the system documentation and interview the application administrator for details regarding application architecture, audit methods, and provided audit tools.\n\nIdentify the location of the application audit tools.\n\nSeparate audit tools will be file-oriented in nature, e.g., the application includes a separate executable file or library that when invoked allows users to view and manipulate logs.\n\nIf the application does not provide a separate tool in the form of a file which provides an ability to view and manipulate application log data, query data, or generate reports, this requirement is not applicable.\n\nIf the system hosting the application has a separate file monitoring utility installed that is configured to identify changes to audit tools and alarm on changes to audit tools, this is not applicable.\n\nAsk application administrator to demonstrate the cryptographic hashing mechanisms used to create the one way hashes that can be used to validate the integrity of audit tools.\n\nFor example, \"shasum /path/to/file > checksum.filename\".\n\nAsk the application administrator to provide the list of checksum values and the associated file names of the audit tools.\n\nIf a cryptographic checksum or hash value of the audit tool file is not created for future reference, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and interview the application administrator for details regarding application architecture, audit methods, and provided audit tools.\nIdentify the location of the application audit tools.\nSeparate audit tools will be file-oriented in nature, e.g., the application includes a separate executable file or library that when invoked allows users to view and manipulate logs.\nIf the application does not provide a separate tool in the form of a file which provides an ability to view and manipulate application log data, query data, or generate reports, this requirement is not applicable.\nIf the system hosting the application has a separate file monitoring utility installed that is configured to identify changes to audit tools and alarm on changes to audit tools, this is not applicable.\nAsk application administrator to demonstrate the cryptographic hashing mechanisms used to create the one way hashes that can be used to validate the integrity of audit tools.\nFor example, \"shasum /path/to/file > checksum.filename\".\nAsk the application administrator to provide the list of checksum values and the associated file names of the audit tools.\nIf a cryptographic checksum or hash value of the audit tool file is not created for future reference, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

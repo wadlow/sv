@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222523",
+  "severity": "medium",
+  "rule_id": "SV-222523r960972_rule",
+  "rule_ver": "APSC-DV-001550",
+  "rule_title": "The application must use multifactor (Alt. Token) authentication for network access to privileged accounts.",
+  "check_text": "Review the application documentation and interview the application administrator to identify application access methods.\n\nAsk the application administrator to present both their primary CAC and their Alt. Token.  Ask the application administrator to log on to the application using application relevant network based access methods.  Attempt to use both CAC and Alt. Tokens to authenticate to the application. \n\nValidate the application requests the user to input their CAC PIN and that they cannot perform administrative functions.\n\nHave user logoff and reauthenticate with their Alt. Token and that they can perform administrative functions.\n\nIf the application allows administrative access to the application without requiring an Alt. Token, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify application access methods.\nAsk the application administrator to present both their primary CAC and their Alt. Token.  Ask the application administrator to log on to the application using application relevant network based access methods.  Attempt to use both CAC and Alt. Tokens to authenticate to the application.\nValidate the application requests the user to input their CAC PIN and that they cannot perform administrative functions.\nHave user logoff and reauthenticate with their Alt. Token and that they can perform administrative functions.\nIf the application allows administrative access to the application without requiring an Alt. Token, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

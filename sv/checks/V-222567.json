@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222567",
+  "severity": "medium",
+  "rule_id": "SV-222567r961863_rule",
+  "rule_ver": "APSC-DV-001995",
+  "rule_title": "The application must not be vulnerable to race conditions.",
+  "check_text": "Review the application documentation and architecture.\n\nIf the application is a COTS application and the vendor will not provide code review test results that demonstrate the application has been tested and is not susceptible to race conditions, the requirement is NA.\n\nInterview the application admin and identify the most recent code testing and analysis that has been conducted.\n\nReview the test results; verify configuration of analysis tools are set to check for the existence of  race conditions.  \n\nIf race conditions are identified in the test results, verify the latest test results are being used, if not, ensure remediation has been completed.\n\nIf the test results show race conditions exist and no remediation evidence is presented, or if test results are not available, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and architecture.\nIf the application is a COTS application and the vendor will not provide code review test results that demonstrate the application has been tested and is not susceptible to race conditions, the requirement is NA.\nInterview the application admin and identify the most recent code testing and analysis that has been conducted.\nReview the test results; verify configuration of analysis tools are set to check for the existence of  race conditions.\nIf race conditions are identified in the test results, verify the latest test results are being used, if not, ensure remediation has been completed.\nIf the test results show race conditions exist and no remediation evidence is presented, or if test results are not available, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

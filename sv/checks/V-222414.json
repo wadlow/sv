@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222414",
+  "severity": "medium",
+  "rule_id": "SV-222414r960780_rule",
+  "rule_ver": "APSC-DV-000350",
+  "rule_title": "The application must automatically audit account modification.",
+  "check_text": "Examine the application documentation to identify how the application users are managed.\n\nInterview the application administrator and determine if the application is configured to utilize a centralized user management system like Active Directory for user management or if the application manages user accounts within the application.\n\nIf the application is configured to use an enterprise-based application user management capability that is STIG compliant, the requirement is not applicable.\n\nIdentify the location of the audit logs and review the end of the logs.\n\nAccess the user account management functionality and modify a test user account.\n\nExamine the log file again and determine if the account event was logged. The information logged should, at a minimum, include enough detail to determine which account was modified and when.\n\nIf the account modification event information was not logged, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Examine the application documentation to identify how the application users are managed.\nInterview the application administrator and determine if the application is configured to utilize a centralized user management system like Active Directory for user management or if the application manages user accounts within the application.\nIf the application is configured to use an enterprise-based application user management capability that is STIG compliant, the requirement is not applicable.\nIdentify the location of the audit logs and review the end of the logs.\nAccess the user account management functionality and modify a test user account.\nExamine the log file again and determine if the account event was logged. The information logged should, at a minimum, include enough detail to determine which account was modified and when.\nIf the account modification event information was not logged, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

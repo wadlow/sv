@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222657",
+  "severity": "medium",
+  "rule_id": "SV-222657r961863_rule",
+  "rule_ver": "APSC-DV-003236",
+  "rule_title": "The application development team must provide an application incident response plan.",
+  "check_text": "If the application is a COTS application and the development team is not accessible to interview this requirement is not applicable.\n\nInterview the application development team members. Request and review the application incident response plan. \n\nEnsure the plan includes an implemented process that:\n\n- Tracks reported vulnerabilities and bugs\n- Confirms reported vulnerabilities and bugs\n- Tracks remediation effort\n- Notifies application users of available updates that address the reported issues.\n\nIf the application incident response plan does not exist and at a minimum does not implement the aforementioned processes, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the application is a COTS application and the development team is not accessible to interview this requirement is not applicable.\nInterview the application development team members. Request and review the application incident response plan.\nEnsure the plan includes an implemented process that:\n- Tracks reported vulnerabilities and bugs\n- Confirms reported vulnerabilities and bugs\n- Tracks remediation effort\n- Notifies application users of available updates that address the reported issues.\nIf the application incident response plan does not exist and at a minimum does not implement the aforementioned processes, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

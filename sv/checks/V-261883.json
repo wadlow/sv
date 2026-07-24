@@ -1,0 +1,16 @@
+{
+  "v_code": "V-261883",
+  "severity": "medium",
+  "rule_id": "SV-261883r1000654_rule",
+  "rule_ver": "CD16-00-002800",
+  "rule_title": "Database software, including PostgreSQL configuration files, must be stored in dedicated directories, or DASD pools, separate from the host OS and other applications.",
+  "check_text": "Review the PostgreSQL software library directory and any subdirectories.\n\nIf any non-PostgreSQL software directories exist on the disk directory, examine or investigate their use. If any of the directories are used by other applications, including third-party applications that use the PostgreSQL, this is a finding.\n\nOnly applications that are required for the functioning and administration, not use, of the PostgreSQL software library should be located in the same disk directory as the PostgreSQL software libraries.\n\nIf other applications are located in the same directory as PostgreSQL, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the PostgreSQL software library directory and any subdirectories.\nIf any non-PostgreSQL software directories exist on the disk directory, examine or investigate their use. If any of the directories are used by other applications, including third-party applications that use the PostgreSQL, this is a finding.\nOnly applications that are required for the functioning and administration, not use, of the PostgreSQL software library should be located in the same disk directory as the PostgreSQL software libraries.\nIf other applications are located in the same directory as PostgreSQL, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

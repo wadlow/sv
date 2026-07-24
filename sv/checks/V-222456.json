@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222456",
+  "severity": "medium",
+  "rule_id": "SV-222456r961806_rule",
+  "rule_ver": "APSC-DV-000770",
+  "rule_title": "The application must generate audit records when successful/unsuccessful attempts to modify security levels occur.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify where the application logs are stored.\n\nIdentify application functionality that provides privilege escalation or access to additional security levels within the application.\n\nThis can be performing a function that escalates the privileges of the user, or accessing a protected area of the application that requires additional authentication in order to access.\n\nAuthenticate to the application as a regular user. Using application functionality, attempt to modify the permissions of a different security level or domain within the application.\n\nPerform two attempts, one successfully and one unsuccessfully.\n\nReview the log data and ensure the modify events, both successful and unsuccessful, are logged.\n\nIf the application does not generate an audit record when successful and unsuccessful attempts to modify the permissions regarding the security levels occur, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify where the application logs are stored.\nIdentify application functionality that provides privilege escalation or access to additional security levels within the application.\nThis can be performing a function that escalates the privileges of the user, or accessing a protected area of the application that requires additional authentication in order to access.\nAuthenticate to the application as a regular user. Using application functionality, attempt to modify the permissions of a different security level or domain within the application.\nPerform two attempts, one successfully and one unsuccessfully.\nReview the log data and ensure the modify events, both successful and unsuccessful, are logged.\nIf the application does not generate an audit record when successful and unsuccessful attempts to modify the permissions regarding the security levels occur, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

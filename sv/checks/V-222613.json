@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222613",
+  "severity": "medium",
+  "rule_id": "SV-222613r961677_rule",
+  "rule_ver": "APSC-DV-002610",
+  "rule_title": "The application must remove organization-defined software components after updated versions have been installed.",
+  "check_text": "Review the application documentation and interview the application admin to identify application locations on system.\n\nIdentify application versions that are installed on the system.\n\nReview the file system structure to see if older versions of the application are still installed.\n\nIf old versions of the application or components are still installed on the system, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application admin to identify application locations on system.\nIdentify application versions that are installed on the system.\nReview the file system structure to see if older versions of the application are still installed.\nIf old versions of the application or components are still installed on the system, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

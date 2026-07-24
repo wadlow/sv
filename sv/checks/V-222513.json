@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222513",
+  "severity": "medium",
+  "rule_id": "SV-222513r1015691_rule",
+  "rule_ver": "APSC-DV-001430",
+  "rule_title": "The application must have the capability to prevent the installation of patches, service packs, or application components without verification the software component has been digitally signed using a certificate that is recognized and approved by the organization.",
+  "check_text": "Review the application documentation and interview the application administrator to determine the process and commands used for patching the application.\n\nAccess application configuration settings.\n\nReview commands and procedures used to patch the application and ensure a capability exists to prevent unsigned patches from being applied.\n\nIf the application is not capable of preventing installation of patches and packages that are not signed, or if the vendor does not provide a cryptographic hash value that can be manually checked prior to installation, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to determine the process and commands used for patching the application.\nAccess application configuration settings.\nReview commands and procedures used to patch the application and ensure a capability exists to prevent unsigned patches from being applied.\nIf the application is not capable of preventing installation of patches and packages that are not signed, or if the vendor does not provide a cryptographic hash value that can be manually checked prior to installation, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

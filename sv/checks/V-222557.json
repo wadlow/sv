@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222557",
+  "severity": "medium",
+  "rule_id": "SV-222557r961527_rule",
+  "rule_ver": "APSC-DV-001880",
+  "rule_title": "The application must accept Personal Identity Verification (PIV) credentials from other federal agencies.",
+  "check_text": "Review the application documentation and interview the application administrator to identify application access methods.\n\nIf the application is not PK-enabled due to the hosted data being publicly releasable, this check is not applicable.\n\nIf the application is only deployed to SIPRNet, this requirement is not applicable.\n\nIf the application is not intended to be available to Federal government (non-DoD) partners this requirement is not applicable.\n\nAsk the application administrator to demonstrate how the application is configured to allow the use of PIV credentials from other agencies.\n\nIf the application is required to provide authenticated access to Federal agencies and it does not accept a PIV, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify application access methods.\nIf the application is not PK-enabled due to the hosted data being publicly releasable, this check is not applicable.\nIf the application is only deployed to SIPRNet, this requirement is not applicable.\nIf the application is not intended to be available to Federal government (non-DoD) partners this requirement is not applicable.\nAsk the application administrator to demonstrate how the application is configured to allow the use of PIV credentials from other agencies.\nIf the application is required to provide authenticated access to Federal agencies and it does not accept a PIV, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

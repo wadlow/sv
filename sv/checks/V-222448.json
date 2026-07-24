@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222448",
+  "severity": "medium",
+  "rule_id": "SV-222448r960879_rule",
+  "rule_ver": "APSC-DV-000690",
+  "rule_title": "The application must provide audit record generation capability for connecting system IP addresses.",
+  "check_text": "Review the application documentation and interview the application administrator to identify where audit logs are stored.\n\nReview audit logs and determine if the IP address information of systems that connect to the application is kept in the logs.\n\nIf connecting IP addresses are not seen in the logs, connect to the application remotely and review the logs to determine if the connection was logged.\n\nIf the IP addresses of the systems that connect to the application are not recorded in the logs, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify where audit logs are stored.\nReview audit logs and determine if the IP address information of systems that connect to the application is kept in the logs.\nIf connecting IP addresses are not seen in the logs, connect to the application remotely and review the logs to determine if the connection was logged.\nIf the IP addresses of the systems that connect to the application are not recorded in the logs, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

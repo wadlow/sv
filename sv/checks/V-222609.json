@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222609",
+  "severity": "high",
+  "rule_id": "SV-222609r961656_rule",
+  "rule_ver": "APSC-DV-002560",
+  "rule_title": "The application must not be subject to input handling vulnerabilities.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIf working with the developer, request documentation on their development processes and what their standard operating procedure is for sanitizing all application input.\n\nIdentify the latest vulnerability scan results.\n\nReview the scan results and scan configuration settings.\n\nVerify the scan was configured to identify input validation vulnerabilities.\n\nIf the scan results detected high risk vulnerabilities, verify a more recent scan shows remediation of the vulnerabilities is available for examination.\n\nReview any risk acceptance documentation that indicates the ISSO has reviewed and accepted the risk.\n\nIf the vulnerability scan is not configured to test for input validation vulnerabilities if the most recent scan results show that high risk input validation vulnerabilities exist and a documented risk acceptance from the ISSO is not available, or if the scan results do not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIf working with the developer, request documentation on their development processes and what their standard operating procedure is for sanitizing all application input.\nIdentify the latest vulnerability scan results.\nReview the scan results and scan configuration settings.\nVerify the scan was configured to identify input validation vulnerabilities.\nIf the scan results detected high risk vulnerabilities, verify a more recent scan shows remediation of the vulnerabilities is available for examination.\nReview any risk acceptance documentation that indicates the ISSO has reviewed and accepted the risk.\nIf the vulnerability scan is not configured to test for input validation vulnerabilities if the most recent scan results show that high risk input validation vulnerabilities exist and a documented risk acceptance from the ISSO is not available, or if the scan results do not exist, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214296",
+  "severity": "medium",
+  "rule_id": "SV-214296r1043182_rule",
+  "rule_ver": "AS24-U2-000660",
+  "rule_title": "The Apache web server must set an inactive timeout for sessions.",
+  "check_text": "In a command line, run \"httpd -M | grep -i Reqtimeout_module\". \n \nIf the \"Reqtimeout_module\" is not enabled, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "In a command line, run \"httpd -M | grep -i Reqtimeout_module\".\nIf the \"Reqtimeout_module\" is not enabled, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

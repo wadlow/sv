@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222654",
+  "severity": "low",
+  "rule_id": "SV-222654r961863_rule",
+  "rule_ver": "APSC-DV-003220",
+  "rule_title": "The designer must create and update the Design Document for each release of the application.",
+  "check_text": "This requirement is meant to apply to developers or organizations that are doing application development work. If the organization operating the application is not doing the development or managing the development of the application, the requirement is not applicable.\n\nAsk the application representative for the design document for the application. Review the design document.\n\nExamine the design document and/or the threat model for the application and verify the following information is documented:\n\n- All external interfaces.\n- The nature of information being exchanged\n- Any protections on the external interface\n- User roles required for access control and the access privileges assigned to each role\n- Unique security requirements (e.g., encryption of key data elements at rest)\n- Categories of sensitive information processed by the application and their specific protection plans (e.g., PII, HIPAA).\n- Restoration priority of subsystems, processes, or information\n- Verify the organization includes documentation describing the design and implementation details of the security controls employed within the information system with sufficient detail\n- Application incident response plan that provides details on how to provide the development team with application vulnerability or bug information.\n\nIf the design document is incomplete, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement is meant to apply to developers or organizations that are doing application development work. If the organization operating the application is not doing the development or managing the development of the application, the requirement is not applicable.\nAsk the application representative for the design document for the application. Review the design document.\nExamine the design document and/or the threat model for the application and verify the following information is documented:\n- All external interfaces.\n- The nature of information being exchanged\n- Any protections on the external interface\n- User roles required for access control and the access privileges assigned to each role\n- Unique security requirements (e.g., encryption of key data elements at rest)\n- Categories of sensitive information processed by the application and their specific protection plans (e.g., PII, HIPAA).\n- Restoration priority of subsystems, processes, or information\n- Verify the organization includes documentation describing the design and implementation details of the security controls employed within the information system with sufficient detail\n- Application incident response plan that provides details on how to provide the development team with application vulnerability or bug information.\nIf the design document is incomplete, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

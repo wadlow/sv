@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222587",
+  "severity": "medium",
+  "rule_id": "SV-222587r1136910_rule",
+  "rule_ver": "APSC-DV-002330",
+  "rule_title": "The application must protect the confidentiality and integrity of stored information when required by DOD policy or the information owner.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify the data processed by the application and the accompanying data protection requirements.\n\nDetermine if the data owner has specified stored data protection requirements.\n\nDetermine if the application is processing publicly releasable, CUI, or classified stored data.\n\nDetermine if the application configuration information contains sensitive information.\n\nAccess the data repository and have the application administrator, application developer, or designer identify the data integrity and confidentiality protections used to protect stored data.\n\nIf the application processes classified data or the data owner has specified data protection requirements and the application administrator is unable to demonstrate how the data is protected, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify the data processed by the application and the accompanying data protection requirements.\nDetermine if the data owner has specified stored data protection requirements.\nDetermine if the application is processing publicly releasable, CUI, or classified stored data.\nDetermine if the application configuration information contains sensitive information.\nAccess the data repository and have the application administrator, application developer, or designer identify the data integrity and confidentiality protections used to protect stored data.\nIf the application processes classified data or the data owner has specified data protection requirements and the application administrator is unable to demonstrate how the data is protected, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

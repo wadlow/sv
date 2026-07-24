@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222661",
+  "severity": "medium",
+  "rule_id": "SV-222661r961863_rule",
+  "rule_ver": "APSC-DV-003270",
+  "rule_title": "Unnecessary built-in application accounts must be disabled.",
+  "check_text": "Review the application documentation and identify if the application creates or utilizes built-in accounts.\n\nExamine the account list for obvious examples (e.g., accounts with vendor names such as Oracle or Tivoli).\n\nVerify that these accounts have been removed or disabled.\n\nIf enabled built-in accounts are present, ask the application representative the reason for their existence.\n\nIf the account is required in order for the application to operate properly, verify the account password has been changed to a DoD acceptable value.\n\nIf these accounts are not necessary to run the application, or if the accounts are required and the password has not been changed to meet DoD password requirements, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and identify if the application creates or utilizes built-in accounts.\nExamine the account list for obvious examples (e.g., accounts with vendor names such as Oracle or Tivoli).\nVerify that these accounts have been removed or disabled.\nIf enabled built-in accounts are present, ask the application representative the reason for their existence.\nIf the account is required in order for the application to operate properly, verify the account password has been changed to a DoD acceptable value.\nIf these accounts are not necessary to run the application, or if the accounts are required and the password has not been changed to meet DoD password requirements, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222622",
+  "severity": "medium",
+  "rule_id": "SV-222622r961863_rule",
+  "rule_ver": "APSC-DV-002910",
+  "rule_title": "The ISSO must review audit trails periodically based on system documentation recommendations or immediately upon system security events.",
+  "check_text": "Interview the application representative and ask for the system documentation that states how often audit logs are reviewed. Also, determine when the audit logs were last reviewed.\n\nIf the application representative cannot provide system documentation identifying how often the auditing logs are reviewed, or has not audited within the last time period stated in the system documentation, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the application representative and ask for the system documentation that states how often audit logs are reviewed. Also, determine when the audit logs were last reviewed.\nIf the application representative cannot provide system documentation identifying how often the auditing logs are reviewed, or has not audited within the last time period stated in the system documentation, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

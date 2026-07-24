@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222439",
+  "severity": "medium",
+  "rule_id": "SV-222439r960873_rule",
+  "rule_ver": "APSC-DV-000600",
+  "rule_title": "For applications providing audit record aggregation, the application must compile audit records from organization-defined information system components into a system-wide audit trail that is time-correlated with an organization-defined level of tolerance for the relationship between time stamps of individual records in the audit trail.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nDetermine if the application has the ability to compile audit records from multiple systems or system components.\n\nIf the application does not provide log aggregation services, this requirement is not applicable.\n\nIdentify the systems that comprise the application.\n\nAccess each system comprising the application or a random sample of several application systems. Review the application logs and obtain date and time stamps for several random audit events. Record the information.\n\nAccess the server providing the log aggregation. Access the application logs that have been written to the server and compare the samples obtained from the application systems to the aggregated logs. Ensure the dates and time stamps correlate with one another.\n\nIf the log dates and times do not correlate when the logs are aggregated, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nDetermine if the application has the ability to compile audit records from multiple systems or system components.\nIf the application does not provide log aggregation services, this requirement is not applicable.\nIdentify the systems that comprise the application.\nAccess each system comprising the application or a random sample of several application systems. Review the application logs and obtain date and time stamps for several random audit events. Record the information.\nAccess the server providing the log aggregation. Access the application logs that have been written to the server and compare the samples obtained from the application systems to the aggregated logs. Ensure the dates and time stamps correlate with one another.\nIf the log dates and times do not correlate when the logs are aggregated, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

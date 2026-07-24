@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222568",
+  "severity": "medium",
+  "rule_id": "SV-222568r961068_rule",
+  "rule_ver": "APSC-DV-002000",
+  "rule_title": "The application must terminate all network connections associated with a communications session at the end of the session.",
+  "check_text": "Review the application documentation and interview the system administrator to determine how the application is designed and configured to terminate network connections at the end of the application session.\n\nIdentify any documented exceptions to the requirement and review associated mitigations.\n\nIf the application provides a management interface for controlling or monitoring application network sessions, access that management interface.  Monitor application network activity.  \n\nIf the application utilizes the underlying OS to control network connections, access the command prompt of the OS.  Run the OS command for observing network connections at the OS.  For Windows and Unix OS's, use the \"netstat\" command.  Include command parameters that identify the application and/or process ID. netstat /? or -h provides the list of available parameters.\n\nObserve network activity and associate application processes with network connections.  Repeat use of the command to identify changing network state.\n\nDetermine if application session network connections are being terminated at the end of the session by observing the \"state\" column of the netstat command output with each iteration.\n\nIf the application does not terminate network connections when application sessions end, this is a finding.\n\nIf exceptions are documented with no mitigation this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the system administrator to determine how the application is designed and configured to terminate network connections at the end of the application session.\nIdentify any documented exceptions to the requirement and review associated mitigations.\nIf the application provides a management interface for controlling or monitoring application network sessions, access that management interface.  Monitor application network activity.\nIf the application utilizes the underlying OS to control network connections, access the command prompt of the OS.  Run the OS command for observing network connections at the OS.  For Windows and Unix OS's, use the \"netstat\" command.  Include command parameters that identify the application and/or process ID. netstat /? or -h provides the list of available parameters.\nObserve network activity and associate application processes with network connections.  Repeat use of the command to identify changing network state.\nDetermine if application session network connections are being terminated at the end of the session by observing the \"state\" column of the netstat command output with each iteration.\nIf the application does not terminate network connections when application sessions end, this is a finding.\nIf exceptions are documented with no mitigation this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

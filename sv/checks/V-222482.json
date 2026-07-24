@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222482",
+  "severity": "medium",
+  "rule_id": "SV-222482r961860_rule",
+  "rule_ver": "APSC-DV-001080",
+  "rule_title": "The application must be configured to write application logs to a centralized log repository.",
+  "check_text": "Review application documentation and interview application administrator.\n\nEvaluate application log management processes and determine if the system is configured to utilize a centralized log management system for the hosting and management of application audit logs.\n\nIf the system is not configured to write the application logs to the centralized log management repository in an expeditious manner, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review application documentation and interview application administrator.\nEvaluate application log management processes and determine if the system is configured to utilize a centralized log management system for the hosting and management of application audit logs.\nIf the system is not configured to write the application logs to the centralized log management repository in an expeditious manner, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

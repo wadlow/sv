@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222642",
+  "severity": "high",
+  "rule_id": "SV-222642r961863_rule",
+  "rule_ver": "APSC-DV-003110",
+  "rule_title": "The application must not contain embedded authentication data.",
+  "check_text": "Review the application documentation and any available source code; this includes configuration files such as global.asa, if present, scripts, HTML files, and any ASCII files.\n\nIdentify any instances of passwords, certificates, or sensitive data included in code.\n\nIf credentials were found, check the file permissions and ownership of the offending file.\n\nIf access to the folder hosting the file is not restricted to the related application process and administrative users, this is a finding.\n\nThe finding details should note specifically where the offending credentials or data were located and what resources they enabled.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and any available source code; this includes configuration files such as global.asa, if present, scripts, HTML files, and any ASCII files.\nIdentify any instances of passwords, certificates, or sensitive data included in code.\nIf credentials were found, check the file permissions and ownership of the offending file.\nIf access to the folder hosting the file is not restricted to the related application process and administrative users, this is a finding.\nThe finding details should note specifically where the offending credentials or data were located and what resources they enabled.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

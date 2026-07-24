@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222655",
+  "severity": "medium",
+  "rule_id": "SV-222655r961863_rule",
+  "rule_ver": "APSC-DV-003230",
+  "rule_title": "Threat models must be documented and reviewed for each application release and updated as required by design and functionality changes or when new threats are discovered.",
+  "check_text": "This requirement is meant to apply to developers or organizations that are doing application development work.\n\nIf the organization operating the application is not doing the development or is not managing the development of the application, the requirement is not applicable.\n\nReview the threat model document and identify the following sections are present:\n\n- Identified threats\n- Potential vulnerabilities\n- Counter measures taken\n- Potential mitigations\n- Mitigations selected based on risk analysis\n\nReview the identified threats, vulnerabilities, and countermeasures.\nCountermeasures could include implementing application firewalls or IDS/IPS and configuring certain IDS filters.\n\nReview the application documentation.\nVerify the architecture and components of the application match with the components in the threat model document.\nVerify identified threats and vulnerabilities are addressed or mitigated and the ISSO and ISSM have reviewed and approved the document.\n\nIf the described threat model documentation does not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement is meant to apply to developers or organizations that are doing application development work.\nIf the organization operating the application is not doing the development or is not managing the development of the application, the requirement is not applicable.\nReview the threat model document and identify the following sections are present:\n- Identified threats\n- Potential vulnerabilities\n- Counter measures taken\n- Potential mitigations\n- Mitigations selected based on risk analysis\nReview the identified threats, vulnerabilities, and countermeasures.\nCountermeasures could include implementing application firewalls or IDS/IPS and configuring certain IDS filters.\nReview the application documentation.\nVerify the architecture and components of the application match with the components in the threat model document.\nVerify identified threats and vulnerabilities are addressed or mitigated and the ISSO and ISSM have reviewed and approved the document.\nIf the described threat model documentation does not exist, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222435",
+  "severity": "low",
+  "rule_id": "SV-222435r960846_rule",
+  "rule_ver": "APSC-DV-000560",
+  "rule_title": "The application must retain the Standard Mandatory DoD Notice and Consent Banner on the screen until users acknowledge the usage conditions and take explicit actions to log on for further access.",
+  "check_text": "If the application has no interactive user interface, this requirement is not applicable.\n\nIf the user interface is only available via the OS console, e.g., a fat client application installed on a GFE desktop or laptop, and that GFE is configured to display the DoD banner, this requirement is not applicable.\n\nAccess the application and authenticate if necessary. Verify the banner is displayed and action must be taken to accept terms of use.\n\nIf the banner is not displayed or no action must be taken to accept terms of use, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the application has no interactive user interface, this requirement is not applicable.\nIf the user interface is only available via the OS console, e.g., a fat client application installed on a GFE desktop or laptop, and that GFE is configured to display the DoD banner, this requirement is not applicable.\nAccess the application and authenticate if necessary. Verify the banner is displayed and action must be taken to accept terms of use.\nIf the banner is not displayed or no action must be taken to accept terms of use, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

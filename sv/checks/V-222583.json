@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222583",
+  "severity": "medium",
+  "rule_id": "SV-222583r1051270_rule",
+  "rule_ver": "APSC-DV-002290",
+  "rule_title": "The application must generate a unique session identifier using a FIPS 140-2/140-3 approved random number generator.",
+  "check_text": "Review the application server configuration and documentation to determine if the application server uses a FIPS 140-2/140-3 approved random number generator to create unique session identifiers.\n\nHave a user log on to the application server to determine if the session IDs generated are random and unique.\n\nIf the application server does not generate unique session identifiers and does not use a FIPS 140-2/140-3 random number generator to create the randomness of the session ID, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application server configuration and documentation to determine if the application server uses a FIPS 140-2/140-3 approved random number generator to create unique session identifiers.\nHave a user log on to the application server to determine if the session IDs generated are random and unique.\nIf the application server does not generate unique session identifiers and does not use a FIPS 140-2/140-3 random number generator to create the randomness of the session ID, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

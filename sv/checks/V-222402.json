@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222402",
+  "severity": "medium",
+  "rule_id": "SV-222402r960759_rule",
+  "rule_ver": "APSC-DV-000220",
+  "rule_title": "The application must ensure encrypted assertions, or equivalent confidentiality protections are used when assertion data is passed through an intermediary, and confidentiality of the assertion data is required when passing through the intermediary.",
+  "check_text": "Ask the application representative for the design document.\n\nReview the design document for web services using WS-Security tokens.  \n\nIf the application does not utilize WS-Security tokens, this check is not applicable.\n\nVerify all WS-Security tokens are transmitted via an approved encryption method.\n\nIf the design document does not exist, or does not indicate all WS-Security tokens are only transmitted via an approved encryption method, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application representative for the design document.\nReview the design document for web services using WS-Security tokens.\nIf the application does not utilize WS-Security tokens, this check is not applicable.\nVerify all WS-Security tokens are transmitted via an approved encryption method.\nIf the design document does not exist, or does not indicate all WS-Security tokens are only transmitted via an approved encryption method, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

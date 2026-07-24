@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222634",
+  "severity": "medium",
+  "rule_id": "SV-222634r987685_rule",
+  "rule_ver": "APSC-DV-003030",
+  "rule_title": "The application services and interfaces must be compatible with and ready for IPv6 networks.",
+  "check_text": "Verify the application environment is compliant with all DoD IPv6 Standards Profile for IPv6 Capable Products guidance for servers.\n\nIf the application environment is not compliant with all DoD IPv6 Standards Profile for IPv6 Capable Products guidance for servers, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the application environment is compliant with all DoD IPv6 Standards Profile for IPv6 Capable Products guidance for servers.\nIf the application environment is not compliant with all DoD IPv6 Standards Profile for IPv6 Capable Products guidance for servers, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

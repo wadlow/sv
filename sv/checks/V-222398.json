@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222398",
+  "severity": "medium",
+  "rule_id": "SV-222398r960762_rule",
+  "rule_ver": "APSC-DV-000180",
+  "rule_title": "Applications with SOAP messages requiring integrity must include the following message elements:-Message ID-Service Request-Timestamp-SAML Assertion (optionally included in messages) and all elements of the message must be digitally signed.",
+  "check_text": "Review the application documentation, system security plan, application architecture diagrams and interview the application administrator.\n\nReview the design document for web services using SOAP messages.\n\nIf the application does not utilize SOAP messages, this check is not applicable.\n\nReview the design document and SOAP messages.\nVerify the Message ID, Service Request, Timestamp, and SAML Assertion are included in the SOAP message.\nIf they are included, verify they are signed with a certificate.\n\nIf SOAP messages requiring integrity do not have the Message ID, Service Request, Timestamp, and SAML Assertion signed, or if any part of the message is not digitally signed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation, system security plan, application architecture diagrams and interview the application administrator.\nReview the design document for web services using SOAP messages.\nIf the application does not utilize SOAP messages, this check is not applicable.\nReview the design document and SOAP messages.\nVerify the Message ID, Service Request, Timestamp, and SAML Assertion are included in the SOAP message.\nIf they are included, verify they are signed with a certificate.\nIf SOAP messages requiring integrity do not have the Message ID, Service Request, Timestamp, and SAML Assertion signed, or if any part of the message is not digitally signed, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

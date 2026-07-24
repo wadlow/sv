@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214249",
+  "severity": "medium",
+  "rule_id": "SV-214249r1138074_rule",
+  "rule_ver": "AS24-U1-000450",
+  "rule_title": "The Apache web server must separate the hosted applications from hosted Apache web server management functionality.",
+  "check_text": "Review the web server documentation and deployed configuration to determine whether hosted application functionality is separated from web server management functions.\n\nIf the functions are not separated, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the web server documentation and deployed configuration to determine whether hosted application functionality is separated from web server management functions.\nIf the functions are not separated, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

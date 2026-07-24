@@ -1,0 +1,16 @@
+{
+  "v_code": "V-233535",
+  "severity": "medium",
+  "rule_id": "SV-233535r961401_rule",
+  "rule_ver": "CD12-00-002700",
+  "rule_title": "PostgreSQL must provide an immediate alert to appropriate support staff of all audit log failures.",
+  "check_text": "Review DBMS, OS, or third-party logging software settings to determine whether a real-time alert will be sent to the appropriate personnel when auditing fails for any reason.\n\nIf real-time alerts are not sent upon auditing failure, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review DBMS, OS, or third-party logging software settings to determine whether a real-time alert will be sent to the appropriate personnel when auditing fails for any reason.\nIf real-time alerts are not sent upon auditing failure, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

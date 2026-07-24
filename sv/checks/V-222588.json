@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222588",
+  "severity": "high",
+  "rule_id": "SV-222588r1067803_rule",
+  "rule_ver": "APSC-DV-002340",
+  "rule_title": "The application must implement approved cryptographic mechanisms to prevent unauthorized modification of organization-defined information at rest on organization-defined information system components.",
+  "check_text": "Review the documentation and interview the application administrator.\n\nIdentify the data processed by the application and the accompanying data protection requirements.\n\nDetermine if the data owner has specified data protection encryption requirements regarding modification of data.\n\nDetermine if the application is processing publicly releasable, CUI, or classified data.\n\nDetermine if the application configuration information contains sensitive information.\n\nIf the data is strictly publicly releasable information and system documentation specifies no data encryption is required for any hosted application data, this is not applicable.\n\nAccess the data repository and have the application administrator identify the encryption protections that are utilized.\n\nIf the application processes classified data or if the data owner has specified encryption requirements and the application administrator is unable to demonstrate how the data is encrypted, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the documentation and interview the application administrator.\nIdentify the data processed by the application and the accompanying data protection requirements.\nDetermine if the data owner has specified data protection encryption requirements regarding modification of data.\nDetermine if the application is processing publicly releasable, CUI, or classified data.\nDetermine if the application configuration information contains sensitive information.\nIf the data is strictly publicly releasable information and system documentation specifies no data encryption is required for any hosted application data, this is not applicable.\nAccess the data repository and have the application administrator identify the encryption protections that are utilized.\nIf the application processes classified data or if the data owner has specified encryption requirements and the application administrator is unable to demonstrate how the data is encrypted, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

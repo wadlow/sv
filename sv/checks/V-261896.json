@@ -1,0 +1,26 @@
+{
+  "v_code": "V-261896",
+  "severity": "high",
+  "rule_id": "SV-261896r1193213_rule",
+  "rule_ver": "CD16-00-004400",
+  "rule_title": "PostgreSQL must use NIST FIPS 140-2/140-3 validated cryptographic modules for cryptographic operations.",
+  "check_text": "Verify FIPS is enabled for the OS. Following are example Linux commands:\n\n# sysctl crypto.fips_enabled\ncrypto.fips_enabled = 1\n \nIf crypto.fips_enabled = 0, this is a finding. \n\nOR\n\n$ sudo fips-mode-setup --check\nFIPS mode is enabled.\n\nIf FIPS mode is not enabled, this is a finding.\n\nRun the following command to check the OpenSSL version:\n\n$ openssl -version\n\nNote: FIPS-compliant libraries for OpenSSL 1.x.x contain \"fips\" in the version.\n\nIf the value of OpenSSL library is not FIPS compliant, this is a finding.\n\nIf using OpenSSL 3.x, check the providers:\n\nopenssl list -providers\n\nProviders:\ndefault\nname: OpenSSL Default Provider\nversion: 3.2.2\nstatus: active\n\nfips\n    name: Red Hat Enterprise Linux 9 - OpenSSL FIPS Provider\n    version: 3.2.2-622cc79c634cbbef\n    status: active\n\nIf the response does not list a FIPS provider with a status of \"active\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify FIPS is enabled for the OS. Following are example Linux commands:\n# sysctl crypto.fips_enabled\ncrypto.fips_enabled = 1\nIf crypto.fips_enabled = 0, this is a finding.\nOR\nFIPS mode is enabled.",
+      "commands": [
+        "sudo fips-mode-setup --check"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If FIPS mode is not enabled, this is a finding.\nRun the following command to check the OpenSSL version:",
+      "commands": [
+        "openssl -version"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

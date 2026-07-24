@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222635",
+  "severity": "medium",
+  "rule_id": "SV-222635r961863_rule",
+  "rule_ver": "APSC-DV-003040",
+  "rule_title": "The application must not be hosted on a general purpose machine if the application is designated as critical or high availability by the ISSO.",
+  "check_text": "Ask the application representative to review the servers where the application is deployed. \n\nAsk what other applications are deployed on those servers.\n\nIdentify the criticality of the applications installed on the system.\n\nIf a mission critical application is deployed onto the same server as non-mission critical applications, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ask the application representative to review the servers where the application is deployed.\nAsk what other applications are deployed on those servers.\nIdentify the criticality of the applications installed on the system.\nIf a mission critical application is deployed onto the same server as non-mission critical applications, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222627",
+  "severity": "medium",
+  "rule_id": "SV-222627r961863_rule",
+  "rule_ver": "APSC-DV-002970",
+  "rule_title": "The ISSO must ensure if a DoD STIG or NSA guide is not available, a third-party product will be configured by following available guidance.",
+  "check_text": "Review the application documentation to identify application name, features and version.\n\nIdentify if a DoD STIG or NSA guide is available.\n\nIf no STIG is available for the product, the application and application components must be configured by the following as available: \n\n- commercially accepted practices, \n- independent testing results, or \n- vendor literature and lock down guides.\n\nIf the application and application components do not have DoD STIG or NSA guidance available and are not configured according to: \ncommercially accepted practices, \nindependent testing results,\nor vendor literature and lock down guides, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation to identify application name, features and version.\nIdentify if a DoD STIG or NSA guide is available.\nIf no STIG is available for the product, the application and application components must be configured by the following as available:\n- commercially accepted practices,\n- independent testing results, or\n- vendor literature and lock down guides.\nIf the application and application components do not have DoD STIG or NSA guidance available and are not configured according to:\ncommercially accepted practices,\nindependent testing results,\nor vendor literature and lock down guides, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

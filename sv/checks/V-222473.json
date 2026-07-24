@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222473",
+  "severity": "medium",
+  "rule_id": "SV-222473r960894_rule",
+  "rule_ver": "APSC-DV-000980",
+  "rule_title": "The application must produce audit records containing information to establish when (date and time) the events occurred.",
+  "check_text": "Access the application logs and review the log entries for date and time. Each event written into the log must have a corresponding date and time stamp associated with it.\n\nIf the audit logs do not have a corresponding date and time associated with each event, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Access the application logs and review the log entries for date and time. Each event written into the log must have a corresponding date and time stamp associated with it.\nIf the audit logs do not have a corresponding date and time associated with each event, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

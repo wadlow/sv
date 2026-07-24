@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222546",
+  "severity": "medium",
+  "rule_id": "SV-222546r1015267_rule",
+  "rule_ver": "APSC-DV-001780",
+  "rule_title": "The application must prohibit password reuse for a minimum of five generations.",
+  "check_text": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\n\nIf the application does not use passwords, this requirement is Not Applicable.\n\nAccess the application management interface and view the user password settings page.\n\nReview user password settings and validate the application is configured to prohibit password reuse for a minimum of five password generations.\n\nIf the application does not prevent users from reusing their previous five passwords, or if the application does not have the ability to control this setting, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\nIf the application does not use passwords, this requirement is Not Applicable.\nAccess the application management interface and view the user password settings page.\nReview user password settings and validate the application is configured to prohibit password reuse for a minimum of five password generations.\nIf the application does not prevent users from reusing their previous five passwords, or if the application does not have the ability to control this setting, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

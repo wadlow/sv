@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261900",
+  "severity": "medium",
+  "rule_id": "SV-261900r1043181_rule",
+  "rule_ver": "CD16-00-004900",
+  "rule_title": "PostgreSQL must maintain the authenticity of communications sessions by guarding against man-in-the-middle attacks that guess at Session ID values.",
+  "check_text": "To check if PostgreSQL is configured to use ssl, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW ssl\"\n\nIf this is not set to on, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To check if PostgreSQL is configured to use ssl, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW ssl\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

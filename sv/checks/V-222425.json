@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222425",
+  "severity": "high",
+  "rule_id": "SV-222425r1117167_rule",
+  "rule_ver": "APSC-DV-000460",
+  "rule_title": "The application must enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nReview application data protection requirements.\n\nIdentify application resources that require protection and authentication over and above the authentication required to access the application itself.\n\nThis can be access to a URL, a folder, a file, a process or a database record that should only be available to certain individuals.\n\nIdentify the access control methods utilized by the application in order to control access to the resource.\n\nExamples include Role-Based Access Control policies (RBAC).\n\nUsing RBAC as an example, utilize a test account placed into a test role.\n\nSet a protection control on a resource and explicitly deny access to the role assigned to the test user account.\n\nTry to access an application resource that is not configured to allow access. Access should be denied.\n\nIf the enforcement of configured access restrictions is not performed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nReview application data protection requirements.\nIdentify application resources that require protection and authentication over and above the authentication required to access the application itself.\nThis can be access to a URL, a folder, a file, a process or a database record that should only be available to certain individuals.\nIdentify the access control methods utilized by the application in order to control access to the resource.\nExamples include Role-Based Access Control policies (RBAC).\nUsing RBAC as an example, utilize a test account placed into a test role.\nSet a protection control on a resource and explicitly deny access to the role assigned to the test user account.\nTry to access an application resource that is not configured to allow access. Access should be denied.\nIf the enforcement of configured access restrictions is not performed, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

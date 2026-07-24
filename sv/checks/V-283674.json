@@ -1,0 +1,35 @@
+{
+  "v_code": "V-283674",
+  "severity": "high",
+  "rule_id": "SV-283674r1193281_rule",
+  "rule_ver": "CD16-00-009300",
+  "rule_title": "PostgreSQL products must be a version supported by the vendor.",
+  "check_text": "If new packages are available for PostgreSQL, they can be reviewed in the package manager appropriate for the server operating system:\n\nTo list the version of installed PostgreSQL using psql:\n\n$ sudo su - postgres\n$ psql --version\n\nTo list the current version of software for RPM:\n\n$ rpm -qa | grep postgres\n\nTo list the current version of software for APT:\n\n$ apt-cache policy postgres\n\nAll versions of PostgreSQL are listed here: http://www.postgresql.org/support/versioning/\n\nAll security-relevant software updates for PostgreSQL are listed here: http://www.postgresql.org/support/security/\n\nIf PostgreSQL is not at the latest version, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If new packages are available for PostgreSQL, they can be reviewed in the package manager appropriate for the server operating system:\nTo list the version of installed PostgreSQL using psql:",
+      "commands": [
+        "sudo su - postgres",
+        "psql --version"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "To list the current version of software for RPM:",
+      "commands": [
+        "rpm -qa | grep postgres"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "To list the current version of software for APT:",
+      "commands": [
+        "apt-cache policy postgres"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

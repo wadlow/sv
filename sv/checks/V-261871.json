@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261871",
+  "severity": "medium",
+  "rule_id": "SV-261871r1000618_rule",
+  "rule_ver": "CD16-00-001500",
+  "rule_title": "PostgreSQL must produce audit records containing sufficient information to establish the identity of any user/subject or process associated with the event.",
+  "check_text": "Check PostgreSQL settings and existing audit records to verify a username associated with the event is being captured and stored with the audit records. If audit records exist without specific user information, this is a finding.\n\nAs the database administrator (shown here as \"postgres\"), verify the current setting of log_line_prefix by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_line_prefix\"\n\nIf log_line_prefix does not contain %m, %u, %d, %p, %r, %a, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Check PostgreSQL settings and existing audit records to verify a username associated with the event is being captured and stored with the audit records. If audit records exist without specific user information, this is a finding.\nAs the database administrator (shown here as \"postgres\"), verify the current setting of log_line_prefix by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_line_prefix\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

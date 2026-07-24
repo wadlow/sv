@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222490",
+  "severity": "medium",
+  "rule_id": "SV-222490r961413_rule",
+  "rule_ver": "APSC-DV-001160",
+  "rule_title": "The application must provide an audit reduction capability that supports on-demand audit review and analysis.",
+  "check_text": "Review the system documentation and interview the application administrator for details regarding application architecture and logging configuration.\n\nIdentify the application components and the logs associated with the components.\n\nIf the application utilizes a centralized logging system that provides the capability to generate reports based on filtered log events, this requirement is not applicable.\n\nUsing the relevant application features for generating reports and/or searching application data, (this is usually executed directly within a logging utility or within a reports feature or function) configure a filter based on any of the security criteria provided below.\n\nAlternatively, you can use security-oriented criteria provided by the application administrator.\n\nOnce the data filter has been selected, filter the audit event data so only filtered data is displayed and generate the report.\n\nThe report can be any combination of screen-based, soft copy, or a printed report.\n\nCriteria:\nUsers: e.g., specific users or groups\nEvent types:\nEvent dates and time:\nSystem resources involved: e.g., application components or modules.\nIP addresses:\nInformation objects accessed:\nEvent level categories: e.g., high, critical, warning, error\n\nIf the application does not provide an audit reduction capability that supports on-demand reports based on the filtered audit event data, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and interview the application administrator for details regarding application architecture and logging configuration.\nIdentify the application components and the logs associated with the components.\nIf the application utilizes a centralized logging system that provides the capability to generate reports based on filtered log events, this requirement is not applicable.\nUsing the relevant application features for generating reports and/or searching application data, (this is usually executed directly within a logging utility or within a reports feature or function) configure a filter based on any of the security criteria provided below.\nAlternatively, you can use security-oriented criteria provided by the application administrator.\nOnce the data filter has been selected, filter the audit event data so only filtered data is displayed and generate the report.\nThe report can be any combination of screen-based, soft copy, or a printed report.\nCriteria:\nUsers: e.g., specific users or groups\nEvent types:\nEvent dates and time:\nSystem resources involved: e.g., application components or modules.\nIP addresses:\nInformation objects accessed:\nEvent level categories: e.g., high, critical, warning, error\nIf the application does not provide an audit reduction capability that supports on-demand reports based on the filtered audit event data, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

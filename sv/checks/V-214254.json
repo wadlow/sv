@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214254",
+  "severity": "medium",
+  "rule_id": "SV-214254r961122_rule",
+  "rule_ver": "AS24-U1-000550",
+  "rule_title": "The Apache web server must be built to fail to a known safe state if system initialization fails, shutdown fails, or aborts fail.",
+  "check_text": "Interview the System Administrator for the Apache 2.4 web server.\n\nAsk for documentation on the disaster recovery methods tested and planned for the Apache 2.4 web server in the event of the necessity for rollback.\n\nIf documentation for a disaster recovery has not been established, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the System Administrator for the Apache 2.4 web server.\nAsk for documentation on the disaster recovery methods tested and planned for the Apache 2.4 web server in the event of the necessity for rollback.\nIf documentation for a disaster recovery has not been established, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

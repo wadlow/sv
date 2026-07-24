@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222451",
+  "severity": "medium",
+  "rule_id": "SV-222451r961791_rule",
+  "rule_ver": "APSC-DV-000720",
+  "rule_title": "The application must generate audit records when successful/unsuccessful attempts to access security objects occur.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify where the application logs are stored.\n\nIdentify application functionality that provides privilege or permission settings to security objects within the application.\nThis can be an application function that assigns privileges to an application object or data element.\n\nAuthenticate to the application as a regular user. Using application functionality, attempt to access the security object within the application.\n\nPerform two attempts, one successfully and one unsuccessfully.\n\nReview the log data and ensure both the successful and unsuccessful access attempts are logged.\n\nIf the application does not generate an audit record when successful and unsuccessful attempts to access security objects occur, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify where the application logs are stored.\nIdentify application functionality that provides privilege or permission settings to security objects within the application.\nThis can be an application function that assigns privileges to an application object or data element.\nAuthenticate to the application as a regular user. Using application functionality, attempt to access the security object within the application.\nPerform two attempts, one successfully and one unsuccessfully.\nReview the log data and ensure both the successful and unsuccessful access attempts are logged.\nIf the application does not generate an audit record when successful and unsuccessful attempts to access security objects occur, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

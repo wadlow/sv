@@ -1,0 +1,16 @@
+{
+  "v_code": "V-233614",
+  "severity": "high",
+  "rule_id": "SV-233614r961353_rule",
+  "rule_ver": "CD12-00-011700",
+  "rule_title": "PostgreSQL must prevent non-privileged users from executing privileged functions, to include disabling, circumventing, or altering implemented security safeguards/countermeasures.",
+  "check_text": "Review the system documentation to obtain the definition of the PostgreSQL functionality considered privileged in the context of the system in question.\n\nReview the PostgreSQL security configuration and/or other means used to protect privileged functionality from unauthorized use.\n\nIf the configuration does not protect all of the actions defined as privileged, this is a finding.\n\nIf PostgreSQL instance uses procedural languages, such as pl/Python or pl/R, without Authorizing Official (AO) authorization, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation to obtain the definition of the PostgreSQL functionality considered privileged in the context of the system in question.\nReview the PostgreSQL security configuration and/or other means used to protect privileged functionality from unauthorized use.\nIf the configuration does not protect all of the actions defined as privileged, this is a finding.\nIf PostgreSQL instance uses procedural languages, such as pl/Python or pl/R, without Authorizing Official (AO) authorization, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

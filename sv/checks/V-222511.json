@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222511",
+  "severity": "medium",
+  "rule_id": "SV-222511r961461_rule",
+  "rule_ver": "APSC-DV-001410",
+  "rule_title": "The application must enforce access restrictions associated with changes to application configuration.",
+  "check_text": "Review the application documentation and configuration settings.\n\nAccess the application configuration settings interface as a regular non-privileged user. Attempt to make configuration changes to the application.\n\nIf configuration changes can be made by regular non-privileged users, this is a finding.\n\nReview the locations of all configuration files used by the application.\n\nExamine the file permission settings and determine who has access to the configuration files.\n\nIf access permissions to configuration files are not restricted to application administrators, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and configuration settings.\nAccess the application configuration settings interface as a regular non-privileged user. Attempt to make configuration changes to the application.\nIf configuration changes can be made by regular non-privileged users, this is a finding.\nReview the locations of all configuration files used by the application.\nExamine the file permission settings and determine who has access to the configuration files.\nIf access permissions to configuration files are not restricted to application administrators, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

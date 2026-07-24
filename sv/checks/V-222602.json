@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222602",
+  "severity": "high",
+  "rule_id": "SV-222602r961158_rule",
+  "rule_ver": "APSC-DV-002490",
+  "rule_title": "The application must protect from Cross-Site Scripting (XSS) vulnerabilities.",
+  "check_text": "Review the application documentation and the vulnerability assessment scan results from automated vulnerability assessment tools.\n\nVerify scan configuration settings include web-based applications settings which include XSS tests.\n\nReview scan results for XSS vulnerabilities.\n\nIf the scan results indicate aspects of the application are vulnerable to XSS, request subsequent scan data that shows the XSS vulnerabilities previously detected have been fixed.\n\nIf results that show compliance are not available, request proof of any steps that have been taken to mitigate the risk. This can include using network-based IPS to detect and prevent XSS attacks from occurring.\n\nIf scan results are not available, perform manual testing in various data entry fields to determine if XSS exist.\n\nNavigate through the web application as a regular user and identify any data entry fields where data can be input.\n\nInput the following strings:\n\n<script>alert('hello')</script>\n<img src=x onerror=\"alert(document.cookie);\"\n\nIf the script pop up box is displayed, or if scan reports show unremediated XSS results and no mitigating steps have been taken, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and the vulnerability assessment scan results from automated vulnerability assessment tools.\nVerify scan configuration settings include web-based applications settings which include XSS tests.\nReview scan results for XSS vulnerabilities.\nIf the scan results indicate aspects of the application are vulnerable to XSS, request subsequent scan data that shows the XSS vulnerabilities previously detected have been fixed.\nIf results that show compliance are not available, request proof of any steps that have been taken to mitigate the risk. This can include using network-based IPS to detect and prevent XSS attacks from occurring.\nIf scan results are not available, perform manual testing in various data entry fields to determine if XSS exist.\nNavigate through the web application as a regular user and identify any data entry fields where data can be input.\nInput the following strings:\n<script>alert('hello')</script>\n<img src=x onerror=\"alert(document.cookie);\"\nIf the script pop up box is displayed, or if scan reports show unremediated XSS results and no mitigating steps have been taken, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222607",
+  "severity": "high",
+  "rule_id": "SV-222607r961158_rule",
+  "rule_ver": "APSC-DV-002540",
+  "rule_title": "The application must not be vulnerable to SQL Injection.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nRequest the latest vulnerability scan test results.\n\nVerify the scan configuration is configured to test for SQL injection flaws.\n\nReview the scan results to determine if any SQL injection flaws were detected during application testing.\n\nIf SQL injection flaws were discovered, request a subsequent scan that will show that the issues have been remediated.\n\nIf the scan results are not available, identify the database product in use and refer to the OWASP web application testing guide for detailed instructions on performing a manual SQL injection test. The instructions are located here and many tests are organized by database product:\n\nhttps://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OTG-INPVAL-005%29\n\nIf the application is vulnerable to SQL injection attack, contains SQL injection flaws, or if scan results do not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nRequest the latest vulnerability scan test results.\nVerify the scan configuration is configured to test for SQL injection flaws.\nReview the scan results to determine if any SQL injection flaws were detected during application testing.\nIf SQL injection flaws were discovered, request a subsequent scan that will show that the issues have been remediated.\nIf the scan results are not available, identify the database product in use and refer to the OWASP web application testing guide for detailed instructions on performing a manual SQL injection test. The instructions are located here and many tests are organized by database product:\nhttps://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OTG-INPVAL-005%29\nIf the application is vulnerable to SQL injection attack, contains SQL injection flaws, or if scan results do not exist, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

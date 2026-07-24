@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222485",
+  "severity": "medium",
+  "rule_id": "SV-222485r960912_rule",
+  "rule_ver": "APSC-DV-001110",
+  "rule_title": "The application must alert the ISSO and SA (at a minimum) in the event of an audit processing failure.",
+  "check_text": "Review system documentation and interview application administrator for details regarding logging configuration.\n\nIf the application utilizes a centralized logging system that provides the audit processing failure alarms, this requirement is not applicable.\n\nIdentify application alarming capability regarding audit processing failure events.\n\nVerify the application is configured to alarm when the auditing system fails.\n\nExample alarm events include but are not limited to: \n\nhardware failure events\nfailures to capture audit record events\naudit storage errors\n\nIf the application is not configured to alarm on alerts that indicate the audit system has failed or is failing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation and interview application administrator for details regarding logging configuration.\nIf the application utilizes a centralized logging system that provides the audit processing failure alarms, this requirement is not applicable.\nIdentify application alarming capability regarding audit processing failure events.\nVerify the application is configured to alarm when the auditing system fails.\nExample alarm events include but are not limited to:\nhardware failure events\nfailures to capture audit record events\naudit storage errors\nIf the application is not configured to alarm on alerts that indicate the audit system has failed or is failing, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

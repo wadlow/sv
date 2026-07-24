@@ -1,0 +1,28 @@
+{
+  "v_code": "V-261890",
+  "severity": "medium",
+  "rule_id": "SV-261890r1051115_rule",
+  "rule_ver": "CD16-00-003600",
+  "rule_title": "PostgreSQL must uniquely identify and authenticate organizational users (or processes acting on behalf of organizational users).",
+  "check_text": "Review PostgreSQL settings to determine whether organizational users are uniquely identified and authenticated when logging on/connecting to the system.\n\nTo list all roles in the database, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"\\du\"\n\nIf organizational users are not uniquely identified and authenticated, this is a finding.\n\nAs the database administrator (shown here as \"postgres\"), verify the current pg_hba.conf authentication settings:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/pg_hba.conf\n\nIf every role does not have unique authentication requirements, this is a finding.\n\nIf accounts are determined to be shared, determine if individuals are first individually authenticated. If individuals are not individually authenticated before using the shared account, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review PostgreSQL settings to determine whether organizational users are uniquely identified and authenticated when logging on/connecting to the system.\nTo list all roles in the database, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\du\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If organizational users are not uniquely identified and authenticated, this is a finding.\nAs the database administrator (shown here as \"postgres\"), verify the current pg_hba.conf authentication settings:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/pg_hba.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

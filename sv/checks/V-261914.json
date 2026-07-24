@@ -1,0 +1,23 @@
+{
+  "v_code": "V-261914",
+  "severity": "medium",
+  "rule_id": "SV-261914r1000747_rule",
+  "rule_ver": "CD16-00-006700",
+  "rule_title": "PostgreSQL must enforce discretionary access control policies, as defined by the data owner, over defined subjects and objects.",
+  "check_text": "Review system documentation to identify the required discretionary access control (DAC).\n\nReview the security configuration of the database and PostgreSQL. If applicable, review the security configuration of the application(s) using the database.\n\nIf the discretionary access control defined in the documentation is not implemented in the security configuration, this is a finding.\n\nIf any database objects are found to be owned by users not authorized to own database objects, this is a finding.\n\nTo check the ownership of objects in the database, as the database administrator, run the following:\n\n$ sudo su - postgres\n$ psql -X -c '\\dnS'\n$ psql -x -c \"\\dt *.*\"\n$ psql -X -c '\\dsS'\n$ psql -x -c \"\\dv *.*\"\n$ psql -x -c \"\\df+ *.*\"\n\nIf any role is given privileges to objects it should not have, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system documentation to identify the required discretionary access control (DAC).\nReview the security configuration of the database and PostgreSQL. If applicable, review the security configuration of the application(s) using the database.\nIf the discretionary access control defined in the documentation is not implemented in the security configuration, this is a finding.\nIf any database objects are found to be owned by users not authorized to own database objects, this is a finding.\nTo check the ownership of objects in the database, as the database administrator, run the following:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -X -c '\\dnS'",
+        "psql -x -c \"\\dt *.*\"",
+        "psql -X -c '\\dsS'",
+        "psql -x -c \"\\dv *.*\"",
+        "psql -x -c \"\\df+ *.*\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

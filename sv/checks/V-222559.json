@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222559",
+  "severity": "medium",
+  "rule_id": "SV-222559r1015708_rule",
+  "rule_ver": "APSC-DV-001900",
+  "rule_title": "The application must accept Federal Identity, Credential, and Access Management (FICAM)-approved third-party credentials.",
+  "check_text": "Review the application documentation and interview the application administrator to identify application access methods.\n\nIf the application is not PKI-enabled due to the hosted data being publicly releasable, this check is Not Applicable.\n\nIf the application is only deployed to SIPRNet, this requirement is Not Applicable.\n\nIf the application is not intended to be available to federal government partners this requirement is Not Applicable.\n\nAsk the application administrator to demonstrate how the application is configured to allow the use of third-party credentials, verify the third-party credentials are FICAM approved.\n\nIf the application does not accept FICAM-approved credentials when accepting third-party credentials, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify application access methods.\nIf the application is not PKI-enabled due to the hosted data being publicly releasable, this check is Not Applicable.\nIf the application is only deployed to SIPRNet, this requirement is Not Applicable.\nIf the application is not intended to be available to federal government partners this requirement is Not Applicable.\nAsk the application administrator to demonstrate how the application is configured to allow the use of third-party credentials, verify the third-party credentials are FICAM approved.\nIf the application does not accept FICAM-approved credentials when accepting third-party credentials, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

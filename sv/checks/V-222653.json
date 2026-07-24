@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222653",
+  "severity": "low",
+  "rule_id": "SV-222653r961863_rule",
+  "rule_ver": "APSC-DV-003215",
+  "rule_title": "The application development team must follow a set of coding standards.",
+  "check_text": "This requirement is meant to apply to developers or organizations that are doing application development work. If the organization operating the application under review is not doing the development or managing the development of the application, the requirement is not applicable.\n\nAsk the application representative about their coding standards. Ask for a coding standards document, review the document and ask the developers if they are aware of and if they use the coding standards. Make a determination if the application developers follow the coding standard. \n\nIf the developers do not follow a coding standard, or if a coding standard document does not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement is meant to apply to developers or organizations that are doing application development work. If the organization operating the application under review is not doing the development or managing the development of the application, the requirement is not applicable.\nAsk the application representative about their coding standards. Ask for a coding standards document, review the document and ask the developers if they are aware of and if they use the coding standards. Make a determination if the application developers follow the coding standard.\nIf the developers do not follow a coding standard, or if a coding standard document does not exist, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "v_code": "V-261895",
+  "severity": "medium",
+  "rule_id": "SV-261895r1000690_rule",
+  "rule_ver": "CD16-00-004200",
+  "rule_title": "PostgreSQL must map the PKI-authenticated identity to an associated user account.",
+  "check_text": "The Common Name (cn) attribute of the certificate will be compared to the requested database username and, if they match, the login will be allowed.\n\nTo check the cn of the certificate, using openssl, do the following:\n\n$ openssl x509 -noout -subject -in /path/to/your/client_cert.file\n\nIf the cn does not match the users listed in PostgreSQL and no user mapping is used, this is a finding.\n\nUser name mapping can be used to allow cn to be different from the database username. If User Name Maps are used, run the following as the database administrator (shown here as \"postgres\"), to get a list of maps used for authentication:\n\n$ sudo su - postgres\n$ grep \"map\" ${PGDATA?}/pg_hba.conf\n\nWith the names of the maps used, check those maps against the username mappings in pg_ident.conf:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/pg_ident.conf\n\nIf user accounts are not being mapped to authenticated identities, this is a finding.\n\nIf the cn and the username mapping do not match, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "The Common Name (cn) attribute of the certificate will be compared to the requested database username and, if they match, the login will be allowed.\nTo check the cn of the certificate, using openssl, do the following:",
+      "commands": [
+        "openssl x509 -noout -subject -in /path/to/your/client_cert.file"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If the cn does not match the users listed in PostgreSQL and no user mapping is used, this is a finding.\nUser name mapping can be used to allow cn to be different from the database username. If User Name Maps are used, run the following as the database administrator (shown here as \"postgres\"), to get a list of maps used for authentication:",
+      "commands": [
+        "sudo su - postgres",
+        "grep \"map\" ${PGDATA?}/pg_hba.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "With the names of the maps used, check those maps against the username mappings in pg_ident.conf:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/pg_ident.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

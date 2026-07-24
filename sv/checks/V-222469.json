@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222469",
+  "severity": "medium",
+  "rule_id": "SV-222469r960891_rule",
+  "rule_ver": "APSC-DV-000940",
+  "rule_title": "The application must log application shutdown events.",
+  "check_text": "Review and monitor the application and system logs.\n\nIf an application shutdown event is not recorded in the logs, either initiate a shutdown event and review the logs after reestablishing access or request backup copies of the application or system logs that indicate shutdown events are being recorded.\n\nAlternatively, check for a setting within the application that controls application logging events and determine if application shutdown logging is configured.\n\nIf the application is not recording application shutdown events in either the application or system log, or if the application is not configured to record shutdown events, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review and monitor the application and system logs.\nIf an application shutdown event is not recorded in the logs, either initiate a shutdown event and review the logs after reestablishing access or request backup copies of the application or system logs that indicate shutdown events are being recorded.\nAlternatively, check for a setting within the application that controls application logging events and determine if application shutdown logging is configured.\nIf the application is not recording application shutdown events in either the application or system log, or if the application is not configured to record shutdown events, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

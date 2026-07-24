@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222610",
+  "severity": "medium",
+  "rule_id": "SV-222610r961167_rule",
+  "rule_ver": "APSC-DV-002570",
+  "rule_title": "The application must generate error messages that provide information necessary for corrective actions without revealing information that could be exploited by adversaries.",
+  "check_text": "Review the application documentation and interview the application administrator for details regarding how the application displays error messages.\n\nUtilize the application as a non-privileged user and attempt to execute functionality that will generate error messages.\n\nReview the error messages displayed to ensure no sensitive information is provided to end users.\n\nIf error messages are designed to provide users with just enough detail to pass along to support staff in order to aid in troubleshooting such as date, time, or other generic information, this is not a finding.\n\nIf variable names, SQL strings, system path information, or source or program code are displayed in error messages sent to non-privileged users, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator for details regarding how the application displays error messages.\nUtilize the application as a non-privileged user and attempt to execute functionality that will generate error messages.\nReview the error messages displayed to ensure no sensitive information is provided to end users.\nIf error messages are designed to provide users with just enough detail to pass along to support staff in order to aid in troubleshooting such as date, time, or other generic information, this is not a finding.\nIf variable names, SQL strings, system path information, or source or program code are displayed in error messages sent to non-privileged users, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

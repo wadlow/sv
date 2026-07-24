@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261889",
+  "severity": "medium",
+  "rule_id": "SV-261889r1043177_rule",
+  "rule_ver": "CD16-00-003500",
+  "rule_title": "PostgreSQL must be configured to prohibit or restrict the use of organization-defined functions, ports, protocols, and/or services, as defined in the PPSM CAL and vulnerability assessments.",
+  "check_text": "As the database administrator, run the following SQL:\n\n$ psql -c \"SHOW port\"\n$ psql -c \"SHOW listen_addresses\"\n\nIf the currently defined address:port configuration is deemed prohibited, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator, run the following SQL:",
+      "commands": [
+        "psql -c \"SHOW port\"",
+        "psql -c \"SHOW listen_addresses\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

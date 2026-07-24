@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222509",
+  "severity": "medium",
+  "rule_id": "SV-222509r961206_rule",
+  "rule_ver": "APSC-DV-001370",
+  "rule_title": "The integrity of the audit tools must be validated by checking the files for changes in the cryptographic hash value.",
+  "check_text": "Review the system documentation and interview the application administrator for details regarding application architecture, audit methods, and provided audit tools.\n\nIdentify the location of the application audit tools.\n\nSeparate audit tools will be file-oriented in nature, e.g., the application includes a separate executable file or library that when invoked allows users to view and manipulate logs.\n\nIf the application does not provide a separate tool in the form of a file which provides an ability to view and manipulate application log data, query data or generate reports, this requirement is not applicable.\n\nIf the system hosting the application has a separate file monitoring utility installed that is configured to identify changes to audit tools and alarm on changes to audit tools, this is not applicable.\n\nAsk the application administrator to provide their process for periodically checking the list of checksum values against the associated file names of the audit tools to ensure none of the audit tools have been tampered with.\n\nIf a cryptographic checksum or hash value of the audit tool file is not periodically checked to ensure the integrity of audit tools, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and interview the application administrator for details regarding application architecture, audit methods, and provided audit tools.\nIdentify the location of the application audit tools.\nSeparate audit tools will be file-oriented in nature, e.g., the application includes a separate executable file or library that when invoked allows users to view and manipulate logs.\nIf the application does not provide a separate tool in the form of a file which provides an ability to view and manipulate application log data, query data or generate reports, this requirement is not applicable.\nIf the system hosting the application has a separate file monitoring utility installed that is configured to identify changes to audit tools and alarm on changes to audit tools, this is not applicable.\nAsk the application administrator to provide their process for periodically checking the list of checksum values against the associated file names of the audit tools to ensure none of the audit tools have been tampered with.\nIf a cryptographic checksum or hash value of the audit tool file is not periodically checked to ensure the integrity of audit tools, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

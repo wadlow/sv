@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222648",
+  "severity": "medium",
+  "rule_id": "SV-222648r961863_rule",
+  "rule_ver": "APSC-DV-003170",
+  "rule_title": "An application code review must be performed on the application.",
+  "check_text": "This requirement is meant to apply to developers or organizations that are doing the application development work and have the responsibility for maintaining the application source code.  Otherwise, the requirement is not applicable.\n\nReview the system documentation and ask the application representative to describe the code review process or provide documentation outlining the organizations code review process.\n\nIf code reviews are conducted with software tools, have the application representative provide the latest code review report for the application.\n\nEnsure the code review looks for all known security flaws including but not limited to:\n\n- format string exploits\n- memory leaks\n- buffer overflows\n- race conditions\n- sql injection\n- dead/unused/commented code\n- input validation exploits\n\nIf the organization does not conduct code reviews on the application that attempt to identify all known and potential security issues, or if code review results are not available for review, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement is meant to apply to developers or organizations that are doing the application development work and have the responsibility for maintaining the application source code.  Otherwise, the requirement is not applicable.\nReview the system documentation and ask the application representative to describe the code review process or provide documentation outlining the organizations code review process.\nIf code reviews are conducted with software tools, have the application representative provide the latest code review report for the application.\nEnsure the code review looks for all known security flaws including but not limited to:\n- format string exploits\n- memory leaks\n- buffer overflows\n- race conditions\n- sql injection\n- dead/unused/commented code\n- input validation exploits\nIf the organization does not conduct code reviews on the application that attempt to identify all known and potential security issues, or if code review results are not available for review, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

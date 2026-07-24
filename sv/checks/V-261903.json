@@ -1,0 +1,16 @@
+{
+  "v_code": "V-261903",
+  "severity": "medium",
+  "rule_id": "SV-261903r1137656_rule",
+  "rule_ver": "CD16-00-005400",
+  "rule_title": "Database contents must be protected from unauthorized and unintended information transfer by enforcement of a data-transfer policy.",
+  "check_text": "Review the procedures for the refreshing of development/test data from production.\n\nReview any scripts or code that exists for the movement of production data to development/test systems, or to any other location or for any other purpose.\n\nVerify that copies of production data are not left in unprotected locations. \n\nIf the code that exists for data movement does not comply with the organization-defined data transfer policy and/or fails to remove any copies of production data from unprotected locations, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the procedures for the refreshing of development/test data from production.\nReview any scripts or code that exists for the movement of production data to development/test systems, or to any other location or for any other purpose.\nVerify that copies of production data are not left in unprotected locations.\nIf the code that exists for data movement does not comply with the organization-defined data transfer policy and/or fails to remove any copies of production data from unprotected locations, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

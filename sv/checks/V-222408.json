@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222408",
+  "severity": "medium",
+  "rule_id": "SV-222408r1015683_rule",
+  "rule_ver": "APSC-DV-000290",
+  "rule_title": "Shared/group account credentials must be terminated when members leave the group.",
+  "check_text": "Review the application documentation and determine if there is a requirement for shared or group accounts.\n\nIf there is no official requirement for shared or group application accounts, this requirement is Not Applicable.\n\nInterview the application representative and identify shared/group accounts.\n\nHave the application representative provide their procedures for account management as it pertains to group users.\n\nValidate there is a procedure for deleting either member accounts or the entire group account when member leave the group.\n\nIf there is no process for handling group account credentials, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and determine if there is a requirement for shared or group accounts.\nIf there is no official requirement for shared or group application accounts, this requirement is Not Applicable.\nInterview the application representative and identify shared/group accounts.\nHave the application representative provide their procedures for account management as it pertains to group users.\nValidate there is a procedure for deleting either member accounts or the entire group account when member leave the group.\nIf there is no process for handling group account credentials, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

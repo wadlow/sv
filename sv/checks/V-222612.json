@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222612",
+  "severity": "high",
+  "rule_id": "SV-222612r961665_rule",
+  "rule_ver": "APSC-DV-002590",
+  "rule_title": "The application must not be vulnerable to overflow attacks.",
+  "check_text": "Review the application documentation and architecture.\n\nInterview the application admin and identify the most recent code testing and analysis that has been conducted.\n\nReview the test results; verify configuration of analysis tools are set to check for the existence of overflows. This includes but is not limited to buffer overflows, stack overflows, heap overflows, integer overflows and format string overflows.\n\nIf overflows are identified in the test results, verify the latest test results are being used, if not, ensure remediation has been completed.\n\nIf the test results show overflows exist and no remediation evidence is presented, or if test results are not available, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and architecture.\nInterview the application admin and identify the most recent code testing and analysis that has been conducted.\nReview the test results; verify configuration of analysis tools are set to check for the existence of overflows. This includes but is not limited to buffer overflows, stack overflows, heap overflows, integer overflows and format string overflows.\nIf overflows are identified in the test results, verify the latest test results are being used, if not, ensure remediation has been completed.\nIf the test results show overflows exist and no remediation evidence is presented, or if test results are not available, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

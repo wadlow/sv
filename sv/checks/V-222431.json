@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222431",
+  "severity": "medium",
+  "rule_id": "SV-222431r961362_rule",
+  "rule_ver": "APSC-DV-000520",
+  "rule_title": "The application must audit the execution of privileged functions.",
+  "check_text": "Log on to the application as an administrative user.\n\nIdentify functionality within the application that requires utilizing the admin role.\n\nMonitor application logs while performing privileged functions within the application.\n\nPerform administrative types of tasks such as adding or modifying user accounts, modifying application configuration, or managing encryption keys.\n\nReview logs for entries that indicate the administrative actions performed were logged.\n\nEnsure the specific action taken, date and time or event is recorded.\n\nIf the execution of privileged functionality is not logged, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Log on to the application as an administrative user.\nIdentify functionality within the application that requires utilizing the admin role.\nMonitor application logs while performing privileged functions within the application.\nPerform administrative types of tasks such as adding or modifying user accounts, modifying application configuration, or managing encryption keys.\nReview logs for entries that indicate the administrative actions performed were logged.\nEnsure the specific action taken, date and time or event is recorded.\nIf the execution of privileged functionality is not logged, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

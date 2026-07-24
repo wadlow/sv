@@ -1,0 +1,16 @@
+{
+  "v_code": "V-233540",
+  "severity": "high",
+  "rule_id": "SV-233540r960960_rule",
+  "rule_ver": "CD12-00-003200",
+  "rule_title": "The PostgreSQL software installation account must be restricted to authorized users.",
+  "check_text": "Review procedures for controlling, granting access to, and tracking use of the PostgreSQL software installation account(s).\n\nIf access or use of this account is not restricted to the minimum number of personnel required or if unauthorized access to the account has been granted, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review procedures for controlling, granting access to, and tracking use of the PostgreSQL software installation account(s).\nIf access or use of this account is not restricted to the minimum number of personnel required or if unauthorized access to the account has been granted, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222637",
+  "severity": "medium",
+  "rule_id": "SV-222637r961863_rule",
+  "rule_ver": "APSC-DV-003060",
+  "rule_title": "Recovery procedures and technical system features must exist so recovery is performed in a secure and verifiable manner. The ISSO will document circumstances inhibiting a trusted recovery.",
+  "check_text": "Review disaster recovery plan.\n\nVerify that a disaster recovery plan is in place for the application.\n\nVerify that the recovery procedures include any special considerations for trusted recovery.\n\nIf the application is not part of the site’s disaster recovery plan, or if any special considerations for trusted recovery are not documented, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review disaster recovery plan.\nVerify that a disaster recovery plan is in place for the application.\nVerify that the recovery procedures include any special considerations for trusted recovery.\nIf the application is not part of the site’s disaster recovery plan, or if any special considerations for trusted recovery are not documented, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

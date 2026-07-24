@@ -1,0 +1,28 @@
+{
+  "v_code": "V-261891",
+  "severity": "high",
+  "rule_id": "SV-261891r1000970_rule",
+  "rule_ver": "CD16-00-003800",
+  "rule_title": "If passwords are used for authentication, PostgreSQL must store only hashed, salted representations of passwords.",
+  "check_text": "Note: The following instructions use the PGVER environment variables. Refer to supplementary content APPENDIX-H for PGVER.\n\nTo check if password encryption is enabled, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW password_encryption\"\n\nIf password_encryption is not \"scram-sha-256\", this is a finding.\n\nTo identify if any passwords have been stored without being hashed and salted, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -x -c \"SELECT username, passwd FROM pg_shadow WHERE passwd IS NULL OR passwd NOT LIKE 'SCRAM-SHA-256%';\"\n\nIf any password is in plaintext, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGVER environment variables. Refer to supplementary content APPENDIX-H for PGVER.\nTo check if password encryption is enabled, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW password_encryption\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If password_encryption is not \"scram-sha-256\", this is a finding.\nTo identify if any passwords have been stored without being hashed and salted, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -x -c \"SELECT username, passwd FROM pg_shadow WHERE passwd IS NULL OR passwd NOT LIKE 'SCRAM-SHA-256%';\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

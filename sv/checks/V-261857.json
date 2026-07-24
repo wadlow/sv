@@ -1,0 +1,28 @@
+{
+  "v_code": "V-261857",
+  "severity": "medium",
+  "rule_id": "SV-261857r1000976_rule",
+  "rule_ver": "CD16-00-000100",
+  "rule_title": "PostgreSQL must limit the number of concurrent sessions to an organization-defined number per user for all accounts and/or account types.",
+  "check_text": "To check the total amount of connections allowed by the database, as the database administrator, run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW max_connections\"\n\nIf the total amount of connections is greater than documented by an organization, this is a finding.\n\nTo check the amount of connections allowed for each role, as the database administrator, run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SELECT rolname, rolconnlimit \nFROM pg_roles\nWHERE rolname NOT IN (\n'pg_database_owner',\n'pg_read_all_data',\n'pg_write_all_data',\n'pg_monitor',\n'pg_read_all_settings',\n'pg_read_all_stats',\n'pg_stat_scan_tables',\n'pg_read_server_files',\n'pg_write_server_files',\n'pg_execute_server_program',\n'pg_signal_backend',\n'pg_checkpoint',\n'pg_use_reserved_connections',\n'pg_create_subscription');\"\n\nIf any roles have more connections configured than documented, this is a finding. A value of \"-1\" indicates Unlimited and is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To check the total amount of connections allowed by the database, as the database administrator, run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW max_connections\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If the total amount of connections is greater than documented by an organization, this is a finding.\nTo check the amount of connections allowed for each role, as the database administrator, run the following SQL:\nFROM pg_roles\nWHERE rolname NOT IN (\n'pg_database_owner',\n'pg_read_all_data',\n'pg_write_all_data',\n'pg_monitor',\n'pg_read_all_settings',\n'pg_read_all_stats',\n'pg_stat_scan_tables',\n'pg_read_server_files',\n'pg_write_server_files',\n'pg_execute_server_program',\n'pg_signal_backend',\n'pg_checkpoint',\n'pg_use_reserved_connections',\n'pg_create_subscription');\"",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SELECT rolname, rolconnlimit"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

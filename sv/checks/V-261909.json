@@ -1,0 +1,42 @@
+{
+  "v_code": "V-261909",
+  "severity": "medium",
+  "rule_id": "SV-261909r1000980_rule",
+  "rule_ver": "CD16-00-006100",
+  "rule_title": "PostgreSQL must reveal detailed error messages only to the information system security officer (ISSO), information system security manager (ISSM), system administrator (SA), and database administrator (DBA).",
+  "check_text": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for instructions on configuring PGLOG.\n\nCheck PostgreSQL settings and custom database code to determine if detailed error messages are ever displayed to unauthorized individuals.\n\nTo check the level of detail for errors exposed to clients, as the DBA (shown here as \"postgres\"), run the following:\n\n$ sudo su - postgres\n$ psql -c \"SHOW client_min_messages;\"\n\nIf client_min_messages is not set to error, this is a finding.\n\nIf detailed error messages are displayed to individuals not authorized to view them, this is a finding.\n\n#### stderr Logging\n\nLogs may contain detailed information and should only be accessible by the database owner.\n\nAs the database administrator, verify the following settings of logs.\n\nNote: Consult the organization's documentation on acceptable log privileges.\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_file_mode;\" \n\nVerify the log files have the set configurations.\n\n$ ls -l ${PGLOG?}\ntotal 32\n-rw-------. 1 postgres postgres 0 Apr 8 00:00 postgresql-Fri.log\n-rw-------. 1 postgres postgres 8288 Apr 11 17:36 postgresql-Mon.log\n-rw-------. 1 postgres postgres 0 Apr 9 00:00 postgresql-Sat.log\n-rw-------. 1 postgres postgres 0 Apr 10 00:00 postgresql-Sun.log\n-rw-------. 1 postgres postgres 16212 Apr 7 17:05 postgresql-Thu.log\n-rw-------. 1 postgres postgres 1130 Apr 6 17:56 postgresql-Wed.log\n\nIf logs are not owned by the database administrator or have permissions that are not 0600, this is a finding.\n\n#### syslog Logging\n\nIf PostgreSQL is configured to use syslog for logging, consult organization location and permissions for syslog log files. If the logs are not owned by root or have permissions that are not 0600, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGLOG environment variables. Refer to APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for instructions on configuring PGLOG.\nCheck PostgreSQL settings and custom database code to determine if detailed error messages are ever displayed to unauthorized individuals.\nTo check the level of detail for errors exposed to clients, as the DBA (shown here as \"postgres\"), run the following:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW client_min_messages;\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": "stderr Logging",
+      "description": "Logs may contain detailed information and should only be accessible by the database owner.\nAs the database administrator, verify the following settings of logs.\nNote: Consult the organization's documentation on acceptable log privileges.",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_file_mode;\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": "stderr Logging",
+      "description": "Verify the log files have the set configurations.\ntotal 32\n-rw-------. 1 postgres postgres 0 Apr 8 00:00 postgresql-Fri.log\n-rw-------. 1 postgres postgres 8288 Apr 11 17:36 postgresql-Mon.log\n-rw-------. 1 postgres postgres 0 Apr 9 00:00 postgresql-Sat.log\n-rw-------. 1 postgres postgres 0 Apr 10 00:00 postgresql-Sun.log\n-rw-------. 1 postgres postgres 16212 Apr 7 17:05 postgresql-Thu.log\n-rw-------. 1 postgres postgres 1130 Apr 6 17:56 postgresql-Wed.log",
+      "commands": [
+        "ls -l ${PGLOG?}"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": "syslog Logging",
+      "description": "If PostgreSQL is configured to use syslog for logging, consult organization location and permissions for syslog log files. If the logs are not owned by root or have permissions that are not 0600, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222520",
+  "severity": "medium",
+  "rule_id": "SV-222520r1050664_rule",
+  "rule_ver": "APSC-DV-001520",
+  "rule_title": "The application must require users to reauthenticate when organization-defined circumstances or situations require reauthentication.",
+  "check_text": "Review the application guidance and interview the application administrator.\n\nIdentify the application user roles.\n\nIdentify the methods and manner in which an application user is allowed to escalate their privileges or change their role.\n\nCreate or utilize an account that has two roles within the application, both should be nonadministrator.\nExample: User role and Report Creator role.\n\nAuthenticate to the application as the user in the User role.\n\nAccess the application functionality that allows the user to change their role and change from the User role to the Report Creator role.\n\nIf the user is not prompted to reauthenticate before the user’s role is changed, this is a finding.\n\nLog out of the application and log back in as the User role.\n\nAccess the application functionality that allows the user to escalate their privileges to an administrative user.\n\nAttempt to escalate the privileges of the user.\n\nIf the user is not prompted to reauthenticate before the user is allowed to proceed with escalated privileges, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application guidance and interview the application administrator.\nIdentify the application user roles.\nIdentify the methods and manner in which an application user is allowed to escalate their privileges or change their role.\nCreate or utilize an account that has two roles within the application, both should be nonadministrator.\nExample: User role and Report Creator role.\nAuthenticate to the application as the user in the User role.\nAccess the application functionality that allows the user to change their role and change from the User role to the Report Creator role.\nIf the user is not prompted to reauthenticate before the user’s role is changed, this is a finding.\nLog out of the application and log back in as the User role.\nAccess the application functionality that allows the user to escalate their privileges to an administrative user.\nAttempt to escalate the privileges of the user.\nIf the user is not prompted to reauthenticate before the user is allowed to proceed with escalated privileges, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

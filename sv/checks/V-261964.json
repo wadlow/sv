@@ -1,0 +1,29 @@
+{
+  "v_code": "V-261964",
+  "severity": "medium",
+  "rule_id": "SV-261964r1000897_rule",
+  "rule_ver": "CD16-00-012000",
+  "rule_title": "PostgreSQL must generate audit records for all direct access to the database(s).",
+  "check_text": "As the database administrator, verify pgaudit is enabled by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW shared_preload_libraries\"\n\nIf the output does not contain \"pgaudit\", this is a finding.\n\nVerify that connections and disconnections are being logged by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_connections\"\n$ psql -c \"SHOW log_disconnections\"\n\nIf the output does not contain \"on\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator, verify pgaudit is enabled by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW shared_preload_libraries\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "If the output does not contain \"pgaudit\", this is a finding.\nVerify that connections and disconnections are being logged by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_connections\"",
+        "psql -c \"SHOW log_disconnections\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

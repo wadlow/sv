@@ -1,0 +1,16 @@
+{
+  "v_code": "V-261919",
+  "severity": "medium",
+  "rule_id": "SV-261919r1000762_rule",
+  "rule_ver": "CD16-00-007300",
+  "rule_title": "PostgreSQL must provide a warning to appropriate support staff when allocated audit record storage volume reaches 75 percent of maximum audit record storage capacity.",
+  "check_text": "Review system configuration.\n\nIf no script or tool is monitoring the partition for the PostgreSQL log directories, this is a finding.\n\nIf appropriate support staff are not notified immediately upon storage volume utilization reaching 75 percent, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review system configuration.\nIf no script or tool is monitoring the partition for the PostgreSQL log directories, this is a finding.\nIf appropriate support staff are not notified immediately upon storage volume utilization reaching 75 percent, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

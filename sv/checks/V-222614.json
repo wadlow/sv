@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222614",
+  "severity": "medium",
+  "rule_id": "SV-222614r1117151_rule",
+  "rule_ver": "APSC-DV-002630",
+  "rule_title": "Security-relevant software updates and patches must be kept up to date.",
+  "check_text": "Review the application documentation to identify application versions and patching.\n\nInterview the application administrator and inquire about patching process.\n\nReview IAVMs and CTOs to determine if the application is being updated in accordance with authoritative sources.\n\nIf application updates are not checked on at least on a weekly basis and applied immediately or in accordance with POA&Ms, IAVMs, CTOs, DTMs or other authoritative patching guidelines or sources, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation to identify application versions and patching.\nInterview the application administrator and inquire about patching process.\nReview IAVMs and CTOs to determine if the application is being updated in accordance with authoritative sources.\nIf application updates are not checked on at least on a weekly basis and applied immediately or in accordance with POA&Ms, IAVMs, CTOs, DTMs or other authoritative patching guidelines or sources, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

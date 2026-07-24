@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222672",
+  "severity": "low",
+  "rule_id": "SV-222672r961833_rule",
+  "rule_ver": "APSC-DV-003360",
+  "rule_title": "The application must generate audit records when concurrent logons from different workstations occur.",
+  "check_text": "Review the application documentation and interview the application administrator to identify where log records are stored.\n\nAccess log records then log on to the application as a regular user from one workstation. Take note of workstation IP address and confirm the address as the source workstation.\n\nHave the application administrator log on to the application from another workstation using the same account.\n\nValidate the IP address of the second workstation is recorded in the logs.\n\nIf the application does not create an audit record when concurrent logons occur from different workstations, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify where log records are stored.\nAccess log records then log on to the application as a regular user from one workstation. Take note of workstation IP address and confirm the address as the source workstation.\nHave the application administrator log on to the application from another workstation using the same account.\nValidate the IP address of the second workstation is recorded in the logs.\nIf the application does not create an audit record when concurrent logons occur from different workstations, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

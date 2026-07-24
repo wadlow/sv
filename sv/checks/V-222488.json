@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222488",
+  "severity": "medium",
+  "rule_id": "SV-222488r960924_rule",
+  "rule_ver": "APSC-DV-001140",
+  "rule_title": "The application must provide the capability to filter audit records for events of interest based upon organization-defined criteria.",
+  "check_text": "Review the system documentation and interview the application administrator for details regarding application architecture and logging configuration.\n\nIdentify the application components and the logs associated with the components as well as the locations of the logs.\n\nIf the application utilizes a centralized logging system that provides the capability to filter log events based upon the following events, this requirement is not applicable.\n\nReview the application log management utility.\n\nEnsure the application provides the ability to filter on audit events based upon the following minimum criteria:\n\nUsers: e.g., specific users or groups\nEvent types:\nEvent dates and time:\nSystem resources involved: e.g., application components or modules.\nIP addresses:\nInformation objects accessed:\nEvent level categories: e.g., high, critical, warning, error\nKey words: e.g., a specific search string\n\nAdditional details may be logged as needed or prescribed by operational requirements.\n\nIf the application does not provide the ability to filter audit events, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the system documentation and interview the application administrator for details regarding application architecture and logging configuration.\nIdentify the application components and the logs associated with the components as well as the locations of the logs.\nIf the application utilizes a centralized logging system that provides the capability to filter log events based upon the following events, this requirement is not applicable.\nReview the application log management utility.\nEnsure the application provides the ability to filter on audit events based upon the following minimum criteria:\nUsers: e.g., specific users or groups\nEvent types:\nEvent dates and time:\nSystem resources involved: e.g., application components or modules.\nIP addresses:\nInformation objects accessed:\nEvent level categories: e.g., high, critical, warning, error\nKey words: e.g., a specific search string\nAdditional details may be logged as needed or prescribed by operational requirements.\nIf the application does not provide the ability to filter audit events, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

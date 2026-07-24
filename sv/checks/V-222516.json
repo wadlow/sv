@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222516",
+  "severity": "medium",
+  "rule_id": "SV-222516r961473_rule",
+  "rule_ver": "APSC-DV-001480",
+  "rule_title": "The application must prevent program execution in accordance with organization-defined policies regarding software program usage and restrictions, and/or rules authorizing the terms and conditions of software program usage.",
+  "check_text": "Review the application documentation and interview the application administrator to determine if policies, rules, or restrictions exist regarding application usage or terms which authorize the conditions of application use.\n\nIf the policy, terms, or conditions state there are no usage restrictions, this requirement is not applicable.\n\nInterview the application administrator, review policy, terms, and conditions documents to determine what the terms and conditions of application usage are.\n\nHave the application administrator demonstrate how the program execution is restricted in accordance with the policy terms and conditions. Typical methods include but are not limited to the use of Windows Group Policy, AppLocker, Software Restriction Policies, Java Security Manager, and Role-Based Access Control (RBAC).\n\nIf application requirements or policy documents specify application execution restriction requirements and the execution of the application or its subcomponents are not restricted in accordance with requirements or policy, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to determine if policies, rules, or restrictions exist regarding application usage or terms which authorize the conditions of application use.\nIf the policy, terms, or conditions state there are no usage restrictions, this requirement is not applicable.\nInterview the application administrator, review policy, terms, and conditions documents to determine what the terms and conditions of application usage are.\nHave the application administrator demonstrate how the program execution is restricted in accordance with the policy terms and conditions. Typical methods include but are not limited to the use of Windows Group Policy, AppLocker, Software Restriction Policies, Java Security Manager, and Role-Based Access Control (RBAC).\nIf application requirements or policy documents specify application execution restriction requirements and the execution of the application or its subcomponents are not restricted in accordance with requirements or policy, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

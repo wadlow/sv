@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222656",
+  "severity": "medium",
+  "rule_id": "SV-222656r961863_rule",
+  "rule_ver": "APSC-DV-003235",
+  "rule_title": "The application must not be subject to error handling vulnerabilities.",
+  "check_text": "Review the application documentation, code review reports and the results from static code analysis tools.\n\nIdentify the most recent security scans and code analysis testing conducted.  Verify testing configuration includes tests for error handling issues.\n\nCheck test results for identified error handling vulnerabilities within the application.\n\nIf the test results indicate the existence of error handling vulnerabilities and no remediation evidence is presented, this is a finding.\n\nIf no test results are available for review, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation, code review reports and the results from static code analysis tools.\nIdentify the most recent security scans and code analysis testing conducted.  Verify testing configuration includes tests for error handling issues.\nCheck test results for identified error handling vulnerabilities within the application.\nIf the test results indicate the existence of error handling vulnerabilities and no remediation evidence is presented, this is a finding.\nIf no test results are available for review, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

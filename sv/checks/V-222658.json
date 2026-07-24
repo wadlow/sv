@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222658",
+  "severity": "high",
+  "rule_id": "SV-222658r961863_rule",
+  "rule_ver": "APSC-DV-003240",
+  "rule_title": "All products must be supported by the vendor or the development team.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify all software components.\n\nReview the version information and identify the vendor if COTS software.\n\nAccess the vendor website to verify the version is still supported.\n\nAsk the application representative for proof that the application and all of its components are supported.\n\nExamples of proof may include:\n\ndesign documentation that includes support information, support specific contract documentation, successful creation of vendor support tickets, website toll free support phone numbers etcetera.\n\nIf any of the software components are not supported by a COTS vendor or a GOTS organization, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify all software components.\nReview the version information and identify the vendor if COTS software.\nAccess the vendor website to verify the version is still supported.\nAsk the application representative for proof that the application and all of its components are supported.\nExamples of proof may include:\ndesign documentation that includes support information, support specific contract documentation, successful creation of vendor support tickets, website toll free support phone numbers etcetera.\nIf any of the software components are not supported by a COTS vendor or a GOTS organization, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

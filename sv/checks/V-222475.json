@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222475",
+  "severity": "medium",
+  "rule_id": "SV-222475r960900_rule",
+  "rule_ver": "APSC-DV-001000",
+  "rule_title": "When using centralized logging; the application must include a unique identifier in order to distinguish itself from other application logs.",
+  "check_text": "If the application is logging locally and does not utilize a centralized logging solution, this requirement is not applicable.\n\nReview system documentation and identify log location.  Access the application logs.\n\nReview the application logs.\n\nEnsure the application is uniquely identified either within the logs themselves or via log storage mechanisms.\n\nEnsure the hosts or client names hosting the application are also identified.  Either hostname or IP address is acceptable.\n\nIf the application name and the hosts or client names are not identified, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the application is logging locally and does not utilize a centralized logging solution, this requirement is not applicable.\nReview system documentation and identify log location.  Access the application logs.\nReview the application logs.\nEnsure the application is uniquely identified either within the logs themselves or via log storage mechanisms.\nEnsure the hosts or client names hosting the application are also identified.  Either hostname or IP address is acceptable.\nIf the application name and the hosts or client names are not identified, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214234",
+  "severity": "medium",
+  "rule_id": "SV-214234r960912_rule",
+  "rule_ver": "AS24-U1-000160",
+  "rule_title": "The Apache web server must use a logging mechanism that is configured to alert the Information System Security Officer (ISSO) and System Administrator (SA) in the event of a processing failure.",
+  "check_text": "Work with the SIEM administrator to determine if an alert is configured when audit data is no longer received as expected.\n\nIf there is no alert configured, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Work with the SIEM administrator to determine if an alert is configured when audit data is no longer received as expected.\nIf there is no alert configured, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222599",
+  "severity": "medium",
+  "rule_id": "SV-222599r961641_rule",
+  "rule_ver": "APSC-DV-002470",
+  "rule_title": "The application must maintain the confidentiality and integrity of information during reception.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify web servers and associated network connections.\n\nAccess the application with a web browser.\n\nVerify the web browser goes secure automatically by automatically redirecting the browser to a secure port running TLS encryption, or ensure the port used by the application uses TLS encryption by default.\n\nFor tiered applications, (web server, application server, database server) ensure the communication channels between the tiers is also encrypted.\n\nIf the application does not utilize TLS to protect the confidentiality and integrity of transmitted information, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify web servers and associated network connections.\nAccess the application with a web browser.\nVerify the web browser goes secure automatically by automatically redirecting the browser to a secure port running TLS encryption, or ensure the port used by the application uses TLS encryption by default.\nFor tiered applications, (web server, application server, database server) ensure the communication channels between the tiers is also encrypted.\nIf the application does not utilize TLS to protect the confidentiality and integrity of transmitted information, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

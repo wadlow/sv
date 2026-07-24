@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214289",
+  "severity": "medium",
+  "rule_id": "SV-214289r961122_rule",
+  "rule_ver": "AS24-U2-000540",
+  "rule_title": "The Apache web server must augment re-creation to a stable and known baseline.",
+  "check_text": "Interview the System Administrator for the Apache web server. \n \nAsk for documentation on the disaster recovery methods tested and planned for the Apache web server in the event of the necessity for rollback. \n \nIf documentation for a disaster recovery has not been established, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the System Administrator for the Apache web server.\nAsk for documentation on the disaster recovery methods tested and planned for the Apache web server in the event of the necessity for rollback.\nIf documentation for a disaster recovery has not been established, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

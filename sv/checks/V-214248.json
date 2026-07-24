@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214248",
+  "severity": "high",
+  "rule_id": "SV-214248r1138073_rule",
+  "rule_ver": "AS24-U1-000440",
+  "rule_title": "Apache web server application directories,  libraries, and configuration files must only be accessible to privileged users.",
+  "check_text": "Obtain a list of the user accounts for the system, noting the privileges for each account.\n\nVerify with the SA or the Information System Security Officer (ISSO) that all privileged accounts are mission essential and documented.\n\nVerify with the SA or the ISSO that all non-administrator access to shell scripts and operating system functions are mission essential and documented.\n\nIf undocumented privileged accounts are present, this is a finding.\n\nIf undocumented access to shell scripts or operating system functions is present, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Obtain a list of the user accounts for the system, noting the privileges for each account.\nVerify with the SA or the Information System Security Officer (ISSO) that all privileged accounts are mission essential and documented.\nVerify with the SA or the ISSO that all non-administrator access to shell scripts and operating system functions are mission essential and documented.\nIf undocumented privileged accounts are present, this is a finding.\nIf undocumented access to shell scripts or operating system functions is present, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

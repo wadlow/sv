@@ -1,0 +1,19 @@
+{
+  "v_code": "V-261921",
+  "severity": "medium",
+  "rule_id": "SV-261921r1000994_rule",
+  "rule_ver": "CD16-00-007500",
+  "rule_title": "PostgreSQL must record time stamps in audit records and application data that can be mapped to Coordinated Universal Time (UTC), formerly Greenwich Mean Time (GMT).",
+  "check_text": "When a PostgreSQL cluster is initialized using initdb, the PostgreSQL cluster will be configured to use the same time zone as the target server.\n\nAs the database administrator (shown here as \"postgres\"), check the current log_timezone setting by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_timezone\"\n\nlog_timezone\n--------------\nUTC\n(1 row)\n\nIf log_timezone is not set to the desired time zone, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "When a PostgreSQL cluster is initialized using initdb, the PostgreSQL cluster will be configured to use the same time zone as the target server.\nAs the database administrator (shown here as \"postgres\"), check the current log_timezone setting by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_timezone\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

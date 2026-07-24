@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222633",
+  "severity": "medium",
+  "rule_id": "SV-222633r961863_rule",
+  "rule_ver": "APSC-DV-003020",
+  "rule_title": "A Configuration Control Board (CCB) that meets at least every release cycle, for managing the Configuration Management (CM) process must be established.",
+  "check_text": "Interview the application representative and determine if application development is performed on site by the organization.\n\nIf application development is not done in house, the requirement is not applicable.\n\nIf so, determine if a CCB exists. Ask about the membership of the CCB, and identify the primary members. Ask if there is CCB charter documentation.\n\nInterview the application representative and determine how often the CCB meets.\n\nAsk if there is CCB charter documentation. The CCB charter documentation should indicate how often the CCB meets.\n\nIf there is no charter documentation, ask when the last time the CCB met and when was the last release of the application.\n\nCCBs do not have to physically meet, and the CCB chair may authorize a release based on phone and/or e-mail conversations.\n\nIf there is no evidence of CCB activity or meetings prior to the last release cycle, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the application representative and determine if application development is performed on site by the organization.\nIf application development is not done in house, the requirement is not applicable.\nIf so, determine if a CCB exists. Ask about the membership of the CCB, and identify the primary members. Ask if there is CCB charter documentation.\nInterview the application representative and determine how often the CCB meets.\nAsk if there is CCB charter documentation. The CCB charter documentation should indicate how often the CCB meets.\nIf there is no charter documentation, ask when the last time the CCB met and when was the last release of the application.\nCCBs do not have to physically meet, and the CCB chair may authorize a release based on phone and/or e-mail conversations.\nIf there is no evidence of CCB activity or meetings prior to the last release cycle, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

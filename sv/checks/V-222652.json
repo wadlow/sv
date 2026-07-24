@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222652",
+  "severity": "medium",
+  "rule_id": "SV-222652r961863_rule",
+  "rule_ver": "APSC-DV-003210",
+  "rule_title": "Security flaws must be fixed or addressed in the project plan.",
+  "check_text": "This requirement is meant to apply to developers or organizations that are doing application development work. If the organization managing the application is not performing or managing the development of the application the requirement is not applicable.\n\nAsk the application representative to demonstrate how security flaws are integrated into the project plan.\n\nIf security flaws are not addressed in the project plan or there is no process to introduce security flaws into the project plan, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "This requirement is meant to apply to developers or organizations that are doing application development work. If the organization managing the application is not performing or managing the development of the application the requirement is not applicable.\nAsk the application representative to demonstrate how security flaws are integrated into the project plan.\nIf security flaws are not addressed in the project plan or there is no process to introduce security flaws into the project plan, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222541",
+  "severity": "medium",
+  "rule_id": "SV-222541r1043189_rule",
+  "rule_ver": "APSC-DV-001730",
+  "rule_title": "The application must require the change of at least eight of the total number of characters when passwords are changed.",
+  "check_text": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\n\nIf the application does not use passwords, this requirement is Not Applicable.\n\nAccess the application management interface and create a test user account or logon to the system with a test account and access the functionality that provides password change capabilities.\n\nWhen prompted to provide the password, attempt to change less than 8 characters of the total number of characters in the password.\n\nIf less than 8 characters of the password are changed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify if the application uses passwords for user authentication.\nIf the application does not use passwords, this requirement is Not Applicable.\nAccess the application management interface and create a test user account or logon to the system with a test account and access the functionality that provides password change capabilities.\nWhen prompted to provide the password, attempt to change less than 8 characters of the total number of characters in the password.\nIf less than 8 characters of the password are changed, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

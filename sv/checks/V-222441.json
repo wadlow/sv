@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222441",
+  "severity": "medium",
+  "rule_id": "SV-222441r960879_rule",
+  "rule_ver": "APSC-DV-000620",
+  "rule_title": "The application must provide audit record generation capability for the creation of session IDs.",
+  "check_text": "Access the management interface for the application or configuration file and evaluate the log/audit management settings.\n\nDetermine if the setting that enables session ID creation event auditing is activated.\n\nCreate a new user session by logging in to the application.\n\nReview the logs to ensure the session creation event was recorded.\n\nIf the application is not configured to log session ID creation events, or if no creation event was recorded, this is a finding.\n\nIf a web-based application delegates session ID creation to an application server, this is not a finding. \n\nIf the application generates session ID creation event logs by default, and that behavior cannot be disabled, this is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Access the management interface for the application or configuration file and evaluate the log/audit management settings.\nDetermine if the setting that enables session ID creation event auditing is activated.\nCreate a new user session by logging in to the application.\nReview the logs to ensure the session creation event was recorded.\nIf the application is not configured to log session ID creation events, or if no creation event was recorded, this is a finding.\nIf a web-based application delegates session ID creation to an application server, this is not a finding.\nIf the application generates session ID creation event logs by default, and that behavior cannot be disabled, this is not a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

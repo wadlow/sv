@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222443",
+  "severity": "medium",
+  "rule_id": "SV-222443r960879_rule",
+  "rule_ver": "APSC-DV-000640",
+  "rule_title": "The application must provide audit record generation capability for the renewal of session IDs.",
+  "check_text": "Interview the system admin and review the application documentation.\n\nIdentify any web pages or application functionality where a user's privileges or permissions will change. This is most likely to occur during the authentication stages.\n\nEvaluate the log/audit output by opening the log files and observing changes to the logs.\n\nCreate a new user session by accessing the application.\n\nReview the logs and save the relevant session creation event recorded.\n\nUtilize the application pages that provide privilege escalation.\n\nEscalate privileges by authenticating as a privileged user.\n\nReview the logs and determine if new session information is created and being used.\n\nIf a web-based application delegates session ID renewals to an application server, this is not a finding. \n\nIf the application is not configured to log session ID renewal events this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the system admin and review the application documentation.\nIdentify any web pages or application functionality where a user's privileges or permissions will change. This is most likely to occur during the authentication stages.\nEvaluate the log/audit output by opening the log files and observing changes to the logs.\nCreate a new user session by accessing the application.\nReview the logs and save the relevant session creation event recorded.\nUtilize the application pages that provide privilege escalation.\nEscalate privileges by authenticating as a privileged user.\nReview the logs and determine if new session information is created and being used.\nIf a web-based application delegates session ID renewals to an application server, this is not a finding.\nIf the application is not configured to log session ID renewal events this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

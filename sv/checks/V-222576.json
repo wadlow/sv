@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222576",
+  "severity": "medium",
+  "rule_id": "SV-222576r1043178_rule",
+  "rule_ver": "APSC-DV-002220",
+  "rule_title": "The application must set the secure flag on session cookies.",
+  "check_text": "Review the application documentation and interview the application administrator to identify when session cookies are created.\n\nIf vulnerability scan results are available, reference the most recent vulnerability scan results.\n\nVerify that the scan configuration includes checks for the secure flag on session cookies.  If scan configuration settings are not available, follow the manual procedure provided below.\n\nReview the scan results and determine if the secure flag not being set was identified as a vulnerability.\n\nTo manually perform the check, open a web browser, logon to the web application and use the web browser to view the new session cookie.  \n\nThe procedures used for viewing and clearing browser cookies will vary based upon the web browser used.  Providing steps for every browser is outside the scope of the STIG.  There are numerous sites that document how to view cookies using various web browsers.\n\nFor IE11:\nAlt-X >> Internet options >> General >> Settings >> View Files\n\nA windows explorer box will open that contains the contents of the Temporary Internet Files.  Browse the folder and locate the application session cookie(s).  View the contents of the cookie(s).\n\nIf the \"secure\" flag is not set on the session cookie, or if the vulnerability scan results indicate the application does not set the secure flag on cookies, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator to identify when session cookies are created.\nIf vulnerability scan results are available, reference the most recent vulnerability scan results.\nVerify that the scan configuration includes checks for the secure flag on session cookies.  If scan configuration settings are not available, follow the manual procedure provided below.\nReview the scan results and determine if the secure flag not being set was identified as a vulnerability.\nTo manually perform the check, open a web browser, logon to the web application and use the web browser to view the new session cookie.\nThe procedures used for viewing and clearing browser cookies will vary based upon the web browser used.  Providing steps for every browser is outside the scope of the STIG.  There are numerous sites that document how to view cookies using various web browsers.\nFor IE11:\nAlt-X >> Internet options >> General >> Settings >> View Files\nA windows explorer box will open that contains the contents of the Temporary Internet Files.  Browse the folder and locate the application session cookie(s).  View the contents of the cookie(s).\nIf the \"secure\" flag is not set on the session cookie, or if the vulnerability scan results indicate the application does not set the secure flag on cookies, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}

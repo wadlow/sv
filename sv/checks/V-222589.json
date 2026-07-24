@@ -1,0 +1,16 @@
+{
+  "v_code": "V-222589",
+  "severity": "high",
+  "rule_id": "SV-222589r1067813_rule",
+  "rule_ver": "APSC-DV-002350",
+  "rule_title": "The application must use appropriate cryptography in order to protect stored DOD information when required by the information owner or DOD policy.",
+  "check_text": "Review the application documentation and interview the application administrator.\n\nIdentify the data processed by the application and the accompanying data protection requirements.\n\nDetermine if the application is processing publicly releasable, SBU, CUI, or classified data.\n\nIf the data is strictly publicly releasable information with no SBU, CUI, or classified and system documentation specifies no data encryption is required for any hosted application data, this requirement is not applicable.\n\nHave the application administrator identify the encryption protections that are utilized.\n\nValidate the application is using encryption protections that are commensurate with the data being protected.\n\nIf the application is processing classified data, type 1, suite B cryptography, or hardware-based encryption solutions; meeting NSA encryption requirements for classified data processing and storage is required.\n\nIf the application processes classified data or if the data owner has specified encryption requirements and the application administrator is unable to demonstrate the type of encryption used or if the application processes classified and does not use type 1, suite B, or NSA-approved hardware-based encryption, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation and interview the application administrator.\nIdentify the data processed by the application and the accompanying data protection requirements.\nDetermine if the application is processing publicly releasable, SBU, CUI, or classified data.\nIf the data is strictly publicly releasable information with no SBU, CUI, or classified and system documentation specifies no data encryption is required for any hosted application data, this requirement is not applicable.\nHave the application administrator identify the encryption protections that are utilized.\nValidate the application is using encryption protections that are commensurate with the data being protected.\nIf the application is processing classified data, type 1, suite B cryptography, or hardware-based encryption solutions; meeting NSA encryption requirements for classified data processing and storage is required.\nIf the application processes classified data or if the data owner has specified encryption requirements and the application administrator is unable to demonstrate the type of encryption used or if the application processes classified and does not use type 1, suite B, or NSA-approved hardware-based encryption, this is a finding.",
+      "commands": [],
+      "finding_condition": null
+    }
+  ]
+}
