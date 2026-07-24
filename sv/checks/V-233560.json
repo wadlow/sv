@@ -1,0 +1,37 @@
+{
+  "v_code": "V-233560",
+  "severity": "medium",
+  "rule_id": "SV-233560r960885_rule",
+  "rule_ver": "CD12-00-005300",
+  "rule_title": "PostgreSQL must generate audit records when unsuccessful attempts to retrieve privileges/permissions occur.",
+  "check_text": "Note: The following instructions use the PGLOG environment variables. See supplementary content APPENDIX-I for instructions on configuring PGLOG.\n\nFirst, as the database administrator (shown here as \"postgres\"), create a role \"bob\" by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"CREATE ROLE bob\"\n\nNext, attempt to retrieve information from the pg_authid table:\n\n$ psql -c \"SET ROLE bob; SELECT * FROM pg_authid\"\n$ psql -c \"DROP ROLE bob;\"\n\nNow, as the database administrator (shown here as \"postgres\"), verify the event was logged in pg_log:\n\n$ sudo su - postgres\n$ cat ${PGLOG?}/<latest_log>\n< 2016-07-13 16:49:58.864 EDT postgres postgres ERROR: > permission denied for relation pg_authid\n< 2016-07-13 16:49:58.864 EDT postgres postgres STATEMENT: > SELECT * FROM pg_authid;\n\nIf the above steps cannot verify that audit records are produced when PostgreSQL denies retrieval of privileges/permissions/role memberships, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGLOG environment variables. See supplementary content APPENDIX-I for instructions on configuring PGLOG.\nFirst, as the database administrator (shown here as \"postgres\"), create a role \"bob\" by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"CREATE ROLE bob\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, attempt to retrieve information from the pg_authid table:",
+      "commands": [
+        "psql -c \"SET ROLE bob; SELECT * FROM pg_authid\"",
+        "psql -c \"DROP ROLE bob;\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Now, as the database administrator (shown here as \"postgres\"), verify the event was logged in pg_log:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGLOG?}/<latest_log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233586",
+  "severity": "high",
+  "rule_id": "SV-233586r961128_rule",
+  "rule_ver": "CD12-00-008300",
+  "rule_title": "PostgreSQL must protect the confidentiality and integrity of all information at rest.",
+  "check_text": "If the application owner and Authorizing Official have determined that encryption of data at rest is NOT required, this is not a finding.\n\nOne possible way to encrypt data within PostgreSQL is to use the pgcrypto extension.\n\nTo check if pgcrypto is installed on PostgreSQL, as a database administrator (shown here as \"postgres\"), run the following command:\n\n$ sudo su - postgres\n$ psql -c \"SELECT * FROM pg_available_extensions where name='pgcrypto'\"\n\nIf data in the database requires encryption and pgcrypto is not available, this is a finding.\n\nIf disk or filesystem requires encryption, ask the system owner, database administrator (DBA), and system administrator (SA) to demonstrate the use of disk-level encryption. If this is required and is not found, this is a finding.\n\nIf controls do not exist or are not enabled, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the application owner and Authorizing Official have determined that encryption of data at rest is NOT required, this is not a finding.\nOne possible way to encrypt data within PostgreSQL is to use the pgcrypto extension.\nTo check if pgcrypto is installed on PostgreSQL, as a database administrator (shown here as \"postgres\"), run the following command:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SELECT * FROM pg_available_extensions where name='pgcrypto'\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

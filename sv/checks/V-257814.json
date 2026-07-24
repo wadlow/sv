@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257814",
+  "severity": "medium",
+  "rule_id": "SV-257814r1156057_rule",
+  "rule_ver": "RHEL-09-213095",
+  "rule_title": "RHEL 9 must disable core dumps for all users.",
+  "check_text": "Note: If kernel dumps are disabled in accordance with RHEL-09-213040, this requirement is not applicable.\n\nVerify RHEL 9 disables core dumps for all users by issuing the following command:\n\n$ grep -rs core /etc/security/limits.conf /etc/security/limits.d/*.conf\n\n/etc/security/limits.conf:* hard core 0\n\nThis can be set as a global domain (with the * wildcard) but may be set differently for multiple domains.\n\nIf the \"core\" item is missing or commented out, or the value is anything other than \"0\", and the need for core dumps is not documented with the information system security officer (ISSO) as an operational requirement for all domains that have the \"core\" item assigned, this is a finding.\n\nIf entries exist for users or groups with a value set to anything other than \"0\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If kernel dumps are disabled in accordance with RHEL-09-213040, this requirement is not applicable.\nVerify RHEL 9 disables core dumps for all users by issuing the following command:",
+      "commands": [
+        "grep -rs core /etc/security/limits.conf /etc/security/limits.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

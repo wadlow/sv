@@ -45,6 +45,10 @@ def main():
     """Launch the application."""
     # Set up signal handler for Ctrl-C
     signal.signal(signal.SIGINT, signal_handler)
+
+    # In interactive mode, suppress app debug prints on stdout so the CLI stays readable
+    if os.environ.get('SV_INTERACTIVE') == '1' and os.environ.get('SV_DEBUG_MODE') != '1':
+        sys.stdout = open(os.devnull, 'w')
     
     try:
         # Set the application name to "STIG Viewer" instead of "Python"

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257831",
+  "severity": "medium",
+  "rule_id": "SV-257831r1044898_rule",
+  "rule_ver": "RHEL-09-215040",
+  "rule_title": "RHEL 9 must not have the telnet-server package installed.",
+  "check_text": "Verify that the telnet-server package is not installed with the following command:\n\n$ dnf list --installed telnet-server\n\nError: No matching Packages to list\n\nIf the \"telnet-server\" package is installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the telnet-server package is not installed with the following command:",
+      "commands": [
+        "dnf list --installed telnet-server"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

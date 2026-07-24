@@ -1,0 +1,26 @@
+{
+  "v_code": "V-222444",
+  "severity": "medium",
+  "rule_id": "SV-222444r960879_rule",
+  "rule_ver": "APSC-DV-000650",
+  "rule_title": "The application must not write sensitive data into the application logs.",
+  "check_text": "Review the application logs and identify application logging format. Using the format of the log and the requisite search data as a guide to create your search, create search strings that could successfully identify the existence of passwords, session IDs, or other sensitive information such as SSN.\n\nUtilizing the UNIX grep-based search utility include the following examples which are meant to illustrate the purpose of the requirement.\n\nPassword values are usually associated with usernames so searching for \"username\" in the provided log file will often assist in determining if password values are included.\n\ngrep -i \"username\" <  logfile.txt\n\nSearch for social security numbers in the provided log file.\n\ngrep -i \"[0-9]{3}[-]?[0-9]{2}[-]?[0-9]{4}\" <  logfile.txt\n\nUse regular expressions to aid in searching log files. All search syntax cannot be provided within the STIG, the reviewer must utilize their knowledge to create new search criteria based upon the log format used and the potentially sensitive data processed by the application.\n\nIf the application logs sensitive data such as session IDs, application source code, encryption keys, or passwords, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application logs and identify application logging format. Using the format of the log and the requisite search data as a guide to create your search, create search strings that could successfully identify the existence of passwords, session IDs, or other sensitive information such as SSN.\nUtilizing the UNIX grep-based search utility include the following examples which are meant to illustrate the purpose of the requirement.\nPassword values are usually associated with usernames so searching for \"username\" in the provided log file will often assist in determining if password values are included.",
+      "commands": [
+        "grep -i \"username\" <  logfile.txt"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Search for social security numbers in the provided log file.",
+      "commands": [
+        "grep -i \"[0-9]{3}[-]?[0-9]{2}[-]?[0-9]{4}\" <  logfile.txt"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

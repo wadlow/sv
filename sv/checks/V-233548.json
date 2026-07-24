@@ -1,0 +1,18 @@
+{
+  "v_code": "V-233548",
+  "severity": "medium",
+  "rule_id": "SV-233548r961470_rule",
+  "rule_ver": "CD12-00-004150",
+  "rule_title": "PostgreSQL must disable network functions, ports, protocols, and services deemed by the organization to be nonsecure, in accord with the Ports, Protocols, and Services Management (PPSM) guidance.",
+  "check_text": "As the database administrator, run the following SQL:\n\n$ psql -c \"SHOW port\"\n\nIf the currently defined port configuration is deemed prohibited, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator, run the following SQL:",
+      "commands": [
+        "psql -c \"SHOW port\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

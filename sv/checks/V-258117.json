@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258117",
+  "severity": "medium",
+  "rule_id": "SV-258117r1015116_rule",
+  "rule_ver": "RHEL-09-611140",
+  "rule_title": "RHEL 9 must be configured to use the shadow file to store only encrypted representations of passwords.",
+  "check_text": "Verify the system's shadow file is configured to store only encrypted representations of passwords with a hash value of SHA512 with the following command:\n\n# grep -i encrypt_method /etc/login.defs\n\nENCRYPT_METHOD SHA512\n\nIf \"ENCRYPT_METHOD\" does not have a value of \"SHA512\", or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the system's shadow file is configured to store only encrypted representations of passwords with a hash value of SHA512 with the following command:",
+      "commands": [
+        "grep -i encrypt_method /etc/login.defs"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

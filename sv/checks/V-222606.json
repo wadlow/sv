@@ -1,0 +1,18 @@
+{
+  "v_code": "V-222606",
+  "severity": "medium",
+  "rule_id": "SV-222606r961158_rule",
+  "rule_ver": "APSC-DV-002530",
+  "rule_title": "The application must validate all input.",
+  "check_text": "Review the application documentation, the code review reports and the vulnerability assessment scan results from automated vulnerability assessment tools.\n\nVerify scan configuration settings include input validation and fuzzing tests.\n\nTest data entry fields on all pages/screens of the application.\n\nProcedures on testing input are relevant to the architecture of the application.\n\nA reference on input validation testing is included at the OWASP website. The site includes testing procedures for input validation that affect many different technologies.\n\nIdentify the relevant testing procedures based upon the application architecture and components being tested.\n\nhttps://www.owasp.org/index.php/Testing_for_Input_Validation\n\nIf test results include input validation errors, or if no test results exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the application documentation, the code review reports and the vulnerability assessment scan results from automated vulnerability assessment tools.\nVerify scan configuration settings include input validation and fuzzing tests.",
+      "commands": [
+        "Test data entry fields on all pages/screens of the application."
+      ],
+      "finding_condition": null
+    }
+  ]
+}

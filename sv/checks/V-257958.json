@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257958",
+  "severity": "medium",
+  "rule_id": "SV-257958r1155721_rule",
+  "rule_ver": "RHEL-09-253015",
+  "rule_title": "RHEL 9 must ignore Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages.",
+  "check_text": "Verify RHEL 9 will not accept IPv4 ICMP redirect messages.\n\nCheck the value of all \"net.ipv4.conf.all.accept_redirects\" variables with the following command:\n\n$ sudo sysctl net.ipv4.conf.all.accept_redirects\nnet.ipv4.conf.all.accept_redirects = 0\n\nIf \"net.ipv4.conf.all.accept_redirects\" is not set to \"0\" or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 will not accept IPv4 ICMP redirect messages.\nCheck the value of all \"net.ipv4.conf.all.accept_redirects\" variables with the following command:",
+      "commands": [
+        "sudo sysctl net.ipv4.conf.all.accept_redirects"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

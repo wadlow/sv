@@ -1,0 +1,26 @@
+{
+  "v_code": "V-257787",
+  "severity": "medium",
+  "rule_id": "SV-257787r1184288_rule",
+  "rule_ver": "RHEL-09-212010",
+  "rule_title": "RHEL 9 must require a boot loader superuser password.",
+  "check_text": "Note: For systems that use UEFI, this is not applicable.\n\nVerify the boot loader superuser password has been set with the following command:\n\n$ sudo grep password_pbkdf2 /etc/grub2.cfg \n\npassword_pbkdf2  <superusers-accountname>   ${GRUB2_PASSWORD}  \n\nTo verify the boot loader superuser account password has been set and the password encrypted, run the following command:\n\n$ sudo cat /boot/grub2/user.cfg \n\nGRUB2_PASSWORD=grub.pbkdf2.sha512.10000.C4E08AC72FBFF7E837FD267BFAD7AEB3D42DDC\n2C99F2A94DD5E2E75C2DC331B719FE55D9411745F82D1B6CFD9E927D61925F9BBDD1CFAA0080E0\n916F7AB46E0D.1302284FCCC52CD73BA3671C6C12C26FF50BA873293B24EE2A96EE3B57963E6D7\n0C83964B473EC8F93B07FE749AA6710269E904A9B08A6BBACB00A2D242AD828 \n\nIf a \"GRUB2_PASSWORD\" is not set, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: For systems that use UEFI, this is not applicable.\nVerify the boot loader superuser password has been set with the following command:",
+      "commands": [
+        "sudo grep password_pbkdf2 /etc/grub2.cfg"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "password_pbkdf2  <superusers-accountname>   ${GRUB2_PASSWORD}\nTo verify the boot loader superuser account password has been set and the password encrypted, run the following command:",
+      "commands": [
+        "sudo cat /boot/grub2/user.cfg"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

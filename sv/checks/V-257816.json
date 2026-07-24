@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257816",
+  "severity": "medium",
+  "rule_id": "SV-257816r1155715_rule",
+  "rule_ver": "RHEL-09-213105",
+  "rule_title": "RHEL 9 must disable the use of user namespaces.",
+  "check_text": "Verify RHEL 9 disables the use of user namespaces.\n\nCheck the status of the \"user.max_user_namespaces\" parameter with the following command:\n\n$ sudo sysctl user.max_user_namespaces\n\nuser.max_user_namespaces = 0\n\nIf \"user.max_user_namespaces\" is not set to \"0\" or is missing, this is a finding.\n\nIf the use of namespaces is operationally required and documented with the information system security manager (ISSM), it is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 disables the use of user namespaces.\nCheck the status of the \"user.max_user_namespaces\" parameter with the following command:",
+      "commands": [
+        "sudo sysctl user.max_user_namespaces"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

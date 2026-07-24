@@ -1,0 +1,42 @@
+{
+  "v_code": "V-214287",
+  "severity": "medium",
+  "rule_id": "SV-214287r961041_rule",
+  "rule_ver": "AS24-U2-000390",
+  "rule_title": "Only authenticated system administrators or the designated PKI Sponsor for the Apache web server must have access to the Apache web servers private key.",
+  "check_text": "Verify the \"ssl module\" module is loaded\n# httpd -M | grep -i ssl_module\nOutput:  ssl_module (shared) \n\nIf the \"ssl_module\" is not enabled, this is a finding. \n\nDetermine the location of the ssl.conf file:\n# find / -name ssl.conf\nOutput: /etc/httpd/conf.d/ssl.conf\n\nSearch the ssl.conf file for the SSLCertificateKeyFile location.\n# cat <path to file>/ssl.conf | grep -i SSLCertificateKeyFile\nOutput: SSLCertificateKeyFile /etc/pki/tls/private/localhost.key\n\nIdentify the correct permission set and owner/group of the certificate key file.\n# ls -laH /etc/pki/tls/private/localhost.key\nOutput: -rw-------. 1 root root 1675 Sep 10  2020 /etc/pki/tls/private/localhost.key\n\nThe permission set must be 600 or more restrictive and the owner/group of the key file must be accessible to only authenticated system administrator and the designated PKI Sponsor.\n\nIf the correct permissions are not set or if the private key is accessible by unauthenticated or unauthorized users, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the \"ssl module\" module is loaded",
+      "commands": [
+        "httpd -M | grep -i ssl_module"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Determine the location of the ssl.conf file:",
+      "commands": [
+        "find / -name ssl.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Output: /etc/httpd/conf.d/ssl.conf\nSearch the ssl.conf file for the SSLCertificateKeyFile location.",
+      "commands": [
+        "cat <path to file>/ssl.conf | grep -i SSLCertificateKeyFile"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Output: SSLCertificateKeyFile /etc/pki/tls/private/localhost.key\nIdentify the correct permission set and owner/group of the certificate key file.",
+      "commands": [
+        "ls -laH /etc/pki/tls/private/localhost.key"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

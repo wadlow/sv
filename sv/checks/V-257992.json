@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257992",
+  "severity": "medium",
+  "rule_id": "SV-257992r1045047_rule",
+  "rule_ver": "RHEL-09-255080",
+  "rule_title": "RHEL 9 must not allow a noncertificate trusted host SSH logon to the system.",
+  "check_text": "Verify the operating system does not allow a noncertificate trusted host SSH logon to the system with the following command:\n\n$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*hostbasedauthentication'\n\nHostbasedAuthentication no\n\nIf the \"HostbasedAuthentication\" keyword is not set to \"no\", is missing, or is commented out, this is a finding.\n\nIf the required value is not set, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the operating system does not allow a noncertificate trusted host SSH logon to the system with the following command:",
+      "commands": [
+        "sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*hostbasedauthentication'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

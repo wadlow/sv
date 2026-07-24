@@ -1,0 +1,35 @@
+{
+  "v_code": "V-233573",
+  "severity": "medium",
+  "rule_id": "SV-233573r961803_rule",
+  "rule_ver": "CD12-00-006600",
+  "rule_title": "PostgreSQL must generate audit records when security objects are modified.",
+  "check_text": "First, as the database administrator, verify pgaudit is enabled by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW shared_preload_libraries\"\n\nIf the results does not contain pgaudit, this is a finding.\n\nNext, verify that role, read, write, and ddl auditing are enabled:\n\n$ psql -c \"SHOW pgaudit.log\"\n\nIf the output does not contain role, read, write, and ddl, this is a finding.\n\nNext, verify that accessing the catalog is audited by running the following SQL:\n\n$ psql -c \"SHOW pgaudit.log_catalog\"\n\nIf log_catalog is not on, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "First, as the database administrator, verify pgaudit is enabled by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW shared_preload_libraries\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, verify that role, read, write, and ddl auditing are enabled:",
+      "commands": [
+        "psql -c \"SHOW pgaudit.log\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, verify that accessing the catalog is audited by running the following SQL:",
+      "commands": [
+        "psql -c \"SHOW pgaudit.log_catalog\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

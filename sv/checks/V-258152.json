@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258152",
+  "severity": "medium",
+  "rule_id": "SV-258152r1015127_rule",
+  "rule_ver": "RHEL-09-653015",
+  "rule_title": "RHEL 9 audit service must be enabled.",
+  "check_text": "Verify the audit service is configured to produce audit records with the following command:\n\n$ systemctl status auditd.service\n\nauditd.service - Security Auditing Service\nLoaded:loaded (/usr/lib/systemd/system/auditd.service; enabled; vendor preset: enabled)\nActive: active (running) since Tues 2022-05-24 12:56:56 EST; 4 weeks 0 days ago\n\nIf the audit service is not \"active\" and \"running\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the audit service is configured to produce audit records with the following command:",
+      "commands": [
+        "systemctl status auditd.service"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

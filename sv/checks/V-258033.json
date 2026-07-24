@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258033",
+  "severity": "medium",
+  "rule_id": "SV-258033r1045120_rule",
+  "rule_ver": "RHEL-09-271115",
+  "rule_title": "RHEL 9 must disable the user list at logon for graphical user interfaces.",
+  "check_text": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\n\nVerify that RHEL 9 disables the user logon list for graphical user interfaces with the following command:\n\n$ gsettings get org.gnome.login-screen disable-user-list\n\ntrue\n\nIf the setting is \"false\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\nVerify that RHEL 9 disables the user logon list for graphical user interfaces with the following command:",
+      "commands": [
+        "gsettings get org.gnome.login-screen disable-user-list"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

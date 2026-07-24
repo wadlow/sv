@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233551",
+  "severity": "medium",
+  "rule_id": "SV-233551r961797_rule",
+  "rule_ver": "CD12-00-004400",
+  "rule_title": "PostgreSQL must generate audit records when categorized information (e.g., classification levels/security levels) is accessed.",
+  "check_text": "As the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW pgaudit.log\"\n\nIf pgaudit.log does not contain, \"ddl, write, role\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW pgaudit.log\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

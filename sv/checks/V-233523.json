@@ -1,0 +1,27 @@
+{
+  "v_code": "V-233523",
+  "severity": "medium",
+  "rule_id": "SV-233523r960960_rule",
+  "rule_ver": "CD12-00-001300",
+  "rule_title": "The role(s)/group(s) used to modify database structure (including but not necessarily limited to tables, indexes, storage, etc.) and logic modules (functions, trigger procedures, links to software external to PostgreSQL, etc.) must be restricted to authorized users.",
+  "check_text": "Note: The following instructions use the PGDATA environment variable. See supplementary content APPENDIX-F for instructions on configuring PGDATA.\n\nAs the database administrator (shown here as \"postgres\"), list all users and their permissions by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"\\dp *.*\"\n\nVerify that all objects have the correct privileges. If they do not, this is a finding.\n\nNext, as the database administrator (shown here as \"postgres\"), verify the permissions of the database directory on the filesystem:\n\n$ ls -la ${PGDATA?}\n\nIf permissions of the database directory are not limited to an authorized user account, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA environment variable. See supplementary content APPENDIX-F for instructions on configuring PGDATA.\nAs the database administrator (shown here as \"postgres\"), list all users and their permissions by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\dp *.*\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, as the database administrator (shown here as \"postgres\"), verify the permissions of the database directory on the filesystem:",
+      "commands": [
+        "ls -la ${PGDATA?}"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

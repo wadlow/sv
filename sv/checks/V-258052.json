@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258052",
+  "severity": "medium",
+  "rule_id": "SV-258052r1184315_rule",
+  "rule_ver": "RHEL-09-411065",
+  "rule_title": "All RHEL 9 local interactive user home directories defined in the /etc/passwd file must exist.",
+  "check_text": "Verify the assigned home directories of all interactive users on the system exist with the following command:\n\n$ sudo pwck -r \n\nThe output should not return any interactive (human) users.\n\nAsk the system administrator (SA) if any users found without home directories are local interactive users. \nIf the SA is unable to provide a response, check for users with a user identifier (UID) of 1000 or greater with the following command:\n\n$ awk -F: '($3>=1000)&&($1!=\"nobody\"){print $1 \":\" $3}' /etc/passwd\n\nIf any interactive users do not have a home directory assigned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the assigned home directories of all interactive users on the system exist with the following command:",
+      "commands": [
+        "sudo pwck -r"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "The output should not return any interactive (human) users.\nAsk the system administrator (SA) if any users found without home directories are local interactive users.\nIf the SA is unable to provide a response, check for users with a user identifier (UID) of 1000 or greater with the following command:",
+      "commands": [
+        "awk -F: '($3>=1000)&&($1!=\"nobody\"){print $1 \":\" $3}' /etc/passwd"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

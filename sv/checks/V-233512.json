@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233512",
+  "severity": "medium",
+  "rule_id": "SV-233512r960903_rule",
+  "rule_ver": "CD12-00-000200",
+  "rule_title": "PostgreSQL must produce audit records containing sufficient information to establish the outcome (success or failure) of the events.",
+  "check_text": "Note: The following instructions use the PGLOG environment variables. See supplementary content APPENDIX-I for instructions on configuring them.\n\nAs a database administrator (shown here as \"postgres\"), create a table, insert a value, alter the table and update the table by running the following SQL:\n\nCREATE TABLE stig_test(id INT);\nINSERT INTO stig_test(id) VALUES (0);\nALTER TABLE stig_test ADD COLUMN name text;\nUPDATE stig_test SET id = 1 WHERE id = 0;\n\nNext, as a user without access to the stig_test table, run the following SQL:\n\nINSERT INTO stig_test(id) VALUES (1);\nALTER TABLE stig_test DROP COLUMN name;\nUPDATE stig_test SET id = 0 WHERE id = 1;\n\nThe prior SQL should generate errors:\n\nERROR: permission denied for relation stig_test\nERROR: must be owner of relation stig_test\nERROR: permission denied for relation stig_test\n\nNow, as the database administrator, drop the test table by running the following SQL:\n\nDROP TABLE stig_test;\n\nNow verify the errors were logged:\n\n$ sudo su - postgres\n$ cat ${PGLOG?}/<latest_logfile>\n< 2016-02-23 14:51:31.103 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >LOG: AUDIT: SESSION,1,1,DDL,CREATE TABLE,,,CREATE TABLE stig_test(id INT);,<none>\n< 2016-02-23 14:51:44.835 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >LOG: AUDIT: SESSION,2,1,WRITE,INSERT,,,INSERT INTO stig_test(id) VALUES (0);,<none>\n< 2016-02-23 14:53:25.805 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >LOG: AUDIT: SESSION,3,1,DDL,ALTER TABLE,,,ALTER TABLE stig_test ADD COLUMN name text;,<none>\n< 2016-02-23 14:53:54.381 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >LOG: AUDIT: SESSION,4,1,WRITE,UPDATE,,,UPDATE stig_test SET id = 1 WHERE id = 0;,<none>\n< 2016-02-23 14:54:20.832 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >ERROR: permission denied for relation stig_test\n< 2016-02-23 14:54:20.832 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >STATEMENT: INSERT INTO stig_test(id) VALUES (1);\n< 2016-02-23 14:54:41.032 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >ERROR: must be owner of relation stig_test\n< 2016-02-23 14:54:41.032 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >STATEMENT: ALTER TABLE stig_test DROP COLUMN name;\n< 2016-02-23 14:54:54.378 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >ERROR: permission denied for relation stig_test\n< 2016-02-23 14:54:54.378 EDT psql postgres postgres 570bf22a.3af2 2016-04-11 14:51:22 EDT [local] >STATEMENT: UPDATE stig_test SET id = 0 WHERE id = 1;\n< 2016-02-23 14:55:23.723 EDT psql postgres postgres 570bf307.3b0a 2016-04-11 14:55:03 EDT [local] >LOG: AUDIT: SESSION,1,1,DDL,DROP TABLE,,,DROP TABLE stig_test;,<none>\n\nIf audit records exist without the outcome of the event that occurred, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "INSERT INTO stig_test(id) VALUES (1);\nALTER TABLE stig_test DROP COLUMN name;\nUPDATE stig_test SET id = 0 WHERE id = 1;\nThe prior SQL should generate errors:\nERROR: permission denied for relation stig_test\nERROR: must be owner of relation stig_test\nERROR: permission denied for relation stig_test\nNow, as the database administrator, drop the test table by running the following SQL:\nDROP TABLE stig_test;\nNow verify the errors were logged:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGLOG?}/<latest_logfile>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

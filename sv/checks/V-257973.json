@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257973",
+  "severity": "medium",
+  "rule_id": "SV-257973r1155760_rule",
+  "rule_ver": "RHEL-09-254020",
+  "rule_title": "RHEL 9 must not forward IPv6 source-routed packets.",
+  "check_text": "Verify RHEL 9 does not accept IPv6 source-routed packets.\n\nNote: If IPv6 is disabled on the system, this requirement is Not Applicable.\n\nCheck the value of the \"net.ipv6.conf.all.accept_source_route\" variable with the following command:\n\n$ sudo sysctl net.ipv6.conf.all.accept_source_route\nnet.ipv6.conf.all.accept_source_route = 0\n\nIf \"net.ipv6.conf.all.accept_source_route\" is not set to \"0\" or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 does not accept IPv6 source-routed packets.\nNote: If IPv6 is disabled on the system, this requirement is Not Applicable.\nCheck the value of the \"net.ipv6.conf.all.accept_source_route\" variable with the following command:",
+      "commands": [
+        "sudo sysctl net.ipv6.conf.all.accept_source_route"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

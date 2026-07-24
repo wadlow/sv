@@ -1,0 +1,27 @@
+{
+  "v_code": "V-233598",
+  "severity": "medium",
+  "rule_id": "SV-233598r960864_rule",
+  "rule_ver": "CD12-00-009700",
+  "rule_title": "PostgreSQL must protect against a user falsely repudiating having performed organization-defined actions.",
+  "check_text": "First, as the database administrator, review the current log_line_prefix settings by running the following SQL: \n\n$ sudo su - postgres \n$ psql -c \"SHOW log_line_prefix\" \n\nIf log_line_prefix does not contain at least '< %m %a %u %d %r %p >', this is a finding. \n\nNext, review the current shared_preload_libraries settings by running the following SQL: \n\n$ psql -c \"SHOW shared_preload_libraries\" \n\nIf shared_preload_libraries does not contain \"pgaudit\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "First, as the database administrator, review the current log_line_prefix settings by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_line_prefix\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, review the current shared_preload_libraries settings by running the following SQL:",
+      "commands": [
+        "psql -c \"SHOW shared_preload_libraries\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

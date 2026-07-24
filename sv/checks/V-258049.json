@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258049",
+  "severity": "medium",
+  "rule_id": "SV-258049r1015092_rule",
+  "rule_ver": "RHEL-09-411050",
+  "rule_title": "RHEL 9 must disable account identifiers (individuals, groups, roles, and devices) after 35 days of inactivity.",
+  "check_text": "Verify that RHEL 9 account identifiers (individuals, groups, roles, and devices) are disabled after 35 days of inactivity with the following command:\n\nCheck the account inactivity value by performing the following command:\n\n$ sudo grep -i inactive /etc/default/useradd\n\nINACTIVE=35\n\nIf \"INACTIVE\" is set to \"-1\", a value greater than \"35\", or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 account identifiers (individuals, groups, roles, and devices) are disabled after 35 days of inactivity with the following command:\nCheck the account inactivity value by performing the following command:",
+      "commands": [
+        "sudo grep -i inactive /etc/default/useradd"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

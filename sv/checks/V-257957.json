@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257957",
+  "severity": "medium",
+  "rule_id": "SV-257957r1155618_rule",
+  "rule_ver": "RHEL-09-253010",
+  "rule_title": "RHEL 9 must be configured to use TCP syncookies.",
+  "check_text": "Verify RHEL 9 is configured to use IPv4 TCP syncookies.\n\nCheck the value of all \"tcp_syncookies\" variables with the following command:\n\n$ sudo sysctl net.ipv4.tcp_syncookies\nnet.ipv4.tcp_syncookies = 1\n\nIf the network parameter \"ipv4.tcp_syncookies\" is not equal to \"1\" or nothing is returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to use IPv4 TCP syncookies.\nCheck the value of all \"tcp_syncookies\" variables with the following command:",
+      "commands": [
+        "sudo sysctl net.ipv4.tcp_syncookies"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

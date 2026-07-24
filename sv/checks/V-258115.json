@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258115",
+  "severity": "medium",
+  "rule_id": "SV-258115r1045238_rule",
+  "rule_ver": "RHEL-09-611130",
+  "rule_title": "RHEL 9 must require the change of at least four character classes when passwords are changed.",
+  "check_text": "Verify that RHEL 9 requires passwords to contain at least four character classes.\n\n$ grep minclass /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf\n \nminclass = 4\n\nIf the value of \"minclass\" is set to less than \"4\", or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 requires passwords to contain at least four character classes.",
+      "commands": [
+        "grep minclass /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

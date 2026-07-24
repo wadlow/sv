@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258230",
+  "severity": "high",
+  "rule_id": "SV-258230r1184334_rule",
+  "rule_ver": "RHEL-09-671010",
+  "rule_title": "RHEL 9 must enable FIPS mode.",
+  "check_text": "Verify RHEL 9 is in FIPS mode with the following command:\n\n$ cat /proc/sys/crypto/fips_enabled\n1\n\nIf the command does not return \"1\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is in FIPS mode with the following command:",
+      "commands": [
+        "cat /proc/sys/crypto/fips_enabled"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214246",
+  "severity": "medium",
+  "rule_id": "SV-214246r1043177_rule",
+  "rule_ver": "AS24-U1-000360",
+  "rule_title": "The Apache web server must be configured to use a specified IP address and port.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used. \nSearch for the \"Listen\" directive:\n\n# cat /<path_to_file>/httpd.conf | grep -i \"Listen\"\n\nVerify that any enabled \"Listen\" directives specify both an IP address and port number.\n\nIf the \"Listen\" directive is found with only an IP address or only a port number specified, this is finding.\n\nIf the IP address is all zeros (i.e., 0.0.0.0:80 or [::ffff:0.0.0.0]:80), this is a finding.\n\nIf the \"Listen\" directive does not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nSearch for the \"Listen\" directive:",
+      "commands": [
+        "cat /<path_to_file>/httpd.conf | grep -i \"Listen\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214244",
+  "severity": "medium",
+  "rule_id": "SV-214244r960963_rule",
+  "rule_ver": "AS24-U1-000310",
+  "rule_title": "The Apache web server must allow the mappings to unused and vulnerable scripts to be removed.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.  \n\nLocate \"cgi-bin\" files and directories enabled in the Apache configuration via \"Script\", \"ScriptAlias\" or \"ScriptAliasMatch\", and \"ScriptInterpreterSource\" directives:\n\n# cat /<path_to_file>/httpd.conf | grep -i \"Script\"\n\nIf any scripts are present that are not needed for application operation, this is a finding.\n\nIf this is not documented and approved by the Information System Security Officer (ISSO), this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nLocate \"cgi-bin\" files and directories enabled in the Apache configuration via \"Script\", \"ScriptAlias\" or \"ScriptAliasMatch\", and \"ScriptInterpreterSource\" directives:",
+      "commands": [
+        "cat /<path_to_file>/httpd.conf | grep -i \"Script\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

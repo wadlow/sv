@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233602",
+  "severity": "high",
+  "rule_id": "SV-233602r961041_rule",
+  "rule_ver": "CD12-00-010200",
+  "rule_title": "PostgreSQL must enforce authorized access to all PKI private keys stored/utilized by PostgreSQL.",
+  "check_text": "First, as the database administrator (shown here as \"postgres\"), verify the following settings:\n\n$ sudo su - postgres\n$ psql -c \"select name,\n                    case when setting = '' then                                                                            '<undefined>'                                                                                      when substring(setting, 1, 1) = '/' then                                                               setting                                                                                            else (select setting from pg_settings where name = 'data_directory') || '/' || setting               end as setting                                                                                     from pg_settings                                                                                     where name in ('ssl_ca_file', 'ssl_cert_file', 'ssl_crl_file', 'ssl_key_file');\"\n\nIf the directory in which these files are stored is not protected, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "First, as the database administrator (shown here as \"postgres\"), verify the following settings:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"select name,"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

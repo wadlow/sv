@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258144",
+  "severity": "medium",
+  "rule_id": "SV-258144r1045286_rule",
+  "rule_ver": "RHEL-09-652030",
+  "rule_title": "All RHEL 9 remote access methods must be monitored.",
+  "check_text": "Verify that RHEL 9 monitors all remote access methods.\n\nCheck that remote access methods are being logged by running the following command:\n\n$ grep -rE '(auth.\\*|authpriv.\\*|daemon.\\*)' /etc/rsyslog.conf /etc/rsyslog.d/\n\n/etc/rsyslog.conf:authpriv.*\n \nIf \"auth.*\", \"authpriv.*\" or \"daemon.*\" are not configured to be logged, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 monitors all remote access methods.\nCheck that remote access methods are being logged by running the following command:",
+      "commands": [
+        "grep -rE '(auth.\\*|authpriv.\\*|daemon.\\*)' /etc/rsyslog.conf /etc/rsyslog.d/"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258215",
+  "severity": "medium",
+  "rule_id": "SV-258215r1155611_rule",
+  "rule_ver": "RHEL-09-654205",
+  "rule_title": "Successful/unsuccessful uses of the umount system call in RHEL 9 must generate an audit record.",
+  "check_text": "Verify RHEL 9 generates an audit record for all uses of the \"umount\" and system call with the following command:\n\n$ sudo auditctl -l | grep b32 | grep 'umount\\b'\n\n-a always,exit -F arch=b32 -S umount -F auid>=1000 -F auid!=-1 -F key=privileged-umount\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 generates an audit record for all uses of the \"umount\" and system call with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep b32 | grep 'umount\\b'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

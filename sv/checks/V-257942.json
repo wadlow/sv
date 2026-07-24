@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257942",
+  "severity": "medium",
+  "rule_id": "SV-257942r1155718_rule",
+  "rule_ver": "RHEL-09-251045",
+  "rule_title": "RHEL 9 must enable hardening for the Berkeley Packet Filter just-in-time compiler.",
+  "check_text": "Verify RHEL 9 enables hardening for the BPF JIT compiler.\n\nCheck the status of the \"net.core.bpf_jit_harden\" parameter with the following command:\n\n$ sudo sysctl net.core.bpf_jit_harden\nnet.core.bpf_jit_harden = 2\n\nIf \"net.core.bpf_jit_harden\" is not equal to \"2\" or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 enables hardening for the BPF JIT compiler.\nCheck the status of the \"net.core.bpf_jit_harden\" parameter with the following command:",
+      "commands": [
+        "sudo sysctl net.core.bpf_jit_harden"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

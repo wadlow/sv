@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258048",
+  "severity": "medium",
+  "rule_id": "SV-258048r1069380_rule",
+  "rule_ver": "RHEL-09-411045",
+  "rule_title": "All RHEL 9 interactive users must have a primary group that exists.",
+  "check_text": "Verify that all RHEL 9 interactive users have a valid GID.\n\nCheck that the interactive users have a valid GID with the following command:\n\n$ sudo pwck -r\n\nIf pwck reports \"no group\" for any interactive user, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that all RHEL 9 interactive users have a valid GID.\nCheck that the interactive users have a valid GID with the following command:",
+      "commands": [
+        "sudo pwck -r"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

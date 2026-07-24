@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258001",
+  "severity": "medium",
+  "rule_id": "SV-258001r991589_rule",
+  "rule_ver": "RHEL-09-255125",
+  "rule_title": "RHEL 9 SSH public host key files must have mode 0644 or less permissive.",
+  "check_text": "Verify the SSH public host key files have a mode of \"0644\" or less permissive with the following command:\n\nNote: SSH public key files may be found in other directories on the system depending on the installation.\n\n$ sudo stat -c \"%a %n\" /etc/ssh/*.pub\n\n644 /etc/ssh/ssh_host_dsa_key.pub\n644 /etc/ssh/ssh_host_ecdsa_key.pub\n644 /etc/ssh/ssh_host_ed25519_key.pub\n644 /etc/ssh/ssh_host_rsa_key.pub\n\nIf any key.pub file has a mode more permissive than \"0644\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the SSH public host key files have a mode of \"0644\" or less permissive with the following command:\nNote: SSH public key files may be found in other directories on the system depending on the installation.",
+      "commands": [
+        "sudo stat -c \"%a %n\" /etc/ssh/*.pub"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

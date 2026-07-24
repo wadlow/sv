@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258216",
+  "severity": "medium",
+  "rule_id": "SV-258216r1155613_rule",
+  "rule_ver": "RHEL-09-654210",
+  "rule_title": "Successful/unsuccessful uses of the umount2 system call in RHEL 9 must generate an audit record.",
+  "check_text": "To determine if the system is configured to audit calls to the umount2 system call, run the following command:\n\n$ sudo auditctl -l | grep umount2\n\n-a always,exit -F arch=b64 -S umount2 -F auid>=1000 -F auid!=-1 -F key=privileged-umount\n-a always,exit -F arch=b32 -S umount2 -F auid>=1000 -F auid!=-1 -F key=privileged-umount\n\nIf no line is returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To determine if the system is configured to audit calls to the umount2 system call, run the following command:",
+      "commands": [
+        "sudo auditctl -l | grep umount2"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

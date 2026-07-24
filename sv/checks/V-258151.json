@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258151",
+  "severity": "medium",
+  "rule_id": "SV-258151r1045298_rule",
+  "rule_ver": "RHEL-09-653010",
+  "rule_title": "RHEL 9 audit package must be installed.",
+  "check_text": "Verify that the RHEL 9 audit service package is installed.\n\nCheck that the audit service package is installed with the following command:\n\n$ dnf list --installed audit\n\nExample output:\n\naudit-3.0.7-101.el9_0.2.x86_64\n\nIf the \"audit\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the RHEL 9 audit service package is installed.\nCheck that the audit service package is installed with the following command:",
+      "commands": [
+        "dnf list --installed audit"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258136",
+  "severity": "medium",
+  "rule_id": "SV-258136r1045270_rule",
+  "rule_ver": "RHEL-09-651020",
+  "rule_title": "RHEL 9 must use a file integrity tool that is configured to use FIPS 140-3-approved cryptographic hashes for validating file contents and directories.",
+  "check_text": "Verify that AIDE is configured to use FIPS 140-3 file hashing with the following command:\n\n$ sudo grep sha512 /etc/aide.conf \n\nAll=p+i+n+u+g+s+m+S+sha512+acl+xattrs+selinux\n\nIf the \"sha512\" rule is not being used on all uncommented selection lines in the \"/etc/aide.conf\" file, or another file integrity tool is not using FIPS 140-3-approved cryptographic hashes for validating file contents and directories, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that AIDE is configured to use FIPS 140-3 file hashing with the following command:",
+      "commands": [
+        "sudo grep sha512 /etc/aide.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

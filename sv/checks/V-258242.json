@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258242",
+  "severity": "high",
+  "rule_id": "SV-258242r1184336_rule",
+  "rule_ver": "RHEL-09-672050",
+  "rule_title": "RHEL 9 must implement DOD-approved encryption in the bind package.",
+  "check_text": "Verify that BIND uses the system crypto policy with the following command:\n\nNote: If the \"bind\" package is not installed, this requirement is Not Applicable.\n\n$ sudo grep include /etc/named.conf \n\ninclude \"/etc/crypto-policies/back-ends/bind.config\";' \n\nIf BIND is installed and the BIND config file doesn't contain the  include \"/etc/crypto-policies/back-ends/bind.config\" directive, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that BIND uses the system crypto policy with the following command:\nNote: If the \"bind\" package is not installed, this requirement is Not Applicable.",
+      "commands": [
+        "sudo grep include /etc/named.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

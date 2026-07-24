@@ -1,0 +1,26 @@
+{
+  "v_code": "V-270180",
+  "severity": "medium",
+  "rule_id": "SV-270180r1184327_rule",
+  "rule_ver": "RHEL-09-433016",
+  "rule_title": "The RHEL 9 fapolicy module must be configured to employ a deny-all, permit-by-exception policy to allow the execution of authorized software programs.",
+  "check_text": "Verify the RHEL 9 \"fapolicyd\" employs a deny-all, permit-by-exception policy.\n\nVerify \"fapolicyd\" is in enforcement mode with the following command:\n\n$ sudo grep permissive /etc/fapolicyd/fapolicyd.conf\n\npermissive = 0\n\nIf \"fapolicyd\" is not running in enforcement mode, this is a finding.\n\nCheck that \"fapolicyd\" employs a deny-all policy on system mounts with the following commands:\n\n$ sudo tail /etc/fapolicyd/compiled.rules\n\nallow exe=/usr/bin/python3.7 : ftype=text/x-python\ndeny_audit perm=any pattern=ld_so : all\ndeny perm=any all : all\n\nIf \"fapolicyd\" is not running with a deny-all, permit-by-exception policy, this is a finding.\n\nNote: \"deny_log\" or \"deny_audit\" options meet the security requirements.  These options will generate higher volumes of logs.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the RHEL 9 \"fapolicyd\" employs a deny-all, permit-by-exception policy.\nVerify \"fapolicyd\" is in enforcement mode with the following command:",
+      "commands": [
+        "sudo grep permissive /etc/fapolicyd/fapolicyd.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Check that \"fapolicyd\" employs a deny-all policy on system mounts with the following commands:",
+      "commands": [
+        "sudo tail /etc/fapolicyd/compiled.rules"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

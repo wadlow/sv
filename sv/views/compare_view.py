@@ -469,60 +469,59 @@ class CompareView(NSView):
         print(f"CompareView.compareStigs_: Comparing {stig_a_path} vs {stig_b_path}")  # Debug
         
         try:
-            # Load and parse both STIGs
             from ..parsers.stig_parser import StigParser
             from pathlib import Path
             
             print("CompareView.compareStigs_: Loading STIG A...")  # Debug
-            stig_a_list = StigParser.parse(Path(stig_a_path))  # Returns a list
-            stig_a = stig_a_list[0]  # Use first STIG if multiple in .zip
+            stig_a_list = StigParser.parse(Path(stig_a_path))
+            stig_a = stig_a_list[0]
             if len(stig_a_list) > 1:
                 print(f"CompareView.compareStigs_: Warning - STIG A .zip contains {len(stig_a_list)} STIGs, using first: {stig_a.stig_name}")  # Debug
             print(f"CompareView.compareStigs_: STIG A loaded: {len(stig_a.vuln_codes)} V-codes")  # Debug
             
             print("CompareView.compareStigs_: Loading STIG B...")  # Debug
-            stig_b_list = StigParser.parse(Path(stig_b_path))  # Returns a list
-            stig_b = stig_b_list[0]  # Use first STIG if multiple in .zip
+            stig_b_list = StigParser.parse(Path(stig_b_path))
+            stig_b = stig_b_list[0]
             if len(stig_b_list) > 1:
                 print(f"CompareView.compareStigs_: Warning - STIG B .zip contains {len(stig_b_list)} STIGs, using first: {stig_b.stig_name}")  # Debug
             print(f"CompareView.compareStigs_: STIG B loaded: {len(stig_b.vuln_codes)} V-codes")  # Debug
             
-            # Store the parsed STIGs
-            attrs['stig_a'] = stig_a
-            attrs['stig_b'] = stig_b
-            
-            # Compare V-codes
-            print("CompareView.compareStigs_: Comparing V-codes...")  # Debug
-            a_vcodes = {vc.id for vc in stig_a.vuln_codes}
-            b_vcodes = {vc.id for vc in stig_b.vuln_codes}
-            
-            in_b_not_a = sorted(b_vcodes - a_vcodes)
-            in_a_not_b = sorted(a_vcodes - b_vcodes)
-            in_both = sorted(a_vcodes & b_vcodes)
-            
-            print(f"CompareView.compareStigs_: In B, not in A: {len(in_b_not_a)}")  # Debug
-            print(f"CompareView.compareStigs_: In A, not in B: {len(in_a_not_b)}")  # Debug
-            print(f"CompareView.compareStigs_: In both: {len(in_both)}")  # Debug
-            
-            # Find V-codes that are in both but have differences
-            print("CompareView.compareStigs_: Checking for differences...")  # Debug
-            different = self._find_different_vcodes(stig_a, stig_b, in_both)
-            print(f"CompareView.compareStigs_: V-codes with differences: {len(different)}")  # Debug
-            
-            # Store unfiltered data (as V-code IDs)
-            attrs['unfiltered_data'] = {
-                'in_b_not_a': in_b_not_a,
-                'in_a_not_b': in_a_not_b,
-                'different': different
-            }
-            
-            # Apply filters and update the three lists
-            self._apply_filters()
+            self._run_comparison(stig_a, stig_b)
             
         except Exception as e:
             import traceback
             print(f"CompareView.compareStigs_: ERROR - {e}")  # Debug
             traceback.print_exc()
+    
+    @objc.python_method
+    def _run_comparison(self, stig_a, stig_b):
+        """Compare two StigFile objects and update the comparison lists."""
+        attrs = get_view_attrs(self)
+        attrs['stig_a'] = stig_a
+        attrs['stig_b'] = stig_b
+        
+        print("CompareView._run_comparison: Comparing V-codes...")  # Debug
+        a_vcodes = {vc.id for vc in stig_a.vuln_codes}
+        b_vcodes = {vc.id for vc in stig_b.vuln_codes}
+        
+        in_b_not_a = sorted(b_vcodes - a_vcodes)
+        in_a_not_b = sorted(a_vcodes - b_vcodes)
+        in_both = sorted(a_vcodes & b_vcodes)
+        
+        print(f"CompareView._run_comparison: In B, not in A: {len(in_b_not_a)}")  # Debug
+        print(f"CompareView._run_comparison: In A, not in B: {len(in_a_not_b)}")  # Debug
+        print(f"CompareView._run_comparison: In both: {len(in_both)}")  # Debug
+        
+        different = self._find_different_vcodes(stig_a, stig_b, in_both)
+        print(f"CompareView._run_comparison: V-codes with differences: {len(different)}")  # Debug
+        
+        attrs['unfiltered_data'] = {
+            'in_b_not_a': in_b_not_a,
+            'in_a_not_b': in_a_not_b,
+            'different': different
+        }
+        
+        self._apply_filters()
     
     @objc.python_method
     def _apply_filters(self):

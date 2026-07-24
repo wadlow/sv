@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258050",
+  "severity": "medium",
+  "rule_id": "SV-258050r1045137_rule",
+  "rule_ver": "RHEL-09-411055",
+  "rule_title": "Executable search paths within the initialization files of all local interactive RHEL 9 users must only contain paths that resolve to the system default or the users home directory.",
+  "check_text": "Verify that all local interactive user initialization file executable search path statements do not contain statements that will reference a working directory other than user home directories with the following commands:\n\n$ sudo find /home -maxdepth 2 -type f -name \".[^.]*\" -exec grep -iH path= {} \\;\n\nPATH=\"$HOME/.local/bin:$HOME/bin:$PATH\"\n\nIf any local interactive user initialization files have executable search path statements that include directories outside of their home directory, and this is not documented with the ISSO as an operational requirement, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that all local interactive user initialization file executable search path statements do not contain statements that will reference a working directory other than user home directories with the following commands:",
+      "commands": [
+        "sudo find /home -maxdepth 2 -type f -name \".[^.]*\" -exec grep -iH path= {} \\;"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

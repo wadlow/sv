@@ -1,0 +1,18 @@
+{
+  "v_code": "V-233550",
+  "severity": "medium",
+  "rule_id": "SV-233550r961677_rule",
+  "rule_ver": "CD12-00-004300",
+  "rule_title": "When updates are applied to PostgreSQL software, any software components that have been replaced or made unnecessary must be removed.",
+  "check_text": "To check software installed by packages, as the system administrator, run the following command:\n\n$ sudo rpm -qa | grep postgres\n\nIf multiple versions of postgres are installed but are unused, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To check software installed by packages, as the system administrator, run the following command:",
+      "commands": [
+        "sudo rpm -qa | grep postgres"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

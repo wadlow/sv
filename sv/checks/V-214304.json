@@ -1,0 +1,16 @@
+{
+  "v_code": "V-214304",
+  "severity": "low",
+  "rule_id": "SV-214304r1211013_rule",
+  "rule_ver": "AS24-U2-000960",
+  "rule_title": "The Apache web server must prohibit or restrict the use of nonsecure or unnecessary ports, protocols, modules, and/or services.",
+  "check_text": "Review the website to determine if HTTP and HTTPS are used in accordance with well-known ports (e.g., 80 and 443) or those ports and services as registered and approved for use by the DOD PPSM.\n \nVerify that any variation in PPS is documented, registered, and approved by the PPSM.\n \nIf well-known ports and services are not approved for use by PPSM, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the website to determine if HTTP and HTTPS use well-known ports (e.g., 80 and 443) or DOD PPSM-approved ports and services:",
+      "commands": [],
+      "finding_condition": "If well-known ports and services are not approved for use by PPSM, or any variation in PPS is not documented, registered, and approved by the PPSM, this is a finding."
+    }
+  ]
+}

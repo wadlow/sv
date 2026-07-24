@@ -1,0 +1,26 @@
+{
+  "v_code": "V-257835",
+  "severity": "high",
+  "rule_id": "SV-257835r1155679_rule",
+  "rule_ver": "RHEL-09-215060",
+  "rule_title": "The Trivial File Transfer Protocol (TFTP) server must not be installed unless it is required, and if required, the RHEL 9 TFTP daemon must be configured to operate in secure mode.",
+  "check_text": "Verify if TFTP is installed, it is configured to operate in secure mode.\n\nNote: If TFTP is not required, it must not be installed. If TFTP is not installed, this rule is not applicable.\n\nCheck to see if TFTP server is installed with the following command:\n\n$ sudo dnf list --installed tftp-server\n\nUpdating Subscription Management repositories.\nInstalled Packages\ntftp-server.x86_64                             5.2-38.el9                              @rhel-9-for-x86_64-appstream-rpms\n\nVerify the TFTP daemon, if tftp.server is installed, is configured to operate in secure mode with the following command:\n\n$ grep -i execstart /usr/lib/systemd/system/tftp.service\nExecStart=/usr/sbin/in.tftpd -s /var/lib/tftpboot\n\nNote: The \"-s\" option ensures the TFTP server only serves files from the specified directory, which is a security measure to prevent unauthorized access to other parts of the file system.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify if TFTP is installed, it is configured to operate in secure mode.\nNote: If TFTP is not required, it must not be installed. If TFTP is not installed, this rule is not applicable.\nCheck to see if TFTP server is installed with the following command:",
+      "commands": [
+        "sudo dnf list --installed tftp-server"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Updating Subscription Management repositories.\nInstalled Packages\ntftp-server.x86_64                             5.2-38.el9                              @rhel-9-for-x86_64-appstream-rpms\nVerify the TFTP daemon, if tftp.server is installed, is configured to operate in secure mode with the following command:",
+      "commands": [
+        "grep -i execstart /usr/lib/systemd/system/tftp.service"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

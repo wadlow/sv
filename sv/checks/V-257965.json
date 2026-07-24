@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257965",
+  "severity": "medium",
+  "rule_id": "SV-257965r1155646_rule",
+  "rule_ver": "RHEL-09-253050",
+  "rule_title": "RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default.",
+  "check_text": "Verify RHEL 9 uses reverse path filtering on IPv4 interfaces.\n\nCheck the value of the \"net.ipv4.conf.default.rp_filter\" with the following command:\n\n$ sudo sysctl net.ipv4.conf.default.rp_filter\nnet.ipv4.conf.default.rp_filter = 1\n\nIf the returned line does not have a value of \"1\", or a line is not returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 uses reverse path filtering on IPv4 interfaces.\nCheck the value of the \"net.ipv4.conf.default.rp_filter\" with the following command:",
+      "commands": [
+        "sudo sysctl net.ipv4.conf.default.rp_filter"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

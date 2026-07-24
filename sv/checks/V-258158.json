@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258158",
+  "severity": "medium",
+  "rule_id": "SV-258158r971542_rule",
+  "rule_ver": "RHEL-09-653045",
+  "rule_title": "RHEL 9 must take action when allocated audit record storage volume reaches 95 percent of the audit record storage capacity.",
+  "check_text": "Verify RHEL 9 takes action when allocated audit record storage volume reaches 95 percent of the repository maximum audit record storage capacity with the following command:\n\n$ sudo grep -w admin_space_left /etc/audit/auditd.conf\n\nadmin_space_left = 5%\n\nIf the value of the \"admin_space_left\" keyword is not set to 5 percent of the storage volume allocated to audit logs, or if the line is commented out, ask the system administrator (SA) to indicate how the system is taking action if the allocated storage is about to reach capacity. If the \"space_left\" value is not configured to the correct value, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 takes action when allocated audit record storage volume reaches 95 percent of the repository maximum audit record storage capacity with the following command:",
+      "commands": [
+        "sudo grep -w admin_space_left /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

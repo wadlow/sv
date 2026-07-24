@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258053",
+  "severity": "medium",
+  "rule_id": "SV-258053r1184318_rule",
+  "rule_ver": "RHEL-09-411070",
+  "rule_title": "All RHEL 9 local interactive user home directories must be group-owned by the home directory owner's primary group.",
+  "check_text": "Verify the assigned home directory of all local interactive users is group-owned by that user's primary GID with the following command:\n\nNote: This may miss local interactive users that have been assigned a privileged user identifier (UID). Evidence of interactive use may be obtained from a number of log files containing system logon information. The returned directory \"/home/disauser\" is used as an example.\n\n$ sudo ls -ld $(awk -F: '($3>=1000)&&($7 !~ /nologin/){print $6}' /etc/passwd)\n\ndrwxr-x--- 2 disauser admin 4096 Jun 5 12:41 disauser\n\nCheck the user's primary group with the following command:\n\n$ sudo grep $(grep disauser /etc/passwd | awk -F: ‘{print $4}') /etc/group\n\nadmin:x:250:disauser,doduser,nsauser\n\nIf the user home directory referenced in \"/etc/passwd\" is not group-owned by that user's primary GID, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the assigned home directory of all local interactive users is group-owned by that user's primary GID with the following command:\nNote: This may miss local interactive users that have been assigned a privileged user identifier (UID). Evidence of interactive use may be obtained from a number of log files containing system logon information. The returned directory \"/home/disauser\" is used as an example.",
+      "commands": [
+        "sudo ls -ld $(awk -F: '($3>=1000)&&($7 !~ /nologin/){print $6}' /etc/passwd)"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "drwxr-x--- 2 disauser admin 4096 Jun 5 12:41 disauser\nCheck the user's primary group with the following command:",
+      "commands": [
+        "sudo grep $(grep disauser /etc/passwd | awk -F: ‘{print $4}') /etc/group"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

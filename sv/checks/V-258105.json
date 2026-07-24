@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258105",
+  "severity": "medium",
+  "rule_id": "SV-258105r1045212_rule",
+  "rule_ver": "RHEL-09-611080",
+  "rule_title": "RHEL 9 passwords must have a 24 hours minimum password lifetime restriction in /etc/shadow.",
+  "check_text": "Verify that RHEL 9 has configured the minimum time period between password changes for each user account as one day or greater with the following command:\n\n$ sudo awk -F: '$4 < 1 {printf \"%s %d\\n\", $1, $4}' /etc/shadow\n\nIf any results are returned that are not associated with a system account, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 has configured the minimum time period between password changes for each user account as one day or greater with the following command:",
+      "commands": [
+        "sudo awk -F: '$4 < 1 {printf \"%s %d\\n\", $1, $4}' /etc/shadow"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

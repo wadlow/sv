@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258178",
+  "severity": "medium",
+  "rule_id": "SV-258178r1155599_rule",
+  "rule_ver": "RHEL-09-654020",
+  "rule_title": "RHEL 9 must audit all uses of the chown, fchown, fchownat, and lchown system calls.",
+  "check_text": "Verify RHEL 9 is configured to audit the execution of the  \"chown\", \"fchown\", \"fchownat\", and \"lchown\" system calls with the following command:\n\n$ sudo auditctl -l | grep chown\n\n-a always,exit -F arch=b32 -S lchown,fchown,chown,fchownat -F auid>=1000 -F auid!=-1 -F key=perm_mod\n-a always,exit -F arch=b64 -S chown,fchown,lchown,fchownat -F auid>=1000 -F auid!=-1 -F key=perm_mod\n\nIf both the \"b32\" and \"b64\" audit rules are not defined for the \"chown\", \"fchown\", \"fchownat\", and \"lchown\" system calls, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to audit the execution of the  \"chown\", \"fchown\", \"fchownat\", and \"lchown\" system calls with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep chown"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

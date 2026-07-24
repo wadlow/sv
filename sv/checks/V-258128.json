@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258128",
+  "severity": "medium",
+  "rule_id": "SV-258128r1155626_rule",
+  "rule_ver": "RHEL-09-611195",
+  "rule_title": "RHEL 9 must require authentication to access emergency mode.",
+  "check_text": "Verify RHEL 9 requires authentication for emergency mode with the following command:\n\n$ grep sulogin /usr/lib/systemd/system/emergency.service \n\nExecStart=-/usr/lib/systemd/systemd-sulogin-shell emergency\n\nIf the line is not returned from the default systemd file, use the following command to look for modifications to the emergency.service:\n\n$ grep sulogin /etc/systemd/system/emergency.service.d/*.conf \n\nIf the line is not returned from either location this is a finding.\n\nNote: The configuration setting can only be in either the default location, or in the drop in file, not both locations.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 requires authentication for emergency mode with the following command:",
+      "commands": [
+        "grep sulogin /usr/lib/systemd/system/emergency.service"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "ExecStart=-/usr/lib/systemd/systemd-sulogin-shell emergency\nIf the line is not returned from the default systemd file, use the following command to look for modifications to the emergency.service:",
+      "commands": [
+        "grep sulogin /etc/systemd/system/emergency.service.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-214233",
+  "severity": "medium",
+  "rule_id": "SV-214233r960900_rule",
+  "rule_ver": "AS24-U1-000130",
+  "rule_title": "An Apache web server, behind a load balancer or proxy server, must produce log records containing the client IP information as the source and destination and not the load balancer or proxy IP information with each event.",
+  "check_text": "If Apache server is not behind a load balancer or proxy server, this check is Not Applicable.\n\nInterview the System Administrator to review the configuration of the Apache web server architecture and determine if inbound web traffic is passed through a proxy.\n\nIf the Apache web server is receiving inbound web traffic through a proxy, the audit logs must be reviewed to determine if correct source information is being passed through by the proxy server.\n\nDetermine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n\nReview the location of the log files.\n\nWhen the log file is displayed, review the source IP information in the log entries and verify the entries do not reflect the IP address of the proxy server.\nIf the log entries in the log file(s) reflect the IP address of the client in addition to the proxy address, this is not a finding.\nIf the log entries in the log file(s) reflect the IP address of the proxy server as the source, this is a finding.\n\nIf logs containing source/destination IPs can be obtained at the load balancer/proxy server, this is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If Apache server is not behind a load balancer or proxy server, this check is Not Applicable.\nInterview the System Administrator to review the configuration of the Apache web server architecture and determine if inbound web traffic is passed through a proxy.\nIf the Apache web server is receiving inbound web traffic through a proxy, the audit logs must be reviewed to determine if correct source information is being passed through by the proxy server.\nDetermine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

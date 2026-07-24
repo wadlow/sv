@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258102",
+  "severity": "medium",
+  "rule_id": "SV-258102r1045207_rule",
+  "rule_ver": "RHEL-09-611065",
+  "rule_title": "RHEL 9 must enforce password complexity by requiring that at least one lowercase character be used.",
+  "check_text": "Verify that RHEL 9 enforces password complexity by requiring at least one lowercase character.\n\nCheck the value for \"lcredit\" with the following command:\n\n$ grep lcredit /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf\n\n/etc/security/pwquality.conf:lcredit = -1\n\nIf the value of \"lcredit\" is a positive number or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 enforces password complexity by requiring at least one lowercase character.\nCheck the value for \"lcredit\" with the following command:",
+      "commands": [
+        "grep lcredit /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

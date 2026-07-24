@@ -74,6 +74,7 @@ class AppController:
             
             # Wire up delete STIG callback
             explorer_attrs['on_delete_stig'] = self._on_delete_stig
+            explorer_attrs['on_check_texts'] = self.open_check_texts_explorer
         
         # Load persistent STIG files AFTER setting up callbacks
         self._load_persistent_stigs()
@@ -81,6 +82,15 @@ class AppController:
         # In debug mode, populate with fake data
         if os.environ.get('SV_DEBUG_MODE') == '1':
             self._populate_fake_data()
+        
+        if os.environ.get('SV_COMPARE_LOADED_STIGS') == '1':
+            from PyObjCTools import AppHelper
+            AppHelper.callAfter(self.compare_loaded_stigs)
+
+        if os.environ.get('SV_INTERACTIVE') == '1':
+            from PyObjCTools import AppHelper
+            from ..cli.interactive import start_interactive_cli
+            AppHelper.callAfter(lambda: start_interactive_cli(self))
     
     def compare_stigs(self):
         """Open the Compare STIGs tab."""
@@ -101,6 +111,26 @@ class AppController:
             traceback.print_exc()
             self._show_error(f"Error opening Compare tab: {e}")
     
+    def compare_loaded_stigs(self):
+        """Open the Compare Loaded STIGs tab."""
+        print("AppController.compare_loaded_stigs: Called")  # Debug
+        try:
+            from PyObjCTools import AppHelper
+            from ..views.compare_loaded_stigs_view import CompareLoadedStigsView
+            compare_view = CompareLoadedStigsView.alloc().init()
+            compare_view_attrs = get_view_attrs(compare_view)
+            compare_view_attrs['app_controller'] = self
+            self.main_window.add_compare_loaded_tab(compare_view)
+            stig_files = self.stig_files
+            compare_view.set_stig_files(stig_files)
+            AppHelper.callLater(0.1, lambda: compare_view.set_stig_files(stig_files))
+            print("AppController.compare_loaded_stigs: Tab added successfully")  # Debug
+        except Exception as e:
+            import traceback
+            print(f"AppController.compare_loaded_stigs: ERROR - {e}")  # Debug
+            traceback.print_exc()
+            self._show_error(f"Error opening Compare Loaded STIGs tab: {e}")
+    
     def check_for_stigs(self):
         """Open the Check for STIGs tab."""
         print("AppController.check_for_stigs: Called")  # Debug
@@ -116,13 +146,48 @@ class AppController:
             stig_files = self.stig_files
             check_view.set_stig_files(stig_files)
             # Also refresh after layout in case table wasn't ready
-            AppHelper.callAfter(0.1, lambda: check_view.set_stig_files(stig_files))
+            AppHelper.callLater(0.1, lambda: check_view.set_stig_files(stig_files))
             print("AppController.check_for_stigs: Tab added successfully")  # Debug
         except Exception as e:
             import traceback
             print(f"AppController.check_for_stigs: ERROR - {e}")  # Debug
             traceback.print_exc()
             self._show_error(f"Error opening Check for STIGs tab: {e}")
+
+    def open_check_texts_explorer(self):
+        """Open the Check Texts Explorer tab for checked Explorer STIGs."""
+        try:
+            from ..views.explorer_view import ExplorerView
+            from ..views.check_texts_explorer_view import CheckTextsExplorerView
+
+            explorer_view = self.main_window.get_explorer_view()
+            if not explorer_view:
+                return
+
+            checked_stigs = ExplorerView.get_checked_stigs(explorer_view)
+            if not checked_stigs:
+                self._show_error("Please select at least one STIG in Explorer.")
+                return
+
+            vuln_codes = []
+            for stig_file in checked_stigs:
+                vuln_codes.extend(stig_file.vuln_codes)
+
+            def vcode_sort_key(vc):
+                try:
+                    return int(vc.v_code.replace("V-", "").replace("v-", ""))
+                except (ValueError, AttributeError):
+                    return 999999999
+
+            vuln_codes.sort(key=vcode_sort_key)
+
+            check_texts_view = CheckTextsExplorerView.alloc().init()
+            check_texts_view.set_vuln_codes(vuln_codes)
+            self.main_window.add_check_texts_explorer_tab(check_texts_view)
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self._show_error(f"Error opening Check Texts Explorer tab: {e}")
     
     def compare_ckls(self):
         """Open the Compare CKLs tab."""
@@ -254,7 +319,7 @@ class AppController:
             if progress:
                 # Close progress dialog after a short delay if not already closed
                 from PyObjCTools import AppHelper
-                AppHelper.callAfter(1.0, lambda: progress.close() if progress else None)
+                AppHelper.callLater(1.0, lambda: progress.close() if progress else None)
     
     def open_checklist_files(self):
         """Open CKL checklist files."""
@@ -353,6 +418,12 @@ class AppController:
     def has_stigs_loaded(self):
         """Check if any STIG files have been loaded."""
         return len(self.stig_files) > 0
+    
+    def has_comparable_stigs(self):
+        """Check if any loaded STIGs have multiple versions that can be compared."""
+        from ..views.compare_loaded_stigs_view import partition_stigs_for_comparison
+        older_stigs, newer_stigs = partition_stigs_for_comparison(self.stig_files)
+        return len(older_stigs) > 0 and len(newer_stigs) > 0
     
     def delete_stig(self, stig_file):
         """Delete a STIG file from the loaded list."""

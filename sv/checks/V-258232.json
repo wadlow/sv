@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258232",
+  "severity": "high",
+  "rule_id": "SV-258232r1184335_rule",
+  "rule_ver": "RHEL-09-671020",
+  "rule_title": "RHEL 9 IP tunnels must use FIPS 140-3 approved cryptographic algorithms.",
+  "check_text": "Verify that the IPsec service uses the system crypto policy with the following command:\n\nNote: If the ipsec service is not installed, this requirement is Not Applicable.\n\n$ sudo grep include /etc/ipsec.conf /etc/ipsec.d/*.conf\n\n/etc/ipsec.conf:include /etc/crypto-policies/back-ends/libreswan.config\n\nIf the ipsec configuration file does not contain \"include /etc/crypto-policies/back-ends/libreswan.config\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the IPsec service uses the system crypto policy with the following command:\nNote: If the ipsec service is not installed, this requirement is Not Applicable.",
+      "commands": [
+        "sudo grep include /etc/ipsec.conf /etc/ipsec.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

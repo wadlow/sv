@@ -24,6 +24,13 @@ def _compare_stigs_handler(self, sender):
         _app_controller_ref.compare_stigs()
 
 
+def _compare_loaded_stigs_handler(self, sender):
+    """Handle Compare Loaded STIGs menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.compare_loaded_stigs()
+
+
 def _open_checklist_handler(self, sender):
     """Handle Open Checklist menu action."""
     global _app_controller_ref
@@ -65,6 +72,7 @@ class MenuController(NSObject):
     # Register methods as Objective-C selectors
     importStig_ = selector(_import_stig_handler, signature=b'v@:@')
     compareStigs_ = selector(_compare_stigs_handler, signature=b'v@:@')
+    compareLoadedStigs_ = selector(_compare_loaded_stigs_handler, signature=b'v@:@')
     openChecklist_ = selector(_open_checklist_handler, signature=b'v@:@')
     createCklFile_ = selector(_create_ckl_file_handler, signature=b'v@:@')
     compareCkls_ = selector(_compare_ckls_handler, signature=b'v@:@')
@@ -125,6 +133,11 @@ def _create_menu_bar(menu_controller):
         "Compare STIGs", "compareStigs:", ""
     )
     file_menu.addItem_(compare_stigs_item)
+    
+    compare_loaded_stigs_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Compare Loaded STIGs", "compareLoadedStigs:", ""
+    )
+    file_menu.addItem_(compare_loaded_stigs_item)
     
     check_for_stigs_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
         "Check for STIGs", "checkForStigs:", ""
@@ -218,6 +231,9 @@ def _create_menu_bar(menu_controller):
     
     compare_stigs_item.setTarget_(app_delegate)
     compare_stigs_item.setAction_("compareStigs:")
+    
+    compare_loaded_stigs_item.setTarget_(app_delegate)
+    compare_loaded_stigs_item.setAction_("compareLoadedStigs:")
     
     check_for_stigs_item.setTarget_(app_delegate)
     check_for_stigs_item.setAction_("checkForStigs:")

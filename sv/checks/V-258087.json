@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258087",
+  "severity": "medium",
+  "rule_id": "SV-258087r1102071_rule",
+  "rule_ver": "RHEL-09-432030",
+  "rule_title": "RHEL 9 must restrict privilege elevation to authorized personnel.",
+  "check_text": "Verify RHEL 9 restricts privilege elevation to authorized personnel with the following command:\n\n$ sudo grep -iwR 'ALL' /etc/sudoers /etc/sudoers.d/ | grep -v '#'\n\nIf the either of the following entries are returned, this is a finding:\nALL     ALL=(ALL) ALL\nALL     ALL=(ALL:ALL) ALL",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 restricts privilege elevation to authorized personnel with the following command:",
+      "commands": [
+        "sudo grep -iwR 'ALL' /etc/sudoers /etc/sudoers.d/ | grep -v '#'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

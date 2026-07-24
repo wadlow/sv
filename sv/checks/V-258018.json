@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258018",
+  "severity": "high",
+  "rule_id": "SV-258018r1045090_rule",
+  "rule_ver": "RHEL-09-271040",
+  "rule_title": "RHEL 9 must not allow unattended or automatic logon via the graphical user interface.",
+  "check_text": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\n\nVerify RHEL 9 does not allow an unattended or automatic logon to the system via a graphical user interface.\n\nCheck for the value of the \"AutomaticLoginEnable\" in the \"/etc/gdm/custom.conf\" file with the following command:\n\n$  grep -i automaticlogin /etc/gdm/custom.conf\n\nAutomaticLoginEnable=false\n\nIf the value of \"AutomaticLoginEnable\" is not set to \"false\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\nVerify RHEL 9 does not allow an unattended or automatic logon to the system via a graphical user interface.\nCheck for the value of the \"AutomaticLoginEnable\" in the \"/etc/gdm/custom.conf\" file with the following command:",
+      "commands": [
+        "grep -i automaticlogin /etc/gdm/custom.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

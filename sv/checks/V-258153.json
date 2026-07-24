@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258153",
+  "severity": "medium",
+  "rule_id": "SV-258153r1038966_rule",
+  "rule_ver": "RHEL-09-653020",
+  "rule_title": "RHEL 9 audit system must take appropriate action when an error writing to the audit storage volume occurs.",
+  "check_text": "Verify RHEL 9 takes the appropriate action when an audit processing failure occurs.\n\nCheck that RHEL 9 takes the appropriate action when an audit processing failure occurs with the following command:\n\n$ sudo grep disk_error_action /etc/audit/auditd.conf\n\ndisk_error_action = HALT\n\nIf the value of the \"disk_error_action\" option is not \"SYSLOG\", \"SINGLE\", or \"HALT\", or the line is commented out, ask the system administrator (SA) to indicate how the system takes appropriate action when an audit process failure occurs. If there is no evidence of appropriate action, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 takes the appropriate action when an audit processing failure occurs.\nCheck that RHEL 9 takes the appropriate action when an audit processing failure occurs with the following command:",
+      "commands": [
+        "sudo grep disk_error_action /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

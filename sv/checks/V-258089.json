@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258089",
+  "severity": "medium",
+  "rule_id": "SV-258089r1045179_rule",
+  "rule_ver": "RHEL-09-433010",
+  "rule_title": "RHEL 9 fapolicy module must be installed.",
+  "check_text": "Verify that RHEL 9 fapolicyd package is installed with the following command:\n\n$ dnf list --installed fapolicyd\n\nExample output:\n\nfapolicyd.x86_64          1.1-103.el9_0\n\nIf the \"fapolicyd\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 fapolicyd package is installed with the following command:",
+      "commands": [
+        "dnf list --installed fapolicyd"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

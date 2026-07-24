@@ -1,0 +1,34 @@
+{
+  "v_code": "V-258150",
+  "severity": "medium",
+  "rule_id": "SV-258150r1045296_rule",
+  "rule_ver": "RHEL-09-652060",
+  "rule_title": "RHEL 9 must use cron logging.",
+  "check_text": "Verify that \"rsyslog\" is configured to log cron events with the following command:\n\nNote: If another logging package is used, substitute the utility configuration file for \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.\n\n$ grep -s cron /etc/rsyslog.conf /etc/rsyslog.d/*.conf\n\n/etc/rsyslog.conf:*.info;mail.none;authpriv.none;cron.none /var/log/messages\n/etc/rsyslog.conf:cron.* /var/log/cron\n\nIf the command does not return a response, check for cron logging all facilities with the following command:\n\n$ logger -p local0.info \"Test message for all facilities.\"\n\nCheck the logs for the test message with:\n\n$ sudo tail /var/log/messages\n\nIf \"rsyslog\" is not logging messages for the cron facility or all facilities, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that \"rsyslog\" is configured to log cron events with the following command:\nNote: If another logging package is used, substitute the utility configuration file for \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.",
+      "commands": [
+        "grep -s cron /etc/rsyslog.conf /etc/rsyslog.d/*.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "/etc/rsyslog.conf:*.info;mail.none;authpriv.none;cron.none /var/log/messages\n/etc/rsyslog.conf:cron.* /var/log/cron\nIf the command does not return a response, check for cron logging all facilities with the following command:",
+      "commands": [
+        "logger -p local0.info \"Test message for all facilities.\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Check the logs for the test message with:",
+      "commands": [
+        "sudo tail /var/log/messages"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

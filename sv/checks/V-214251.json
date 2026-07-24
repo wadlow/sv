@@ -1,0 +1,18 @@
+{
+  "v_code": "V-214251",
+  "severity": "medium",
+  "rule_id": "SV-214251r1043180_rule",
+  "rule_ver": "AS24-U1-000470",
+  "rule_title": "Cookies exchanged between the Apache web server and client, such as session cookies, must have security settings that disallow cookie access outside the originating Apache web server and hosted application.",
+  "check_text": "Note: For web servers acting as a public facing with static content that do not require authentication, this is Not Applicable.\n\nReview the web server documentation and configuration to determine if cookies between the web server and client are accessible by applications or web servers other than the originating pair.\n\ngrep SessionCookieName <'INSTALL LOCATION'>/mod_session.conf\n\nConfirm that the \"HttpOnly\" and \"Secure\" settings are present in the line returned.\n\nConfirm that the line does not contain the \"Domain\" cookie setting.\n\nVerify the \"headers_module (shared)\" module is loaded in the web server:\n\n\"# httpd -M \nVerify \" headers_module (shared)\" is returned in the list of Loaded Modules from the above command.\"\n\nIf the \"headers_module (shared)\" is not loaded, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: For web servers acting as a public facing with static content that do not require authentication, this is Not Applicable.\nReview the web server documentation and configuration to determine if cookies between the web server and client are accessible by applications or web servers other than the originating pair.",
+      "commands": [
+        "grep SessionCookieName <'INSTALL LOCATION'>/mod_session.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

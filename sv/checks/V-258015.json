@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258015",
+  "severity": "medium",
+  "rule_id": "SV-258015r1045086_rule",
+  "rule_ver": "RHEL-09-271025",
+  "rule_title": "RHEL 9 must prevent a user from overriding the disabling of the graphical user interface automount function.",
+  "check_text": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\n\nVerify RHEL 9 disables the ability of the user to override the graphical user interface automount setting.\n\nDetermine which profile the system database is using with the following command:\n\n$ sudo grep system-db /etc/dconf/profile/user\n\nsystem-db:local\n\nCheck that the automount setting is locked from nonprivileged user modification with the following command:\n\nNote: The example below is using the database \"local\" for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than \"local\" is being used.\n\n$ grep 'automount-open' /etc/dconf/db/local.d/locks/* \n\n/org/gnome/desktop/media-handling/automount-open\n\nIf the command does not return at least the example result, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\nVerify RHEL 9 disables the ability of the user to override the graphical user interface automount setting.\nDetermine which profile the system database is using with the following command:",
+      "commands": [
+        "sudo grep system-db /etc/dconf/profile/user"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "system-db:local\nCheck that the automount setting is locked from nonprivileged user modification with the following command:\nNote: The example below is using the database \"local\" for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than \"local\" is being used.",
+      "commands": [
+        "grep 'automount-open' /etc/dconf/db/local.d/locks/*"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

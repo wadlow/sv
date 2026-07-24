@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258170",
+  "severity": "medium",
+  "rule_id": "SV-258170r991589_rule",
+  "rule_ver": "RHEL-09-653105",
+  "rule_title": "RHEL 9 must write audit records to disk.",
+  "check_text": "Verify that the audit system is configured to write logs to the disk with the following command:\n\n$ sudo grep write_logs /etc/audit/auditd.conf \n\nwrite_logs = yes \n\nIf \"write_logs\" does not have a value of \"yes\", the line is commented out, or the line is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the audit system is configured to write logs to the disk with the following command:",
+      "commands": [
+        "sudo grep write_logs /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258069",
+  "severity": "low",
+  "rule_id": "SV-258069r958398_rule",
+  "rule_ver": "RHEL-09-412040",
+  "rule_title": "RHEL 9 must limit the number of concurrent sessions to ten for all accounts and/or account types.",
+  "check_text": "Verify RHEL 9 limits the number of concurrent sessions to \"10\" for all accounts and/or account types with the following command:\n\n$ grep -r -s maxlogins /etc/security/limits.conf /etc/security/limits.d/*.conf\n\n/etc/security/limits.conf:* hard maxlogins 10\n\nThis can be set as a global domain (with the * wildcard) but may be set differently for multiple domains.\n\nIf the \"maxlogins\" item is missing, commented out, or the value is set greater than \"10\" and is not documented with the information system security officer (ISSO) as an operational requirement for all domains that have the \"maxlogins\" item assigned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 limits the number of concurrent sessions to \"10\" for all accounts and/or account types with the following command:",
+      "commands": [
+        "grep -r -s maxlogins /etc/security/limits.conf /etc/security/limits.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

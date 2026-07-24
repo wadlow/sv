@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258154",
+  "severity": "medium",
+  "rule_id": "SV-258154r1038966_rule",
+  "rule_ver": "RHEL-09-653025",
+  "rule_title": "RHEL 9 audit system must take appropriate action when the audit storage volume is full.",
+  "check_text": "Verify RHEL 9 takes the appropriate action when the audit storage volume is full. \n\nCheck that RHEL 9 takes the appropriate action when the audit storage volume is full with the following command:\n\n$ sudo grep disk_full_action /etc/audit/auditd.conf\n\ndisk_full_action = HALT\n\nIf the value of the \"disk_full_action\" option is not \"SYSLOG\", \"SINGLE\", or \"HALT\", or the line is commented out, ask the system administrator (SA) to indicate how the system takes appropriate action when an audit storage volume is full. If there is no evidence of appropriate action, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 takes the appropriate action when the audit storage volume is full.\nCheck that RHEL 9 takes the appropriate action when the audit storage volume is full with the following command:",
+      "commands": [
+        "sudo grep disk_full_action /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

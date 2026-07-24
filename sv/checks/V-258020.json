@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258020",
+  "severity": "medium",
+  "rule_id": "SV-258020r1045094_rule",
+  "rule_ver": "RHEL-09-271050",
+  "rule_title": "RHEL 9 must prevent a user from overriding the disabling of the graphical user smart card removal action.",
+  "check_text": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\n\nVerify RHEL 9 disables ability of the user to override the smart card removal action setting.\n\n$ gsettings writable org.gnome.settings-daemon.peripherals.smartcard removal-action\n \nfalse\n \nIf \"removal-action\" is writable and the result is \"true\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\nVerify RHEL 9 disables ability of the user to override the smart card removal action setting.",
+      "commands": [
+        "gsettings writable org.gnome.settings-daemon.peripherals.smartcard removal-action"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

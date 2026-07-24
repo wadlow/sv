@@ -1,0 +1,28 @@
+{
+  "v_code": "V-233593",
+  "severity": "medium",
+  "rule_id": "SV-233593r960963_rule",
+  "rule_ver": "CD12-00-009100",
+  "rule_title": "Access to external executables must be disabled or restricted.",
+  "check_text": "PostgreSQL's Copy command can interact with the underlying OS. Only superuser has access to this command.\n\nFirst, as the database administrator (shown here as \"postgres\"), run the following SQL to list all roles and their privileges:\n\n$ sudo su - postgres\n$ psql -x -c \"\\du\"\n\nIf any role has \"superuser\" that should not, this is a finding.\n\nIt is possible for an extension to contain code that could access external executables via SQL. To list all installed extensions, as the database administrator (shown here as \"postgres\"), run the following SQL:\n\n$ sudo su - postgres\n$ psql -x -c \"SELECT * FROM pg_available_extensions WHERE installed_version IS NOT NULL\"\n\nIf any extensions are installed that are not approved, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "PostgreSQL's Copy command can interact with the underlying OS. Only superuser has access to this command.\nFirst, as the database administrator (shown here as \"postgres\"), run the following SQL to list all roles and their privileges:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -x -c \"\\du\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "It is possible for an extension to contain code that could access external executables via SQL. To list all installed extensions, as the database administrator (shown here as \"postgres\"), run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -x -c \"SELECT * FROM pg_available_extensions WHERE installed_version IS NOT NULL\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

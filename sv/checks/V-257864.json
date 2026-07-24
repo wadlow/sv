@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257864",
+  "severity": "medium",
+  "rule_id": "SV-257864r1155639_rule",
+  "rule_ver": "RHEL-09-231115",
+  "rule_title": "RHEL 9 must mount /dev/shm with the noexec option.",
+  "check_text": "Verify \"/dev/shm\" is mounted with the \"noexec\" option with the following command:\n\n$ findmnt /dev/shm\n\n/dev/shm tmpfs  tmpfs  rw,nodev,nosuid,noexec,seclabel\n\nIf the mount options for /dev/shm does not include noexec, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify \"/dev/shm\" is mounted with the \"noexec\" option with the following command:",
+      "commands": [
+        "findmnt /dev/shm"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

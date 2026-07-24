@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258097",
+  "severity": "medium",
+  "rule_id": "SV-258097r1045193_rule",
+  "rule_ver": "RHEL-09-611040",
+  "rule_title": "RHEL 9 must ensure the password complexity module is enabled in the password-auth file.",
+  "check_text": "Verify RHEL 9 uses \"pwquality\" to enforce the password complexity rules in the password-auth file with the following command:\n\n$ grep pam_pwquality /etc/pam.d/password-auth\n\npassword required pam_pwquality.so \n\nIf the command does not return a line containing the value \"pam_pwquality.so\", or the line is commented out, this is a finding.\n\nIf the system administrator (SA) can demonstrate that the required configuration is contained in a PAM configuration file included or substacked from the system-auth file, this is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 uses \"pwquality\" to enforce the password complexity rules in the password-auth file with the following command:",
+      "commands": [
+        "grep pam_pwquality /etc/pam.d/password-auth"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

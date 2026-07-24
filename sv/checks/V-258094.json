@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258094",
+  "severity": "high",
+  "rule_id": "SV-258094r1045187_rule",
+  "rule_ver": "RHEL-09-611025",
+  "rule_title": "RHEL 9 must not allow blank or null passwords.",
+  "check_text": "Verify that null passwords cannot be used with the following command:\n\n$ sudo grep -i nullok /etc/pam.d/system-auth /etc/pam.d/password-auth\n\nIf output is produced, this is a finding.\n\nIf the system administrator (SA) can demonstrate that the required configuration is contained in a PAM configuration file included or substacked from the system-auth file, this is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that null passwords cannot be used with the following command:",
+      "commands": [
+        "sudo grep -i nullok /etc/pam.d/system-auth /etc/pam.d/password-auth"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

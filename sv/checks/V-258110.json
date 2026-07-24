@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258110",
+  "severity": "medium",
+  "rule_id": "SV-258110r1045223_rule",
+  "rule_ver": "RHEL-09-611105",
+  "rule_title": "RHEL 9 must prevent the use of dictionary words for passwords.",
+  "check_text": "Verify RHEL 9 prevents the use of dictionary words for passwords with the following command:\n\n$ grep dictcheck /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf\n\n/etc/security/pwquality.conf:dictcheck = 1\n\nIf \"dictcheck\" does not have a value other than \"0\", or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 prevents the use of dictionary words for passwords with the following command:",
+      "commands": [
+        "grep dictcheck /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

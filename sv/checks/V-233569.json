@@ -1,0 +1,29 @@
+{
+  "v_code": "V-233569",
+  "severity": "medium",
+  "rule_id": "SV-233569r961833_rule",
+  "rule_ver": "CD12-00-006200",
+  "rule_title": "PostgreSQL must generate audit records when concurrent logons/connections by the same user from different workstations occur.",
+  "check_text": "First, as the database administrator, verify that log_connections and log_disconnections are enabled by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_connections\"\n$ psql -c \"SHOW log_disconnections\"\n\nIf either is off, this is a finding.\n\nNext, verify that log_line_prefix contains sufficient information by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_line_prefix\"\n\nIf log_line_prefix does not contain at least %m %u %d %c, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "First, as the database administrator, verify that log_connections and log_disconnections are enabled by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_connections\"",
+        "psql -c \"SHOW log_disconnections\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, verify that log_line_prefix contains sufficient information by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_line_prefix\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

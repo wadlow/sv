@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214290",
+  "severity": "medium",
+  "rule_id": "SV-214290r961131_rule",
+  "rule_ver": "AS24-U2-000580",
+  "rule_title": "The Apache web server document directory must be in a separate partition from the Apache web servers system files.",
+  "check_text": "Run the following command: \n \ngrep \"DocumentRoot\"<'INSTALL PATH'>/conf/httpd.conf \n \nNote each location following the \"DocumentRoot\" string. This is the configured path to the document root directory(s). \n \nUse the command df -k to view each document root's partition setup. \n \nCompare that against the results for the operating system file systems and against the partition for the web server system files, which is the result of the command: \n \ndf -k <'INSTALL PATH'>/bin \n \nIf the document root path is on the same partition as the web server system files or the operating system file systems, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Run the following command:",
+      "commands": [
+        "grep \"DocumentRoot\"<'INSTALL PATH'>/conf/httpd.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Note each location following the \"DocumentRoot\" string. This is the configured path to the document root directory(s).\nUse the command df -k to view each document root's partition setup.\nCompare that against the results for the operating system file systems and against the partition for the web server system files, which is the result of the command:",
+      "commands": [
+        "df -k <'INSTALL PATH'>/bin"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

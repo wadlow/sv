@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257984",
+  "severity": "high",
+  "rule_id": "SV-257984r1045026_rule",
+  "rule_ver": "RHEL-09-255040",
+  "rule_title": "RHEL 9 SSHD must not allow blank passwords.",
+  "check_text": "Verify that RHEL 9 remote access using SSH prevents logging on with a blank password with the following command:\n\n$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*permitemptypasswords'\n\nPermitEmptyPasswords no\n\nIf the \"PermitEmptyPasswords\" keyword is set to \"yes\", is missing, or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 remote access using SSH prevents logging on with a blank password with the following command:",
+      "commands": [
+        "sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*permitemptypasswords'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

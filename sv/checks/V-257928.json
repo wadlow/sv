@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257928",
+  "severity": "medium",
+  "rule_id": "SV-257928r1155576_rule",
+  "rule_ver": "RHEL-09-232240",
+  "rule_title": "All RHEL 9 world-writable directories must be owned by root, sys, bin, or an application user.",
+  "check_text": "Verify RHEL 9 world writable directories are owned by root, a system account, or an application account with the following command:\n\n$ sudo find / -xdev -type d -perm -0002 -uid +999 -exec stat -c \"%U, %u, %A, %n\" {} \\; 2>/dev/null\n\nIf there is output that indicates world-writable directories are owned by any account other than root or an approved system account, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 world writable directories are owned by root, a system account, or an application account with the following command:",
+      "commands": [
+        "sudo find / -xdev -type d -perm -0002 -uid +999 -exec stat -c \"%U, %u, %A, %n\" {} \\; 2>/dev/null"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

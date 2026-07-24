@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257971",
+  "severity": "medium",
+  "rule_id": "SV-257971r1155754_rule",
+  "rule_ver": "RHEL-09-254010",
+  "rule_title": "RHEL 9 must not accept router advertisements on all IPv6 interfaces.",
+  "check_text": "Verify RHEL 9 does not accept router advertisements on all IPv6 interfaces, unless the system is a router.\n\nNote: If IPv6 is disabled on the system, this requirement is Not Applicable.\n\nCheck that \"net.ipv6.conf.all.accept_ra\" is set to not accept router advertisements by using the following command:\n\n$ sudo sysctl net.ipv6.conf.all.accept_ra\nnet.ipv6.conf.all.accept_ra = 0\n\nIf \"net.ipv6.conf.all.accept_ra\" is not set to \"0\" or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 does not accept router advertisements on all IPv6 interfaces, unless the system is a router.\nNote: If IPv6 is disabled on the system, this requirement is Not Applicable.\nCheck that \"net.ipv6.conf.all.accept_ra\" is set to not accept router advertisements by using the following command:",
+      "commands": [
+        "sudo sysctl net.ipv6.conf.all.accept_ra"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

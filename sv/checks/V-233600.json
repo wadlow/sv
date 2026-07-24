@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233600",
+  "severity": "medium",
+  "rule_id": "SV-233600r961863_rule",
+  "rule_ver": "CD12-00-010000",
+  "rule_title": "PostgreSQL must provide the means for individuals in authorized roles to change the auditing to be performed on all application components, based on all selectable event criteria within organization-defined time thresholds.",
+  "check_text": "First, as the database administrator, check if pgaudit is present in shared_preload_libraries:\n\n$ sudo su - postgres\n$ psql -c \"SHOW shared_preload_libraries\"\n\nIf pgaudit is not present in the result from the query, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "First, as the database administrator, check if pgaudit is present in shared_preload_libraries:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW shared_preload_libraries\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

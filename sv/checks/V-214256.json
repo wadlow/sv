@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214256",
+  "severity": "medium",
+  "rule_id": "SV-214256r961167_rule",
+  "rule_ver": "AS24-U1-000620",
+  "rule_title": "Warning and error messages displayed to clients must be modified to minimize the identity of the Apache web server, patches, loaded modules, and directory paths.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or \"httpd -V\" can also be used. \n\n# cat /<path_to_file>/httpd.conf | grep -i \"ErrorDocument\"\n\nIf the \"ErrorDocument\" directive is not being used for custom error pages for \"4xx\" or \"5xx\" HTTP status codes, this is a finding.\n\nNote: Using a \"sites-available\" method for error messages is also acceptable; this would involve the use of /etc/apache2/sites-available and /etc/apache2/sites-enabled. As long as warning and error messages have been sanitized, this is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or \"httpd -V\" can also be used.",
+      "commands": [
+        "cat /<path_to_file>/httpd.conf | grep -i \"ErrorDocument\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

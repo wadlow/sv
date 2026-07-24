@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257941",
+  "severity": "medium",
+  "rule_id": "SV-257941r991589_rule",
+  "rule_ver": "RHEL-09-251040",
+  "rule_title": "RHEL 9 network interfaces must not be in promiscuous mode.",
+  "check_text": "Verify network interfaces are not in promiscuous mode with the following command:\n\n$ ip link | grep -i promisc\n\nIf network interfaces are found on the system in promiscuous mode and their use has not been approved by the ISSO and documented, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify network interfaces are not in promiscuous mode with the following command:",
+      "commands": [
+        "ip link | grep -i promisc"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

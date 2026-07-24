@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258057",
+  "severity": "medium",
+  "rule_id": "SV-258057r1045146_rule",
+  "rule_ver": "RHEL-09-411090",
+  "rule_title": "RHEL 9 must maintain an account lock until the locked account is released by an administrator.",
+  "check_text": "Verify RHEL 9 is configured to lock an account until released by an administrator after three unsuccessful logon attempts with the command:\n\n$ sudo grep -w unlock_time /etc/security/faillock.conf\n\nunlock_time = 0\n\nIf the \"unlock_time\" option is not set to \"0\" or the line is missing or commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to lock an account until released by an administrator after three unsuccessful logon attempts with the command:",
+      "commands": [
+        "sudo grep -w unlock_time /etc/security/faillock.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

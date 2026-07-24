@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258200",
+  "severity": "medium",
+  "rule_id": "SV-258200r1045385_rule",
+  "rule_ver": "RHEL-09-654130",
+  "rule_title": "RHEL 9 must audit all uses of the postqueue command.",
+  "check_text": "Verify that RHEL 9 is configured to audit the execution of the \"postqueue\" command with the following command:\n\n$ sudo auditctl -l | grep postqueue\n\n-a always,exit -S all -F path=/usr/sbin/postqueue -F perm=x -F auid>=1000 -F auid!=-1 -F key=privileged-unix-update\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to audit the execution of the \"postqueue\" command with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep postqueue"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

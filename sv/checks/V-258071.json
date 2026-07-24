@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258071",
+  "severity": "medium",
+  "rule_id": "SV-258071r991588_rule",
+  "rule_ver": "RHEL-09-412050",
+  "rule_title": "RHEL 9 must enforce a delay of at least four seconds between logon prompts following a failed logon attempt.",
+  "check_text": "Verify RHEL 9 enforces a delay of at least four seconds between console logon prompts following a failed logon attempt with the following command:\n\n$ grep -i fail_delay /etc/login.defs\n\nFAIL_DELAY 4\n\nIf the value of \"FAIL_DELAY\" is not set to \"4\" or greater, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 enforces a delay of at least four seconds between console logon prompts following a failed logon attempt with the following command:",
+      "commands": [
+        "grep -i fail_delay /etc/login.defs"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

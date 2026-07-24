@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258147",
+  "severity": "medium",
+  "rule_id": "SV-258147r1045290_rule",
+  "rule_ver": "RHEL-09-652045",
+  "rule_title": "RHEL 9 must encrypt the transfer of audit records offloaded onto a different system or media from the system being audited via rsyslog.",
+  "check_text": "Verify RHEL 9 encrypts audit records offloaded onto a different system or media from the system being audited via rsyslog with the following command:\n\n$ grep -i 'StreamDriver[\\.]*Mode' /etc/rsyslog.conf /etc/rsyslog.d/*.conf\n\n/etc/rsyslog.conf:$ActionSendStreamDriverMode 1 \n\nIf the value of the \"$ActionSendStreamDriverMode or StreamDriver.Mode\" option is not set to \"1\" or the line is commented out, this is a finding.\n\nIf the variable name \"StreamDriverAuthMode\" is present in an omfwd statement block, this is not a finding. However, if the \"StreamDriverAuthMode\" variable is in a module block, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 encrypts audit records offloaded onto a different system or media from the system being audited via rsyslog with the following command:",
+      "commands": [
+        "grep -i 'StreamDriver[\\.]*Mode' /etc/rsyslog.conf /etc/rsyslog.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

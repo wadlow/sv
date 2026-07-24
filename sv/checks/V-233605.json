@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233605",
+  "severity": "medium",
+  "rule_id": "SV-233605r961602_rule",
+  "rule_ver": "CD12-00-010500",
+  "rule_title": "PostgreSQL must implement cryptographic mechanisms preventing the unauthorized disclosure of organization-defined information at rest on organization-defined information system components.",
+  "check_text": "To check if pgcrypto is installed on PostgreSQL, as a database administrator (shown here as \"postgres\"), run the following command:\n\n$ sudo su - postgres\n$ psql -c \"SELECT * FROM pg_available_extensions where name='pgcrypto'\"\n\nIf data in the database requires encryption and pgcrypto is not available, this is a finding.\n\nIf a disk or filesystem requires encryption, ask the system owner, DBA, and SA to demonstrate the use of filesystem and/or disk-level encryption. If this is required and is not found, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To check if pgcrypto is installed on PostgreSQL, as a database administrator (shown here as \"postgres\"), run the following command:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SELECT * FROM pg_available_extensions where name='pgcrypto'\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258095",
+  "severity": "medium",
+  "rule_id": "SV-258095r1045189_rule",
+  "rule_ver": "RHEL-09-611030",
+  "rule_title": "RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/system-auth file.",
+  "check_text": "Verify the pam_faillock.so module is present in the \"/etc/pam.d/system-auth\" file:\n\n$ grep pam_faillock.so /etc/pam.d/system-auth\n\nauth required pam_faillock.so preauth\nauth required pam_faillock.so authfail\naccount required pam_faillock.so\n\nIf the pam_faillock.so module is not present in the \"/etc/pam.d/system-auth\" file with the \"preauth\" line listed before pam_unix.so, this is a finding.\n\nIf the system administrator (SA) can demonstrate that the required configuration is contained in a PAM configuration file included or substacked from the system-auth file, this is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the pam_faillock.so module is present in the \"/etc/pam.d/system-auth\" file:",
+      "commands": [
+        "grep pam_faillock.so /etc/pam.d/system-auth"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

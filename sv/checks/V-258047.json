@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258047",
+  "severity": "medium",
+  "rule_id": "SV-258047r1101951_rule",
+  "rule_ver": "RHEL-09-411040",
+  "rule_title": "RHEL 9 must automatically expire temporary accounts within 72 hours.",
+  "check_text": "Verify temporary accounts have been provisioned with an expiration date of 72 hours.\n\nFor every existing temporary account, run the following command to obtain its account expiration information:\n\n$ sudo chage -l <temporary_account_name> | grep -i \"account expires\"\n\nVerify each of these accounts has an expiration date set within 72 hours. \n\nIf any temporary accounts have no expiration date set or do not expire within 72 hours, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify temporary accounts have been provisioned with an expiration date of 72 hours.\nFor every existing temporary account, run the following command to obtain its account expiration information:",
+      "commands": [
+        "sudo chage -l <temporary_account_name> | grep -i \"account expires\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

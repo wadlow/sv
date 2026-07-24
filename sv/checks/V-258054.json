@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258054",
+  "severity": "medium",
+  "rule_id": "SV-258054r958736_rule",
+  "rule_ver": "RHEL-09-411075",
+  "rule_title": "RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur.",
+  "check_text": "Verify RHEL 9 is configured to lock an account after three unsuccessful logon attempts with the command:\n\n$ grep 'deny =' /etc/security/faillock.conf\n\ndeny = 3\n\nIf the \"deny\" option is not set to \"3\" or less (but not \"0\"), is missing or commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to lock an account after three unsuccessful logon attempts with the command:",
+      "commands": [
+        "grep 'deny =' /etc/security/faillock.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

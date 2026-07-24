@@ -1,0 +1,34 @@
+{
+  "v_code": "V-258135",
+  "severity": "medium",
+  "rule_id": "SV-258135r1045267_rule",
+  "rule_ver": "RHEL-09-651015",
+  "rule_title": "RHEL 9 must routinely check the baseline configuration for unauthorized changes and notify the system administrator when anomalies in the operation of any security functions are discovered.",
+  "check_text": "Verify that RHEL 9 routinely executes a file integrity scan for changes to the system baseline. The command used in the example will use a daily occurrence.\n\nCheck the cron directories for scripts controlling the execution and notification of results of the file integrity application. For example, if AIDE is installed on the system, use the following commands:\n\n$ sudo ls -al /etc/cron.* | grep aide\n\n-rwxr-xr-x 1 root root 29 Nov 22 2015 aide\n\n$ sudo grep aide /etc/crontab /var/spool/cron/root\n\n/etc/crontab: 30 04 * * * root usr/sbin/aide\n/var/spool/cron/root: 30 04 * * * root usr/sbin/aide\n\n$ sudo more /etc/cron.daily/aide\n\n#!/bin/bash\n/usr/sbin/aide --check | /bin/mail -s \"$HOSTNAME - Daily aide integrity check run\" root@sysname.mil\n\nIf the file integrity application does not exist, a script file controlling the execution of the file integrity application does not exist, or the file integrity application does not notify designated personnel of changes, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 routinely executes a file integrity scan for changes to the system baseline. The command used in the example will use a daily occurrence.\nCheck the cron directories for scripts controlling the execution and notification of results of the file integrity application. For example, if AIDE is installed on the system, use the following commands:",
+      "commands": [
+        "sudo ls -al /etc/cron.* | grep aide"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-rwxr-xr-x 1 root root 29 Nov 22 2015 aide",
+      "commands": [
+        "sudo grep aide /etc/crontab /var/spool/cron/root"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "/etc/crontab: 30 04 * * * root usr/sbin/aide\n/var/spool/cron/root: 30 04 * * * root usr/sbin/aide",
+      "commands": [
+        "sudo more /etc/cron.daily/aide"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

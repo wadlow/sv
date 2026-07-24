@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258198",
+  "severity": "medium",
+  "rule_id": "SV-258198r1045379_rule",
+  "rule_ver": "RHEL-09-654120",
+  "rule_title": "RHEL 9 must audit all uses of the passwd command.",
+  "check_text": "Verify RHEL 9 generates audit records for all account creations, modifications, disabling, and termination events that affect \"/etc/gshadow\" with the following command:\n\n$ sudo auditctl -l | egrep '(/usr/bin/passwd)' \n\n-a always,exit -S all -F path=/usr/bin/passwd -F perm=x -F auid>=1000 -F auid!=-1 -F key=privileged-passwd\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 generates audit records for all account creations, modifications, disabling, and termination events that affect \"/etc/gshadow\" with the following command:",
+      "commands": [
+        "sudo auditctl -l | egrep '(/usr/bin/passwd)'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

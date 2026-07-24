@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258163",
+  "severity": "medium",
+  "rule_id": "SV-258163r958424_rule",
+  "rule_ver": "RHEL-09-653070",
+  "rule_title": "RHEL 9 System Administrator (SA) and/or information system security officer (ISSO) (at a minimum) must be alerted of an audit processing failure event.",
+  "check_text": "Verify that RHEL 9 is configured to notify the SA and/or ISSO (at a minimum) in the event of an audit processing failure with the following command:\n\n$ sudo grep action_mail_acct /etc/audit/auditd.conf\n\naction_mail_acct = root\n\nIf the value of the \"action_mail_acct\" keyword is not set to \"root\" and/or other accounts for security personnel, the \"action_mail_acct\" keyword is missing, or the retuned line is commented out, ask the SA to indicate how they and the ISSO are notified of an audit process failure. If there is no evidence of the proper personnel being notified of an audit processing failure, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to notify the SA and/or ISSO (at a minimum) in the event of an audit processing failure with the following command:",
+      "commands": [
+        "sudo grep action_mail_acct /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

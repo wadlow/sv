@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258187",
+  "severity": "medium",
+  "rule_id": "SV-258187r1155603_rule",
+  "rule_ver": "RHEL-09-654065",
+  "rule_title": "RHEL 9 must audit all uses of the rename, unlink, rmdir, renameat, and unlinkat system calls.",
+  "check_text": "Verify RHEL 9 is configured to audit successful/unsuccessful attempts to use the \"rename\", \"unlink\", \"rmdir\", \"renameat\", and \"unlinkat\" system calls with the following command:\n\n$ sudo auditctl -l | grep 'rename\\|unlink\\|rmdir'\n\n-a always,exit -F arch=b32 -S unlink,rename,rmdir,unlinkat,renameat -F auid>=1000 -F auid!=-1 -F key=delete\n-a always,exit -F arch=b64 -S rename,rmdir,unlink,unlinkat,renameat -F auid>=1000 -F auid!=-1 -F key=delete\n\nIf the command does not return an audit rule for \"rename\", \"unlink\", \"rmdir\", \"renameat\", and \"unlinkat\" or any of the lines returned are commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to audit successful/unsuccessful attempts to use the \"rename\", \"unlink\", \"rmdir\", \"renameat\", and \"unlinkat\" system calls with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep 'rename\\|unlink\\|rmdir'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

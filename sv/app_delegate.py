@@ -56,6 +56,9 @@ class AppDelegate(NSObject):
            action == 'openChecklist:' or action == 'compareCkls:' or action == 'showPreferences:':
             return True
         
+        if action == 'compareLoadedStigs:':
+            return self.app_controller.has_comparable_stigs()
+        
         # Create CKL file is only enabled when on Explorer tab AND STIGs are loaded
         if action == 'createCklFile:':
             return (self.app_controller.is_explorer_tab_active() and 
@@ -73,6 +76,11 @@ class AppDelegate(NSObject):
         """Handle Compare STIGs menu action."""
         if hasattr(self, 'app_controller') and self.app_controller:
             self.app_controller.compare_stigs()
+    
+    def compareLoadedStigs_(self, sender):
+        """Handle Compare Loaded STIGs menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.compare_loaded_stigs()
     
     def checkForStigs_(self, sender):
         """Handle Check for STIGs menu action."""

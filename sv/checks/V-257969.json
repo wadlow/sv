@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257969",
+  "severity": "medium",
+  "rule_id": "SV-257969r1155623_rule",
+  "rule_ver": "RHEL-09-253070",
+  "rule_title": "RHEL 9 must not allow interfaces to perform Internet Control Message Protocol (ICMP) redirects by default.",
+  "check_text": "Check the value of the \"default send_redirects\" variables with the following command:\n\n$ sudo sysctl net.ipv4.conf.default.send_redirects\nnet.ipv4.conf.default.send_redirects=0\n\nIf \"net.ipv4.conf.default.send_redirects\" is not set to \"0\" and is not documented with the information system security officer (ISSO) as an operational requirement or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Check the value of the \"default send_redirects\" variables with the following command:",
+      "commands": [
+        "sudo sysctl net.ipv4.conf.default.send_redirects"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

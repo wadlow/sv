@@ -1,0 +1,18 @@
+{
+  "v_code": "V-272488",
+  "severity": "medium",
+  "rule_id": "SV-272488r1155665_rule",
+  "rule_ver": "RHEL-09-215101",
+  "rule_title": "RHEL 9 must have the Postfix package installed.",
+  "check_text": "Note: If the admin can demonstrate that there is another system/service to send audit failure notifications to the administrator/ISSO, this control is not applicable.\n\nVerify RHEL 9 has the Postfix package installed with the following command:\n\n$ sudo dnf list --installed postfix\n\nExample output:\n\npostfix.x86_64                             2:3.5.25-1.el9 \n\nIf the \"postfix\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If the admin can demonstrate that there is another system/service to send audit failure notifications to the administrator/ISSO, this control is not applicable.\nVerify RHEL 9 has the Postfix package installed with the following command:",
+      "commands": [
+        "sudo dnf list --installed postfix"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

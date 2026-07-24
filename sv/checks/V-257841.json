@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257841",
+  "severity": "medium",
+  "rule_id": "SV-257841r1044914_rule",
+  "rule_ver": "RHEL-09-215090",
+  "rule_title": "RHEL 9 must have the rng-tools package installed.",
+  "check_text": "Verify that RHEL 9 has the rng-tools package installed with the following command:\n\n$ dnf list --installed rng-tools\n\nExample output:\n\nrng-tools.x86_64          6.14-2.git.b2b7934e.el9\n\nIf the \"rng-tools\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 has the rng-tools package installed with the following command:",
+      "commands": [
+        "dnf list --installed rng-tools"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

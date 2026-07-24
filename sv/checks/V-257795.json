@@ -1,0 +1,26 @@
+{
+  "v_code": "V-257795",
+  "severity": "low",
+  "rule_id": "SV-257795r1044845_rule",
+  "rule_ver": "RHEL-09-212050",
+  "rule_title": "RHEL 9 must enable mitigations against processor-based vulnerabilities.",
+  "check_text": "Verify RHEL 9 enables kernel page-table isolation with the following command:\n\n$ sudo grubby --info=ALL | grep args | grep -v 'pti=on'\n\nIf any output is returned, this is a finding.\n\nCheck that kernel page-table isolation is enabled by default to persist in kernel updates: \n\n$ grep pti /etc/default/grub\n\nGRUB_CMDLINE_LINUX=\"pti=on\"\n\nIf \"pti\" is not set to \"on\", is missing or commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 enables kernel page-table isolation with the following command:",
+      "commands": [
+        "sudo grubby --info=ALL | grep args | grep -v 'pti=on'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Check that kernel page-table isolation is enabled by default to persist in kernel updates:",
+      "commands": [
+        "grep pti /etc/default/grub"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

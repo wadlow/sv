@@ -1,0 +1,28 @@
+{
+  "v_code": "V-233522",
+  "severity": "medium",
+  "rule_id": "SV-233522r960735_rule",
+  "rule_ver": "CD12-00-001200",
+  "rule_title": "PostgreSQL must limit the number of concurrent sessions to an organization-defined number per user for all accounts and/or account types.",
+  "check_text": "To check the total amount of connections allowed by the database, as the database administrator, run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW max_connections\"\n\nIf the total amount of connections is greater than documented by an organization, this is a finding.\n\nTo check the amount of connections allowed for each role, as the database administrator, run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SELECT rolname, rolconnlimit from pg_authid\"\n\nIf any roles have more connections configured than documented, this is a finding. A value of \"-1\" indicates Unlimited, and is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To check the total amount of connections allowed by the database, as the database administrator, run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW max_connections\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "To check the amount of connections allowed for each role, as the database administrator, run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SELECT rolname, rolconnlimit from pg_authid\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

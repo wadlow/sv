@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214284",
+  "severity": "medium",
+  "rule_id": "SV-214284r960963_rule",
+  "rule_ver": "AS24-U2-000350",
+  "rule_title": "Users and scripts running on behalf of users must be contained to the document root or home directory tree of the Apache web server.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file: \n \n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n \nVerify there is a single \"Require\" directive with the value of \"all denied\". \n \nVerify there are no \"Allow\" or \"Deny\" directives in the root <Directory> element. \n \nThe following may be useful in extracting root directory elements from the Apache configuration for auditing: \n \n# perl -ne 'print if /^ *<Directory *\\//i .. /<\\/Directory/i' $APACHE_PREFIX/conf/httpd.conf  \n \nIf there are \"Allow\" or \"Deny\" directives in the root <Directory> element, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nVerify there is a single \"Require\" directive with the value of \"all denied\".\nVerify there are no \"Allow\" or \"Deny\" directives in the root <Directory> element.\nThe following may be useful in extracting root directory elements from the Apache configuration for auditing:",
+      "commands": [
+        "perl -ne 'print if /^ *<Directory *\\//i .. /<\\/Directory/i' $APACHE_PREFIX/conf/httpd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

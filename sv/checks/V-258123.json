@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258123",
+  "severity": "medium",
+  "rule_id": "SV-258123r1134923_rule",
+  "rule_ver": "RHEL-09-611170",
+  "rule_title": "RHEL 9 must implement certificate status checking for multifactor authentication.",
+  "check_text": "Note: If the system administrator (SA) demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.\n\nVerify the operating system implements Online Certificate Status Protocol (OCSP) and is using the proper digest value on the system with the following command:\n\n$ sudo grep -sir certificate_verification /etc/sssd/sssd.conf /etc/sssd/conf.d/ | grep -v \"^#\"\n\n/etc/sssd/conf.d/certificate_verification:certificate_verification = ocsp_dgst=sha512\n\nIf the certificate_verification line is missing from the [sssd] section, or is missing \"ocsp_dgst=sha512\", ask the administrator to indicate what type of multifactor authentication is being used and how the system implements certificate status checking. \n\nIf there is no evidence of certificate status checking being used, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If the system administrator (SA) demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.\nVerify the operating system implements Online Certificate Status Protocol (OCSP) and is using the proper digest value on the system with the following command:",
+      "commands": [
+        "sudo grep -sir certificate_verification /etc/sssd/sssd.conf /etc/sssd/conf.d/ | grep -v \"^#\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

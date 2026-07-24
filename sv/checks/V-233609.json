@@ -1,0 +1,30 @@
+{
+  "v_code": "V-233609",
+  "severity": "medium",
+  "rule_id": "SV-233609r960945_rule",
+  "rule_ver": "CD12-00-011200",
+  "rule_title": "PostgreSQL must protect its audit features from unauthorized removal.",
+  "check_text": "Note: The following instructions use the PGDATA and PGVER environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.\n\nAs the database administrator (shown here as \"postgres\"), verify the permissions of PGDATA: \n\n$ sudo su - postgres \n$ ls -la ${PGDATA?} \n\nIf PGDATA is not owned by postgres:postgres or if files can be accessed by others, this is a finding. \n\nAs the system administrator, verify the permissions of pgsql shared objects and compiled binaries: \n\n$ ls -la /usr/pgsql-${PGVER?}/bin\n$ ls -la /usr/pgsql-${PGVER?}/include\n$ ls -la /usr/pgsql-${PGVER?}/lib\n$ ls -la /usr/pgsql-${PGVER?}/share \n\nIf any of these are not owned by root:root, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGVER environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.\nAs the database administrator (shown here as \"postgres\"), verify the permissions of PGDATA:",
+      "commands": [
+        "sudo su - postgres",
+        "ls -la ${PGDATA?}"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "As the system administrator, verify the permissions of pgsql shared objects and compiled binaries:",
+      "commands": [
+        "ls -la /usr/pgsql-${PGVER?}/bin",
+        "ls -la /usr/pgsql-${PGVER?}/include",
+        "ls -la /usr/pgsql-${PGVER?}/lib",
+        "ls -la /usr/pgsql-${PGVER?}/share"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

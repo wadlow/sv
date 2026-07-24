@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258039",
+  "severity": "medium",
+  "rule_id": "SV-258039r1045131_rule",
+  "rule_ver": "RHEL-09-291035",
+  "rule_title": "RHEL 9 Bluetooth must be disabled.",
+  "check_text": "Verify that RHEL 9 disables the ability to load the Bluetooth kernel module with the following command:\n\n$ sudo grep -r bluetooth /etc/modprobe.conf /etc/modprobe.d/* \n\ninstall bluetooth /bin/false\nblacklist bluetooth\n\t\nIf the command does not return any output, or the lines are commented out, and use of Bluetooth is not documented with the information system security officer (ISSO) as an operational requirement, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 disables the ability to load the Bluetooth kernel module with the following command:",
+      "commands": [
+        "sudo grep -r bluetooth /etc/modprobe.conf /etc/modprobe.d/*"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258132",
+  "severity": "medium",
+  "rule_id": "SV-258132r1134929_rule",
+  "rule_ver": "RHEL-09-631015",
+  "rule_title": "RHEL 9 must map the authenticated identity to the user or group account for PKI-based authentication.",
+  "check_text": "Note: If the system administrator (SA) demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.\n\nVerify the certificate of the user or group is mapped to the corresponding user or group in the \"sssd.conf\" file with the following command:\n\n$ sudo find /etc/sssd/sssd.conf /etc/sssd/conf.d/ -type f -exec cat {} \\;\n \n[certmap/testing.test/rule_name]\nmatchrule =<SAN>.*EDIPI@mil\nmaprule = (userCertificate;binary={cert!bin})\ndomains = testing.test\n\nIf the certmap section does not exist, ask the SA to indicate how certificates are mapped to accounts. \n\nIf there is no evidence of certificate mapping, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If the system administrator (SA) demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.\nVerify the certificate of the user or group is mapped to the corresponding user or group in the \"sssd.conf\" file with the following command:",
+      "commands": [
+        "sudo find /etc/sssd/sssd.conf /etc/sssd/conf.d/ -type f -exec cat {} \\;"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

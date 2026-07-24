@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257982",
+  "severity": "medium",
+  "rule_id": "SV-257982r1045021_rule",
+  "rule_ver": "RHEL-09-255030",
+  "rule_title": "RHEL 9 must log SSH connection attempts and failures to the server.",
+  "check_text": "Verify that RHEL 9 logs SSH connection attempts and failures to the server.\n\nCheck what the SSH daemon's \"LogLevel\" option is set to with the following command:\n\n$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*loglevel'\n\nLogLevel VERBOSE\n\nIf a value of \"VERBOSE\" is not returned or the line is commented out or missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 logs SSH connection attempts and failures to the server.\nCheck what the SSH daemon's \"LogLevel\" option is set to with the following command:",
+      "commands": [
+        "sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*loglevel'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

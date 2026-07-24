@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258137",
+  "severity": "medium",
+  "rule_id": "SV-258137r1102081_rule",
+  "rule_ver": "RHEL-09-651025",
+  "rule_title": "RHEL 9 must use cryptographic mechanisms to protect the integrity of audit tools.",
+  "check_text": "Check that AIDE is properly configured to protect the integrity of the audit tools with the following command:\n\n$ sudo grep /usr/sbin/au /etc/aide.conf\n\n/usr/sbin/auditctl p+i+n+u+g+s+b+acl+xattrs+sha512\n/usr/sbin/auditd p+i+n+u+g+s+b+acl+xattrs+sha512\n/usr/sbin/ausearch p+i+n+u+g+s+b+acl+xattrs+sha512\n/usr/sbin/aureport p+i+n+u+g+s+b+acl+xattrs+sha512\n/usr/sbin/autrace p+i+n+u+g+s+b+acl+xattrs+sha512\n/usr/sbin/augenrules p+i+n+u+g+s+b+acl+xattrs+sha512\n\nIf AIDE is not installed, ask the system administrator (SA) how file integrity checks are performed on the system.\n\nIf any of the audit tools listed above do not have a corresponding line, ask the SA to indicate what cryptographic mechanisms are being used to protect the integrity of the audit tools.  \n\nIf there is no evidence of integrity protection, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Check that AIDE is properly configured to protect the integrity of the audit tools with the following command:",
+      "commands": [
+        "sudo grep /usr/sbin/au /etc/aide.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

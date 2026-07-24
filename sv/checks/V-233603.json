@@ -1,0 +1,20 @@
+{
+  "v_code": "V-233603",
+  "severity": "medium",
+  "rule_id": "SV-233603r961596_rule",
+  "rule_ver": "CD12-00-010300",
+  "rule_title": "PostgreSQL must only accept end entity certificates issued by DoD PKI or DoD-approved PKI Certification Authorities (CAs) for the establishment of all encrypted sessions.",
+  "check_text": "As the database administrator (shown here as \"postgres\"), verify the following setting in postgresql.conf:\n\n$ sudo su - postgres\n$ psql -c \"SHOW ssl_ca_file\"\n$ psql -c \"SHOW ssl_cert_file\"\n\nIf the database is not configured to use only DOD-approved certificates, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), verify the following setting in postgresql.conf:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW ssl_ca_file\"",
+        "psql -c \"SHOW ssl_cert_file\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

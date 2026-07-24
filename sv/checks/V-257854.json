@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257854",
+  "severity": "medium",
+  "rule_id": "SV-257854r1044934_rule",
+  "rule_ver": "RHEL-09-231065",
+  "rule_title": "RHEL 9 must prevent special devices on file systems that are imported via Network File System (NFS).",
+  "check_text": "Note: If no NFS mounts are configured, this requirement is Not Applicable.\n\nVerify RHEL 9 has the \"nodev\" option configured for all NFS mounts with the following command:\n\n$ grep nfs /etc/fstab\n\n192.168.22.2:/mnt/export /data nfs4 rw,nosuid,nodev,noexec,sync,soft,sec=krb5:krb5i:krb5p\n\nIf the system is mounting file systems via NFS and the \"nodev\" option is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If no NFS mounts are configured, this requirement is Not Applicable.\nVerify RHEL 9 has the \"nodev\" option configured for all NFS mounts with the following command:",
+      "commands": [
+        "grep nfs /etc/fstab"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

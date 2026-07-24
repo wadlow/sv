@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257993",
+  "severity": "medium",
+  "rule_id": "SV-257993r1045049_rule",
+  "rule_ver": "RHEL-09-255085",
+  "rule_title": "RHEL 9 must not allow users to override SSH environment variables.",
+  "check_text": "Verify that unattended or automatic logon via SSH is disabled with the following command:\n\n$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*permituserenvironment'\n\nPermitUserEnvironment no\n\nIf \"PermitUserEnvironment\" is set to \"yes\", is missing completely, or is commented out, this is a finding.\n\nIf the required value is not set, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that unattended or automatic logon via SSH is disabled with the following command:",
+      "commands": [
+        "sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*permituserenvironment'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

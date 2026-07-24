@@ -162,6 +162,7 @@ class ExplorerView(NSView):
             # Store method reference in attributes - use class method pattern
             search_pane_attrs['on_search_changed'] = lambda: ExplorerView.onSearchChanged(self)
             search_pane_attrs['on_delete_stig'] = lambda: ExplorerView.onDeleteStig(self)
+            search_pane_attrs['on_check_texts'] = lambda: ExplorerView.onCheckTexts(self)
     
     def set_stig_files(self, stig_files):
         """Set the STIG files to display."""
@@ -296,6 +297,14 @@ class ExplorerView(NSView):
             on_delete_stig()
         else:
             print("ExplorerView: WARNING - No delete STIG callback set!")  # Debug
+
+    @objc.python_method
+    def onCheckTexts(self):
+        """Handle Check Texts button click."""
+        attrs = get_view_attrs(self)
+        on_check_texts = attrs.get('on_check_texts')
+        if on_check_texts:
+            on_check_texts()
     
     def _update_delete_button_state(self):
         """Update the delete button enabled state based on row selection."""

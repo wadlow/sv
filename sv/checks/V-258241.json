@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258241",
+  "severity": "high",
+  "rule_id": "SV-258241r1184293_rule",
+  "rule_ver": "RHEL-09-215105",
+  "rule_title": "RHEL 9 must implement a FIPS 140-3-compliant systemwide cryptographic policy.",
+  "check_text": "Verify RHEL 9 is set to use a FIPS 140-3-compliant systemwide cryptographic policy with the following command:\n\n$ update-crypto-policies --show\n\nFIPS\n\nIf the systemwide crypto policy is not set to \"FIPS\", this is a finding.\n\nNote: If subpolicies have been configured, they could be listed in a colon-separated list starting with \"FIPS\" as follows FIPS:<SUBPOLICY-NAME>. This is not a finding.\n\nNote: Subpolicies like AD-SUPPORT must be configured according to the latest guidance from the operating system vendor.\n\nVerify the current minimum crypto-policy configuration with the following commands:\n\n$ grep -E 'rsa_size|hash' /etc/crypto-policies/state/CURRENT.pol\n\nhash = SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512 SHAKE-256\nmin_rsa_size = 2048\n\nIf the \"hash\" values do not include at least the following FIPS 140-3-compliant algorithms \"SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512 SHAKE-256\", this is a finding.\n\nIf there are algorithms that include \"SHA1\" or a hash value less than \"224\" this is a finding.\n\nIf the \"min_rsa_size\" is not set to a value of at least \"2048\", this is a finding.\n\nIf these commands do not return any output, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is set to use a FIPS 140-3-compliant systemwide cryptographic policy with the following command:",
+      "commands": [
+        "update-crypto-policies --show"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Note: If subpolicies have been configured, they could be listed in a colon-separated list starting with \"FIPS\" as follows FIPS:<SUBPOLICY-NAME>. This is not a finding.\nNote: Subpolicies like AD-SUPPORT must be configured according to the latest guidance from the operating system vendor.\nVerify the current minimum crypto-policy configuration with the following commands:",
+      "commands": [
+        "grep -E 'rsa_size|hash' /etc/crypto-policies/state/CURRENT.pol"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

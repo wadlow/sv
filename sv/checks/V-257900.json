@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257900",
+  "severity": "medium",
+  "rule_id": "SV-257900r991589_rule",
+  "rule_ver": "RHEL-09-232100",
+  "rule_title": "RHEL 9 /etc/group- file must be owned by root.",
+  "check_text": "Verify the ownership of the \"/etc/group-\" file with the following command:\n\n$ sudo stat -c \"%U %n\" /etc/group- \n\nroot /etc/group- \n\nIf \"/etc/group-\" file does not have an owner of \"root\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the ownership of the \"/etc/group-\" file with the following command:",
+      "commands": [
+        "sudo stat -c \"%U %n\" /etc/group-"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257827",
+  "severity": "medium",
+  "rule_id": "SV-257827r1044892_rule",
+  "rule_ver": "RHEL-09-215020",
+  "rule_title": "RHEL 9 must not have the sendmail package installed.",
+  "check_text": "Verify that the sendmail package is not installed with the following command:\n\n$ dnf list --installed sendmail\n\nError: No matching Packages to list\n\nIf the \"sendmail\" package is installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the sendmail package is not installed with the following command:",
+      "commands": [
+        "dnf list --installed sendmail"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "v_code": "V-233589",
+  "severity": "medium",
+  "rule_id": "SV-233589r960888_rule",
+  "rule_ver": "CD12-00-008600",
+  "rule_title": "PostgreSQL must initiate session auditing upon startup.",
+  "check_text": "As the database administrator (shown here as \"postgres\"), check the current settings by running the following SQL: \n\n$ sudo su - postgres \n$ psql -c \"SHOW shared_preload_libraries\" \n\nIf pgaudit is not in the current setting, this is a finding. \n\nAs the database administrator (shown here as \"postgres\"), check the current settings by running the following SQL: \n\n$ psql -c \"SHOW log_destination\" \n\nIf stderr or syslog are not in the current setting, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), check the current settings by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW shared_preload_libraries\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "As the database administrator (shown here as \"postgres\"), check the current settings by running the following SQL:",
+      "commands": [
+        "psql -c \"SHOW log_destination\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258059",
+  "severity": "high",
+  "rule_id": "SV-258059r991589_rule",
+  "rule_ver": "RHEL-09-411100",
+  "rule_title": "The root account must be the only account having unrestricted access to RHEL 9 system.",
+  "check_text": "Verify that only the \"root\" account has a UID \"0\" assignment with the following command:\n\n$ awk -F: '$3 == 0 {print $1}' /etc/passwd\n\nroot\n\nIf any accounts other than \"root\" have a UID of \"0\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that only the \"root\" account has a UID \"0\" assignment with the following command:",
+      "commands": [
+        "awk -F: '$3 == 0 {print $1}' /etc/passwd"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-233619",
+  "severity": "high",
+  "rule_id": "SV-233619r961050_rule",
+  "rule_ver": "CD12-00-012300",
+  "rule_title": "PostgreSQL must use NIST FIPS 140-2 or 140-3 validated cryptographic modules for cryptographic operations.",
+  "check_text": "As the system administrator, run the following:\n\n$ openssl version\n\nIf \"fips\" is not included in the OpenSSL version, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "As the system administrator, run the following:",
+      "commands": [
+        "openssl version"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

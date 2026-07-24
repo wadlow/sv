@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258061",
+  "severity": "medium",
+  "rule_id": "SV-258061r958482_rule",
+  "rule_ver": "RHEL-09-411110",
+  "rule_title": "RHEL 9 groups must have unique Group ID (GID).",
+  "check_text": "Verify that RHEL 9 contains no duplicate GIDs for interactive users with the following command:\n \n $  cut -d : -f 3 /etc/group | uniq -d\n \nIf the system has duplicate GIDs, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 contains no duplicate GIDs for interactive users with the following command:",
+      "commands": [
+        "cut -d : -f 3 /etc/group | uniq -d"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

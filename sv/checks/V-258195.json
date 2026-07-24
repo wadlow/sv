@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258195",
+  "severity": "medium",
+  "rule_id": "SV-258195r1045370_rule",
+  "rule_ver": "RHEL-09-654105",
+  "rule_title": "RHEL 9 must audit all uses of the kmod command.",
+  "check_text": "Verify that RHEL 9 is configured to audit the execution of the \"kmod\" command with the following command:\n\n$ sudo auditctl -l | grep kmod\n\n-a always,exit -S all -F path=/usr/bin/kmod -F perm=x -F auid>=1000 -F auid!=-1 -F key=modules\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to audit the execution of the \"kmod\" command with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep kmod"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

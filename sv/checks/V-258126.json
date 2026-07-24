@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258126",
+  "severity": "medium",
+  "rule_id": "SV-258126r1045255_rule",
+  "rule_ver": "RHEL-09-611185",
+  "rule_title": "RHEL 9 must have the opensc package installed.",
+  "check_text": "Verify that RHEL 9 has the opensc package installed with the following command:\n\n$ dnf list --installed opensc\n\nExample output:\n\nopensc.x86_64          0.22.0-2.el9\n\nIf the \"opensc\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 has the opensc package installed with the following command:",
+      "commands": [
+        "dnf list --installed opensc"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

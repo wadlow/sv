@@ -1,0 +1,18 @@
+{
+  "v_code": "V-214252",
+  "severity": "medium",
+  "rule_id": "SV-214252r1043181_rule",
+  "rule_ver": "AS24-U1-000510",
+  "rule_title": "The Apache web server must generate a session ID long enough that it cannot be guessed through brute force.",
+  "check_text": "Review the web server documentation and deployed configuration to determine the length of the generated session identifiers.\n\nFirst ensure that \"session_crypto\" is enabled:\n\nhttpd -M |grep session_crypto\n\nIf the above command returns \"session_crypto_module\", the module is enabled in the running server.\n\nDetermine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n\nReview the \"httpd.conf\" file.\n\nIf the \"SessionCryptoCipher\" is not used or \"SessionCryptoCipher\" is not set to \"aes256\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the web server documentation and deployed configuration to determine the length of the generated session identifiers.\nFirst ensure that \"session_crypto\" is enabled:\nhttpd -M |grep session_crypto\nIf the above command returns \"session_crypto_module\", the module is enabled in the running server.\nDetermine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

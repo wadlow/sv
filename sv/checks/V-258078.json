@@ -1,0 +1,28 @@
+{
+  "v_code": "V-258078",
+  "severity": "high",
+  "rule_id": "SV-258078r958944_rule",
+  "rule_ver": "RHEL-09-431010",
+  "rule_title": "RHEL 9 must use a Linux Security Module configured to enforce limits on system services.",
+  "check_text": "Ensure that RHEL 9 verifies correct operation of security functions through the use of SELinux with the following command:\n\n$ getenforce\n\nEnforcing\n\nIf SELINUX is not set to \"Enforcing\", this is a finding.\n\nVerify that SELinux is configured to be enforcing at boot.\n\ngrep \"SELINUX=\" /etc/selinux/config\n# SELINUX= can take one of these three values:\n# NOTE: In earlier Fedora kernel builds, SELINUX=disabled would also\nSELINUX=enforcing\n\nIf SELINUX line is missing, commented out, or not set to \"enforcing\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Ensure that RHEL 9 verifies correct operation of security functions through the use of SELinux with the following command:",
+      "commands": [
+        "getenforce"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Verify that SELinux is configured to be enforcing at boot.",
+      "commands": [
+        "grep \"SELINUX=\" /etc/selinux/config",
+        "SELINUX= can take one of these three values:",
+        "NOTE: In earlier Fedora kernel builds, SELINUX=disabled would also"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

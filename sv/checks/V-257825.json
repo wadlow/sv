@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257825",
+  "severity": "medium",
+  "rule_id": "SV-257825r1184291_rule",
+  "rule_ver": "RHEL-09-215010",
+  "rule_title": "RHEL 9 subscription-manager package must be installed.",
+  "check_text": "Note: If the system is not an internet connected system, this requirement is not applicable.\n\nVerify that RHEL 9 subscription-manager package is installed with the following command:\n\n$ dnf list --installed subscription-manager\n\nExample output:\n\nsubscription-manager.x86_64          1.29.26-3.el9_0\n\nIf the \"subscription-manager\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If the system is not an internet connected system, this requirement is not applicable.\nVerify that RHEL 9 subscription-manager package is installed with the following command:",
+      "commands": [
+        "dnf list --installed subscription-manager"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

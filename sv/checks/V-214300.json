@@ -1,0 +1,34 @@
+{
+  "v_code": "V-214300",
+  "severity": "medium",
+  "rule_id": "SV-214300r1051295_rule",
+  "rule_ver": "AS24-U2-000810",
+  "rule_title": "The Apache web server must only accept client certificates issued by DOD PKI or DoD-approved PKI Certification Authorities (CAs).",
+  "check_text": "Verify the “ssl module” module is loaded:\n# httpd -M | grep -i ssl_module\nOutput:  ssl_module (shared) \n\nIf the \"ssl_module\" is not found, this is a finding. \n\nDetermine the location of the ssl.conf file:\n# find / -name ssl.conf\nOutput: /etc/httpd/conf.d/ssl.conf\n\nSearch the ssl.conf file for the following:\n# cat /etc/httpd/conf.d/ssl.conf | grep -i \"SSLCACertificateFile\"\nOutput should be similar to: SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt\n\nReview the path of the \"SSLCACertificateFile\" directive.\n\nReview the contents of <'path of SSLCACertificateFile'>\\ca-bundle.crt.\n\nExamine the contents of this file to determine if the trusted CAs are DOD approved.\n\nIf the trusted CA that is used to authenticate users to the website does not lead to an approved DOD CA, this is a finding.\n\nNOTE: There are non-DOD roots that must be on the server for it to function. Some applications, such as antivirus programs, require root CAs to function. DOD-approved certificate can include the External Certificate Authorities (ECA) if approved by the AO. The PKE InstallRoot 3.06 System Administrator Guide (SAG), dated 08 Jul 2008, contains a complete list of DOD, ECA, and IECA CAs.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the “ssl module” module is loaded:",
+      "commands": [
+        "httpd -M | grep -i ssl_module"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Determine the location of the ssl.conf file:",
+      "commands": [
+        "find / -name ssl.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Output: /etc/httpd/conf.d/ssl.conf\nSearch the ssl.conf file for the following:",
+      "commands": [
+        "cat /etc/httpd/conf.d/ssl.conf | grep -i \"SSLCACertificateFile\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

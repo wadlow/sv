@@ -1,0 +1,37 @@
+{
+  "v_code": "V-233556",
+  "severity": "medium",
+  "rule_id": "SV-233556r961800_rule",
+  "rule_ver": "CD12-00-004900",
+  "rule_title": "PostgreSQL must generate audit records when privileges/permissions are added.",
+  "check_text": "Note: The following instructions use the PGDATA and PGLOG environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\n\nFirst, as the database administrator (shown here as \"postgres\"), create a role by running the following SQL:\n\nChange the privileges of another user:\n\n$ sudo su - postgres\n$ psql -c \"CREATE ROLE bob\"\n\nNext, GRANT then REVOKE privileges from the role:\n\n$ psql -c \"GRANT CONNECT ON DATABASE postgres TO bob\"\n$ psql -c \"REVOKE CONNECT ON DATABASE postgres FROM bob\"\n\npostgres=# REVOKE CONNECT ON DATABASE postgres FROM bob;\nREVOKE\n\npostgres=# GRANT CONNECT ON DATABASE postgres TO bob;\nGRANT\n\nNext, as the database administrator (shown here as \"postgres\"), verify the events were logged:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/${PGLOG?}/<latest_log>\n< 2016-07-13 16:25:21.103 EDT postgres postgres LOG: > AUDIT: SESSION,1,1,ROLE,GRANT,,,GRANT CONNECT ON DATABASE postgres TO bob,<none>\n< 2016-07-13 16:25:25.520 EDT postgres postgres LOG: > AUDIT: SESSION,1,1,ROLE,REVOKE,,,REVOKE CONNECT ON DATABASE postgres FROM bob,<none>\n\nIf the above steps cannot verify that audit records are produced when privileges/permissions/role memberships are added, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGLOG environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\nFirst, as the database administrator (shown here as \"postgres\"), create a role by running the following SQL:\nChange the privileges of another user:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"CREATE ROLE bob\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, GRANT then REVOKE privileges from the role:",
+      "commands": [
+        "psql -c \"GRANT CONNECT ON DATABASE postgres TO bob\"",
+        "psql -c \"REVOKE CONNECT ON DATABASE postgres FROM bob\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "postgres=# REVOKE CONNECT ON DATABASE postgres FROM bob;\nREVOKE\npostgres=# GRANT CONNECT ON DATABASE postgres TO bob;\nGRANT\nNext, as the database administrator (shown here as \"postgres\"), verify the events were logged:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/${PGLOG?}/<latest_log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

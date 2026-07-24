@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257823",
+  "severity": "medium",
+  "rule_id": "SV-257823r1155641_rule",
+  "rule_ver": "RHEL-09-214030",
+  "rule_title": "RHEL 9 must be configured so that the cryptographic hashes of system files match vendor values.",
+  "check_text": "Verify RHEL 9 is configured so that the cryptographic hashes of system files match vendor values.\n \nList files on the system that have file hashes different from what is expected by the RPM database with the following command:\n\n$ sudo rpm -Va --noconfig | awk '$1 ~ /..5/ && $2 != \"c\"' \n\nIf there is output, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured so that the cryptographic hashes of system files match vendor values.\nList files on the system that have file hashes different from what is expected by the RPM database with the following command:",
+      "commands": [
+        "sudo rpm -Va --noconfig | awk '$1 ~ /..5/ && $2 != \"c\"'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

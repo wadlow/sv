@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258189",
+  "severity": "medium",
+  "rule_id": "SV-258189r1155607_rule",
+  "rule_ver": "RHEL-09-654075",
+  "rule_title": "RHEL 9 must audit all uses of the delete_module system call.",
+  "check_text": "Verify RHEL 9 is configured to audit the execution of the \"delete_module\" system call with the following command:\n\n$ sudo auditctl -l | grep delete_module\n\n-a always,exit -F arch=b32 -S delete_module -F auid>=1000 -F auid!=-1 -F key=module_chng\n-a always,exit -F arch=b64 -S delete_module -F auid>=1000 -F auid!=-1 -F key=module_chng\n\nIf both the \"b32\" and \"b64\" audit rules are not defined for the \"delete_module\" system call, or any of the lines returned are commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to audit the execution of the \"delete_module\" system call with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep delete_module"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

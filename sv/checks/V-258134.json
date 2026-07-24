@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258134",
+  "severity": "medium",
+  "rule_id": "SV-258134r1155620_rule",
+  "rule_ver": "RHEL-09-651010",
+  "rule_title": "RHEL 9 must have the AIDE package installed.",
+  "check_text": "Verify the file integrity tool is configured to verify ACLs.\n\nNote: AIDE is highly configurable at install time. This requirement assumes the \"aide.conf\" file is under the \"/etc\" directory.\n\nVerify AIDE is installed with the following command:\n\n$ sudo dnf list installed aide\n\nUpdating Subscription Management repositories.\nInstalled Packages\naide.x86_64                                0.16-103.el9                                @rhel-9-for-x86_64-appstream-rpms\n\nUse the following command to determine if the file is in a location other than \"/etc/aide/aide.conf\":\n\n$ sudo find / -name aide.conf\n\nIf AIDE is not installed, ask the system administrator (SA) how file integrity checks are performed on the system.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the file integrity tool is configured to verify ACLs.\nNote: AIDE is highly configurable at install time. This requirement assumes the \"aide.conf\" file is under the \"/etc\" directory.\nVerify AIDE is installed with the following command:",
+      "commands": [
+        "sudo dnf list installed aide"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Updating Subscription Management repositories.\nInstalled Packages\naide.x86_64                                0.16-103.el9                                @rhel-9-for-x86_64-appstream-rpms\nUse the following command to determine if the file is in a location other than \"/etc/aide/aide.conf\":",
+      "commands": [
+        "sudo find / -name aide.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258103",
+  "severity": "medium",
+  "rule_id": "SV-258103r1045210_rule",
+  "rule_ver": "RHEL-09-611070",
+  "rule_title": "RHEL 9 must enforce password complexity by requiring that at least one numeric character be used.",
+  "check_text": "Verify that RHEL 9 enforces password complexity by requiring at least one numeric character.\n\nCheck the value for \"dcredit\" with the following command:\n\n$ grep dcredit /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf\n\n/etc/security/pwquality.conf:dcredit = -1\n\nIf the value of \"dcredit\" is a positive number or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 enforces password complexity by requiring at least one numeric character.\nCheck the value for \"dcredit\" with the following command:",
+      "commands": [
+        "grep dcredit /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

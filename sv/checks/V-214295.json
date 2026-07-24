@@ -1,0 +1,18 @@
+{
+  "v_code": "V-214295",
+  "severity": "medium",
+  "rule_id": "SV-214295r1043182_rule",
+  "rule_ver": "AS24-U2-000650",
+  "rule_title": "The Apache web server must set an absolute timeout for sessions.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file: \n \n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n \nVerify the \"SessionMaxAge\" directive exists and is set to \"600\". \n \nIf the \"SessionMaxAge\" directive does not exist or is commented out, this is a finding. \n \nIf the \"SessionMaxAge\" directive exists but is not set to \"600\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

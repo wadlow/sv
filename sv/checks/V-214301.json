@@ -1,0 +1,18 @@
+{
+  "v_code": "V-214301",
+  "severity": "medium",
+  "rule_id": "SV-214301r961632_rule",
+  "rule_ver": "AS24-U2-000870",
+  "rule_title": "The Apache web server cookies, such as session cookies, sent to the client using SSL/TLS must not be compressed.",
+  "check_text": "In a command line, run \"httpd -M | grep -i ssl_module\". \n \nIf \"ssl_module\" is not listed, this is a finding. \n \nDetermine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file: \n \n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n \nIf the \"SSLCompression\" directive does not exist or is set to \"on\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

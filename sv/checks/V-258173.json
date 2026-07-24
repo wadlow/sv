@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258173",
+  "severity": "low",
+  "rule_id": "SV-258173r1101933_rule",
+  "rule_ver": "RHEL-09-653120",
+  "rule_title": "RHEL 9 must allocate an audit_backlog_limit of sufficient size to capture processes that start prior to the audit daemon.",
+  "check_text": "Verify RHEL 9 allocates a sufficient audit_backlog_limit to capture processes that start prior to the audit daemon with the following command:\n\n$ sudo grubby --info=ALL | grep args | grep 'audit_backlog_limit'\n\nIf the command returns any outputs, and audit_backlog_limit is less than \"8192\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 allocates a sufficient audit_backlog_limit to capture processes that start prior to the audit daemon with the following command:",
+      "commands": [
+        "sudo grubby --info=ALL | grep args | grep 'audit_backlog_limit'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

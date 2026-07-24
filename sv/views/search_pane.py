@@ -32,6 +32,8 @@ class SearchPane(NSView):
         attrs['hide_audit_filter'] = False  # Initially unchecked
         attrs['hide_audit_checkbox'] = None
         attrs['count_label'] = None
+        attrs['check_texts_btn'] = None
+        attrs['on_check_texts'] = None
         SearchPane.createUI(self)
         return self
     
@@ -125,17 +127,31 @@ class SearchPane(NSView):
         hide_audit_checkbox.setToolTip_("Hide V-codes with 'audit' in their title (e.g., auditing, audited)")
         self.addSubview_(hide_audit_checkbox)
         attrs['hide_audit_checkbox'] = hide_audit_checkbox
-        
-        # Add Delete Selected STIG button at the bottom right corner (small)
+
+        from AppKit import NSFont
         btn_width = 130
         btn_height = 24
+        small_font = NSFont.systemFontOfSize_(11)
+
+        # Add Check Texts button at the bottom left
+        check_texts_btn_frame = NSRect((10, 10), (110, btn_height))
+        check_texts_btn = NSButton.alloc().initWithFrame_(check_texts_btn_frame)
+        check_texts_btn.setTitle_("Check Texts")
+        check_texts_btn.setButtonType_(0)
+        check_texts_btn.setBezelStyle_(4)
+        check_texts_btn.setFont_(small_font)
+        check_texts_btn.setTarget_(self)
+        check_texts_btn.setAction_("checkTextsClicked:")
+        check_texts_btn.setAutoresizingMask_(0x04 | 0x08)
+        self.addSubview_(check_texts_btn)
+        attrs['check_texts_btn'] = check_texts_btn
+
+        # Add Delete Selected STIG button at the bottom right corner (small)
         delete_btn_frame = NSRect((width - btn_width - 10, 10), (btn_width, btn_height))
         delete_btn = NSButton.alloc().initWithFrame_(delete_btn_frame)
         delete_btn.setTitle_("Delete Selected STIG")
         delete_btn.setButtonType_(0)  # NSMomentaryPushInButton
         delete_btn.setBezelStyle_(4)  # NSRoundedBezelStyle (4 = small rounded)
-        from AppKit import NSFont
-        small_font = NSFont.systemFontOfSize_(11)  # Smaller font
         delete_btn.setFont_(small_font)
         delete_btn.setTarget_(self)
         delete_btn.setAction_("deleteStigClicked:")
@@ -220,6 +236,13 @@ class SearchPane(NSView):
             on_delete_stig()
         else:
             print("SearchPane: WARNING - No delete STIG callback set!")  # Debug
+
+    def checkTextsClicked_(self, sender):
+        """Handle Check Texts button click."""
+        attrs = get_view_attrs(self)
+        on_check_texts = attrs.get('on_check_texts')
+        if on_check_texts:
+            on_check_texts()
     
     @objc.python_method
     def update_delete_button_state(self, has_selection):

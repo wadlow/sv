@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257783",
+  "severity": "medium",
+  "rule_id": "SV-257783r991562_rule",
+  "rule_ver": "RHEL-09-211040",
+  "rule_title": "RHEL 9 systemd-journald service must be enabled.",
+  "check_text": "Verify that \"systemd-journald\" is active with the following command:\n\n$ systemctl is-active systemd-journald\n\nactive\n\nIf the systemd-journald service is not active, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that \"systemd-journald\" is active with the following command:",
+      "commands": [
+        "systemctl is-active systemd-journald"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

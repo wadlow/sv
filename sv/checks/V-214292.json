@@ -1,0 +1,27 @@
+{
+  "v_code": "V-214292",
+  "severity": "medium",
+  "rule_id": "SV-214292r961167_rule",
+  "rule_ver": "AS24-U2-000620",
+  "rule_title": "The Apache web server must display a default hosted application web page, not a directory listing, when a requested web page cannot be found.",
+  "check_text": "View the \"DocumentRoot\" value by entering the following command: \n \nawk '{print $1,$2,$3}' <'INSTALL PATH'>/conf/httpd.conf|grep -i DocumentRoot|grep -v '^#' \n \nNote each location following the \"DocumentRoot\" string. This is the configured path(s) to the document root directory(s). \n \nTo view a list of the directories and subdirectories and the file \"index.html\", from each stated \"DocumentRoot\" location enter the following commands: \n \nfind . -type d \nfind . -type f -name index.html \n \nReview the results for each document root directory and its subdirectories. \n \nIf a directory does not contain an \"index.html\" or equivalent default document, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "View the \"DocumentRoot\" value by entering the following command:",
+      "commands": [
+        "awk '{print $1,$2,$3}' <'INSTALL PATH'>/conf/httpd.conf|grep -i DocumentRoot|grep -v '^#'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Note each location following the \"DocumentRoot\" string. This is the configured path(s) to the document root directory(s).\nTo view a list of the directories and subdirectories and the file \"index.html\", from each stated \"DocumentRoot\" location enter the following commands:",
+      "commands": [
+        "find . -type d",
+        "find . -type f -name index.html"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

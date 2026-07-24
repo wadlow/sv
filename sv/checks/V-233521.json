@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233521",
+  "severity": "medium",
+  "rule_id": "SV-233521r961275_rule",
+  "rule_ver": "CD12-00-001100",
+  "rule_title": "PostgreSQL must associate organization-defined types of security labels having organization-defined security label values with information in transmission.",
+  "check_text": "If security labeling is not required, this is not a finding.\n\nFirst, as the database administrator (shown here as \"postgres\"), run the following SQL against each table that requires security labels:\n\n$ sudo su - postgres\n$ psql -c \"\\d+ <schema_name>.<table_name>\"\n\nIf security labeling is required and the results of the SQL above do not show a policy attached to the table, this is a finding.\n\nIf security labeling is required and not implemented according to the system documentation, such as SSP, this is a finding.\n\nIf security labeling requirements have been specified, but the security labeling is not implemented or does not reliably maintain labels on information in storage, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If security labeling is not required, this is not a finding.\nFirst, as the database administrator (shown here as \"postgres\"), run the following SQL against each table that requires security labels:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"\\d+ <schema_name>.<table_name>\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

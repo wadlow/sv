@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257934",
+  "severity": "medium",
+  "rule_id": "SV-257934r991589_rule",
+  "rule_ver": "RHEL-09-232270",
+  "rule_title": "RHEL 9 /etc/shadow file must have mode 0000 to prevent unauthorized access.",
+  "check_text": "Verify that the \"/etc/shadow\" file has mode \"0000\" with the following command:\n\n$ sudo stat -c \"%a %n\" /etc/shadow\n\n0 /etc/shadow\n\nIf a value of \"0\" is not returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the \"/etc/shadow\" file has mode \"0000\" with the following command:",
+      "commands": [
+        "sudo stat -c \"%a %n\" /etc/shadow"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

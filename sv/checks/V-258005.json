@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258005",
+  "severity": "medium",
+  "rule_id": "SV-258005r1045069_rule",
+  "rule_ver": "RHEL-09-255145",
+  "rule_title": "RHEL 9 SSH daemon must not allow rhosts authentication.",
+  "check_text": "Verify the SSH daemon does not allow rhosts authentication with the following command:\n\n$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*ignorerhosts'\n\nIgnoreRhosts yes\n\nIf the value is returned as \"no\", the returned line is commented out, or no output is returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the SSH daemon does not allow rhosts authentication with the following command:",
+      "commands": [
+        "sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*ignorerhosts'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

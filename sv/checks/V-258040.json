@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258040",
+  "severity": "medium",
+  "rule_id": "SV-258040r991568_rule",
+  "rule_ver": "RHEL-09-291040",
+  "rule_title": "RHEL 9 wireless network adapters must be disabled.",
+  "check_text": "Verify there are no wireless interfaces configured on the system with the following command:\n\nNote: This requirement is Not Applicable for systems that do not have physical wireless network radios.\n\n$ nmcli device status\n\nDEVICE                    TYPE            STATE                    CONNECTION\nvirbr0                      bridge         connected             virbr0\nwlp7s0                    wifi              connected            wifiSSID\nenp6s0                    ethernet     disconnected        --\np2p-dev-wlp7s0     wifi-p2p     disconnected        --\nlo                             loopback    unmanaged           --\nvirbr0-nic                tun              unmanaged          --\n\nIf a wireless interface is configured and has not been documented and approved by the information system security officer (ISSO), this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify there are no wireless interfaces configured on the system with the following command:\nNote: This requirement is Not Applicable for systems that do not have physical wireless network radios.",
+      "commands": [
+        "nmcli device status"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

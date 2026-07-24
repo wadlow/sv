@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258026",
+  "severity": "medium",
+  "rule_id": "SV-258026r1045103_rule",
+  "rule_ver": "RHEL-09-271080",
+  "rule_title": "RHEL 9 must prevent a user from overriding the session lock-delay setting for the graphical user interface.",
+  "check_text": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\n\nVerify RHEL 9 prevents a user from overriding settings for graphical user interfaces. \n\n$ gsettings writable org.gnome.desktop.screensaver lock-delay\n \nfalse\n \nIf \"lock-delay\" is writable and the result is \"true\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\nVerify RHEL 9 prevents a user from overriding settings for graphical user interfaces.",
+      "commands": [
+        "gsettings writable org.gnome.desktop.screensaver lock-delay"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

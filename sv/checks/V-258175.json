@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258175",
+  "severity": "medium",
+  "rule_id": "SV-258175r1045310_rule",
+  "rule_ver": "RHEL-09-653130",
+  "rule_title": "RHEL 9 audispd-plugins package must be installed.",
+  "check_text": "Verify that RHEL 9 has the audispd-plugins package installed with the following command:\n\n$ dnf list --installed audispd-plugins\n\nExample output:\n\naudispd-plugins.x86_64          3.0.7-101.el9_0.2\n\nIf the \"audispd-plugins\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 has the audispd-plugins package installed with the following command:",
+      "commands": [
+        "dnf list --installed audispd-plugins"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

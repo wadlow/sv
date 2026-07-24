@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258113",
+  "severity": "medium",
+  "rule_id": "SV-258113r1045232_rule",
+  "rule_ver": "RHEL-09-611120",
+  "rule_title": "RHEL 9 must require the maximum number of repeating characters of the same character class be limited to four when passwords are changed.",
+  "check_text": "Verify that RHEL 9 requires that passwords can have a maximum of four repeating characters of the same character class.\n\n$ grep maxclassrepeat /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf\n\nmaxclassrepeat = 4\n\nIf the value of \"maxclassrepeat\" is set to \"0\", more than \"4\", or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 requires that passwords can have a maximum of four repeating characters of the same character class.",
+      "commands": [
+        "grep maxclassrepeat /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

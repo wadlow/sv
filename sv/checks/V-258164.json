@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258164",
+  "severity": "medium",
+  "rule_id": "SV-258164r1045301_rule",
+  "rule_ver": "RHEL-09-653075",
+  "rule_title": "RHEL 9 audit system must audit local events.",
+  "check_text": "Verify that the RHEL 9 audit system is configured to audit local events with the following command:\n\n$ sudo grep local_events /etc/audit/auditd.conf \n\nlocal_events = yes \n\nIf \"local_events\" isn't set to \"yes\", if the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the RHEL 9 audit system is configured to audit local events with the following command:",
+      "commands": [
+        "sudo grep local_events /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

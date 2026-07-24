@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258056",
+  "severity": "medium",
+  "rule_id": "SV-258056r1045143_rule",
+  "rule_ver": "RHEL-09-411085",
+  "rule_title": "RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur during a 15-minute time period.",
+  "check_text": "Note: If the system administrator demonstrates the use of an approved centralized account management method that locks an account after three unsuccessful logon attempts within a period of 15 minutes, this requirement is Not Applicable.\n\nVerify RHEL 9 locks an account after three unsuccessful logon attempts within a period of 15 minutes with the following command:\n\n$ sudo grep fail_interval /etc/security/faillock.conf \n\nfail_interval = 900\n\nIf the \"fail_interval\" option is not set to \"900\" or less (but not \"0\"), the line is commented out, or the line is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If the system administrator demonstrates the use of an approved centralized account management method that locks an account after three unsuccessful logon attempts within a period of 15 minutes, this requirement is Not Applicable.\nVerify RHEL 9 locks an account after three unsuccessful logon attempts within a period of 15 minutes with the following command:",
+      "commands": [
+        "sudo grep fail_interval /etc/security/faillock.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

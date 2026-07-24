@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258013",
+  "severity": "medium",
+  "rule_id": "SV-258013r1045082_rule",
+  "rule_ver": "RHEL-09-271015",
+  "rule_title": "RHEL 9 must prevent a user from overriding the banner-message-enable setting for the graphical user interface.",
+  "check_text": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\n\nVerify RHEL 9 prevents a user from overriding settings for graphical user interfaces. \n\nDetermine if the org.gnome.login-screen banner-message-enable key is writable with the following command:\n\t\n$ gsettings writable org.gnome.login-screen banner-message-enable\n\t \nfalse\n\t \nIf \"banner-message-enable\" is writable or the result is \"true\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\nVerify RHEL 9 prevents a user from overriding settings for graphical user interfaces.\nDetermine if the org.gnome.login-screen banner-message-enable key is writable with the following command:",
+      "commands": [
+        "gsettings writable org.gnome.login-screen banner-message-enable"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

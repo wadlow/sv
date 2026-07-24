@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258045",
+  "severity": "medium",
+  "rule_id": "SV-258045r958482_rule",
+  "rule_ver": "RHEL-09-411030",
+  "rule_title": "RHEL 9 duplicate User IDs (UIDs) must not exist for interactive users.",
+  "check_text": "Verify that RHEL 9 contains no duplicate UIDs for interactive users with the following command:\n\n$ sudo awk -F \":\" 'list[$3]++{print $1, $3}' /etc/passwd \n\nIf output is produced and the accounts listed are interactive user accounts, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 contains no duplicate UIDs for interactive users with the following command:",
+      "commands": [
+        "sudo awk -F \":\" 'list[$3]++{print $1, $3}' /etc/passwd"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

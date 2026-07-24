@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258104",
+  "severity": "medium",
+  "rule_id": "SV-258104r1015104_rule",
+  "rule_ver": "RHEL-09-611075",
+  "rule_title": "RHEL 9 passwords for new users or password changes must have a 24 hours minimum password lifetime restriction in /etc/login.defs.",
+  "check_text": "Verify RHEL 9 enforces 24 hours as the minimum password lifetime for new user accounts.\n\nCheck for the value of \"PASS_MIN_DAYS\" in \"/etc/login.defs\" with the following command: \n\n$ grep -i pass_min_days /etc/login.defs\n\nPASS_MIN_DAYS 1\n\nIf the \"PASS_MIN_DAYS\" parameter value is not \"1\" or greater, or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 enforces 24 hours as the minimum password lifetime for new user accounts.\nCheck for the value of \"PASS_MIN_DAYS\" in \"/etc/login.defs\" with the following command:",
+      "commands": [
+        "grep -i pass_min_days /etc/login.defs"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

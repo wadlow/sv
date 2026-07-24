@@ -1,0 +1,26 @@
+{
+  "v_code": "V-257793",
+  "severity": "medium",
+  "rule_id": "SV-257793r1044843_rule",
+  "rule_ver": "RHEL-09-212040",
+  "rule_title": "RHEL 9 must clear the page allocator to prevent use-after-free attacks.",
+  "check_text": "Verify that GRUB 2 is configured to enable page poisoning to mitigate use-after-free vulnerabilities.\n\nCheck that the current GRUB 2 configuration has page poisoning enabled  with the following command:\n\n$ sudo grubby --info=ALL | grep args | grep -v 'page_poison=1'\n\nIf any output is returned, this is a finding.\n\nCheck that page poisoning is enabled by default to persist in kernel updates with the following command: \n\n$ sudo grep page_poison /etc/default/grub\n\nGRUB_CMDLINE_LINUX=\"page_poison=1\"\n\nIf \"page_poison\" is not set to \"1\", is missing or commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that GRUB 2 is configured to enable page poisoning to mitigate use-after-free vulnerabilities.\nCheck that the current GRUB 2 configuration has page poisoning enabled  with the following command:",
+      "commands": [
+        "sudo grubby --info=ALL | grep args | grep -v 'page_poison=1'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Check that page poisoning is enabled by default to persist in kernel updates with the following command:",
+      "commands": [
+        "sudo grep page_poison /etc/default/grub"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257809",
+  "severity": "medium",
+  "rule_id": "SV-257809r1155709_rule",
+  "rule_ver": "RHEL-09-213070",
+  "rule_title": "RHEL 9 must implement address space layout randomization (ASLR) to protect its memory from unauthorized code execution.",
+  "check_text": "Verify RHEL 9 is implementing ASLR.\n\nCheck the status of the \"kernel.randomize_va_space\" kernel parameter with the following command:\n\n$ sudo sysctl kernel.randomize_va_space\nkernel.randomize_va_space = 2\n\nIf \"kernel.randomize_va_space\" is not set to \"2\" or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is implementing ASLR.\nCheck the status of the \"kernel.randomize_va_space\" kernel parameter with the following command:",
+      "commands": [
+        "sudo sysctl kernel.randomize_va_space"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

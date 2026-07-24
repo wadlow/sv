@@ -1,0 +1,27 @@
+{
+  "v_code": "V-233571",
+  "severity": "medium",
+  "rule_id": "SV-233571r961800_rule",
+  "rule_ver": "CD12-00-006400",
+  "rule_title": "PostgreSQL must generate audit records when privileges/permissions are modified.",
+  "check_text": "First, as the database administrator, verify pgaudit is enabled by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW shared_preload_libraries\"\n\nIf the output does not contain pgaudit, this is a finding.\n\nNext, verify that role is enabled:\n\n$ psql -c \"SHOW pgaudit.log\"\n\nIf the output does not contain role, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "First, as the database administrator, verify pgaudit is enabled by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW shared_preload_libraries\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, verify that role is enabled:",
+      "commands": [
+        "psql -c \"SHOW pgaudit.log\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

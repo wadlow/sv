@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257893",
+  "severity": "medium",
+  "rule_id": "SV-257893r991589_rule",
+  "rule_ver": "RHEL-09-232065",
+  "rule_title": "RHEL 9 /etc/gshadow file must have mode 0000 or less permissive to prevent unauthorized access.",
+  "check_text": "Verify that the \"/etc/gshadow\" file has mode \"0000\" with the following command:\n\n$ sudo stat -c \"%a %n\" /etc/gshadow\n\n0 /etc/gshadow\n\nIf a value of \"0\" is not returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the \"/etc/gshadow\" file has mode \"0000\" with the following command:",
+      "commands": [
+        "sudo stat -c \"%a %n\" /etc/gshadow"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "v_code": "V-214257",
+  "severity": "medium",
+  "rule_id": "SV-214257r961167_rule",
+  "rule_ver": "AS24-U1-000630",
+  "rule_title": "Debugging and trace information used to diagnose the Apache web server must be disabled.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n\nFor any enabled \"TraceEnable\" directives, verify they are part of the server-level configuration (i.e., not nested in a \"Directory\" or \"Location\" directive). \n\nVerify that the \"TraceEnable\" directive is set to \"Off\":\n\n# cat /<path_to_file>/httpd.conf | grep -i \"TraceEnable\"\n\nIf the \"TraceEnable\" directive is not part of the server-level configuration and/or is not set to \"Off\", this is a finding.\n\nIf the directive does not exist in the \"conf\" file, this is a finding because the default value is \"On\".\n\nIf the \"LogLevel\" directive is not being used, this is a finding: \n\n# cat /<path_to_file>/httpd.conf | grep -i \"LogLevel\"",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nFor any enabled \"TraceEnable\" directives, verify they are part of the server-level configuration (i.e., not nested in a \"Directory\" or \"Location\" directive).\nVerify that the \"TraceEnable\" directive is set to \"Off\":",
+      "commands": [
+        "cat /<path_to_file>/httpd.conf | grep -i \"TraceEnable\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "",
+      "commands": [
+        "cat /<path_to_file>/httpd.conf | grep -i \"LogLevel\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

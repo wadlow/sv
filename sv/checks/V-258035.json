@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258035",
+  "severity": "medium",
+  "rule_id": "SV-258035r1045125_rule",
+  "rule_ver": "RHEL-09-291015",
+  "rule_title": "RHEL 9 must have the USBGuard package installed.",
+  "check_text": "Verify USBGuard is installed on the operating system with the following command:\n\n$ sudo dnf list installed usbguard\n\nExample output:\n\nInstalled Packages\nusbguard.x86_64          1.0.0-10.el9_1.2          @rhel-9-for-x86_64-appstream-rpms\n\nIf the USBGuard package is not installed, ask the SA to indicate how unauthorized peripherals are being blocked.\n\nIf there is no evidence that unauthorized peripherals are being blocked before establishing a connection, this is a finding.\n\nIf the system is virtual machine with no virtual or physical USB peripherals attached, this is not a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify USBGuard is installed on the operating system with the following command:",
+      "commands": [
+        "sudo dnf list installed usbguard"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258044",
+  "severity": "medium",
+  "rule_id": "SV-258044r1184313_rule",
+  "rule_ver": "RHEL-09-411025",
+  "rule_title": "RHEL 9 must set the umask value to 077 for all local interactive user accounts.",
+  "check_text": "Verify that the default umask for all local interactive users is \"077\".\n\nIdentify the locations of all local interactive user home directories by looking at the \"/etc/passwd\" file.\n\nCheck all local interactive user initialization files for interactive users with the following command:\n\nNote: The example is for a system that is configured to create users home directories in the \"/home\" directory.\n\n$ sudo find /home -maxdepth 2 -type f -name \".[^.]*\" -exec grep -iH -d skip --exclude=.bash_history umask {} \\;\n\n/home/disauser/.bash_history:grep -i umask /etc/bashrc /etc/csh.cshrc /etc/profile\n/home/disauser/.bash_history:grep -i umask /etc/login.defs\n\nIf any local interactive user initialization files are found to have a umask statement that sets a value less restrictive than \"077\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the default umask for all local interactive users is \"077\".\nIdentify the locations of all local interactive user home directories by looking at the \"/etc/passwd\" file.\nCheck all local interactive user initialization files for interactive users with the following command:\nNote: The example is for a system that is configured to create users home directories in the \"/home\" directory.",
+      "commands": [
+        "sudo find /home -maxdepth 2 -type f -name \".[^.]*\" -exec grep -iH -d skip --exclude=.bash_history umask {} \\;"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

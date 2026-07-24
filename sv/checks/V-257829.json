@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257829",
+  "severity": "medium",
+  "rule_id": "SV-257829r1044896_rule",
+  "rule_ver": "RHEL-09-215030",
+  "rule_title": "RHEL 9 must not have the ypserv package installed.",
+  "check_text": "Verify that the ypserv package is not installed with the following command:\n\n$ dnf list --installed ypserv\n\nError: No matching Packages to list\n\nIf the \"ypserv\" package is installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the ypserv package is not installed with the following command:",
+      "commands": [
+        "dnf list --installed ypserv"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "v_code": "V-279936",
+  "severity": "medium",
+  "rule_id": "SV-279936r1156361_rule",
+  "rule_ver": "RHEL-09-654097",
+  "rule_title": "RHEL 9 must audit any script or executable called by cron as root or by any privileged user.",
+  "check_text": "Verify RHEL 9 is configured to audit the execution of any system call made by cron as root or by any privileged user.\n\n$ sudo auditctl -l | grep /etc/cron.d\n-w /etc/cron.d -p wa -k cronjobs\n\n$ sudo auditctl -l | grep /var/spool/cron\n-w /var/spool/cron -p wa -k cronjobs\n\nIf either of these commands do not return the expected output, or the lines are commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to audit the execution of any system call made by cron as root or by any privileged user.",
+      "commands": [
+        "sudo auditctl -l | grep /etc/cron.d"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-w /etc/cron.d -p wa -k cronjobs",
+      "commands": [
+        "sudo auditctl -l | grep /var/spool/cron"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

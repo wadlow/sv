@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258155",
+  "severity": "medium",
+  "rule_id": "SV-258155r1045300_rule",
+  "rule_ver": "RHEL-09-653030",
+  "rule_title": "RHEL 9 must allocate audit record storage capacity to store at least one week's worth of audit records.",
+  "check_text": "Verify RHEL 9 allocates audit record storage capacity to store at least one week of audit records when audit records are not immediately sent to a central audit record storage facility.\n\nNote: The partition size needed to capture a week of audit records is based on the activity level of the system and the total storage capacity available. Typically 10.0GB of storage space for audit records should be sufficient.\n\nDetermine which partition the audit records are being written to with the following command:\n\n$ sudo grep -w log_file /etc/audit/auditd.conf\n\nlog_file = /var/log/audit/audit.log \n\nCheck the size of the partition that audit records are written to with the following command and verify whether it is sufficiently large:\n\n # df -h /var/log/audit/\n\n/dev/sda2 24G 10.4G 13.6G 43% /var/log/audit \n\nIf the audit record partition is not allocated for sufficient storage capacity, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 allocates audit record storage capacity to store at least one week of audit records when audit records are not immediately sent to a central audit record storage facility.\nNote: The partition size needed to capture a week of audit records is based on the activity level of the system and the total storage capacity available. Typically 10.0GB of storage space for audit records should be sufficient.\nDetermine which partition the audit records are being written to with the following command:",
+      "commands": [
+        "sudo grep -w log_file /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "log_file = /var/log/audit/audit.log\nCheck the size of the partition that audit records are written to with the following command and verify whether it is sufficiently large:",
+      "commands": [
+        "df -h /var/log/audit/"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258085",
+  "severity": "medium",
+  "rule_id": "SV-258085r1045173_rule",
+  "rule_ver": "RHEL-09-432020",
+  "rule_title": "RHEL 9 must use the invoking user's password for privilege escalation when using \"sudo\".",
+  "check_text": "Verify that the sudoers security policy is configured to use the invoking user's password for privilege escalation with the following command:\n\n$ sudo egrep -ir '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/ | grep -v '#'\n\n/etc/sudoers:Defaults !targetpw\n/etc/sudoers:Defaults !rootpw\n/etc/sudoers:Defaults !runaspw\n\nIf no results are returned, this is a finding.\n\nIf results are returned from more than one file location, this is a finding.\n\nIf \"Defaults !targetpw\" is not defined, this is a finding.\n\nIf \"Defaults !rootpw\" is not defined, this is a finding.\n\nIf \"Defaults !runaspw\" is not defined, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the sudoers security policy is configured to use the invoking user's password for privilege escalation with the following command:",
+      "commands": [
+        "sudo egrep -ir '(!rootpw|!targetpw|!runaspw)' /etc/sudoers /etc/sudoers.d/ | grep -v '#'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

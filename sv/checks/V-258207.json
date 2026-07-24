@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258207",
+  "severity": "medium",
+  "rule_id": "SV-258207r1045406_rule",
+  "rule_ver": "RHEL-09-654165",
+  "rule_title": "RHEL 9 must audit all uses of the unix_update command.",
+  "check_text": "Verify that RHEL 9 is configured to audit the execution of the \"unix_update\" command with the following command:\n\n$ sudo auditctl -l | grep unix_update\n\n-a always,exit -S all -F path=/usr/sbin/unix_update -F perm=x -F auid>=1000 -F auid!=-1 -F key=privileged-unix-update\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to audit the execution of the \"unix_update\" command with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep unix_update"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

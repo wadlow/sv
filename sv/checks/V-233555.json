@@ -1,0 +1,37 @@
+{
+  "v_code": "V-233555",
+  "severity": "medium",
+  "rule_id": "SV-233555r961803_rule",
+  "rule_ver": "CD12-00-004800",
+  "rule_title": "PostgreSQL must generate audit records when unsuccessful attempts to modify security objects occur.",
+  "check_text": "Note: The following instructions use the PGDATA and PGLOG environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\n\nAs the database administrator (shown here as \"postgres\"), create a test role by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"CREATE ROLE bob\"\n\nNext, to test if audit records are generated from unsuccessful attempts at modifying security objects, run the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SET ROLE bob; UPDATE pg_authid SET rolsuper = 't' WHERE rolname = 'bob';\"\n\nNext, as the database administrator (shown here as \"postgres\"), verify the denials were logged:\n\n$ sudo su - postgres\n$ cat ${PGDATA?}/${PGLOG?}/<latest_log>\n< 2016-03-17 10:34:00.017 EDT bob 56eabf52.b62 postgres: >ERROR: permission denied for relation pg_authid\n< 2016-03-17 10:34:00.017 EDT bob 56eabf52.b62 postgres: >STATEMENT: UPDATE pg_authid SET rolsuper = 't' WHERE rolname = 'bob';\n\nIf denials are not logged, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: The following instructions use the PGDATA and PGLOG environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-I for PGLOG.\nAs the database administrator (shown here as \"postgres\"), create a test role by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"CREATE ROLE bob\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, to test if audit records are generated from unsuccessful attempts at modifying security objects, run the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SET ROLE bob; UPDATE pg_authid SET rolsuper = 't' WHERE rolname = 'bob';\""
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Next, as the database administrator (shown here as \"postgres\"), verify the denials were logged:",
+      "commands": [
+        "sudo su - postgres",
+        "cat ${PGDATA?}/${PGLOG?}/<latest_log>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

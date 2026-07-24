@@ -1,0 +1,28 @@
+{
+  "v_code": "V-233618",
+  "severity": "medium",
+  "rule_id": "SV-233618r960942_rule",
+  "rule_ver": "CD12-00-012200",
+  "rule_title": "PostgreSQL must protect its audit configuration from unauthorized modification.",
+  "check_text": "All configurations for auditing and logging can be found in the postgresql.conf configuration file. By default, this file is owned by the database administrator account. \n\nTo check that the permissions of the postgresql.conf are owned by the database administrator with permissions of 0600, run the following as the database administrator (shown here as \"postgres\"):\n\n$ sudo su - postgres\n$ ls -la ${PGDATA?}\n\nIf postgresql.conf is not owned by the database administrator or does not have 0600 permissions, this is a finding.\n\n#### stderr Logging\n\nTo check that logs are created with 0600 permissions, check the following setting:\n\n$ sudo su - postgres\n$ psql -c \"SHOW log_file_mode\"\n\nIf permissions are not 0600, this is a finding.\n\n#### syslog Logging\n\nIf PostgreSQL is configured to use syslog, verify that the logs are owned by root and have 0600 permissions. If they are not, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "All configurations for auditing and logging can be found in the postgresql.conf configuration file. By default, this file is owned by the database administrator account.\nTo check that the permissions of the postgresql.conf are owned by the database administrator with permissions of 0600, run the following as the database administrator (shown here as \"postgres\"):",
+      "commands": [
+        "sudo su - postgres",
+        "ls -la ${PGDATA?}"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": "stderr Logging",
+      "description": "To check that logs are created with 0600 permissions, check the following setting:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW log_file_mode\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

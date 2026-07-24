@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258122",
+  "severity": "medium",
+  "rule_id": "SV-258122r1045246_rule",
+  "rule_ver": "RHEL-09-611165",
+  "rule_title": "RHEL 9 must enable certificate based smart card authentication.",
+  "check_text": "Note: If the system administrator (SA) demonstrates the use of an approved alternate multifactor authentication method, this requirement is Not Applicable.\n\nTo verify that RHEL 9 has smart cards  enabled in System Security Services Daemon (SSSD), run the following command:\n\n$ sudo grep -ir pam_cert_auth /etc/sssd/sssd.conf /etc/sssd/conf.d/\n\npam_cert_auth = True \n\nIf \"pam_cert_auth\" is not set to \"True\", the line is commented out, or the line is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If the system administrator (SA) demonstrates the use of an approved alternate multifactor authentication method, this requirement is Not Applicable.\nTo verify that RHEL 9 has smart cards  enabled in System Security Services Daemon (SSSD), run the following command:",
+      "commands": [
+        "sudo grep -ir pam_cert_auth /etc/sssd/sssd.conf /etc/sssd/conf.d/"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

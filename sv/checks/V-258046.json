@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258046",
+  "severity": "medium",
+  "rule_id": "SV-258046r991589_rule",
+  "rule_ver": "RHEL-09-411035",
+  "rule_title": "RHEL 9 system accounts must not have an interactive login shell.",
+  "check_text": "Verify that system accounts must not have an interactive login shell with the following command:\n\n$ awk -F: '($3<1000){print $1 \":\" $3 \":\" $7}' /etc/passwd\n\nroot:0:/bin/bash\nbin:1:/sbin/nologin\ndaemon:2:/sbin/nologin\nadm:3:/sbin/nologin\nlp:4:/sbin/nologin\n\nIdentify the system accounts from this listing that do not have a nologin shell.\n\nIf any system account (other than the root account) has a login shell and it is not documented with the information system security officer (ISSO), this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that system accounts must not have an interactive login shell with the following command:",
+      "commands": [
+        "awk -F: '($3<1000){print $1 \":\" $3 \":\" $7}' /etc/passwd"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

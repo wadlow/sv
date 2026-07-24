@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257954",
+  "severity": "medium",
+  "rule_id": "SV-257954r1106315_rule",
+  "rule_ver": "RHEL-09-252065",
+  "rule_title": "RHEL 9 libreswan package must be installed.",
+  "check_text": "Note: If there is no operational need for Libreswan to be installed, this rule is not applicable.\n\nVerify that RHEL 9 libreswan service package is installed.\n\nCheck that the libreswan service package is installed with the following command:\n\n$ dnf list --installed libreswan\n\nExample output:\n\nlibreswan.x86_64          4.6-3.el9\n\nIf the \"libreswan\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If there is no operational need for Libreswan to be installed, this rule is not applicable.\nVerify that RHEL 9 libreswan service package is installed.\nCheck that the libreswan service package is installed with the following command:",
+      "commands": [
+        "dnf list --installed libreswan"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

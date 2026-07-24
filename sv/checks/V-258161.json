@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258161",
+  "severity": "medium",
+  "rule_id": "SV-258161r958416_rule",
+  "rule_ver": "RHEL-09-653060",
+  "rule_title": "RHEL 9 must label all offloaded audit logs before sending them to the central log server.",
+  "check_text": "Verify that RHEL 9 Audit Daemon is configured to label all offloaded audit logs, with the following command:\n\n$ sudo grep name_format /etc/audit/auditd.conf\n\nname_format = hostname\n\nIf the \"name_format\" option is not \"hostname\", \"fqd\", or \"numeric\", or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 Audit Daemon is configured to label all offloaded audit logs, with the following command:",
+      "commands": [
+        "sudo grep name_format /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

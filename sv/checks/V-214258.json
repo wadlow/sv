@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214258",
+  "severity": "medium",
+  "rule_id": "SV-214258r1043182_rule",
+  "rule_ver": "AS24-U1-000650",
+  "rule_title": "The Apache web server must set an inactive timeout for sessions.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used. \n\nVerify the \"reqtimeout_module\" is loaded:\n\nChange to the root directory of Apache and run the following command to verify the \"reqtimeout_module\" is loaded:\n\n# httpd -M | grep reqtimeout_module\nOutout: reqtimeout_module (shared)\n\nIf the \"reqtimeout_module\" is not loaded, this is a finding.\n\nVerify the \"RequestReadTimeout\" directive is configured. \nExample: RequestReadTimeout handshake=5 header=10 body=30\nAllows for 5 seconds to complete the TLS handshake, 10 seconds to receive the request headers, and 30 seconds for receiving the request body.\nThe values will depend upon the website. \nThe intent of this requirement is to ensure the RequestReadTimeout is explicitly configured.\nIf the \"reqtimeout_module\" is loaded and the \"RequestReadTimeout\" directive is not configured, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nVerify the \"reqtimeout_module\" is loaded:\nChange to the root directory of Apache and run the following command to verify the \"reqtimeout_module\" is loaded:",
+      "commands": [
+        "httpd -M | grep reqtimeout_module"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

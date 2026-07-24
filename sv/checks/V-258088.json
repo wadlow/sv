@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258088",
+  "severity": "medium",
+  "rule_id": "SV-258088r1155643_rule",
+  "rule_ver": "RHEL-09-432035",
+  "rule_title": "RHEL 9 must restrict the use of the \"su\" command.",
+  "check_text": "Verify RHEL 9 includes users who require privilege escalation to be members of the \"wheel\" group with the following command:\n\n$ sudo grep pam_wheel /etc/pam.d/su \n\nauth             required        pam_wheel.so use_uid \n\nIf a line for \"pam_wheel.so\" does not exist, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 includes users who require privilege escalation to be members of the \"wheel\" group with the following command:",
+      "commands": [
+        "sudo grep pam_wheel /etc/pam.d/su"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

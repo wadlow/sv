@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214228",
+  "severity": "medium",
+  "rule_id": "SV-214228r960735_rule",
+  "rule_ver": "AS24-U1-000010",
+  "rule_title": "The Apache web server must limit the number of allowed simultaneous session requests.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\n\nSearch for the directives \"KeepAlive\" and \"MaxKeepAliveRequests\" in the \"httpd.conf\" file:\n\n# cat /<path_to_file>/httpd.conf | grep -i \"keepalive\"\n\nKeepAlive On\nMaxKeepAliveRequests 100\n\nIf the value of \"KeepAlive\" is set to \"off\" or does not exist, this is a finding.\n\nIf the value of \"MaxKeepAliveRequests\" is set to a value less than \"100\" or does not exist, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nSearch for the directives \"KeepAlive\" and \"MaxKeepAliveRequests\" in the \"httpd.conf\" file:",
+      "commands": [
+        "cat /<path_to_file>/httpd.conf | grep -i \"keepalive\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

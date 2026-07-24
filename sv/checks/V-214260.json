@@ -1,0 +1,34 @@
+{
+  "v_code": "V-214260",
+  "severity": "medium",
+  "rule_id": "SV-214260r961281_rule",
+  "rule_ver": "AS24-U1-000680",
+  "rule_title": "The Apache web server must be configured to immediately disconnect or disable remote access to the hosted applications.",
+  "check_text": "Interview the SA and Web Manager.\n\nAsk for documentation for the Apache web server administration.\n\nVerify there are documented procedures for shutting down an Apache website in the event of an attack. \n\nThe procedure must, at a minimum, provide the following steps:\n\n1. Determine the respective website for the application at risk of an attack.\n\n2. Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file|pidlog'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n-D DEFAULT_PIDLOG=”/run/httpd/httpd.pid”\n \n3. Search for the PidFile runtime directive. (This example uses the combined results of HTTPD_ROOT and SERVER_CONFIG_FILE, above.) \n\n# grep -i pidfile /etc/httpd/conf/httpd.conf  \n\n4. If this command returns a result, use this value in the kill command, otherwise, use the DEFAULT_PIDLOG value, above.\n\n# kill -TERM `cat <FULLY-QUALIFIED_PIDFILE_FILENAME>`\nNote: These should be documented steps, validators should not run kill commands while reviewing production systems.\n\nIf the web server is not capable of or cannot be configured to disconnect or disable remote access to the hosted applications when necessary, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Interview the SA and Web Manager.\nAsk for documentation for the Apache web server administration.\nVerify there are documented procedures for shutting down an Apache website in the event of an attack.\nThe procedure must, at a minimum, provide the following steps:\n1. Determine the respective website for the application at risk of an attack.\n2. Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file|pidlog'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n-D DEFAULT_PIDLOG=”/run/httpd/httpd.pid”\n3. Search for the PidFile runtime directive. (This example uses the combined results of HTTPD_ROOT and SERVER_CONFIG_FILE, above.)",
+      "commands": [
+        "grep -i pidfile /etc/httpd/conf/httpd.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "4. If this command returns a result, use this value in the kill command, otherwise, use the DEFAULT_PIDLOG value, above.",
+      "commands": [
+        "kill -TERM `cat <FULLY-QUALIFIED_PIDFILE_FILENAME>`"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

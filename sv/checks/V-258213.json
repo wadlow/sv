@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258213",
+  "severity": "medium",
+  "rule_id": "SV-258213r1045424_rule",
+  "rule_ver": "RHEL-09-654195",
+  "rule_title": "Successful/unsuccessful uses of the reboot command in RHEL 9 must generate an audit record.",
+  "check_text": "Verify that RHEL 9 is configured to audit the execution of the \"reboot\" command with the following command:\n\n$ sudo auditctl -l | grep reboot\n\n-a always,exit -S all -F path=/usr/sbin/reboot -F perm=x -F auid>=1000 -F auid!=-1 -F key=privileged-reboot\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to audit the execution of the \"reboot\" command with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep reboot"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

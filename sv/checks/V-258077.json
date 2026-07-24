@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258077",
+  "severity": "medium",
+  "rule_id": "SV-258077r1155659_rule",
+  "rule_ver": "RHEL-09-412080",
+  "rule_title": "RHEL 9 must terminate idle user sessions.",
+  "check_text": "Verify RHEL 9 logs out sessions that are idle for 10 minutes with the following command:\n\n$ systemd-analyze cat-config systemd/logind.conf | grep StopIdleSessionSec\n\n#StopIdleSessionSec=infinity\nStopIdleSessionSec=600\n\nIf \"StopIdleSessionSec\" is not configured to \"600\" seconds, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 logs out sessions that are idle for 10 minutes with the following command:",
+      "commands": [
+        "systemd-analyze cat-config systemd/logind.conf | grep StopIdleSessionSec"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

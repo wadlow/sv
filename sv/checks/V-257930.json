@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257930",
+  "severity": "medium",
+  "rule_id": "SV-257930r991589_rule",
+  "rule_ver": "RHEL-09-232250",
+  "rule_title": "All RHEL 9 local files and directories must have a valid group owner.",
+  "check_text": "Verify all local files and directories on RHEL 9 have a valid group with the following command:\n\n$ df --local -P | awk {'if (NR!=1) print $6'} | sudo xargs -I '{}' find '{}' -xdev -nogroup\n\nIf any files on the system do not have an assigned group, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify all local files and directories on RHEL 9 have a valid group with the following command:",
+      "commands": [
+        "df --local -P | awk {'if (NR!=1) print $6'} | sudo xargs -I '{}' find '{}' -xdev -nogroup"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

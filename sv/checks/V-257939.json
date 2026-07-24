@@ -1,0 +1,19 @@
+{
+  "v_code": "V-257939",
+  "severity": "medium",
+  "rule_id": "SV-257939r1044997_rule",
+  "rule_ver": "RHEL-09-251030",
+  "rule_title": "RHEL 9 must protect against or limit the effects of denial-of-service (DoS) attacks by ensuring rate-limiting measures on impacted network interfaces are implemented.",
+  "check_text": "Verify \"nftables\" is configured to allow rate limits on any connection to the system with the following command:\n\n$ sudo grep -i firewallbackend /etc/firewalld/firewalld.conf\n\n# FirewallBackend\nFirewallBackend=nftables\n\nIf the \"nftables\" is not set as the \"FirewallBackend\" default, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify \"nftables\" is configured to allow rate limits on any connection to the system with the following command:",
+      "commands": [
+        "sudo grep -i firewallbackend /etc/firewalld/firewalld.conf",
+        "FirewallBackend"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

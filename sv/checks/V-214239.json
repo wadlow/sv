@@ -1,0 +1,18 @@
+{
+  "v_code": "V-214239",
+  "severity": "medium",
+  "rule_id": "SV-214239r960963_rule",
+  "rule_ver": "AS24-U1-000240",
+  "rule_title": "The Apache web server must not perform user management for hosted applications.",
+  "check_text": "Review the web server documentation and configuration to determine if the web server is being used as a user management application.\n \nSearch for \"AuthUserFile\" in the configuration files in the installed Apache Path.\n \nExample:\n\ngrep -rin AuthUserFile *\n \nIf there are uncommented lines pointing to files on disk using the above configuration option, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the web server documentation and configuration to determine if the web server is being used as a user management application.\nSearch for \"AuthUserFile\" in the configuration files in the installed Apache Path.\nExample:",
+      "commands": [
+        "grep -rin AuthUserFile *"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

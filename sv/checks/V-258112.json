@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258112",
+  "severity": "medium",
+  "rule_id": "SV-258112r1045229_rule",
+  "rule_ver": "RHEL-09-611115",
+  "rule_title": "RHEL 9 must require the change of at least eight characters when passwords are changed.",
+  "check_text": "Verify that RHEL 9 requires the change of at least eight of the total number of characters when passwords are changed.\n\n$ grep difok /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf\n\ndifok = 8\n \nIf the value of \"difok\" is set to less than \"8\", or is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 requires the change of at least eight of the total number of characters when passwords are changed.",
+      "commands": [
+        "grep difok /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

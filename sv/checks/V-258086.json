@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258086",
+  "severity": "medium",
+  "rule_id": "SV-258086r1102063_rule",
+  "rule_ver": "RHEL-09-432025",
+  "rule_title": "RHEL 9 must require users to reauthenticate for privilege escalation.",
+  "check_text": "Verify that \"/etc/sudoers\" has no occurrences of \"!authenticate\" with the following command:\n\n$ sudo egrep -iR '!authenticate' /etc/sudoers /etc/sudoers.d/\n\nIf any occurrences of \"!authenticate\" are returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that \"/etc/sudoers\" has no occurrences of \"!authenticate\" with the following command:",
+      "commands": [
+        "sudo egrep -iR '!authenticate' /etc/sudoers /etc/sudoers.d/"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257865",
+  "severity": "medium",
+  "rule_id": "SV-257865r1184297_rule",
+  "rule_ver": "RHEL-09-231120",
+  "rule_title": "RHEL 9 must mount /dev/shm with the nosuid option.",
+  "check_text": "Verify \"/dev/shm\" is mounted with the \"nosuid\" option with the following command:\n\n$ findmnt /dev/shm\n/dev/shm tmpfs  tmpfs  rw,nodev,nosuid,noexec,seclabel\n\nIf the mount options for /dev/shm does not include nosuid, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify \"/dev/shm\" is mounted with the \"nosuid\" option with the following command:",
+      "commands": [
+        "findmnt /dev/shm"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

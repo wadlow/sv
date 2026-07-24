@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257929",
+  "severity": "medium",
+  "rule_id": "SV-257929r1137695_rule",
+  "rule_ver": "RHEL-09-232245",
+  "rule_title": "A sticky bit must be set on all RHEL 9 public directories.",
+  "check_text": "Verify that all world-writable directories have the sticky bit set.\n\nDetermine if all world-writable directories have the sticky bit set by running the following command:\n\n$ sudo find / -type d \\( -perm -0002 -a ! -perm -1000 \\) -print 2>/dev/null\n\ndrwxrwxrwt 7 root root 4096 Jul 26 11:19 /tmp\n\nIf any of the returned directories are world-writable and do not have the sticky bit set, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that all world-writable directories have the sticky bit set.\nDetermine if all world-writable directories have the sticky bit set by running the following command:",
+      "commands": [
+        "sudo find / -type d \\( -perm -0002 -a ! -perm -1000 \\) -print 2>/dev/null"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

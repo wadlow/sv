@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233579",
+  "severity": "medium",
+  "rule_id": "SV-233579r961638_rule",
+  "rule_ver": "CD12-00-007200",
+  "rule_title": "PostgreSQL must maintain the confidentiality and integrity of information during preparation for transmission.",
+  "check_text": "If the data owner does not have a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process, this is not a finding.\n\nAs the database administrator (shown here as \"postgres\"), verify SSL is enabled by running the following SQL:\n\n$ sudo su - postgres\n$ psql -c \"SHOW ssl\"\n\nIf SSL is not enabled, this is a finding.\n\nIf PostgreSQL does not employ protective measures against unauthorized disclosure and modification during preparation for transmission, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "If the data owner does not have a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process, this is not a finding.\nAs the database administrator (shown here as \"postgres\"), verify SSL is enabled by running the following SQL:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"SHOW ssl\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

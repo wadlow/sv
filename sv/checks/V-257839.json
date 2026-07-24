@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257839",
+  "severity": "medium",
+  "rule_id": "SV-257839r991589_rule",
+  "rule_ver": "RHEL-09-215080",
+  "rule_title": "RHEL 9 must have the gnutls-utils package installed.",
+  "check_text": "Verify that RHEL 9 has the gnutls-utils package installed with the following command:\n\n$ dnf list --installed gnutls-utils\n\nExample output:\n\ngnutls-utils.x86_64          3.7.3-9.el9\n\nIf the \"gnutls-utils\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 has the gnutls-utils package installed with the following command:",
+      "commands": [
+        "dnf list --installed gnutls-utils"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

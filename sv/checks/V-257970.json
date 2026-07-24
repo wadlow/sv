@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257970",
+  "severity": "medium",
+  "rule_id": "SV-257970r1155751_rule",
+  "rule_ver": "RHEL-09-253075",
+  "rule_title": "RHEL 9 must not enable IPv4 packet forwarding unless the system is a router.",
+  "check_text": "Verify RHEL 9 is not performing IPv4 packet forwarding unless the system is a router.\n\nCheck that \"net.ipv4.conf.all.forwarding\" is disabled using the following command:\n\n$ sudo sysctl net.ipv4.conf.all.forwarding\nnet.ipv4.conf.all.forwarding = 0\n\nIf \"net.ipv4.conf.all.forwarding\" is not set to \"0\" and is not documented with the information system security officer (ISSO) as an operational requirement or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is not performing IPv4 packet forwarding unless the system is a router.\nCheck that \"net.ipv4.conf.all.forwarding\" is disabled using the following command:",
+      "commands": [
+        "sudo sysctl net.ipv4.conf.all.forwarding"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

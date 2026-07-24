@@ -1,0 +1,26 @@
+{
+  "v_code": "V-258133",
+  "severity": "medium",
+  "rule_id": "SV-258133r1045263_rule",
+  "rule_ver": "RHEL-09-631020",
+  "rule_title": "RHEL 9 must prohibit the use of cached authenticators after one day.",
+  "check_text": "Verify that the System Security Services Daemon (SSSD) prohibits the use of cached authentications after one day.\n\nNote: Cached authentication settings should be configured even if smart card authentication is not used on the system.\n\nCheck that SSSD allows cached authentications with the following command:\n\n$ sudo grep -ir cache_credentials /etc/sssd/sssd.conf /etc/sssd/conf.d/\n\ncache_credentials = true\n\nIf \"cache_credentials\" is set to \"false\" or missing from the configuration file, this is not a finding and no further checks are required.\n\nIf \"cache_credentials\" is set to \"true\", check that SSSD prohibits the use of cached authentications after one day with the following command:\n\n$ sudo grep -ir offline_credentials_expiration /etc/sssd/sssd.conf /etc/sssd/conf.d/\n\noffline_credentials_expiration = 1\n\nIf \"offline_credentials_expiration\" is not set to a value of \"1\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the System Security Services Daemon (SSSD) prohibits the use of cached authentications after one day.\nNote: Cached authentication settings should be configured even if smart card authentication is not used on the system.\nCheck that SSSD allows cached authentications with the following command:",
+      "commands": [
+        "sudo grep -ir cache_credentials /etc/sssd/sssd.conf /etc/sssd/conf.d/"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "cache_credentials = true\nIf \"cache_credentials\" is set to \"false\" or missing from the configuration file, this is not a finding and no further checks are required.\nIf \"cache_credentials\" is set to \"true\", check that SSSD prohibits the use of cached authentications after one day with the following command:",
+      "commands": [
+        "sudo grep -ir offline_credentials_expiration /etc/sssd/sssd.conf /etc/sssd/conf.d/"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

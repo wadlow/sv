@@ -1,0 +1,34 @@
+{
+  "v_code": "V-214278",
+  "severity": "medium",
+  "rule_id": "SV-214278r960759_rule",
+  "rule_ver": "AS24-U2-000030",
+  "rule_title": "The Apache web server must use encryption strength in accordance with the categorization of data hosted by the Apache web server when remote connections are provided.",
+  "check_text": "Verify the \"ssl module\" module is loaded\n# httpd -M | grep -i ssl_module\nOutput:  ssl_module (shared)\n \nIf the \"ssl_module\" is not enabled, this is a finding. \n \nDetermine the location of the ssl.conf file:\n# find / -name ssl.conf\nOutput: /etc/httpd/conf.d/ssl.conf\n\nSearch the ssl.conf file for the SSLProtocol\n# cat /<path_to_file>/ssl.conf | grep -i \"SSLProtocol\" \nOutput: SSLProtocol -ALL +TLSv1.2\n \nIf the \"SSLProtocol\" directive is missing or does not look like the following, this is a finding: \n \nSSLProtocol -ALL +TLSv1.2 \n \nIf the TLS version is not TLS 1.2 or higher, according to NIST SP 800-52 Rev 2, or if non-FIPS-approved algorithms are enabled, this is a finding. \n \nNote: In some cases, web servers are configured in an environment to support load balancing. This configuration most likely uses a content switch to control traffic to the various web servers. In this situation, the TLS certificate for the websites may be installed on the content switch versus the individual websites. This solution is acceptable as long as the web servers are isolated from the general population LAN. Users should not have the ability to bypass the content switch to access the websites.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the \"ssl module\" module is loaded",
+      "commands": [
+        "httpd -M | grep -i ssl_module"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Determine the location of the ssl.conf file:",
+      "commands": [
+        "find / -name ssl.conf"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Output: /etc/httpd/conf.d/ssl.conf\nSearch the ssl.conf file for the SSLProtocol",
+      "commands": [
+        "cat /<path_to_file>/ssl.conf | grep -i \"SSLProtocol\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

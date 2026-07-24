@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258148",
+  "severity": "medium",
+  "rule_id": "SV-258148r1045292_rule",
+  "rule_ver": "RHEL-09-652050",
+  "rule_title": "RHEL 9 must encrypt via the gtls driver the transfer of audit records offloaded onto a different system or media from the system being audited via rsyslog.",
+  "check_text": "Verify RHEL 9 uses the gtls driver to encrypt audit records offloaded onto a different system or media from the system being audited with the following command:\n\n$ grep -Ei 'DefaultNetStreamDriver\\b|StreamDriver.Name' /etc/rsyslog.conf /etc/rsyslog.d/*.conf\n\n/etc/rsyslog.conf:$DefaultNetstreamDriver gtls\n\nIf the value of the \"$DefaultNetstreamDriver or StreamDriver\" option is not set to \"gtls\" or the line is commented out, this is a finding.\n\nIf the variable name \"StreamDriver\" is present in an omfwd statement block, this is not a finding. However, if the \"StreamDriver\" variable is in a module block, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 uses the gtls driver to encrypt audit records offloaded onto a different system or media from the system being audited with the following command:",
+      "commands": [
+        "grep -Ei 'DefaultNetStreamDriver\\b|StreamDriver.Name' /etc/rsyslog.conf /etc/rsyslog.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

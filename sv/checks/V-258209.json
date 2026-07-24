@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258209",
+  "severity": "medium",
+  "rule_id": "SV-258209r1045412_rule",
+  "rule_ver": "RHEL-09-654175",
+  "rule_title": "RHEL 9 must audit all uses of the usermod command.",
+  "check_text": "Verify that RHEL 9 is configured to audit the execution of the \"usermod\" command with the following command:\n\n$ sudo auditctl -l | grep usermod\n\n-a always,exit -S all -F path=/usr/sbin/usermod -F perm=x -F auid>=1000 -F auid!=-1 -F key=privileged-usermod\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to audit the execution of the \"usermod\" command with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep usermod"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

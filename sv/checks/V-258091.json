@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258091",
+  "severity": "medium",
+  "rule_id": "SV-258091r1045185_rule",
+  "rule_ver": "RHEL-09-611010",
+  "rule_title": "RHEL 9 must ensure the password complexity module in the system-auth file is configured for three retries or less.",
+  "check_text": "Verify RHEL 9 is configured to limit the \"pwquality\" retry option to \"3\".\n\nCheck for the use of the retry option in the security directory with the following command:\n\n$ grep -w retry /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf\n \nretry = 3\n \nIf the value of \"retry\" is set to \"0\" or greater than \"3\", or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to limit the \"pwquality\" retry option to \"3\".\nCheck for the use of the retry option in the security directory with the following command:",
+      "commands": [
+        "grep -w retry /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258008",
+  "severity": "medium",
+  "rule_id": "SV-258008r1045075_rule",
+  "rule_ver": "RHEL-09-255160",
+  "rule_title": "RHEL 9 SSH daemon must perform strict mode checking of home directory configuration files.",
+  "check_text": "Verify the SSH daemon performs strict mode checking of home directory configuration files with the following command:\n\n$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*strictmodes'\n\nStrictModes yes\n\nIf the \"StrictModes\" keyword is set to \"no\", the returned line is commented out, or no output is returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the SSH daemon performs strict mode checking of home directory configuration files with the following command:",
+      "commands": [
+        "sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*strictmodes'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

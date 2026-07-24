@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258140",
+  "severity": "medium",
+  "rule_id": "SV-258140r1106460_rule",
+  "rule_ver": "RHEL-09-652010",
+  "rule_title": "RHEL 9 must have the rsyslog package installed.",
+  "check_text": "Verify RHEL 9 has the rsyslog package installed with the following command:\n\n$ dnf list --installed rsyslog\n\nExample output:\n\nrsyslog.x86_64          8.2102.0-101.el9_0.1\n\nIf the \"rsyslog\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 has the rsyslog package installed with the following command:",
+      "commands": [
+        "dnf list --installed rsyslog"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "v_code": "V-233592",
+  "severity": "medium",
+  "rule_id": "SV-233592r960963_rule",
+  "rule_ver": "CD12-00-008900",
+  "rule_title": "Unused database components, PostgreSQL software, and database objects must be removed.",
+  "check_text": "To get a list of all extensions installed, use the following commands:\n\n$ sudo su - postgres\n$ psql -c \"select * from pg_extension where extname != 'plpgsql'\"\n\nIf any extensions exist that are not approved, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "To get a list of all extensions installed, use the following commands:",
+      "commands": [
+        "sudo su - postgres",
+        "psql -c \"select * from pg_extension where extname != 'plpgsql'\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

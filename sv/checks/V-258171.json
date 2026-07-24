@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258171",
+  "severity": "medium",
+  "rule_id": "SV-258171r1134934_rule",
+  "rule_ver": "RHEL-09-653110",
+  "rule_title": "RHEL 9 must allow only the information system security manager (ISSM) (or individuals or roles appointed by the ISSM) to select which auditable events are to be audited.",
+  "check_text": "Verify that the files in directory \"/etc/audit/rules.d/\" and \"/etc/audit/auditd.conf\" file have a mode of \"0640\" or less permissive with the following command:\n\n$ sudo find /etc/audit/rules.d/ /etc/audit/audit.rules /etc/audit/auditd.conf -type f -exec stat -c \"%a %n\" {} \\;\n\n600 /etc/audit/rules.d/audit.rules\n640 /etc/audit/audit.rules\n640 /etc/audit/auditd.conf\n\nIf the audit configuration files have a mode more permissive than those shown, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the files in directory \"/etc/audit/rules.d/\" and \"/etc/audit/auditd.conf\" file have a mode of \"0640\" or less permissive with the following command:",
+      "commands": [
+        "sudo find /etc/audit/rules.d/ /etc/audit/audit.rules /etc/audit/auditd.conf -type f -exec stat -c \"%a %n\" {} \\;"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

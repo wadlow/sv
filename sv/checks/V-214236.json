@@ -1,0 +1,18 @@
+{
+  "v_code": "V-214236",
+  "severity": "medium",
+  "rule_id": "SV-214236r960933_rule",
+  "rule_ver": "AS24-U1-000190",
+  "rule_title": "The log information from the Apache web server must be protected from unauthorized modification or deletion.",
+  "check_text": "Verify the log information from the web server must be protected from unauthorized modification.\n\nReview the web server documentation and deployed configuration settings to determine if the web server logging features protect log information from unauthorized modification.\n \nReview file system settings to verify the log files have secure file permissions. Run the following command:\n \nls -l <'INSTALL PATH'>/logs\n \nIf the web server log files present are owned by anyone other than an administrative service account this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the log information from the web server must be protected from unauthorized modification.\nReview the web server documentation and deployed configuration settings to determine if the web server logging features protect log information from unauthorized modification.\nReview file system settings to verify the log files have secure file permissions. Run the following command:",
+      "commands": [
+        "ls -l <'INSTALL PATH'>/logs"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

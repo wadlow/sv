@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214265",
+  "severity": "medium",
+  "rule_id": "SV-214265r961443_rule",
+  "rule_ver": "AS24-U1-000750",
+  "rule_title": "The Apache web server must generate log records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT) which are stamped at a minimum granularity of one second.",
+  "check_text": "Review the web server documentation and configuration to determine the time stamp format for log data.\n\nDetermine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:\n\n# apachectl -V | egrep -i 'httpd_root|server_config_file'\n-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\n\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.  \n\nSearch for the \"log_config_module\" directive:\n\n# cat /<path_to_file>/httpd.conf | grep -i \"LogFormat\"\n\nVerify the \"LogFormat\" directive exists.\n\nIf the \"LogFormat\" directive does not exist, this is a finding.\n\nVerify the \"LogFormat\" line contains the \"%t\" flag.\n \nIf \"%t\" flag is not present, time is not mapped to UTC or GMT time, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the web server documentation and configuration to determine the time stamp format for log data.\nDetermine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" file:",
+      "commands": [
+        "apachectl -V | egrep -i 'httpd_root|server_config_file'"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "-D HTTPD_ROOT=\"/etc/httpd\"\n-D SERVER_CONFIG_FILE=\"conf/httpd.conf\"\nNote: The apachectl front end is the preferred method for locating the Apache httpd file. For some Linux distributions, \"apache2ctl -V\" or  \"httpd -V\" can also be used.\nSearch for the \"log_config_module\" directive:",
+      "commands": [
+        "cat /<path_to_file>/httpd.conf | grep -i \"LogFormat\""
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258125",
+  "severity": "medium",
+  "rule_id": "SV-258125r1045253_rule",
+  "rule_ver": "RHEL-09-611180",
+  "rule_title": "The pcscd service on RHEL 9 must be active.",
+  "check_text": "Verify that the \"pcscd\" socket is active with the following command:\n\n$ systemctl is-active pcscd.socket\n\nactive\n\nIf the pcscd socket is not active, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the \"pcscd\" socket is active with the following command:",
+      "commands": [
+        "systemctl is-active pcscd.socket"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

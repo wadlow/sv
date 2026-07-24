@@ -1,0 +1,26 @@
+{
+  "v_code": "V-214269",
+  "severity": "medium",
+  "rule_id": "SV-214269r961632_rule",
+  "rule_ver": "AS24-U1-000900",
+  "rule_title": "The Apache web server must remove all export ciphers to protect the confidentiality and integrity of transmitted information.",
+  "check_text": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" and \"ssl.conf\" files:\n\nSearch the httpd.conf and ssl.conf file for the following uncommented directive: SSLCipherSuite\n\n# cat httpd.conf  | grep -i SSLCipherSuite\nOutput: None\n\n# cat /etc/httpd/conf.d/ssl.conf | grep -i SSLCipherSuite\nOutput: SSLCipherSuite HIGH:3DES:!NULL:!MD5:!SEED:!IDEA:!EXPORT\n\nFor all enabled SSLCipherSuite directives, ensure the cipher specification string contains the kill cipher from list option for all export cipher suites, i.e., !EXPORT, which may be abbreviated !EXP as in the following example:\n\nExample: SSLCipherSuite=\"HIGH:MEDIUM:!MD5!EXP:!NULL:!LOW:!ADH\n\nIf the SSLCipherSuite directive does not contain !EXPORT or !EXP or there are no enabled SSLCipherSuite directives, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Determine the location of the \"HTTPD_ROOT\" directory and the \"httpd.conf\" and \"ssl.conf\" files:\nSearch the httpd.conf and ssl.conf file for the following uncommented directive: SSLCipherSuite",
+      "commands": [
+        "cat httpd.conf  | grep -i SSLCipherSuite"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Output: None",
+      "commands": [
+        "cat /etc/httpd/conf.d/ssl.conf | grep -i SSLCipherSuite"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

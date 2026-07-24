@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257784",
+  "severity": "high",
+  "rule_id": "SV-257784r1155651_rule",
+  "rule_ver": "RHEL-09-211045",
+  "rule_title": "The systemd Ctrl-Alt-Delete burst key sequence in RHEL 9 must be disabled.",
+  "check_text": "Verify RHEL 9 is configured to not reboot the system when Ctrl-Alt-Delete is pressed seven times within two seconds with the following command:\n\n$ sudo grep -iR CtrlAltDelBurstAction /etc/systemd/system*\n/etc/systemd/system.conf.d/55-CtrlAltDel-BurstAction:CtrlAltDelBurstAction=none\n\nIf the \"CtrlAltDelBurstAction\" is not set to \"none\", commented out, or is missing, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 is configured to not reboot the system when Ctrl-Alt-Delete is pressed seven times within two seconds with the following command:",
+      "commands": [
+        "sudo grep -iR CtrlAltDelBurstAction /etc/systemd/system*"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

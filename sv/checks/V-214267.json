@@ -1,0 +1,42 @@
+{
+  "v_code": "V-214267",
+  "severity": "medium",
+  "rule_id": "SV-214267r961620_rule",
+  "rule_ver": "AS24-U1-000820",
+  "rule_title": "The Apache web server must be protected from being stopped by a non-privileged user.",
+  "check_text": "Review the web server documentation and deployed configuration to determine where the process ID is stored and which utilities are used to start/stop the web server.\n\nLocate the httpd.pid file and list its permission set and owner/group\n\n# find / -name \"httpd.pid\nOutput should be similar to: /run/httpd/httpd.pid \n\n# ls -laH /run/httpd/httpd.pid\nOutput should be similar -rw-r--r--. 1 root root 5 Jun 13 03:18 /run/httpd/httpd.pid\n\nIf the file owner/group is not an administrative service account, this is a finding.\n\nIf permission set is not 644 or more restrictive, this is a finding.\n \nVerify the Apache service utilities have the correct permission set and are user/group owned by an administrator account\n\n# ls -laH /usr/sbin/service\nOutput should be similar: -rwxr-xr-x. 1 root root 3.2K Aug 19, 2019 /usr/sbin/service\n\n# ls -laH /usr/sbin/apachectl\nOutput should be similar: -rwxr-xr-x. 1 root root 4.2K Oct 8, 2019 /usr/sbin/apachectl\n \nIf the service utilities owner/group is not an administrative service account, this is a finding.\n \nIf permission set is not 755 or more restrictive, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Review the web server documentation and deployed configuration to determine where the process ID is stored and which utilities are used to start/stop the web server.\nLocate the httpd.pid file and list its permission set and owner/group",
+      "commands": [
+        "find / -name \"httpd.pid"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Output should be similar to: /run/httpd/httpd.pid",
+      "commands": [
+        "ls -laH /run/httpd/httpd.pid"
+      ],
+      "finding_condition": "If the file owner/group is not an administrative service account, this is a finding. If permission set is not 644 or more restrictive, this is a finding."
+    },
+    {
+      "section": null,
+      "description": "Verify the Apache service utilities have the correct permission set and are user/group owned by an administrator account",
+      "commands": [
+        "ls -laH /usr/sbin/service"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "Output should be similar: -rwxr-xr-x. 1 root root 3.2K Aug 19, 2019 /usr/sbin/service",
+      "commands": [
+        "ls -laH /usr/sbin/apachectl"
+      ],
+      "finding_condition": "If the service utilities owner/group is not an administrative service account, this is a finding. If permission set is not 755 or more restrictive, this is a finding."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258168",
+  "severity": "medium",
+  "rule_id": "SV-258168r958428_rule",
+  "rule_ver": "RHEL-09-653095",
+  "rule_title": "RHEL 9 must periodically flush audit records to disk to prevent the loss of audit records.",
+  "check_text": "Verify that audit system is configured to flush to disk after every 100 records with the following command:\n\n$ sudo grep freq /etc/audit/auditd.conf \n\nfreq = 100 \n\nIf \"freq\" isn't set to a value between \"1\" and \"100\", the value is missing, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that audit system is configured to flush to disk after every 100 records with the following command:",
+      "commands": [
+        "sudo grep freq /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

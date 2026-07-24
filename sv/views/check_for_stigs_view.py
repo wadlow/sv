@@ -283,10 +283,10 @@ class CheckForStigsView(NSView):
                         changed = True
                 self._log("Check complete.")
                 if changed:
-                    AppHelper.callAfter(0, lambda: self._reload_table())
+                    AppHelper.callAfter(lambda: self._reload_table())
             except Exception as e:
                 self._log(f"Error: {e}")
-                AppHelper.callAfter(0, lambda: self._show_error(str(e)))
+                AppHelper.callAfter(lambda: self._show_error(str(e)))
 
         import threading
         threading.Thread(target=do_check, daemon=True).start()
@@ -383,9 +383,9 @@ class CheckForStigsView(NSView):
                     alert.setAlertStyle_(1 if downloaded else 2)
                     alert.runModal()
 
-                AppHelper.callAfter(0, show_result)
+                AppHelper.callAfter(show_result)
             except Exception as e:
-                AppHelper.callAfter(0, lambda: self._show_error(str(e)))
+                AppHelper.callAfter(lambda: self._show_error(str(e)))
 
         import threading
         threading.Thread(target=do_download, daemon=True).start()

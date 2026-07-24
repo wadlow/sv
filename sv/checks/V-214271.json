@@ -1,0 +1,34 @@
+{
+  "v_code": "V-214271",
+  "severity": "high",
+  "rule_id": "SV-214271r961863_rule",
+  "rule_ver": "AS24-U1-000940",
+  "rule_title": "The account used to run the Apache web server must not have a valid login shell and password defined.",
+  "check_text": "Identify the account that is running the \"httpd\" process:\n# ps -ef | grep -i httpd | grep -v grep\n\napache   29613   996  0 Feb17 ?        00:00:00 /usr/sbin/httpd\napache   29614   996  0 Feb17 ?        00:00:00 /usr/sbin/httpd\n\nCheck to see if the account has a valid login shell:\n\n# cut -d: -f1,7 /etc/passwd | grep -i <service_account>\napache:/sbin/nologin\n\nIf the service account has a valid login shell, verify that no password is configured for the account:\n\n# cut -d: -f1,2 /etc/shadow | grep -i <service_account>\napache:!!\n\nIf the account has a valid login shell and a password defined, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Identify the account that is running the \"httpd\" process:",
+      "commands": [
+        "ps -ef | grep -i httpd | grep -v grep"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "apache   29613   996  0 Feb17 ?        00:00:00 /usr/sbin/httpd\napache   29614   996  0 Feb17 ?        00:00:00 /usr/sbin/httpd\nCheck to see if the account has a valid login shell:",
+      "commands": [
+        "cut -d: -f1,7 /etc/passwd | grep -i <service_account>"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "apache:/sbin/nologin\nIf the service account has a valid login shell, verify that no password is configured for the account:",
+      "commands": [
+        "cut -d: -f1,2 /etc/shadow | grep -i <service_account>"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

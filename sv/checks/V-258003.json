@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258003",
+  "severity": "medium",
+  "rule_id": "SV-258003r1045065_rule",
+  "rule_ver": "RHEL-09-255135",
+  "rule_title": "RHEL 9 SSH daemon must not allow GSSAPI authentication.",
+  "check_text": "Verify the SSH daemon does not allow GSSAPI authentication with the following command:\n\n$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*gssapiauthentication'\n\nGSSAPIAuthentication no\n\nIf the value is returned as \"yes\", the returned line is commented out, no output is returned, and the use of GSSAPI authentication has not been documented with the information system security officer (ISSO), this is a finding.\n\nIf the required value is not set, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify the SSH daemon does not allow GSSAPI authentication with the following command:",
+      "commands": [
+        "sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\\r' | tr '\\n' ' ' | xargs sudo grep -iH '^\\s*gssapiauthentication'"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

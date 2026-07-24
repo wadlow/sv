@@ -1,0 +1,27 @@
+{
+  "v_code": "V-258174",
+  "severity": "medium",
+  "rule_id": "SV-258174r958424_rule",
+  "rule_ver": "RHEL-09-653125",
+  "rule_title": "RHEL 9 must have mail aliases to notify the information system security officer (ISSO) and system administrator (SA) (at a minimum) in the event of an audit processing failure.",
+  "check_text": "Verify that RHEL 9 is configured to notify the appropriate interactive users in the event of an audit processing failure.\n\nFind the alias maps that are being used with the following command:\n\n$ postconf alias_maps \n\nalias_maps = hash:/etc/aliases\n\nQuery the Postfix alias maps for an alias for the root user with the following command:\n\n$ postmap -q root hash:/etc/aliases\nisso\n\nIf an alias is not set, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to notify the appropriate interactive users in the event of an audit processing failure.",
+      "commands": [
+        "Find the alias maps that are being used with the following command:",
+        "postconf alias_maps"
+      ],
+      "finding_condition": null
+    },
+    {
+      "section": null,
+      "description": "alias_maps = hash:/etc/aliases\nQuery the Postfix alias maps for an alias for the root user with the following command:",
+      "commands": [
+        "postmap -q root hash:/etc/aliases"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

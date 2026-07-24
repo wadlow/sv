@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258234",
+  "severity": "high",
+  "rule_id": "SV-258234r1184292_rule",
+  "rule_ver": "RHEL-09-215100",
+  "rule_title": "RHEL 9 must have the crypto-policies package installed.",
+  "check_text": "Verify that the RHEL 9 crypto-policies package is installed with the following command:\n\n$ dnf list --installed crypto-policies\n\nExample output:\n\ncrypto-policies.noarch          20240828-2.git626aa59.el9_5\n\nIf the crypto-policies package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that the RHEL 9 crypto-policies package is installed with the following command:",
+      "commands": [
+        "dnf list --installed crypto-policies"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

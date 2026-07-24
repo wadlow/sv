@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258169",
+  "severity": "medium",
+  "rule_id": "SV-258169r991556_rule",
+  "rule_ver": "RHEL-09-653100",
+  "rule_title": "RHEL 9 must produce audit records containing information to establish the identity of any individual or process associated with the event.",
+  "check_text": "Verify that RHEL 9 audit system is configured to resolve audit information before writing to disk, with the following command:\n\n$ sudo grep log_format /etc/audit/auditd.conf\n\nlog_format = ENRICHED\n\nIf the \"log_format\" option is not \"ENRICHED\", or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 audit system is configured to resolve audit information before writing to disk, with the following command:",
+      "commands": [
+        "sudo grep log_format /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257849",
+  "severity": "medium",
+  "rule_id": "SV-257849r1044928_rule",
+  "rule_ver": "RHEL-09-231040",
+  "rule_title": "RHEL 9 file system automount function must be disabled unless required.",
+  "check_text": "Note: If the autofs service is not installed, this requirement is Not Applicable.\n\nVerify that the RHEL 9 file system automount function has been disabled with the following command:\n\n$ systemctl is-enabled  autofs\n\nmasked\n\nIf the returned value is not \"masked\", \"disabled\", or \"Failed to get unit file state for autofs.service for autofs\" and is not documented as an operational requirement with the information system security officer (ISSO), this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Note: If the autofs service is not installed, this requirement is Not Applicable.\nVerify that the RHEL 9 file system automount function has been disabled with the following command:",
+      "commands": [
+        "systemctl is-enabled  autofs"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

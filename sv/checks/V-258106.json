@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258106",
+  "severity": "medium",
+  "rule_id": "SV-258106r1102061_rule",
+  "rule_ver": "RHEL-09-611085",
+  "rule_title": "RHEL 9 must require users to provide a password for privilege escalation.",
+  "check_text": "Verify that \"/etc/sudoers\" has no occurrences of \"NOPASSWD\" with the following command:\n\n$ sudo grep -iR 'NOPASSWD' /etc/sudoers /etc/sudoers.d/\n\nIf any occurrences of \"NOPASSWD\" are returned from the command and have not been documented with the information system security officer (ISSO) as an organizationally defined administrative group using multifactor authentication (MFA), this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that \"/etc/sudoers\" has no occurrences of \"NOPASSWD\" with the following command:",
+      "commands": [
+        "sudo grep -iR 'NOPASSWD' /etc/sudoers /etc/sudoers.d/"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

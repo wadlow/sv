@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257943",
+  "severity": "medium",
+  "rule_id": "SV-257943r1045001_rule",
+  "rule_ver": "RHEL-09-252010",
+  "rule_title": "RHEL 9 must have the chrony package installed.",
+  "check_text": "Verify that RHEL 9 has the chrony package installed with the following command:\n\n$ dnf list --installed chrony\n\nExample output:\n\nchrony.x86_64          4.1-3.el9       \n\nIf the \"chrony\" package is not installed, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 has the chrony package installed with the following command:",
+      "commands": [
+        "dnf list --installed chrony"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

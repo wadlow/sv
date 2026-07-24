@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258186",
+  "severity": "medium",
+  "rule_id": "SV-258186r1045343_rule",
+  "rule_ver": "RHEL-09-654060",
+  "rule_title": "RHEL 9 must audit all uses of the setsebool command.",
+  "check_text": "Verify that RHEL 9 is configured to audit the execution of the \"setsebool\" command with the following command:\n\n$ sudo auditctl -l | grep setsebool\n\n-a always,exit -S all -F path=/usr/sbin/setsebool -F perm=x -F auid>=1000 -F auid!=-1 -F key=privileged\n\nIf the command does not return a line, or the line is commented out, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 is configured to audit the execution of the \"setsebool\" command with the following command:",
+      "commands": [
+        "sudo auditctl -l | grep setsebool"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

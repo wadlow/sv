@@ -1,0 +1,18 @@
+{
+  "v_code": "V-257811",
+  "severity": "medium",
+  "rule_id": "SV-257811r1155674_rule",
+  "rule_ver": "RHEL-09-213080",
+  "rule_title": "RHEL 9 must restrict usage of ptrace to descendant processes.",
+  "check_text": "Verify RHEL 9 restricts the usage of ptrace to descendant processes.\n\nCheck the status of the \"kernel.yama.ptrace_scope\" kernel parameter with the following command:\n\n$ sysctl kernel.yama.ptrace_scope\nkernel.yama.ptrace_scope = 1\n\nIf the network parameter \"kernel.yama.ptrace_scope\" is not equal to \"1\", or nothing is returned, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 restricts the usage of ptrace to descendant processes.\nCheck the status of the \"kernel.yama.ptrace_scope\" kernel parameter with the following command:",
+      "commands": [
+        "sysctl kernel.yama.ptrace_scope"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

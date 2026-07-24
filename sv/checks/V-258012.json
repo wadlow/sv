@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258012",
+  "severity": "medium",
+  "rule_id": "SV-258012r1014855_rule",
+  "rule_ver": "RHEL-09-271010",
+  "rule_title": "RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a graphical user logon.",
+  "check_text": "Verify RHEL 9 displays the Standard Mandatory DOD Notice and Consent Banner before granting access to the operating system via a graphical user logon.\n\nNote: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\n\nDetermine if the operating system displays a banner at the logon screen with the following command:\n\n$ gsettings get org.gnome.login-screen banner-message-enable\n\ntrue\n\nIf the result is \"false\", this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify RHEL 9 displays the Standard Mandatory DOD Notice and Consent Banner before granting access to the operating system via a graphical user logon.\nNote: This requirement assumes the use of the RHEL 9 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.\nDetermine if the operating system displays a banner at the logon screen with the following command:",
+      "commands": [
+        "gsettings get org.gnome.login-screen banner-message-enable"
+      ],
+      "finding_condition": null
+    }
+  ]
+}

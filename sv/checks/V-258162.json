@@ -1,0 +1,18 @@
+{
+  "v_code": "V-258162",
+  "severity": "medium",
+  "rule_id": "SV-258162r1184331_rule",
+  "rule_ver": "RHEL-09-653065",
+  "rule_title": "RHEL 9 must take appropriate action when the internal event queue is full.",
+  "check_text": "Verify that RHEL 9 audit system is configured to take an appropriate action when the internal event queue is full:\n\n$ sudo grep -i overflow_action /etc/audit/auditd.conf \n\noverflow_action = syslog\n\nIf the value of the \"overflow_action\" option is not set to \"syslog\", \"single\", \"halt\" or the line is commented out, ask the system administrator (SA) to indicate how the audit logs are offloaded to a different system or media.\n\nIf there is no evidence that the audit system is configured to off-load the audit logs to another system or media and if the overflow action is not set to take appropriate action if the internal event queue becomes full, this is a finding.",
+  "checks": [
+    {
+      "section": null,
+      "description": "Verify that RHEL 9 audit system is configured to take an appropriate action when the internal event queue is full:",
+      "commands": [
+        "sudo grep -i overflow_action /etc/audit/auditd.conf"
+      ],
+      "finding_condition": null
+    }
+  ]
+}
