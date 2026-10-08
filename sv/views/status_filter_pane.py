@@ -57,6 +57,7 @@ class StatusFilterPane(NSView):
         attrs['no_comment_checkbox'] = None
         attrs['tbd_checkbox'] = None
         attrs['vcode_count_label'] = None
+        attrs['format_label'] = None
         attrs['compare_button'] = None
         StatusFilterPane.createUI(self)
         return self
@@ -95,6 +96,19 @@ class StatusFilterPane(NSView):
         vcode_count_label.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
         self.addSubview_(vcode_count_label)
         attrs['vcode_count_label'] = vcode_count_label
+        
+        # Add checklist file-format label next to the V-code count
+        format_frame = NSRect((160, height - top_margin - 20), (180, 20))
+        format_label = NSTextField.alloc().initWithFrame_(format_frame)
+        format_label.setStringValue_("Format: —")
+        format_label.setBordered_(False)
+        format_label.setDrawsBackground_(False)
+        format_label.setEditable_(False)
+        format_label.setTextColor_(NSColor.whiteColor())
+        format_label.setToolTip_("Format of the opened checklist file (CKL = XML, CKLB = JSON)")
+        format_label.setAutoresizingMask_(NSViewMinYMargin)  # Pin to top
+        self.addSubview_(format_label)
+        attrs['format_label'] = format_label
         
         # Adjust starting position for column titles to be below the count
         column_start_margin = top_margin + 25  # Add space for the count label
@@ -685,6 +699,14 @@ class StatusFilterPane(NSView):
         else:
             print("StatusFilterPane.update_vcode_count: WARNING - No count label!")  # Debug
     
+    @objc.python_method
+    def update_format(self, format_label_text):
+        """Update the displayed checklist file-format label (e.g. 'CKL' or 'CKLB')."""
+        attrs = get_view_attrs(self)
+        format_label = attrs.get('format_label')
+        if format_label:
+            format_label.setStringValue_(f"Format: {format_label_text}")
+
     @objc.python_method
     def set_on_compare_to_check_text(self, callback):
         """Set the callback for Compare to Check Text button."""

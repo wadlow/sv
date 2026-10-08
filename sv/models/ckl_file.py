@@ -111,9 +111,15 @@ class CklFile:
     asset: CklAsset
     stigs: List[CklStigInfo] = field(default_factory=list)
     vulns: List[CklVuln] = field(default_factory=list)
+    file_format: str = "ckl"  # "ckl" (XML) or "cklb" (JSON)
     
     @property
     def display_name(self) -> str:
         """Display name for the CKL file."""
         return Path(self.file_name).stem
+
+    @property
+    def format_label(self) -> str:
+        """Uppercase label for the checklist file format (e.g. 'CKL', 'CKLB')."""
+        return (self.file_format or "ckl").upper()
 

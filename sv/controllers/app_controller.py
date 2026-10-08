@@ -12,7 +12,9 @@ from ..models.ckl_file import CklFile
 from ..models.vuln_code import VulnCode
 from ..parsers.stig_parser import StigParser, StigParserError
 from ..parsers.ckl_parser import CklParser, CklParserError
+from ..parsers.cklb_parser import CklbParser, CklbParserError
 from ..parsers.ckl_writer import CklWriter
+from ..parsers.cklb_writer import CklbWriter
 from ..dialogs.file_dialog import FileDialog
 from ..dialogs.exit_dialog import ExitDialog
 from ..dialogs.preferences_dialog import PreferencesDialog
@@ -321,15 +323,25 @@ class AppController:
                 from PyObjCTools import AppHelper
                 AppHelper.callLater(1.0, lambda: progress.close() if progress else None)
     
-    def open_checklist_files(self):
-        """Open CKL checklist files."""
-        file_paths = FileDialog.open_ckl_files()
-        if not file_paths:
-            return
-        
+    @staticmethod
+    def _parse_checklist(file_path):
+        """Parse a checklist file, choosing the parser by extension.
+
+        Supports .ckl (XML) and .cklb (JSON). Raises CklParserError on failure
+        so callers can present a single, consistent error path.
+        """
+        if str(file_path).lower().endswith('.cklb'):
+            try:
+                return CklbParser.parse(file_path)
+            except CklbParserError as e:
+                raise CklParserError(str(e))
+        return CklParser.parse(file_path)
+
+    def _open_checklist_paths(self, file_paths):
+        """Open a list of checklist file paths into CKL viewer tabs."""
         for file_path in file_paths:
             try:
-                ckl_file = CklParser.parse(file_path)
+                ckl_file = self._parse_checklist(file_path)
                 self.ckl_files.append(ckl_file)
                 
                 # Create CKL view and add tab
@@ -340,9 +352,88 @@ class AppController:
                 CklView.set_ckl_file(ckl_view, ckl_file)
                 self.main_window.add_ckl_tab(ckl_file, ckl_view)
             except CklParserError as e:
-                self._show_error(f"Error parsing CKL file {file_path.name}: {e}")
+                self._show_error(f"Error parsing checklist {file_path.name}: {e}")
             except Exception as e:
                 self._show_error(f"Unexpected error loading {file_path.name}: {e}")
+
+    def open_ckl_file(self):
+        """Open one or more CKL (XML) checklist files."""
+        self._open_checklist_paths(FileDialog.open_ckl_files())
+
+    def open_cklb_file(self):
+        """Open one or more CKLB (JSON) checklist files."""
+        self._open_checklist_paths(FileDialog.open_cklb_files())
+
+    def _get_active_ckl_file(self):
+        """Return the CklFile for the currently active checklist tab, or None."""
+        if not self.main_window:
+            return None
+        ckl_view = self.main_window.get_active_ckl_view()
+        if not ckl_view:
+            return None
+        return get_view_attrs(ckl_view).get('ckl_file')
+
+    def has_active_checklist(self):
+        """Whether a checklist tab is currently active (for menu validation)."""
+        return self._get_active_ckl_file() is not None
+
+    def save_active_as_ckl(self):
+        """Save the currently active checklist out as a CKL (XML) file."""
+        ckl_file = self._get_active_ckl_file()
+        if not ckl_file:
+            self._show_error("Open a checklist first, then select its tab to save it.")
+            return
+
+        default_name = f"{Path(ckl_file.file_name).stem}.ckl"
+        file_path = FileDialog.save_ckl_file(default_name)
+        if not file_path:
+            return
+
+        try:
+            CklWriter.write_as(file_path, ckl_file)
+            self._show_info("CKL File Saved", f"Successfully saved CKL file:\n{file_path}")
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self._show_error(f"Error saving CKL file: {e}")
+
+    def save_active_as_cklb(self):
+        """Save the currently active checklist out as a CKLB (JSON) file."""
+        ckl_file = self._get_active_ckl_file()
+        if not ckl_file:
+            self._show_error("Open a checklist first, then select its tab to save it.")
+            return
+
+        default_name = f"{Path(ckl_file.file_name).stem}.cklb"
+        file_path = FileDialog.save_cklb_file(default_name)
+        if not file_path:
+            return
+
+        try:
+            CklbWriter.create_from_ckl_file(file_path, ckl_file)
+            self._show_info("CKLB File Saved", f"Successfully saved CKLB file:\n{file_path}")
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self._show_error(f"Error saving CKLB file: {e}")
+
+    def verify_ckl(self):
+        """Open a Verify CKL tab for a selected CKL file."""
+        file_path = FileDialog.open_verify_ckl_file()
+        if not file_path:
+            return
+
+        try:
+            ckl_file = self._parse_checklist(file_path)
+            from ..views.verify_ckl_view import VerifyCklView
+
+            verify_view = VerifyCklView.alloc().init()
+            VerifyCklView.set_ckl_file(verify_view, ckl_file)
+            self.main_window.add_verify_ckl_tab(ckl_file, verify_view)
+        except CklParserError as e:
+            self._show_error(f"Error parsing CKL file {file_path.name}: {e}")
+        except Exception as e:
+            self._show_error(f"Unexpected error verifying {file_path.name}: {e}")
     
     def create_checklist(self):
         """Create a new checklist from selected STIGs."""
@@ -408,6 +499,39 @@ class AppController:
             import traceback
             traceback.print_exc()
             self._show_error(f"Error creating CKL file: {e}")
+    
+    def create_cklb_file(self):
+        """Create a CKLB (JSON) file from selected STIGs and save it."""
+        # Get checked STIGs from explorer view
+        explorer_view = self.main_window.get_explorer_view()
+        if not explorer_view:
+            return
+        
+        from ..views.explorer_view import ExplorerView
+        checked_stigs = ExplorerView.get_checked_stigs(explorer_view)
+        if not checked_stigs:
+            self._show_error("Please select at least one STIG file from the Explorer tab.")
+            return
+        
+        # Show save dialog
+        file_path = FileDialog.save_cklb_file()
+        if not file_path:
+            return
+        
+        try:
+            # Create and write the CKLB file
+            CklbWriter.create_from_stigs(file_path, checked_stigs)
+            
+            # Show success message
+            alert = NSAlert.alloc().init()
+            alert.setMessageText_("CKLB File Created")
+            alert.setInformativeText_(f"Successfully created CKLB file:\n{file_path}")
+            alert.setAlertStyle_(1)  # NSAlertStyleInformational
+            alert.runModal()
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self._show_error(f"Error creating CKLB file: {e}")
     
     def is_explorer_tab_active(self):
         """Check if the Explorer tab is currently active."""
@@ -730,6 +854,14 @@ class AppController:
         alert.setMessageText_("Error")
         alert.setInformativeText_(message)
         alert.setAlertStyle_(2)  # NSAlertStyleCritical
+        alert.runModal()
+
+    def _show_info(self, title: str, message: str):
+        """Show an informational alert."""
+        alert = NSAlert.alloc().init()
+        alert.setMessageText_(title)
+        alert.setInformativeText_(message)
+        alert.setAlertStyle_(1)  # NSAlertStyleInformational
         alert.runModal()
     
     def _populate_fake_data(self):

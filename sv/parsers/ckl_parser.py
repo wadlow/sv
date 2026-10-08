@@ -75,6 +75,7 @@ class CklParser:
             asset=asset,
             stigs=stigs,
             vulns=vulns,
+            file_format="ckl",
         )
     
     @staticmethod

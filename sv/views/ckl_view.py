@@ -352,6 +352,8 @@ class CklView(NSView):
         if status_filter_pane:
             from .status_filter_pane import StatusFilterPane
             StatusFilterPane.set_on_filter_changed(status_filter_pane, lambda: CklView._on_status_filter_changed(self))
+            # Show the checklist file format (CKL vs CKLB) on the page
+            StatusFilterPane.update_format(status_filter_pane, ckl_file.format_label)
             # Wire up close callback
             StatusFilterPane.set_on_close_callback(status_filter_pane, lambda: CklView._on_close_checklist(self))
             # Wire up compare to check text callback

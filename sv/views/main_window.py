@@ -24,6 +24,7 @@ class MainWindow:
         self.new_stig_evaluation_tab = None
         self.check_texts_explorer_tab = None
         self.check_for_stigs_tab = None  # Check for STIGs tab item
+        self.verify_ckl_tabs = {}  # Map CKL file paths to Verify CKL tab items
         self.createWindow()
     
     def createWindow(self):
@@ -105,7 +106,7 @@ class MainWindow:
         attrs['main_window'] = self
         
         tab_item = NSTabViewItem.alloc().init()
-        tab_item.setLabel_(ckl_file.display_name)
+        tab_item.setLabel_(f"{ckl_file.display_name} [{ckl_file.format_label}]")
         
         ckl_view.setAutoresizingMask_(0x12)  # NSViewWidthSizable | NSViewHeightSizable
         tab_item.setView_(ckl_view)
@@ -154,6 +155,22 @@ class MainWindow:
             print(f"MainWindow.add_compare_tab: ERROR - {e}")  # Debug
             traceback.print_exc()
     
+    def get_active_ckl_view(self):
+        """Return the CklView for the currently selected CKL tab, or None.
+
+        Only returns a view when the active tab is one of the opened checklist
+        tabs (not Explorer, Compare, Verify, etc.).
+        """
+        if not self.tab_view:
+            return None
+        selected = self.tab_view.selectedTabViewItem()
+        if selected is None:
+            return None
+        for tab_item in self.ckl_tabs.values():
+            if tab_item == selected:
+                return selected.view()
+        return None
+
     def remove_ckl_tab(self, ckl_file_path):
         """Remove a CKL tab."""
         if str(ckl_file_path) in self.ckl_tabs:
@@ -296,6 +313,42 @@ class MainWindow:
             if self.tab_view.numberOfTabViewItems() > 0:
                 self.tab_view.selectTabViewItemAtIndex_(0)
     
+    def add_verify_ckl_tab(self, ckl_file, verify_view):
+        """Add or refresh a Verify CKL tab."""
+        from .view_helpers import get_view_attrs
+        from .verify_ckl_view import TAB_LABEL_PREFIX
+
+        attrs = get_view_attrs(verify_view)
+        attrs['main_window'] = self
+
+        tab_label = f"{TAB_LABEL_PREFIX}: {ckl_file.display_name}"
+        file_key = str(ckl_file.file_path)
+
+        if file_key in self.verify_ckl_tabs:
+            tab_item = self.verify_ckl_tabs[file_key]
+            verify_view.setAutoresizingMask_(0x12)
+            tab_item.setView_(verify_view)
+            self.tab_view.selectTabViewItem_(tab_item)
+            return
+
+        tab_item = NSTabViewItem.alloc().init()
+        tab_item.setLabel_(tab_label)
+        verify_view.setAutoresizingMask_(0x12)
+        tab_item.setView_(verify_view)
+        self.tab_view.addTabViewItem_(tab_item)
+        self.verify_ckl_tabs[file_key] = tab_item
+        self.tab_view.selectTabViewItem_(tab_item)
+
+    def remove_verify_ckl_tab(self, ckl_file_path):
+        """Remove a Verify CKL tab."""
+        file_key = str(ckl_file_path)
+        if file_key in self.verify_ckl_tabs:
+            tab_item = self.verify_ckl_tabs[file_key]
+            self.tab_view.removeTabViewItem_(tab_item)
+            del self.verify_ckl_tabs[file_key]
+            if self.tab_view.numberOfTabViewItems() > 0:
+                self.tab_view.selectTabViewItemAtIndex_(0)
+
     def add_compare_ckl_tab(self, compare_ckl_view):
         """
         Add a new Compare CKLs tab.

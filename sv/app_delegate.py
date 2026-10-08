@@ -53,14 +53,20 @@ class AppDelegate(NSObject):
         
         action = menu_item.action()
         if action == 'importStig:' or action == 'compareStigs:' or action == 'checkForStigs:' or \
-           action == 'openChecklist:' or action == 'compareCkls:' or action == 'showPreferences:':
+           action == 'openCkl:' or action == 'openCklb:' or \
+           action == 'verifyCkl:' or action == 'compareCkls:' or \
+           action == 'showPreferences:':
             return True
+        
+        # Save as CKL / CKLB requires an active checklist tab
+        if action == 'saveAsCkl:' or action == 'saveAsCklb:':
+            return self.app_controller.has_active_checklist()
         
         if action == 'compareLoadedStigs:':
             return self.app_controller.has_comparable_stigs()
         
-        # Create CKL file is only enabled when on Explorer tab AND STIGs are loaded
-        if action == 'createCklFile:':
+        # Create CKL / CKLB file is only enabled when on Explorer tab AND STIGs are loaded
+        if action == 'createCklFile:' or action == 'createCklbFile:':
             return (self.app_controller.is_explorer_tab_active() and 
                     self.app_controller.has_stigs_loaded())
         
@@ -87,15 +93,40 @@ class AppDelegate(NSObject):
         if hasattr(self, 'app_controller') and self.app_controller:
             self.app_controller.check_for_stigs()
     
-    def openChecklist_(self, sender):
-        """Handle Open Checklist menu action."""
+    def openCkl_(self, sender):
+        """Handle Open CKL File menu action."""
         if hasattr(self, 'app_controller') and self.app_controller:
-            self.app_controller.open_checklist_files()
+            self.app_controller.open_ckl_file()
+    
+    def openCklb_(self, sender):
+        """Handle Open CKLB File menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.open_cklb_file()
+    
+    def saveAsCkl_(self, sender):
+        """Handle Save as CKL menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.save_active_as_ckl()
+    
+    def saveAsCklb_(self, sender):
+        """Handle Save as CKLB menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.save_active_as_cklb()
+
+    def verifyCkl_(self, sender):
+        """Handle Verify CKL menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.verify_ckl()
     
     def createCklFile_(self, sender):
         """Handle Create CKL file menu action."""
         if hasattr(self, 'app_controller') and self.app_controller:
             self.app_controller.create_ckl_file()
+    
+    def createCklbFile_(self, sender):
+        """Handle Create CKLB File menu action."""
+        if hasattr(self, 'app_controller') and self.app_controller:
+            self.app_controller.create_cklb_file()
     
     def compareCkls_(self, sender):
         """Handle Compare CKLs menu action."""

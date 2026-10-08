@@ -31,11 +31,32 @@ def _compare_loaded_stigs_handler(self, sender):
         _app_controller_ref.compare_loaded_stigs()
 
 
-def _open_checklist_handler(self, sender):
-    """Handle Open Checklist menu action."""
+def _open_ckl_handler(self, sender):
+    """Handle Open CKL File menu action."""
     global _app_controller_ref
     if _app_controller_ref:
-        _app_controller_ref.open_checklist_files()
+        _app_controller_ref.open_ckl_file()
+
+
+def _open_cklb_handler(self, sender):
+    """Handle Open CKLB File menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.open_cklb_file()
+
+
+def _save_as_ckl_handler(self, sender):
+    """Handle Save as CKL menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.save_active_as_ckl()
+
+
+def _save_as_cklb_handler(self, sender):
+    """Handle Save as CKLB menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.save_active_as_cklb()
 
 
 def _create_ckl_file_handler(self, sender):
@@ -43,6 +64,20 @@ def _create_ckl_file_handler(self, sender):
     global _app_controller_ref
     if _app_controller_ref:
         _app_controller_ref.create_ckl_file()
+
+
+def _create_cklb_file_handler(self, sender):
+    """Handle Create CKLB File menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.create_cklb_file()
+
+
+def _verify_ckl_handler(self, sender):
+    """Handle Verify CKL menu action."""
+    global _app_controller_ref
+    if _app_controller_ref:
+        _app_controller_ref.verify_ckl()
 
 
 def _show_preferences_handler(self, sender):
@@ -73,8 +108,13 @@ class MenuController(NSObject):
     importStig_ = selector(_import_stig_handler, signature=b'v@:@')
     compareStigs_ = selector(_compare_stigs_handler, signature=b'v@:@')
     compareLoadedStigs_ = selector(_compare_loaded_stigs_handler, signature=b'v@:@')
-    openChecklist_ = selector(_open_checklist_handler, signature=b'v@:@')
+    openCkl_ = selector(_open_ckl_handler, signature=b'v@:@')
+    openCklb_ = selector(_open_cklb_handler, signature=b'v@:@')
+    saveAsCkl_ = selector(_save_as_ckl_handler, signature=b'v@:@')
+    saveAsCklb_ = selector(_save_as_cklb_handler, signature=b'v@:@')
+    verifyCkl_ = selector(_verify_ckl_handler, signature=b'v@:@')
     createCklFile_ = selector(_create_ckl_file_handler, signature=b'v@:@')
+    createCklbFile_ = selector(_create_cklb_file_handler, signature=b'v@:@')
     compareCkls_ = selector(_compare_ckls_handler, signature=b'v@:@')
     checkForStigs_ = selector(_check_for_stigs_handler, signature=b'v@:@')
     showPreferences_ = selector(_show_preferences_handler, signature=b'v@:@')
@@ -151,6 +191,11 @@ def _create_menu_bar(menu_controller):
     )
     file_menu.addItem_(create_ckl_file_item)
     
+    create_cklb_file_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Create CKLB File", "createCklbFile:", ""
+    )
+    file_menu.addItem_(create_cklb_file_item)
+    
     file_menu_item.setSubmenu_(file_menu)
     file_menu_item.setTitle_("File")
     main_menu.addItem_(file_menu_item)
@@ -193,10 +238,34 @@ def _create_menu_bar(menu_controller):
     checklist_menu_item = NSMenuItem.alloc().init()
     checklist_menu = NSMenu.alloc().init()
     
-    open_checklist_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-        "Open Checklist from File", "openChecklist:", ""
+    open_ckl_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Open CKL File", "openCkl:", ""
     )
-    checklist_menu.addItem_(open_checklist_item)
+    checklist_menu.addItem_(open_ckl_item)
+
+    open_cklb_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Open CKLB File", "openCklb:", ""
+    )
+    checklist_menu.addItem_(open_cklb_item)
+
+    checklist_menu.addItem_(NSMenuItem.separatorItem())
+
+    save_as_ckl_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Save as CKL", "saveAsCkl:", ""
+    )
+    checklist_menu.addItem_(save_as_ckl_item)
+
+    save_as_cklb_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Save as CKLB", "saveAsCklb:", ""
+    )
+    checklist_menu.addItem_(save_as_cklb_item)
+
+    checklist_menu.addItem_(NSMenuItem.separatorItem())
+
+    verify_ckl_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+        "Verify CKL", "verifyCkl:", ""
+    )
+    checklist_menu.addItem_(verify_ckl_item)
     
     compare_ckls_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
         "Compare CKLs", "compareCkls:", ""
@@ -241,8 +310,23 @@ def _create_menu_bar(menu_controller):
     create_ckl_file_item.setTarget_(app_delegate)
     create_ckl_file_item.setAction_("createCklFile:")
     
-    open_checklist_item.setTarget_(app_delegate)
-    open_checklist_item.setAction_("openChecklist:")
+    create_cklb_file_item.setTarget_(app_delegate)
+    create_cklb_file_item.setAction_("createCklbFile:")
+    
+    open_ckl_item.setTarget_(app_delegate)
+    open_ckl_item.setAction_("openCkl:")
+
+    open_cklb_item.setTarget_(app_delegate)
+    open_cklb_item.setAction_("openCklb:")
+
+    save_as_ckl_item.setTarget_(app_delegate)
+    save_as_ckl_item.setAction_("saveAsCkl:")
+
+    save_as_cklb_item.setTarget_(app_delegate)
+    save_as_cklb_item.setAction_("saveAsCklb:")
+
+    verify_ckl_item.setTarget_(app_delegate)
+    verify_ckl_item.setAction_("verifyCkl:")
     
     compare_ckls_item.setTarget_(app_delegate)
     compare_ckls_item.setAction_("compareCkls:")

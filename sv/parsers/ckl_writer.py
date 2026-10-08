@@ -78,6 +78,23 @@ class CklWriter:
         return ckl_file
     
     @staticmethod
+    def write_as(file_path: Path, ckl_file: CklFile) -> CklFile:
+        """Write an existing CklFile to a new path as CKL (XML) without mutating it.
+
+        Returns a CklFile describing the file that was written.
+        """
+        out = CklFile(
+            file_path=file_path,
+            file_name=file_path.name,
+            asset=ckl_file.asset,
+            stigs=ckl_file.stigs,
+            vulns=ckl_file.vulns,
+            file_format="ckl",
+        )
+        CklWriter.write(out)
+        return out
+
+    @staticmethod
     def write(ckl_file: CklFile):
         """Write CKL file to disk in DISA STIG Viewer 2.10 format."""
         # Create root element WITHOUT namespaces (to match template)
